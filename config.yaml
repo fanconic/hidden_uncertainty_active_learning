@@ -3,3 +3,18 @@
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
 name: "baseline_1"
+
+data:
+    root_dir: '/home/ubuntu/dataset'
+    batch_size: 4
+
+model:
+    channel_in: 128
+    mlps: [[128, 128, 128],
+            [128, 128, 256],
+            [256, 256, 512]]
+    cls_fc: [256, 256]
+
+optimizer:
+    lr: 0.001
+    momentum: 0.9
