@@ -6,8 +6,14 @@ name: "baseline_1"
 model: "MLP"
 
 data:
-    dataset: 'MNIST'
+    dataset: 'mnist'
     batch_size: 32
+    nb_classes: 10
+    nb_epoch: 1
+    data_augmentation: False
+    img_rows: 28
+    img_cols: 28
+    img_channels: 1
 
 model:
     channel_in: 128

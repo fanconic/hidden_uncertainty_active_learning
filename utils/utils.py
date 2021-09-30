@@ -1,32 +1,40 @@
-import numpy as np
-import torch
-import os
+from torch import nn
+from keras.datasets import cifar10, cifar100, reuters, imdb, mnist
 
 
-def load_mnist():
-    """Load the MNIST dataset"""
+def load_data(name="mnist"):
+    """Load dataset
+    Args:
+        name (default "MNIST"): string name of the dataset
+    Returns:
+        X_train, y_train, X_test, y_test
+    """
 
-    mnist_path = "/data/rotated_mnist.npz"
-    if not os.path.isfile(mnist_path):
-        mnist_path = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), "data/rotated_mnist.npz"
-        )
+    if name == "cifar10":
+        (X_train, y_train), (X_test, y_test) = cifar10.load_data()
+        return (X_train, y_train), (X_test, y_test)
 
-    data = np.load(mnist_path)
+    elif name == "cifar100":
+        (X_train, y_train), (X_test, y_test) = cifar100.load_data("fine")
+        return (X_train, y_train), (X_test, y_test)
 
-    x_train = torch.from_numpy(data["x_train"]).reshape([-1, 784])
-    y_train = torch.from_numpy(data["y_train"])
+    elif name == "reuters":
+        (X_train, y_train), (X_test, y_test) = reuters.load_data()
+        return (X_train, y_train), (X_test, y_test)
 
-    dataset_train = torch.utils.data.TensorDataset(x_train, y_train)
+    elif name == "mnist":
+        (X_train, y_train), (X_test, y_test) = mnist.load_data()
+        return (X_train, y_train), (X_test, y_test)
 
-    return dataset_train
+    elif name == "imdb":
+        (X_train, y_train), (X_test, y_test) = imdb.load_data()
+        return (X_train, y_train), (X_test, y_test)
+
+    else:
+        raise NotImplementedError
 
 
 # Taken from https://github.com/kumar-shridhar/PyTorch-BayesianCNN/blob/master/layers/misc.py
-
-from torch import nn
-
-
 class ModuleWrapper(nn.Module):
     """Wrapper for nn.Module with support for arbitrary flags and a universal forward pass"""
 

@@ -28,10 +28,10 @@ $ conda install --file requirements.txt
 ### Source Code Directory Tree
 ```
 .
-└── src                 # Source code
-    ├──              
-    ├──               
-    └── 
+└── src                 # Source code            
+    ├── layers              # Single Neural Network layers
+    └── models              # Neural Network Models
+├── utils               # Useful functions, such as metrics, losses, etc
 ├── experiment_configs  # All the various configuration files for the experiments
 └── experiment_outputs  # All outputs files of the experiments        
 ```
