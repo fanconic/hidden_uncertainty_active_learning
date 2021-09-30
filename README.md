@@ -47,4 +47,4 @@ sbatch --output=log/%j.out --gres=gpu:1 --mem=30G ./run.sh
 - Janis Postels - jpostels@vision.ee.ethz.ch
 
 ## References
-- 
+- https://github.com/kumar-shridhar/PyTorch-BayesianCNN

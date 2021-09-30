@@ -1,12 +1,52 @@
-import numpy as np
+# BBBConv2d taken from https://github.com/kumar-shridhar/PyTorch-BayesianCNN
+
 import torch
-from torch import nn
-from torch.nn import functional as F
+import torch.nn as nn
+import numpy as np
 
 from src.layers.BBBLinear import BBBLinear
+from src.layers.BBBConv2d import BBBConv2d
 
 
-class BNN(torch.nn.Module):
+class BayesianConvolutionLayer(torch.nn.Module):
+    """
+    Module implementing a single  bayesian convolutional layer, consisting of the convolution and non-linearity
+    """
+
+    def __init__(
+        self, input_channels, output_channels, kernel_size=3, strides=1, padding=1
+    ):
+        """Defines a Bayesian Layer, with distribution over its weights
+        Args:
+            input_channels: size of the input data
+            output_channels: size of the output data
+            kernel_size (default 3): size of the convolutional filters
+            strides (default 1): stride size of the convolution operation
+            padding (default 1): padding size at the edges
+        """
+        super().__init__()
+        self.conv = nn.Sequential(
+            BBBConv2d(
+                input_channels,
+                output_channels,
+                kernel_size,
+                strides=strides,
+                padding=padding,
+            ),
+            nn.ReLU(inplace=True),
+        )
+
+    def forward(self, inputs):
+        """Forward pass through the BNN
+        Args:
+            inputs: input data
+        returns:
+            processed data
+        """
+        return self.conv(inputs)
+
+
+class BCNN(torch.nn.Module):
     """
     Module implementing a Bayesian feedforward neural network using
     BayesianLayer objects.
@@ -28,19 +68,21 @@ class BNN(torch.nn.Module):
         self.dropout = dropout
         self.use_bias = use_bias
         assert self.dropout < 1 and self.dropout >= 0
-        input_layer = torch.nn.Sequential(
-            BBBLinear(input_size, width, dropout=self.dropout, bias=self.use_bias),
-            nn.ReLU(),
-        )
-        hidden_layers = [
-            nn.Sequential(
-                BBBLinear(width, width, dropout=self.dropout, bias=self.use_bias),
-                nn.ReLU(),
-            )
-            for _ in range(num_layers)
+        conv_layers = [
+            BayesianConvolutionLayer(input_size, width) for _ in range(num_layers)
         ]
-        output_layer = BBBLinear(width, output_size, bias=self.use_bias)
-        layers = [input_layer, *hidden_layers, output_layer]
+        output_layer = BBBLinear(width, output_size)
+        layers = [
+            *conv_layers,
+            nn.MaxPool2d(2),
+            nn.Dropout2d(p=0.25, inplace=False),
+            nn.Flatten(),
+            BBBLinear(width, width),  # currently wrong, dimensions passed via config
+            nn.ReLU(),
+            nn.Dropout2d(p=0.5, inplace=False),
+            output_layer,
+        ]
+        self.net = nn.Sequential(*layers)
         self.net = torch.nn.Sequential(*layers)
 
     def forward(self, x):
@@ -80,6 +122,6 @@ class BNN(torch.nn.Module):
         kl_sum = 0
 
         for layer in self.net.modules():
-            if isinstance(layer, BBBLinear):
+            if isinstance(layer, BBBLinear) or isinstance(layer, BBBConv2d):
                 kl_sum += layer.kl_divergence()
         return kl_sum

@@ -3,7 +3,7 @@ from torch import nn
 from torch.nn import functional as F
 
 
-class Densenet(torch.nn.Module):
+class MLP(torch.nn.Module):
     """
     Simple module implementing a feedforward neural network with
     num_layers layers of size width and input of size input_size.

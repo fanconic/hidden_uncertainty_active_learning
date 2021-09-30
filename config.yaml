@@ -3,10 +3,11 @@
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
 name: "baseline_1"
+model: "MLP"
 
 data:
-    root_dir: '/home/ubuntu/dataset'
-    batch_size: 4
+    dataset: 'MNIST'
+    batch_size: 32
 
 model:
     channel_in: 128
