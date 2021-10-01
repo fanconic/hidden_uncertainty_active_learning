@@ -40,7 +40,7 @@ class BNN(torch.nn.Module):
             layer = nn.Sequential(
                 BBBLinear(layers[i], layers[i + 1], bias=self.use_bias),
                 nn.ReLU(),
-                nn.Dropout1d(p=dropout_probas[i]),
+                nn.Dropout(p=dropout_probas[i]),
             )
             hidden_layers.append(layer)
 

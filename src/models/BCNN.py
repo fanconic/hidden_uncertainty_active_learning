@@ -53,11 +53,11 @@ class BCNN(torch.nn.Module):
             input_layer,
             *conv_layers,
             nn.MaxPool2d(2),
-            nn.Dropout2d(p=dropout_probas[0]),
+            nn.Dropout(p=dropout_probas[0]),
             nn.Flatten(),
             nn.Linear(width, 128),  # currently wrong, dimensions passed via config
             nn.ReLU(),
-            nn.Dropout1d(p=dropout_probas[1]),
+            nn.Dropout(p=dropout_probas[1]),
             output_layer,
         ]
         self.net = nn.Sequential(*all_layers)

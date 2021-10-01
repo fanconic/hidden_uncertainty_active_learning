@@ -7,7 +7,9 @@ from torchvision import transforms
 from utils.utils import load_data, get_model
 from data.dataset import ActiveLearningDataset
 from src.layers.consistent_dropout import patch_module
+from src.module_wrapper import ModelWrapper
 from torch import nn, optim
+from active.heuristics import BALD
 import IPython
 
 
@@ -44,9 +46,10 @@ def main():
     optimizer = optim.Adam(
         model.parameters(),
         lr=config["optimizer"]["lr"],
-        momentum=config["optimizer"]["momentum"],
+        betas=config["optimizer"]["betas"],
         weight_decay=config["optimizer"]["weight_decay"],
     )
+    wrapper = ModelWrapper(model=model, criterion=nn.CrossEntropyLoss())
 
     # We will use BALD as our heuristic as it is a great tradeoff between performance and efficiency.
     bald = BALD()

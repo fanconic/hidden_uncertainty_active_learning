@@ -1,9 +1,5 @@
 # BBBConv2d taken from https://github.com/kumar-shridhar/PyTorch-BayesianCNN
 
-import sys
-
-sys.path.append("..")
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -11,7 +7,7 @@ from torch.nn import Parameter
 import numpy as np
 
 from utils.metrics import calculate_kl as KL_DIV
-from utils.utils import ModuleWrapper
+from src.module_wrapper import ModuleWrapper
 
 
 class BBBConv2d(ModuleWrapper):

@@ -1,7 +1,3 @@
-import sys
-
-sys.path.append("..")
-
 import math
 import torch
 import torch.nn as nn
@@ -9,7 +5,7 @@ import torch.nn.functional as F
 from torch.nn import Parameter
 
 from utils.metrics import calculate_kl as KL_DIV
-from utils.utils import ModuleWrapper
+from src.module_wrapper import ModuleWrapper
 
 
 class BBBLinear(ModuleWrapper):
