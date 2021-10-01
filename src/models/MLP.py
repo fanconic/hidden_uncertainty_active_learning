@@ -9,22 +9,38 @@ class MLP(torch.nn.Module):
     num_layers layers of size width and input of size input_size.
     """
 
-    def __init__(self, input_size, ouput_size, num_layers, width):
+    def __init__(self, model_configs):
         """Defines a simple deterministic MLP
         Args:
-            input_size: size of the input data
-            output_size: size of the output data
-            num_layers: number of hidden layers
-            width: number of neurons per hidden layer
+            model_configs: dict of configuration for the model
         """
         super().__init__()
-        input_layer = torch.nn.Sequential(nn.Linear(input_size, width), nn.ReLU())
-        hidden_layers = [
-            nn.Sequential(nn.Linear(width, width), nn.ReLU()) for _ in range(num_layers)
-        ]
-        output_layer = torch.nn.Linear(width, ouput_size)
-        layers = [input_layer, *hidden_layers, output_layer]
-        self.net = torch.nn.Sequential(*layers)
+
+        input_height = model_configs["input_height"]
+        input_width = model_configs["input_width"]
+        input_channels = model_configs["input_channels"]
+        input_size = input_height * input_width * input_channels
+        output_size = model_configs["output_size"]
+        layers = model_configs["hidden_layers"]
+        dropout_probas = model_configs["dropout_probabilities"]
+        assert len(dropout_probas) == len(layers)
+
+        input_layer = torch.nn.Sequential(
+            nn.Flatten(), nn.Linear(input_size, layers[0]), nn.ReLU()
+        )
+
+        hidden_layers = []
+        for i in range(len(layers) - 1):
+            layer = nn.Sequential(
+                nn.Linear(layers[i], layers[i + 1]),
+                nn.ReLU(),
+                nn.Dropout1d(p=dropout_probas[i]),
+            )
+            hidden_layers.append(layer)
+
+        output_layer = torch.nn.Linear(layers[-1], output_size)
+        all_layers = [input_layer, *hidden_layers, output_layer]
+        self.net = torch.nn.Sequential(*all_layers)
 
     def forward(self, x):
         """Forward pass through the neural network

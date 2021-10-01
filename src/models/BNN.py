@@ -12,36 +12,41 @@ class BNN(torch.nn.Module):
     BayesianLayer objects.
     """
 
-    def __init__(
-        self, input_size, output_size, num_layers, width, use_bias=True, dropout=0.0
-    ):
+    def __init__(self, model_configs):
         """Defines a Bayesian Neural Network, with a distribution over the weights
         Args:
-            input_size: size of the input data
-            output_size: size of the output data
-            num_layers: number of hidden layers
-            width: number of neurons per hidden layer
-            use_bias (default True): check if biases are used or not
-            dropout (default): dropout probability
+            model_configs: dict of configuration for the model
         """
         super().__init__()
-        self.dropout = dropout
-        self.use_bias = use_bias
-        assert self.dropout < 1 and self.dropout >= 0
+        input_height = model_configs["input_height"]
+        input_width = model_configs["input_width"]
+        input_channels = model_configs["input_channels"]
+        input_size = input_height * input_width * input_channels
+        output_size = model_configs["output_size"]
+        layers = model_configs["hidden_layers"]
+        dropout_probas = model_configs["dropout_probabilities"]
+        self.use_bias = model_configs["use_bias"]
+
+        assert len(dropout_probas) == len(layers)
+
         input_layer = torch.nn.Sequential(
-            BBBLinear(input_size, width, dropout=self.dropout, bias=self.use_bias),
+            nn.Flatten(),
+            BBBLinear(input_size, layers[0], bias=self.use_bias),
             nn.ReLU(),
         )
-        hidden_layers = [
-            nn.Sequential(
-                BBBLinear(width, width, dropout=self.dropout, bias=self.use_bias),
+
+        hidden_layers = []
+        for i in range(len(layers) - 1):
+            layer = nn.Sequential(
+                BBBLinear(layers[i], layers[i + 1], bias=self.use_bias),
                 nn.ReLU(),
+                nn.Dropout1d(p=dropout_probas[i]),
             )
-            for _ in range(num_layers)
-        ]
-        output_layer = BBBLinear(width, output_size, bias=self.use_bias)
-        layers = [input_layer, *hidden_layers, output_layer]
-        self.net = torch.nn.Sequential(*layers)
+            hidden_layers.append(layer)
+
+        output_layer = torch.nn.Linear(layers[-1], output_size)
+        all_layers = [input_layer, *hidden_layers, output_layer]
+        self.net = torch.nn.Sequential(*all_layers)
 
     def forward(self, x):
         """Forward pass through the neural network

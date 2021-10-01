@@ -1,113 +1,83 @@
+import sys
+
+sys.path.append("..")
+
+import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import numpy as np
+from torch.nn import Parameter
 
 from utils.metrics import calculate_kl as KL_DIV
+from utils.utils import ModuleWrapper
 
 
-class BBBLinear(torch.nn.Module):
-    """
-    Module implementing a single Bayesian feedforward layer.
-    The module performs Bayes-by-backprop, that is, mean-field
-    variational inference. It keeps prior and posterior weights
-    (and biases) and uses the reparameterization trick for sampling.
-    """
-
-    def __init__(self, input_dim, output_dim, bias=True, dropout=0.0):
-        """Defines a Bayesian Layer, with distribution over its weights
-        Args:
-            input_dim: size of the input data
-            output_dim: size of the output data
-            bias (default True): Check if biases are being used
-            dropout (default 0.0): Dropout probability
-        """
-        super().__init__()
-        self.input_dim = input_dim
-        self.output_dim = output_dim
+class BBBLinear(ModuleWrapper):
+    def __init__(self, in_features, out_features, bias=True, priors=None):
+        super(BBBLinear, self).__init__()
+        self.in_features = in_features
+        self.out_features = out_features
         self.use_bias = bias
-        self.dropout = dropout
-        assert self.dropout < 1 and self.dropout >= 0
+        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-        self.prior_mu = 0
-        self.prior_sigma = 0.1
-        self.prior_logsigma = np.log(self.prior_sigma)
-        self.weight_mu = nn.Parameter(torch.Tensor(output_dim, input_dim))
-        self.weight_logsigma = nn.Parameter(torch.Tensor(output_dim, input_dim))
+        if priors is None:
+            priors = {
+                "prior_mu": 0,
+                "prior_sigma": 0.1,
+                "posterior_mu_initial": (0, 0.1),
+                "posterior_rho_initial": (-3, 0.1),
+            }
+        self.prior_mu = priors["prior_mu"]
+        self.prior_sigma = priors["prior_sigma"]
+        self.posterior_mu_initial = priors["posterior_mu_initial"]
+        self.posterior_rho_initial = priors["posterior_rho_initial"]
 
-        # Dropout
-        if self.dropout != 0:
-            self.dropout_tensor = torch.Tensor(output_dim, input_dim).fill_(
-                1 - self.dropout
-            )
-
-        # Initialize the weights correctly
-        stdv = 1.0 / np.sqrt(self.weight_mu.size(1))
-        self.weight_mu.data.uniform_(-stdv, stdv)
-        self.weight_logsigma.data.fill_(self.prior_logsigma)
+        self.W_mu = Parameter(
+            torch.empty((out_features, in_features), device=self.device)
+        )
+        self.W_rho = Parameter(
+            torch.empty((out_features, in_features), device=self.device)
+        )
 
         if self.use_bias:
-            self.bias_mu = nn.Parameter(torch.Tensor(output_dim))
-            self.bias_logsigma = nn.Parameter(torch.Tensor(output_dim))
-
-            # Initialize the biases correctly
-            self.bias_mu.data.uniform_(-stdv, stdv)
-            self.bias_logsigma.data.fill_(self.prior_logsigma)
-
+            self.bias_mu = Parameter(torch.empty((out_features), device=self.device))
+            self.bias_rho = Parameter(torch.empty((out_features), device=self.device))
         else:
             self.register_parameter("bias_mu", None)
-            self.register_parameter("bias_logsigma", None)
+            self.register_parameter("bias_rho", None)
 
-    def forward(self, inputs):
-        """Forward pass through the BNN
-        Args:
-            inputs: input data
-        returns:
-            processed data
-        """
-        weight = self.weight_mu + torch.exp(self.weight_logsigma) * torch.randn_like(
-            self.weight_logsigma
-        )
+        self.reset_parameters()
+
+    def reset_parameters(self):
+        self.W_mu.data.normal_(*self.posterior_mu_initial)
+        self.W_rho.data.normal_(*self.posterior_rho_initial)
 
         if self.use_bias:
-            bias = self.bias_mu + torch.exp(self.bias_logsigma) * torch.randn_like(
-                self.bias_logsigma
-            )
+            self.bias_mu.data.normal_(*self.posterior_mu_initial)
+            self.bias_rho.data.normal_(*self.posterior_rho_initial)
 
+    def forward(self, input, sample=True):
+        if self.training or sample:
+            W_eps = torch.empty(self.W_mu.size()).normal_(0, 1).to(self.device)
+            self.W_sigma = torch.log1p(torch.exp(self.W_rho))
+            weight = self.W_mu + W_eps * self.W_sigma
+
+            if self.use_bias:
+                bias_eps = (
+                    torch.empty(self.bias_mu.size()).normal_(0, 1).to(self.device)
+                )
+                self.bias_sigma = torch.log1p(torch.exp(self.bias_rho))
+                bias = self.bias_mu + bias_eps * self.bias_sigma
+            else:
+                bias = None
         else:
-            bias = None
+            weight = self.W_mu
+            bias = self.bias_mu if self.use_bias else None
 
-        if self.dropout != 0:
-            dropouts = torch.bernoulli(self.dropout_tensor)
-            weight = dropouts * weight
+        return F.linear(input, weight, bias)
 
-        return F.linear(inputs, weight, bias)
-
-    def kl_divergence(self):
-        """Computes the KL divergence between the priors and posteriors for this layer.
-        returns:
-            sum of kl_divergence of the weights (and the biases)
-        """
-        kl_loss = self._kl_divergence(self.weight_mu, self.weight_logsigma)
+    def kl_loss(self):
+        kl = KL_DIV(self.prior_mu, self.prior_sigma, self.W_mu, self.W_sigma)
         if self.use_bias:
-            kl_loss += self._kl_divergence(self.bias_mu, self.bias_logsigma)
-        return kl_loss
-
-    def _kl_divergence(self, mu, logsigma):
-        """Computes the KL divergence between one Gaussian posterior
-        and the Gaussian prior.
-        Args:
-            mu: the mean of the distribution
-            logsigma: the log of the variance of the distribution
-        returns:
-            the KL divergence between Gaussian Posterior and Prior
-            (in closed form solution because of the gaussian distribution)
-        """
-        kl = (
-            self.prior_logsigma
-            - logsigma
-            + (torch.exp(logsigma) ** 2 + (mu - self.prior_mu) ** 2)
-            / (2 * np.exp(self.prior_logsigma) ** 2)
-            - 0.5
-        )
-        return kl.sum()
+            kl += KL_DIV(self.prior_mu, self.prior_sigma, self.bias_mu, self.bias_sigma)
+        return kl

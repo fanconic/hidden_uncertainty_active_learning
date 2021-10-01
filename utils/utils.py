@@ -1,37 +1,57 @@
 from torch import nn
-from keras.datasets import cifar10, cifar100, reuters, imdb, mnist
+from torchvision.datasets import MNIST, CIFAR10, CIFAR100
+from src.models import *
 
 
-def load_data(name="mnist"):
+def get_model(model_configs):
+    """create a torch model with the given configs
+    args:
+        model_configs: dict containing the model specific parameters
+    returns:
+        torch model
+    """
+    name = model_configs["name"]
+
+    if name == "MLP":
+        return MLP(model_configs)
+    elif name == "CNN":
+        return CNN(model_configs)
+    elif name == "BNN":
+        return BNN(model_configs)
+    elif name == "BCNN":
+        return BCNN(model_configs)
+    else:
+        raise NotImplemented
+
+
+def load_data(name="mnist", train_transform=None, test_transform=None):
     """Load dataset
     Args:
         name (default "MNIST"): string name of the dataset
+        train_transform (default None): training images transform
+        test_transform (default None): test images transform
     Returns:
-        X_train, y_train, X_test, y_test
+        train dataset, test dataset
     """
 
     if name == "cifar10":
-        (X_train, y_train), (X_test, y_test) = cifar10.load_data()
-        return (X_train, y_train), (X_test, y_test)
+        train_ds = CIFAR10("/tmp", train=True, transform=train_transform, download=True)
+        test_ds = CIFAR10("/tmp", train=False, transform=test_transform, download=True)
 
     elif name == "cifar100":
-        (X_train, y_train), (X_test, y_test) = cifar100.load_data("fine")
-        return (X_train, y_train), (X_test, y_test)
-
-    elif name == "reuters":
-        (X_train, y_train), (X_test, y_test) = reuters.load_data()
-        return (X_train, y_train), (X_test, y_test)
+        train_ds = CIFAR100(
+            "/tmp", train=True, transform=train_transform, download=True
+        )
+        test_ds = CIFAR100("/tmp", train=False, transform=test_transform, download=True)
 
     elif name == "mnist":
-        (X_train, y_train), (X_test, y_test) = mnist.load_data()
-        return (X_train, y_train), (X_test, y_test)
-
-    elif name == "imdb":
-        (X_train, y_train), (X_test, y_test) = imdb.load_data()
-        return (X_train, y_train), (X_test, y_test)
+        train_ds = MNIST("/tmp", train=True, transform=train_transform, download=True)
+        test_ds = MNIST("/tmp", train=False, transform=test_transform, download=True)
 
     else:
-        raise NotImplementedError
+        raise NotImplemented
+
+    return train_ds, test_ds
 
 
 # Taken from https://github.com/kumar-shridhar/PyTorch-BayesianCNN/blob/master/layers/misc.py

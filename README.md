@@ -31,6 +31,7 @@ $ conda install --file requirements.txt
 └── src                 # Source code            
     ├── layers              # Single Neural Network layers
     └── models              # Neural Network Models
+├── data                # Folder with data processing parts
 ├── utils               # Useful functions, such as metrics, losses, etc
 ├── experiment_configs  # All the various configuration files for the experiments
 └── experiment_outputs  # All outputs files of the experiments        
@@ -48,3 +49,5 @@ sbatch --output=log/%j.out --gres=gpu:1 --mem=30G ./run.sh
 
 ## References
 - https://github.com/kumar-shridhar/PyTorch-BayesianCNN
+- https://github.com/ElementAI/baal
+- 

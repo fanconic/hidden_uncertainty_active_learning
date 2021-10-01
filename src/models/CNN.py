@@ -46,29 +46,52 @@ class CNN(torch.nn.Module):
     Simple module implementing a convolutional neural network with
     """
 
-    def __init__(self, input_size, output_size, num_layers, width, drop_prob=0):
+    def __init__(self, model_configs):
         """Defines a simple deterministic MLP
         Args:
-            input_size: size of the input data
-            output_size: size of the output data
-            num_layers: number of hidden layers
-            width: number of neurons per hidden layer
-            drop_prob (default 0): dropout probability
+            model_configs: dict of configuration for the model
         """
         super().__init__()
-        conv_layers = [ConvolutionLayer(input_size, width) for _ in range(num_layers)]
-        output_layer = nn.Linear(width, output_size)
-        layers = [
+        input_channels = model_configs["input_channels"]
+        output_size = model_configs["output_size"]
+        layers = model_configs["hidden_layers"]
+        kernel_sizes = model_configs["kernel_sizes"]
+        dropout_probas = model_configs["dropout_probabilities"]
+        assert len(layers) == len(kernel_sizes)
+        assert len(dropout_probas) == 2
+
+        input_layer = torch.nn.Sequential(
+            nn.Conv2d(input_channels, layers[0], kernel_sizes[0], strides=1, padding=1),
+            nn.ReLU(),
+        )
+
+        conv_layers = []
+        for i in range(1, len(layers) - 1):
+            layer = nn.Sequential(
+                nn.Conv2d(
+                    layers[i],
+                    layers[i + 1],
+                    kernel_sizes[i + 1],
+                    strides=1,
+                    padding=1,
+                ),
+                nn.ReLU(),
+            )
+            conv_layers.append(layer)
+
+        output_layer = nn.Linear(128, output_size)
+        all_layers = [
+            input_layer,
             *conv_layers,
             nn.MaxPool2d(2),
-            nn.Dropout2d(p=0.25, inplace=False),
+            nn.Dropout2d(p=dropout_probas[0]),
             nn.Flatten(),
-            nn.Linear(width, width),  # currently wrong, dimensions passed via config
+            nn.Linear(width, 128),  # currently wrong, dimensions passed via config
             nn.ReLU(),
-            nn.Dropout2d(p=0.5, inplace=False),
+            nn.Dropout1d(p=dropout_probas[1]),
             output_layer,
         ]
-        self.net = nn.Sequential(*layers)
+        self.net = nn.Sequential(*all_layers)
 
     def forward(self, x):
         """Forward pass through the neural network

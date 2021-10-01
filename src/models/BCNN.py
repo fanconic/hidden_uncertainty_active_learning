@@ -8,82 +8,59 @@ from src.layers.BBBLinear import BBBLinear
 from src.layers.BBBConv2d import BBBConv2d
 
 
-class BayesianConvolutionLayer(torch.nn.Module):
-    """
-    Module implementing a single  bayesian convolutional layer, consisting of the convolution and non-linearity
-    """
-
-    def __init__(
-        self, input_channels, output_channels, kernel_size=3, strides=1, padding=1
-    ):
-        """Defines a Bayesian Layer, with distribution over its weights
-        Args:
-            input_channels: size of the input data
-            output_channels: size of the output data
-            kernel_size (default 3): size of the convolutional filters
-            strides (default 1): stride size of the convolution operation
-            padding (default 1): padding size at the edges
-        """
-        super().__init__()
-        self.conv = nn.Sequential(
-            BBBConv2d(
-                input_channels,
-                output_channels,
-                kernel_size,
-                strides=strides,
-                padding=padding,
-            ),
-            nn.ReLU(inplace=True),
-        )
-
-    def forward(self, inputs):
-        """Forward pass through the BNN
-        Args:
-            inputs: input data
-        returns:
-            processed data
-        """
-        return self.conv(inputs)
-
-
 class BCNN(torch.nn.Module):
     """
     Module implementing a Bayesian feedforward neural network using
     BayesianLayer objects.
     """
 
-    def __init__(
-        self, input_size, output_size, num_layers, width, use_bias=True, dropout=0.0
-    ):
+    def __init__(self, model_configs):
         """Defines a Bayesian Neural Network, with a distribution over the weights
         Args:
-            input_size: size of the input data
-            output_size: size of the output data
-            num_layers: number of hidden layers
-            width: number of neurons per hidden layer
-            use_bias (default True): check if biases are used or not
-            dropout (default): dropout probability
+            model_configs: dict of configuration for the model
         """
         super().__init__()
-        self.dropout = dropout
-        self.use_bias = use_bias
-        assert self.dropout < 1 and self.dropout >= 0
-        conv_layers = [
-            BayesianConvolutionLayer(input_size, width) for _ in range(num_layers)
-        ]
-        output_layer = BBBLinear(width, output_size)
-        layers = [
+
+        input_channels = model_configs["input_channels"]
+        output_size = model_configs["output_size"]
+        layers = model_configs["hidden_layers"]
+        kernel_sizes = model_configs["kernel_sizes"]
+        dropout_probas = model_configs["dropout_probabilities"]
+        assert len(layers) == len(kernel_sizes)
+        assert len(dropout_probas) == 2
+
+        input_layer = torch.nn.Sequential(
+            BBBConv2d(input_channels, layers[0], kernel_sizes[0], strides=1, padding=1),
+            nn.ReLU(),
+        )
+
+        conv_layers = []
+        for i in range(1, len(layers) - 1):
+            layer = nn.Sequential(
+                BBBConv2d(
+                    layers[i],
+                    layers[i + 1],
+                    kernel_sizes[i + 1],
+                    strides=1,
+                    padding=1,
+                ),
+                nn.ReLU(),
+            )
+            conv_layers.append(layer)
+
+        output_layer = nn.Linear(128, output_size)
+        all_layers = [
+            input_layer,
             *conv_layers,
             nn.MaxPool2d(2),
-            nn.Dropout2d(p=0.25, inplace=False),
+            nn.Dropout2d(p=dropout_probas[0]),
             nn.Flatten(),
-            BBBLinear(width, width),  # currently wrong, dimensions passed via config
+            nn.Linear(width, 128),  # currently wrong, dimensions passed via config
             nn.ReLU(),
-            nn.Dropout2d(p=0.5, inplace=False),
+            nn.Dropout1d(p=dropout_probas[1]),
             output_layer,
         ]
-        self.net = nn.Sequential(*layers)
-        self.net = torch.nn.Sequential(*layers)
+        self.net = nn.Sequential(*all_layers)
 
     def forward(self, x):
         """Forward pass through the neural network
