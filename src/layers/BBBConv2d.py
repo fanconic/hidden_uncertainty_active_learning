@@ -7,7 +7,7 @@ from torch.nn import Parameter
 import numpy as np
 
 from utils.metrics import calculate_kl as KL_DIV
-from src.module_wrapper import ModuleWrapper
+from src.layers.module_wrapper import ModuleWrapper
 
 
 class BBBConv2d(ModuleWrapper):

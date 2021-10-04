@@ -555,7 +555,7 @@ def calculate_kl(mu_q, sig_q, mu_p, sig_p):
             - 1
             + (sig_q / sig_p).pow(2)
             + ((mu_p - mu_q) / sig_p).pow(2)
-        ).sum()
+        ).mean()
     )
     return kl
 

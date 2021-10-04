@@ -86,5 +86,5 @@ class BNN(torch.nn.Module):
 
         for layer in self.net.modules():
             if isinstance(layer, BBBLinear):
-                kl_sum += layer.kl_divergence()
+                kl_sum += layer.kl_loss()
         return kl_sum

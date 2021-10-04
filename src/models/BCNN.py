@@ -26,11 +26,13 @@ class BCNN(torch.nn.Module):
         layers = model_configs["hidden_layers"]
         kernel_sizes = model_configs["kernel_sizes"]
         dropout_probas = model_configs["dropout_probabilities"]
+        input_height = model_configs["input_height"]
+        input_width = model_configs["input_width"]
         assert len(layers) == len(kernel_sizes)
         assert len(dropout_probas) == 2
 
         input_layer = torch.nn.Sequential(
-            BBBConv2d(input_channels, layers[0], kernel_sizes[0], strides=1, padding=1),
+            BBBConv2d(input_channels, layers[0], kernel_sizes[0], stride=1, padding=1),
             nn.ReLU(),
         )
 
@@ -41,7 +43,7 @@ class BCNN(torch.nn.Module):
                     layers[i],
                     layers[i + 1],
                     kernel_sizes[i + 1],
-                    strides=1,
+                    stride=1,
                     padding=1,
                 ),
                 nn.ReLU(),
@@ -55,7 +57,7 @@ class BCNN(torch.nn.Module):
             nn.MaxPool2d(2),
             nn.Dropout(p=dropout_probas[0]),
             nn.Flatten(),
-            nn.Linear(width, 128),  # currently wrong, dimensions passed via config
+            nn.Linear((input_height // 2) * (input_width // 2) * layers[-1], 128),
             nn.ReLU(),
             nn.Dropout(p=dropout_probas[1]),
             output_layer,
@@ -100,5 +102,5 @@ class BCNN(torch.nn.Module):
 
         for layer in self.net.modules():
             if isinstance(layer, BBBLinear) or isinstance(layer, BBBConv2d):
-                kl_sum += layer.kl_divergence()
+                kl_sum += layer.kl_loss()
         return kl_sum

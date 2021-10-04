@@ -1,4 +1,3 @@
-# Taken from https://github.com/kumar-shridhar/PyTorch-BayesianCNN/blob/master/layers/misc.py
 # Taken from https://github.com/ElementAI/baal/blob/a9cc0034c40d0541234a3c27ff5ccbd97278bcb3/baal/modelwrapper.py#L30
 from torch import nn
 import sys
@@ -19,38 +18,8 @@ from utils.cuda_utils import to_cuda
 from utils.iterutils import map_on_tensor
 from utils.metrics import Loss
 
-
-class ModuleWrapper(nn.Module):
-    """Wrapper for nn.Module with support for arbitrary flags and a universal forward pass"""
-
-    def __init__(self):
-        super(ModuleWrapper, self).__init__()
-
-    def set_flag(self, flag_name, value):
-        setattr(self, flag_name, value)
-        for m in self.children():
-            if hasattr(m, "set_flag"):
-                m.set_flag(flag_name, value)
-
-    def forward(self, x):
-        for module in self.children():
-            x = module(x)
-
-        kl = 0.0
-        for module in self.modules():
-            if hasattr(module, "kl_loss"):
-                kl = kl + module.kl_loss()
-
-        return x, kl
-
-
-class FlattenLayer(ModuleWrapper):
-    def __init__(self, num_features):
-        super(FlattenLayer, self).__init__()
-        self.num_features = num_features
-
-    def forward(self, x):
-        return x.view(-1, self.num_features)
+from src.models.BNN import BNN
+from src.models.BCNN import BCNN
 
 
 log = structlog.get_logger("ModelWrapper")
@@ -119,6 +88,7 @@ class ModelWrapper:
 
     def train_on_dataset(
         self,
+        model,
         dataset,
         optimizer,
         batch_size,
@@ -131,6 +101,7 @@ class ModelWrapper:
         """
         Train for `epoch` epochs on a Dataset `dataset.
         Args:
+            model (Model): Pytorch Model
             dataset (Dataset): Pytorch Dataset to be trained on.
             optimizer (optim.Optimizer): Optimizer to use.
             batch_size (int): The batch size used in the DataLoader.
@@ -151,7 +122,9 @@ class ModelWrapper:
             for data, target in DataLoader(
                 dataset, batch_size, True, num_workers=workers, collate_fn=collate_fn
             ):
-                _ = self.train_on_batch(data, target, optimizer, use_cuda, regularizer)
+                _ = self.train_on_batch(
+                    model, data, target, optimizer, use_cuda, regularizer
+                )
             history.append(self.metrics["train_loss"].value)
 
         optimizer.zero_grad()  # Assert that the gradient is flushed.
@@ -359,6 +332,7 @@ class ModelWrapper:
 
     def train_on_batch(
         self,
+        model,
         data,
         target,
         optimizer,
@@ -368,6 +342,7 @@ class ModelWrapper:
         """
         Train the current model on a batch using `optimizer`.
         Args:
+            model (Torch Sequence): model
             data (Tensor): The model input.
             target (Tensor): The ground truth.
             optimizer (optim.Optimizer): An optimizer.
@@ -382,6 +357,11 @@ class ModelWrapper:
         optimizer.zero_grad()
         output = self.model(data)
         loss = self.criterion(output, target)
+
+        if isinstance(model, BNN) or isinstance(model, BCNN):
+            # BayesNet implies additional KL-loss.
+            kl_loss = model.kl_loss()
+            loss += kl_loss
 
         if regularizer:
             regularized_loss = loss + regularizer()

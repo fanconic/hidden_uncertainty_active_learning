@@ -7,7 +7,7 @@ from torchvision import transforms
 from utils.utils import load_data, get_model
 from data.dataset import ActiveLearningDataset
 from src.layers.consistent_dropout import patch_module
-from src.module_wrapper import ModelWrapper
+from src.models.model_wrapper import ModelWrapper
 from active.active_loop import ActiveLearningLoop
 from torch import nn, optim
 from active.heuristics import BALD
@@ -38,7 +38,9 @@ def main():
         pool_specifics={"transform": test_transform},
         random_state=config["random_state"],
     )
-    al_dataset.label_randomly(200)  # Start with 200 items labelled.
+    al_dataset.label_randomly(
+        config["data"]["initially_labelled"]
+    )  # Start with 200 items labelled.
 
     # Creates an MLP to classify MNIST
     model = get_model(config["model"])
@@ -62,10 +64,12 @@ def main():
         dataset=al_dataset,
         get_probabilities=wrapper.predict_on_dataset,
         heuristic=bald,
-        ndata_to_label=100,  # We will label 100 examples per step.
+        ndata_to_label=config["training"][
+            "ndata_to_label"
+        ],  # We will label 100 examples per step.
         # KWARGS for predict_on_dataset
-        iterations=20,  # 20 sampling for MC-Dropout
-        batch_size=32,
+        iterations=config["model"]["mc_iterations"],
+        batch_size=config["training"]["batch_size"],
         use_cuda=use_cuda,
         verbose=False,
     )
@@ -76,6 +80,7 @@ def main():
     for step in range(config["training"]["steps"]):
         model.load_state_dict(initial_weights)
         train_loss = wrapper.train_on_dataset(
+            model,
             al_dataset,
             optimizer=optimizer,
             batch_size=config["training"]["batch_size"],
