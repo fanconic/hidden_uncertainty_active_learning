@@ -10,7 +10,8 @@ training:
     steps: 100
     batch_size: 32
     epochs: 10
-    ndata_to_label: 100
+    ndata_to_label: 10
+    initially_labelled: 20
 
 data:
     dataset: 'mnist'
@@ -19,19 +20,18 @@ data:
     img_rows: 28
     img_cols: 28
     img_channels: 1
-    initially_labelled: 200
 
 model:
-    name: "MLP"
+    name: "BNN"
     input_height: 28
     input_width: 28
     input_channels: 1
     output_size: 10
     hidden_layers: [128, 128]
     kernel_sizes: [3, 3] # only applied if a (B)CNN is used
-    dropout_probabilities: [0.5, 0.25]
+    dropout_probabilities: [0.25, 0.5]
     use_bias: True
-    mc_iterations: 20
+    mc_iterations: 100
     average_predictions: 1
 
 

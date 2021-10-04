@@ -11,6 +11,7 @@ from src.models.model_wrapper import ModelWrapper
 from active.active_loop import ActiveLearningLoop
 from torch import nn, optim
 from active.heuristics import BALD
+from utils.metrics import Accuracy
 import IPython
 from copy import deepcopy
 from pprint import pprint
@@ -39,7 +40,7 @@ def main():
         random_state=config["random_state"],
     )
     al_dataset.label_randomly(
-        config["data"]["initially_labelled"]
+        config["training"]["initially_labelled"]
     )  # Start with 200 items labelled.
 
     # Creates an MLP to classify MNIST
@@ -54,7 +55,9 @@ def main():
         betas=config["optimizer"]["betas"],
         weight_decay=config["optimizer"]["weight_decay"],
     )
+
     wrapper = ModelWrapper(model=model, criterion=nn.CrossEntropyLoss())
+    wrapper.add_metric("accuracy", lambda: Accuracy())
 
     # We will use BALD as our heuristic as it is a great tradeoff between performance and efficiency.
     bald = BALD()
@@ -99,6 +102,8 @@ def main():
                 "dataset_size": len(al_dataset),
                 "train_loss": wrapper.metrics["train_loss"].value,
                 "test_loss": wrapper.metrics["test_loss"].value,
+                "train_accuracy": wrapper.metrics["train_accuracy"].value,
+                "test_accuracy": wrapper.metrics["test_accuracy"].value,
             }
         )
         flag = al_loop.step()
