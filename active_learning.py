@@ -8,9 +8,12 @@ from utils.utils import load_data, get_model
 from data.dataset import ActiveLearningDataset
 from src.layers.consistent_dropout import patch_module
 from src.module_wrapper import ModelWrapper
+from active.active_loop import ActiveLearningLoop
 from torch import nn, optim
 from active.heuristics import BALD
 import IPython
+from copy import deepcopy
+from pprint import pprint
 
 
 def main():
@@ -53,6 +56,50 @@ def main():
 
     # We will use BALD as our heuristic as it is a great tradeoff between performance and efficiency.
     bald = BALD()
+
+    # Setup our active learning loop for our experiments
+    al_loop = ActiveLearningLoop(
+        dataset=al_dataset,
+        get_probabilities=wrapper.predict_on_dataset,
+        heuristic=bald,
+        ndata_to_label=100,  # We will label 100 examples per step.
+        # KWARGS for predict_on_dataset
+        iterations=20,  # 20 sampling for MC-Dropout
+        batch_size=32,
+        use_cuda=use_cuda,
+        verbose=False,
+    )
+
+    # Following Gal 2016, we reset the weights at the beginning of each step.
+    initial_weights = deepcopy(model.state_dict())
+
+    for step in range(config["training"]["steps"]):
+        model.load_state_dict(initial_weights)
+        train_loss = wrapper.train_on_dataset(
+            al_dataset,
+            optimizer=optimizer,
+            batch_size=config["training"]["batch_size"],
+            epoch=config["training"]["epochs"],
+            use_cuda=use_cuda,
+        )
+        test_loss = wrapper.test_on_dataset(
+            test_ds,
+            batch_size=config["training"]["batch_size"],
+            use_cuda=use_cuda,
+            average_predictions=config["model"]["average_predictions"],
+        )
+
+        pprint(
+            {
+                "dataset_size": len(al_dataset),
+                "train_loss": wrapper.metrics["train_loss"].value,
+                "test_loss": wrapper.metrics["test_loss"].value,
+            }
+        )
+        flag = al_loop.step()
+        if not flag:
+            # We are done labelling! stopping
+            break
 
 
 if __name__ == "__main__":

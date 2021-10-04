@@ -6,11 +6,14 @@ name: "baseline_1"
 
 random_state: 42
 
+training:
+    steps: 100
+    batch_size: 32
+    epochs: 10
+
 data:
     dataset: 'mnist'
-    batch_size: 32
     nb_classes: 10
-    nb_epoch: 1
     data_augmentation: False
     img_rows: 28
     img_cols: 28
@@ -26,6 +29,7 @@ model:
     kernel_sizes: [3, 3, 3] # only applied if a (B)CNN is used
     dropout_probabilities: [0.0, 0.5, 0.0]
     use_bias: True
+    average_predictions: 1
 
 
 optimizer:
