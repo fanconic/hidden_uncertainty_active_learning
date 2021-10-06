@@ -8,8 +8,8 @@ from typing import Callable
 import numpy as np
 import torch.utils.data as torchdata
 
-from active import heuristics
-from data.dataset import ActiveLearningDataset
+from src.active import heuristics
+from src.data.dataset import ActiveLearningDataset
 
 pjoin = os.path.join
 

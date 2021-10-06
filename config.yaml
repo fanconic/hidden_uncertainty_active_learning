@@ -12,6 +12,7 @@ training:
     epochs: 10
     ndata_to_label: 10
     initially_labelled: 20
+    verbose: True
 
 data:
     dataset: 'mnist'
@@ -22,7 +23,7 @@ data:
     img_channels: 1
 
 model:
-    name: "BNN"
+    name: "MLP"
     input_height: 28
     input_width: 28
     input_channels: 1
@@ -31,8 +32,7 @@ model:
     kernel_sizes: [3, 3] # only applied if a (B)CNN is used
     dropout_probabilities: [0.25, 0.5]
     use_bias: True
-    mc_iterations: 100
-    average_predictions: 1
+    mc_iterations: 10
 
 
 optimizer:

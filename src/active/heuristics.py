@@ -12,7 +12,7 @@ import torch
 from scipy.special import xlogy
 from torch import Tensor
 
-from utils.array_utils import to_prob
+from src.utils.array_utils import to_prob
 
 available_reductions = {
     "max": lambda x: np.max(x, axis=tuple(range(1, x.ndim))),

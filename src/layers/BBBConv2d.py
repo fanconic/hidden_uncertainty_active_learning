@@ -6,7 +6,7 @@ import torch.nn.functional as F
 from torch.nn import Parameter
 import numpy as np
 
-from utils.metrics import calculate_kl as KL_DIV
+from src.utils.metrics import calculate_kl as KL_DIV
 from src.layers.module_wrapper import ModuleWrapper
 
 

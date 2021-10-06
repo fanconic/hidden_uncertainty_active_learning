@@ -13,10 +13,10 @@ from torch.utils.data import DataLoader, Dataset
 from torch.utils.data.dataloader import default_collate
 from tqdm import tqdm
 
-from utils.array_utils import stack_in_memory
-from utils.cuda_utils import to_cuda
-from utils.iterutils import map_on_tensor
-from utils.metrics import Loss
+from src.utils.array_utils import stack_in_memory
+from src.utils.cuda_utils import to_cuda
+from src.utils.iterutils import map_on_tensor
+from src.utils.metrics import Loss
 
 from src.models.BNN import BNN
 from src.models.BCNN import BCNN

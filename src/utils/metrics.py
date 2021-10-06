@@ -15,7 +15,7 @@ from collections import defaultdict
 
 from sklearn.metrics import confusion_matrix, auc
 
-from utils.array_utils import to_prob
+from src.utils.array_utils import to_prob
 
 
 def transpose_and_flatten(input):

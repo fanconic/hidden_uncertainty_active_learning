@@ -30,10 +30,10 @@ $ conda install --file requirements.txt
 .
 └── src                 # Source code            
     ├── layers              # Single Neural Network layers
-    └── models              # Neural Network Models
-├── active              # Folder with functions for active learning
-├── data                # Folder with data processing parts
-├── utils               # Useful functions, such as metrics, losses, etc
+    ├── models              # Neural Network Models
+    ├── active              # Folder with functions for active learning
+    ├── data                # Folder with data processing parts
+    └── utils               # Useful functions, such as metrics, losses, etc
 ├── experiment_configs  # All the various configuration files for the experiments
 └── experiment_outputs  # All outputs files of the experiments        
 ```

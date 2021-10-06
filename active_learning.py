@@ -4,14 +4,14 @@ import argparse
 import yaml
 import torch
 from torchvision import transforms
-from utils.utils import load_data, get_model
-from data.dataset import ActiveLearningDataset
+from src.utils.utils import load_data, get_model
+from src.data.dataset import ActiveLearningDataset
 from src.layers.consistent_dropout import patch_module
 from src.models.model_wrapper import ModelWrapper
-from active.active_loop import ActiveLearningLoop
+from src.active.active_loop import ActiveLearningLoop
 from torch import nn, optim
-from active.heuristics import BALD
-from utils.metrics import Accuracy
+from src.active.heuristics import BALD
+from src.utils.metrics import Accuracy
 import IPython
 from copy import deepcopy
 from pprint import pprint
@@ -74,7 +74,7 @@ def main():
         iterations=config["model"]["mc_iterations"],
         batch_size=config["training"]["batch_size"],
         use_cuda=use_cuda,
-        verbose=False,
+        verbose=config["training"]["verbose"],
     )
 
     # Following Gal 2016, we reset the weights at the beginning of each step.
@@ -90,11 +90,12 @@ def main():
             epoch=config["training"]["epochs"],
             use_cuda=use_cuda,
         )
+
         test_loss = wrapper.test_on_dataset(
             test_ds,
             batch_size=config["training"]["batch_size"],
             use_cuda=use_cuda,
-            average_predictions=config["model"]["average_predictions"],
+            average_predictions=config["model"]["mc_iterations"],
         )
 
         pprint(
