@@ -23,7 +23,7 @@ data:
     img_channels: 1
 
 model:
-    name: "MLP"
+    name: "BNN"
     input_height: 28
     input_width: 28
     input_channels: 1

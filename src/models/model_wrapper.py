@@ -358,7 +358,7 @@ class ModelWrapper:
         output = self.model(data)
         loss = self.criterion(output, target)
 
-        if isinstance(model, BNN) or isinstance(model, BCNN):
+        if isinstance(model, (BNN, BCNN)):
             # BayesNet implies additional KL-loss.
             kl_loss = model.kl_loss()
             loss += kl_loss
@@ -419,10 +419,13 @@ class ModelWrapper:
         with torch.no_grad():
             if cuda:
                 data = to_cuda(data)
-            if self.replicate_in_memory:
+            if self.replicate_in_memory and not isinstance(self.model, (BNN, BCNN)):
                 data = map_on_tensor(lambda d: stack_in_memory(d, iterations), data)
                 try:
                     out = self.model(data)
+                    import IPython
+
+                    IPython.embed()
                 except RuntimeError as e:
                     raise RuntimeError(
                         """CUDA ran out of memory while BaaL tried to replicate data. See the exception above.
