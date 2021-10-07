@@ -40,9 +40,12 @@ def main():
         random_state=config["random_state"],
     )
     al_dataset.label_randomly(
-        config["training"]["initially_labelled"]
+        config["training"]["initially_labelled"],
+        balanced=True,
+        classes=list(range(config["data"]["nb_classes"])),
     )  # Start with 200 items labelled.
 
+    IPython.embed()
     # Creates an MLP to classify MNIST
     model = get_model(config["model"])
     model = patch_module(model)  # Set dropout layers for MC-Dropout.

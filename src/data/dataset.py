@@ -202,17 +202,47 @@ class ActiveLearningDataset(torchdata.Dataset):
                         UserWarning,
                     )
 
-    def label_randomly(self, n: int = 1) -> None:
+    def label_randomly(
+        self, n: int = 1, balanced: bool = False, classes: List = None
+    ) -> None:
         """
         Label `n` data-points randomly.
         Args:
             n (int): Number of samples to label.
+            balanced (bool): only working for classification, label balanced data
+            classes (List): List containing the labels of the classes -> only used with balanced = True
         """
-        for i in range(n):
+        class_counter = None
+        i = 0
+        if balanced:
+            zeros = [0 for _ in range(len(classes))]
+            class_counter = dict(zip(classes, zeros))
+            max_int = n // len(classes)
+
+        while i < n:
             """Making multiple call to self.n_unlabelled is inefficient, but
             self.label changes the available length and it may lead to
             IndexError if not done this way."""
-            self.label(self.random_state.choice(self.n_unlabelled, 1).item())
+
+            rnd_idx = self.random_state.choice(self.n_unlabelled, 1).item()
+            oracle_rnd_idx = self._pool_to_oracle_index(rnd_idx)[0]
+            self.label(rnd_idx)
+            i += 1
+
+            if balanced:
+                lbl = self.get_raw(oracle_rnd_idx)[1]
+                if class_counter[lbl] < max_int or all(
+                    [x >= max_int for x in class_counter.values()]
+                ):
+                    class_counter[lbl] += 1
+
+                else:
+                    self.reset_single_label(oracle_rnd_idx)
+                    i -= 1
+
+    def reset_single_label(self, idx):
+        """Reset single label at index idx."""
+        self.labelled[idx] = 0
 
     def reset_labeled(self):
         """Reset the label map."""
