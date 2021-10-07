@@ -59,6 +59,7 @@ class ModelWrapper:
         """
         self.metrics["test_" + name] = initializer()
         self.metrics["train_" + name] = initializer()
+        self.metrics["val_" + name] = initializer()
 
     def _reset_metrics(self, filter=""):
         """
@@ -89,6 +90,7 @@ class ModelWrapper:
     def train_on_dataset(
         self,
         dataset,
+        val_dataset,
         optimizer,
         batch_size,
         epoch,
@@ -96,11 +98,15 @@ class ModelWrapper:
         workers=4,
         collate_fn: Optional[Callable] = None,
         regularizer: Optional[Callable] = None,
+        verbose: bool = True,
+        patience: int = None,
+        average_predictions: int = 1,
     ):
         """
         Train for `epoch` epochs on a Dataset `dataset.
         Args:
             dataset (Dataset): Pytorch Dataset to be trained on.
+            val_dataset (Dataset): Pytorch Dataset, for the model to be evaluated on
             optimizer (optim.Optimizer): Optimizer to use.
             batch_size (int): The batch size used in the DataLoader.
             epoch (int): Number of epoch to train for.
@@ -108,20 +114,57 @@ class ModelWrapper:
             workers (int): Number of workers for the multiprocessing.
             collate_fn (Optional[Callable]): The collate function to use.
             regularizer (Optional[Callable]): The loss regularization for training.
+            verbose (bool): show training progress
+            patience (int): patience epochs, as long as the model did not improve
+            average_predictions (int): average predictions for validation dataset
         Returns:
             The training history.
         """
-        self.train()
         history = []
         log.info("Starting training", epoch=epoch, dataset=len(dataset))
         collate_fn = collate_fn or default_collate
-        for _ in range(epoch):
+        best_loss = np.inf
+        patience_counter = 0
+        for i in range(epoch):
+            self.train()
             self._reset_metrics("train")
-            for data, target in DataLoader(
+            loader = DataLoader(
                 dataset, batch_size, True, num_workers=workers, collate_fn=collate_fn
-            ):
+            )
+            if verbose:
+                loader = tqdm(loader)
+            for data, target in loader:
                 _ = self.train_on_batch(data, target, optimizer, use_cuda, regularizer)
+
+                if verbose:
+                    loader.set_description(f"Epoch [{i+1}/{epoch}]")
+                    loader.set_postfix(
+                        loss=self.metrics["train_loss"].value,
+                        acc=self.metrics["train_accuracy"].value,
+                        val_loss=self.metrics["val_loss"].value,
+                        val_acc=self.metrics["val_accuracy"].value,
+                    )
             history.append(self.metrics["train_loss"].value)
+
+            # Validation Loop
+            if val_dataset is not None:
+                val_loss = self.test_on_dataset(
+                    val_dataset,
+                    batch_size,
+                    use_cuda,
+                    workers=workers,
+                    collate_fn=collate_fn,
+                    average_predictions=average_predictions,
+                    validate=True,
+                )
+                if val_loss < best_loss:
+                    best_loss = val_loss
+                    patience_counter = 0
+                else:
+                    patience_counter += 1
+
+                if patience_counter == patience:
+                    break
 
         optimizer.zero_grad()  # Assert that the gradient is flushed.
         log.info("Training complete", train_loss=self.metrics["train_loss"].value)
@@ -135,6 +178,7 @@ class ModelWrapper:
         workers: int = 4,
         collate_fn: Optional[Callable] = None,
         average_predictions: int = 1,
+        validate: bool = False,
     ):
         """
         Test the model on a Dataset `dataset`.
@@ -146,22 +190,34 @@ class ModelWrapper:
             collate_fn (Optional[Callable]): The collate function to use.
             average_predictions (int): The number of predictions to average to
                 compute the test loss.
+            validate (bool): validation of data during training
         Returns:
             Average loss value over the dataset.
         """
         self.eval()
-        log.info("Starting evaluating", dataset=len(dataset))
-        self._reset_metrics("test")
+
+        if validate:
+            self._reset_metrics("val")
+        else:
+            log.info("Starting evaluating", dataset=len(dataset))
+            self._reset_metrics("test")
 
         for data, target in DataLoader(
             dataset, batch_size, False, num_workers=workers, collate_fn=collate_fn
         ):
             _ = self.test_on_batch(
-                data, target, cuda=use_cuda, average_predictions=average_predictions
+                data,
+                target,
+                cuda=use_cuda,
+                average_predictions=average_predictions,
+                validate=validate,
             )
 
-        log.info("Evaluation complete", test_loss=self.metrics["test_loss"].value)
-        return self.metrics["test_loss"].value
+        if validate:
+            return self.metrics["val_loss"].value
+        else:
+            log.info("Evaluation complete", test_loss=self.metrics["test_loss"].value)
+            return self.metrics["test_loss"].value
 
     def train_and_test_on_datasets(
         self,
@@ -373,6 +429,7 @@ class ModelWrapper:
         target: torch.Tensor,
         cuda: bool = False,
         average_predictions: int = 1,
+        validate: bool = False,
     ):
         """
         Test the current model on a batch.
@@ -382,6 +439,7 @@ class ModelWrapper:
             cuda (bool): Use CUDA or not.
             average_predictions (int): The number of predictions to average to
                 compute the test loss.
+            validate (bool): if the model is validating data during training
         Returns:
             Tensor, the loss computed from the criterion.
         """
@@ -394,7 +452,10 @@ class ModelWrapper:
                 self.predict_on_batch(data, iterations=average_predictions, cuda=cuda),
             )
             loss = self.criterion(preds, target)
-            self._update_metrics(preds, target, loss, "test")
+            if validate:
+                self._update_metrics(preds, target, loss, "val")
+            else:
+                self._update_metrics(preds, target, loss, "test")
             return loss
 
     def predict_on_batch(self, data, iterations=1, cuda=False):
@@ -417,9 +478,6 @@ class ModelWrapper:
                 data = map_on_tensor(lambda d: stack_in_memory(d, iterations), data)
                 try:
                     out = self.model(data)
-                    import IPython
-
-                    IPython.embed()
                 except RuntimeError as e:
                     raise RuntimeError(
                         """CUDA ran out of memory while BaaL tried to replicate data. See the exception above.

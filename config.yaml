@@ -8,11 +8,12 @@ random_state: 42
 
 training:
     steps: 100
-    batch_size: 32
-    epochs: 10
+    batch_size: 320
+    epochs: 100
     ndata_to_label: 10
     initially_labelled: 20
     verbose: True
+    patience: 10
 
 data:
     dataset: 'mnist'
@@ -21,6 +22,7 @@ data:
     img_rows: 28
     img_cols: 28
     img_channels: 1
+    val_size: 100
 
 model:
     name: "MLP"
@@ -37,7 +39,7 @@ model:
 
 
 optimizer:
-    lr: 0.001
+    lr: 0.0001
     momentum: 0.9
     weight_decay: 0.0005
     betas: [0.9, 0.999]

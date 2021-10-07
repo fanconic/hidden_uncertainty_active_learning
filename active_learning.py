@@ -15,6 +15,7 @@ from src.utils.metrics import Accuracy
 import IPython
 from copy import deepcopy
 from pprint import pprint
+from src.data.sampling import sampleFromClass
 
 
 def main():
@@ -34,9 +35,14 @@ def main():
         config["data"]["dataset"], train_transform, test_transform
     )
 
+    # validation split
+    val_ds, train_ds = sampleFromClass(
+        train_ds, config["data"]["val_size"] // config["data"]["nb_classes"]
+    )
+
     al_dataset = ActiveLearningDataset(
         train_ds,
-        pool_specifics={"transform": test_transform},
+        # pool_specifics={"transform": test_transform},
         random_state=config["random_state"],
     )
     al_dataset.label_randomly(
@@ -88,10 +94,13 @@ def main():
         model.load_state_dict(initial_weights)
         train_loss = wrapper.train_on_dataset(
             al_dataset,
+            val_ds,
             optimizer=optimizer,
             batch_size=config["training"]["batch_size"],
             epoch=config["training"]["epochs"],
             use_cuda=use_cuda,
+            patience=config["training"]["patience"],
+            verbose=config["training"]["verbose"],
         )
 
         test_loss = wrapper.test_on_dataset(

@@ -231,10 +231,10 @@ class ActiveLearningDataset(torchdata.Dataset):
 
             if balanced:
                 lbl = self.get_raw(oracle_rnd_idx)[1]
-                if class_counter[lbl] < max_int or all(
+                if class_counter[lbl.item()] < max_int or all(
                     [x >= max_int for x in class_counter.values()]
                 ):
-                    class_counter[lbl] += 1
+                    class_counter[lbl.item()] += 1
 
                 else:
                     self.reset_single_label(oracle_rnd_idx)
