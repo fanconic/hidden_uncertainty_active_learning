@@ -23,7 +23,7 @@ data:
     img_channels: 1
 
 model:
-    name: "BNN"
+    name: "MLP"
     input_height: 28
     input_width: 28
     input_channels: 1
@@ -33,6 +33,7 @@ model:
     dropout_probabilities: [0.25, 0.5]
     use_bias: True
     mc_iterations: 10
+    mc_dropout: True
 
 
 optimizer:

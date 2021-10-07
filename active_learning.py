@@ -47,7 +47,9 @@ def main():
 
     # Creates an MLP to classify MNIST
     model = get_model(config["model"])
-    model = patch_module(model)  # Set dropout layers for MC-Dropout.
+    if config["model"]["mc_dropout"]:
+        model = patch_module(model)  # Set dropout layers for MC-Dropout.
+
     if use_cuda:
         model = model.cuda()
     # wrapper = ModelWrapper(model=model, criterion=nn.CrossEntropyLoss())
@@ -85,7 +87,6 @@ def main():
     for step in range(config["training"]["steps"]):
         model.load_state_dict(initial_weights)
         train_loss = wrapper.train_on_dataset(
-            model,
             al_dataset,
             optimizer=optimizer,
             batch_size=config["training"]["batch_size"],

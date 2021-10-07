@@ -88,7 +88,6 @@ class ModelWrapper:
 
     def train_on_dataset(
         self,
-        model,
         dataset,
         optimizer,
         batch_size,
@@ -101,7 +100,6 @@ class ModelWrapper:
         """
         Train for `epoch` epochs on a Dataset `dataset.
         Args:
-            model (Model): Pytorch Model
             dataset (Dataset): Pytorch Dataset to be trained on.
             optimizer (optim.Optimizer): Optimizer to use.
             batch_size (int): The batch size used in the DataLoader.
@@ -122,9 +120,7 @@ class ModelWrapper:
             for data, target in DataLoader(
                 dataset, batch_size, True, num_workers=workers, collate_fn=collate_fn
             ):
-                _ = self.train_on_batch(
-                    model, data, target, optimizer, use_cuda, regularizer
-                )
+                _ = self.train_on_batch(data, target, optimizer, use_cuda, regularizer)
             history.append(self.metrics["train_loss"].value)
 
         optimizer.zero_grad()  # Assert that the gradient is flushed.
@@ -332,7 +328,6 @@ class ModelWrapper:
 
     def train_on_batch(
         self,
-        model,
         data,
         target,
         optimizer,
@@ -342,7 +337,6 @@ class ModelWrapper:
         """
         Train the current model on a batch using `optimizer`.
         Args:
-            model (Torch Sequence): model
             data (Tensor): The model input.
             target (Tensor): The ground truth.
             optimizer (optim.Optimizer): An optimizer.
@@ -358,9 +352,9 @@ class ModelWrapper:
         output = self.model(data)
         loss = self.criterion(output, target)
 
-        if isinstance(model, (BNN, BCNN)):
+        if isinstance(self.model, (BNN, BCNN)):
             # BayesNet implies additional KL-loss.
-            kl_loss = model.kl_loss()
+            kl_loss = self.model.kl_loss()
             loss += kl_loss
 
         if regularizer:
