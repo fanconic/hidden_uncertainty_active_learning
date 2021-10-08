@@ -28,6 +28,7 @@ class BCNN(torch.nn.Module):
         dropout_probas = model_configs["dropout_probabilities"]
         input_height = model_configs["input_height"]
         input_width = model_configs["input_width"]
+        self.kl_div_weight = model_configs["kl_div_weight"]
         assert len(layers) == len(kernel_sizes)
         assert len(dropout_probas) == 2
 

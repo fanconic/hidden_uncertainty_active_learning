@@ -26,6 +26,7 @@ class BNN(torch.nn.Module):
         layers = model_configs["hidden_layers"]
         dropout_probas = model_configs["dropout_probabilities"]
         self.use_bias = model_configs["use_bias"]
+        self.kl_div_weight = model_configs["kl_div_weight"]
 
         assert len(dropout_probas) == len(layers)
 

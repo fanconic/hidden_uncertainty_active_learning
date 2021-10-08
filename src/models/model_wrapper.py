@@ -410,7 +410,7 @@ class ModelWrapper:
 
         if isinstance(self.model, (BNN, BCNN)):
             # BayesNet implies additional KL-loss.
-            kl_loss = self.model.kl_loss()
+            kl_loss = self.model.kl_div_weight * self.model.kl_loss()
             loss += kl_loss
 
         if regularizer:

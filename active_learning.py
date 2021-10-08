@@ -16,12 +16,14 @@ import IPython
 from copy import deepcopy
 from pprint import pprint
 from src.data.sampling import sampleFromClass
+import matplotlib.pyplot as plt
 
 
 def main():
     """Main funciton to run"""
 
     use_cuda = torch.cuda.is_available()
+    print("Cude is available: ", use_cuda)
 
     parser = argparse.ArgumentParser(description="")
     parser.add_argument("--config_path", default="config.yaml")
@@ -90,7 +92,11 @@ def main():
     # Following Gal 2016, we reset the weights at the beginning of each step.
     initial_weights = deepcopy(model.state_dict())
 
-    for step in range(config["training"]["steps"]):
+    test_accuracies = []
+    test_losses = []
+    samples = []
+
+    for step in range(config["training"]["iterations"]):
         model.load_state_dict(initial_weights)
         train_loss = wrapper.train_on_dataset(
             al_dataset,
@@ -117,12 +123,28 @@ def main():
                 "test_loss": wrapper.metrics["test_loss"].value,
                 "train_accuracy": wrapper.metrics["train_accuracy"].value,
                 "test_accuracy": wrapper.metrics["test_accuracy"].value,
+                "val_accuracy": wrapper.metrics["val_accuracy"].value,
+                "val_accuracy": wrapper.metrics["val_accuracy"].value,
             }
         )
+
+        # Log progress
+        test_accuracies.append(wrapper.metrics["test_accuracy"].value)
+        test_losses.append(test_loss)
+        samples.append(len(al_dataset))
+
         flag = al_loop.step()
         if not flag:
             # We are done labelling! stopping
             break
+    
+    if config["save_plot"]:
+        plt.plot(samples, test_accuracies)
+        plt.savefig(
+            "experiment_outputs/{}.pdf".format(config["name"]),
+            format="pdf",
+            bbox_inches="tight",
+        )
 
 
 if __name__ == "__main__":

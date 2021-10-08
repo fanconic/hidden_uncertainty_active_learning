@@ -1,0 +1,57 @@
+Cude is available:  True
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz to /tmp/MNIST/raw/train-images-idx3-ubyte.gz
+  0%|          | 0/9912422 [00:00<?, ?it/s]  9%|▉         | 874496/9912422 [00:00<00:01, 8738301.54it/s]9913344it [00:00, 50126738.74it/s]                           
+Extracting /tmp/MNIST/raw/train-images-idx3-ubyte.gz to /tmp/MNIST/raw
+
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz to /tmp/MNIST/raw/train-labels-idx1-ubyte.gz
+  0%|          | 0/28881 [00:00<?, ?it/s]29696it [00:00, 13726476.92it/s]         
+Extracting /tmp/MNIST/raw/train-labels-idx1-ubyte.gz to /tmp/MNIST/raw
+
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz to /tmp/MNIST/raw/t10k-images-idx3-ubyte.gz
+  0%|          | 0/1648877 [00:00<?, ?it/s] 51%|█████     | 833536/1648877 [00:00<00:00, 8282740.57it/s]1649664it [00:00, 12640587.81it/s]                           
+Extracting /tmp/MNIST/raw/t10k-images-idx3-ubyte.gz to /tmp/MNIST/raw
+
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz to /tmp/MNIST/raw/t10k-labels-idx1-ubyte.gz
+  0%|          | 0/4542 [00:00<?, ?it/s]5120it [00:00, 26030104.82it/s]         
+Extracting /tmp/MNIST/raw/t10k-labels-idx1-ubyte.gz to /tmp/MNIST/raw
+
+Processing...
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torchvision/datasets/mnist.py:502: UserWarning: The given NumPy array is not writeable, and PyTorch does not support non-writeable tensors. This means you can write to the underlying (supposedly non-writeable) NumPy array using the tensor. You may want to copy the array to protect its data or make it writeable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at  /opt/conda/conda-bld/pytorch_1616554786078/work/torch/csrc/utils/tensor_numpy.cpp:143.)
+  return torch.from_numpy(parsed.astype(m[2], copy=False)).view(*s)
+Done!
+2021-10-08 11:35.02 [info     ] Starting training              dataset=20 epoch=100
+2021-10-08 11:35.30 [info     ] Training complete              train_loss=0.8403154015541077
+2021-10-08 11:35.30 [info     ] Starting evaluating            dataset=10000
+2021-10-08 11:35.31 [info     ] Evaluation complete            test_loss=1.541517734527588
+{'dataset_size': 20,
+ 'test_accuracy': 0.51806640625,
+ 'test_loss': 1.541517734527588,
+ 'train_accuracy': 1.0,
+ 'train_loss': 0.8403154015541077}
+2021-10-08 11:35.31 [info     ] Start Predict                  dataset=59880
+2021-10-08 11:35.36 [info     ] Starting training              dataset=30 epoch=100
+2021-10-08 11:36.10 [info     ] Training complete              train_loss=0.7454284429550171
+2021-10-08 11:36.10 [info     ] Starting evaluating            dataset=10000
+2021-10-08 11:36.11 [info     ] Evaluation complete            test_loss=1.6055548191070557
+{'dataset_size': 30,
+ 'test_accuracy': 0.5203125476837158,
+ 'test_loss': 1.6055548191070557,
+ 'train_accuracy': 1.0,
+ 'train_loss': 0.7454284429550171}
+2021-10-08 11:36.11 [info     ] Start Predict                  dataset=59870
+2021-10-08 11:36.15 [info     ] Starting training              dataset=40 epoch=100
+2021-10-08 11:36.47 [info     ] Training complete              train_loss=0.8524314761161804
+2021-10-08 11:36.47 [info     ] Starting evaluating            dataset=10000
+2021-10-08 11:36.48 [info     ] Evaluation complete            test_loss=1.5973186492919922
+{'dataset_size': 40,
+ 'test_accuracy': 0.49150389432907104,
+ 'test_loss': 1.5973186492919922,
+ 'train_accuracy': 1.0,
+ 'train_loss': 0.8524314761161804}
+2021-10-08 11:36.48 [info     ] Start Predict                  dataset=59860
+2021-10-08 11:36.53 [info     ] Starting training              dataset=50 epoch=100
+slurmstepd: error: *** JOB 467810 ON biwirender12 CANCELLED AT 2021-10-08T11:37:11 ***

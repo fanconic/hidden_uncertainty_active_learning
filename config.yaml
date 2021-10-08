@@ -5,14 +5,15 @@
 name: "baseline_1"
 
 random_state: 42
+save_plot: True
 
 training:
-    steps: 100
-    batch_size: 320
+    iterations: 50
+    batch_size: 32
     epochs: 100
     ndata_to_label: 10
     initially_labelled: 20
-    verbose: True
+    verbose: False
     patience: 10
 
 data:
@@ -36,10 +37,11 @@ model:
     use_bias: True
     mc_iterations: 10
     mc_dropout: True
+    kl_div_weight: 0.1 # only used for B(C)NN, to weight the kl_div loss
 
 
 optimizer:
-    lr: 0.0001
+    lr: 0.001
     momentum: 0.9
     weight_decay: 0.0005
     betas: [0.9, 0.999]

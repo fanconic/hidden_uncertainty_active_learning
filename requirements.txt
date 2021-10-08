@@ -1,4 +1,11 @@
-torch==1.8.1
 numpy==1.19.5
+torchvision==0.9.1
+matplotlib==3.4.3
+structlog==21.1.0
+tqdm==4.62.3
+scipy==1.7.1
+torch==1.8.1
+dataclasses==0.8
 ipython==7.28.0
 PyYAML==5.4.1
+scikit_learn==1.0
