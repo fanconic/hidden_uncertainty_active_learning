@@ -12,11 +12,12 @@ def sampleFromClass(ds, k):
         c = label
         class_counts[c] = class_counts.get(c, 0) + 1
         if class_counts[c] <= k:
-            train_data.append(data)
+            train_data.append(torch.unsqueeze(torch.tensor(data), 0))
             train_label.append(torch.unsqueeze(torch.tensor(label), 0))
         else:
-            test_data.append(data)
+            test_data.append(torch.unsqueeze(torch.tensor(data), 0))
             test_label.append(torch.unsqueeze(torch.tensor(label), 0))
+
     train_data = torch.cat(train_data)
     train_label = torch.cat(train_label)
     test_data = torch.cat(test_data)

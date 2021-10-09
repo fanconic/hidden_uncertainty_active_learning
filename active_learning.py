@@ -137,9 +137,11 @@ def main():
         if not flag:
             # We are done labelling! stopping
             break
-    
+
     if config["save_plot"]:
         plt.plot(samples, test_accuracies)
+        plt.grid()
+        plt.title("Experiment {}".format(config["name"]))
         plt.savefig(
             "experiment_outputs/{}.pdf".format(config["name"]),
             format="pdf",

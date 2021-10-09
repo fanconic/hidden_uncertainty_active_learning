@@ -1,0 +1,17 @@
+Cude is available:  True
+/scratch_net/airfox/fanconic/semproj2/hidden_uncertainty_active_learning/src/data/sampling.py:15: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  train_data.append(torch.unsqueeze(torch.tensor(data), 0))
+/scratch_net/airfox/fanconic/semproj2/hidden_uncertainty_active_learning/src/data/sampling.py:18: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  test_data.append(torch.unsqueeze(torch.tensor(data), 0))
+2021-10-09 01:59.57 [info     ] Starting training              dataset=20 epoch=100
+2021-10-09 02:00.36 [info     ] Training complete              train_loss=1.681869387626648
+2021-10-09 02:00.36 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:00.39 [info     ] Evaluation complete            test_loss=1.7961293458938599
+{'dataset_size': 20,
+ 'test_accuracy': 0.43400558829307556,
+ 'test_loss': 1.7961293458938599,
+ 'train_accuracy': 1.0,
+ 'train_loss': 1.681869387626648,
+ 'val_accuracy': 0.375}
+2021-10-09 02:00.39 [info     ] Start Predict                  dataset=59880
+2021-10-09 02:00.54 [info     ] Starting training              dataset=30 epoch=100

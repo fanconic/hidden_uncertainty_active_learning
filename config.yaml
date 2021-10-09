@@ -2,13 +2,13 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "baseline_1"
+name: "CNN_experiment_1"
 
 random_state: 42
 save_plot: True
 
 training:
-    iterations: 50
+    iterations: 100
     batch_size: 32
     epochs: 100
     ndata_to_label: 10
@@ -26,7 +26,7 @@ data:
     val_size: 100
 
 model:
-    name: "MLP"
+    name: "CNN"
     input_height: 28
     input_width: 28
     input_channels: 1
@@ -41,7 +41,7 @@ model:
 
 
 optimizer:
-    lr: 0.001
+    lr: 0.0001
     momentum: 0.9
     weight_decay: 0.0005
     betas: [0.9, 0.999]
