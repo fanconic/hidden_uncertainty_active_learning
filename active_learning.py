@@ -107,7 +107,9 @@ def main():
 
     for step in range(config["training"]["iterations"]):
         for i, model in enumerate(models):
-            model.load_state_dict(initial_weights[0])
+            model.load_state_dict(initial_weights[i])
+
+        IPython.embed()
 
         train_loss = wrapper.train_on_dataset(
             al_dataset,
