@@ -129,7 +129,7 @@ class ModelWrapper:
         collate_fn = collate_fn or default_collate
         best_loss = np.inf
         patience_counter = 0
-        #
+
         for i in range(epoch):
             self.train()
             self._reset_metrics("train")

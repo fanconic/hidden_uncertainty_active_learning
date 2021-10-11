@@ -9,7 +9,7 @@ save_plot: True
 
 training:
     batch_size: 32
-    epochs: 100
+    epochs: 50
     ndata_to_label: 100
     initially_labelled: 20
     verbose: False

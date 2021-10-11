@@ -110,14 +110,25 @@ def main():
 
     # Following Gal 2016, we reset the weights at the beginning of each step.
     initial_weights = [deepcopy(model.state_dict()) for model in models]
+    initial_states = [deepcopy(optimizer.state_dict()) for optimizer in optimizers]
 
     test_accuracies = []
     test_losses = []
     samples = []
 
+    # Set initial model weights
+    # reset the learning rate scheduler
+    # reset the optimizer
     for step in range(config["training"]["iterations"]):
-        for i, model in enumerate(models):
+        for i, (model, optimizer, scheduler) in enumerate(
+            zip(models, optimizers, schedulers)
+        ):
             model.load_state_dict(initial_weights[i])
+
+            if isinstance(optimizer, optim.Adam):
+                optimizer.load_state_dict(initial_states[i])
+
+            scheduler._reset()
 
         train_loss = wrapper.train_on_dataset(
             al_dataset,
@@ -143,11 +154,11 @@ def main():
             {
                 "dataset_size": len(al_dataset),
                 "train_loss": wrapper.metrics["train_loss"].value,
+                "val_loss": wrapper.metrics["val_loss"].value,
                 "test_loss": wrapper.metrics["test_loss"].value,
                 "train_accuracy": wrapper.metrics["train_accuracy"].value,
+                "val_accuracy": wrapper.metrics["val_accuracy"].value,
                 "test_accuracy": wrapper.metrics["test_accuracy"].value,
-                "val_accuracy": wrapper.metrics["val_accuracy"].value,
-                "val_accuracy": wrapper.metrics["val_accuracy"].value,
             }
         )
 
