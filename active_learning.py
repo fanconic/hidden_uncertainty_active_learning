@@ -59,6 +59,8 @@ def main():
     # Create MLPs to classify MNIST
     models = []
     optimizers = []
+    schedulers = []
+
     for _ in range(config["model"]["ensemble"]):
         model = get_model(config["model"])
         if config["model"]["mc_dropout"]:
@@ -74,8 +76,16 @@ def main():
             weight_decay=config["optimizer"]["weight_decay"],
         )
 
+        scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+            optimizer,
+            mode="min",
+            factor=config["training"]["lr_reduce_factor"],
+            patience=config["training"]["patience"],
+        )
+
         models.append(model)
         optimizers.append(optimizer)
+        schedulers.append(scheduler)
 
     wrapper = ModelWrapper(models=models, criterion=criterion)
     wrapper.add_metric("accuracy", lambda: Accuracy())
@@ -109,15 +119,15 @@ def main():
         for i, model in enumerate(models):
             model.load_state_dict(initial_weights[i])
 
-        IPython.embed()
-
         train_loss = wrapper.train_on_dataset(
             al_dataset,
             val_ds,
             optimizers=optimizers,
+            schedulers=schedulers,
             batch_size=config["training"]["batch_size"],
             epoch=config["training"]["epochs"],
             use_cuda=use_cuda,
+            early_stopping=config["training"]["early_stopping"],
             patience=config["training"]["patience"],
             verbose=config["training"]["verbose"],
         )

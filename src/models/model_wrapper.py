@@ -92,10 +92,12 @@ class ModelWrapper:
         dataset,
         val_dataset,
         optimizers,
+        schedulers,
         batch_size,
         epoch,
         use_cuda,
         workers=4,
+        early_stopping=False,
         collate_fn: Optional[Callable] = None,
         regularizer: Optional[Callable] = None,
         verbose: bool = True,
@@ -108,10 +110,12 @@ class ModelWrapper:
             dataset (Dataset): Pytorch Dataset to be trained on.
             val_dataset (Dataset): Pytorch Dataset, for the model to be evaluated on
             optimizer (optim.Optimizer): list of Optimizer to use.
+            schedulers (optim.lr_scheduler): list of Schedulers
             batch_size (int): The batch size used in the DataLoader.
             epoch (int): Number of epoch to train for.
             use_cuda (bool): Use cuda or not.
             workers (int): Number of workers for the multiprocessing.
+            early_stopping (bool): early stopping option if validation doesn't improve
             collate_fn (Optional[Callable]): The collate function to use.
             regularizer (Optional[Callable]): The loss regularization for training.
             verbose (bool): show training progress
@@ -164,14 +168,22 @@ class ModelWrapper:
                     average_predictions=average_predictions,
                     validate=True,
                 )
-                if val_loss < best_loss:
-                    best_loss = val_loss
-                    patience_counter = 0
-                else:
-                    patience_counter += 1
 
-                if patience_counter == patience:
-                    break
+                # Learning rate scheduling
+                if schedulers is not None:
+                    for scheduler in schedulers:
+                        scheduler.step(val_loss)
+
+                # Early stopping
+                if early_stopping:
+                    if val_loss < best_loss:
+                        best_loss = val_loss
+                        patience_counter = 0
+                    else:
+                        patience_counter += 1
+
+                    if patience_counter == patience:
+                        break
 
         log.info("Training complete", train_loss=self.metrics["train_loss"].value)
         return history

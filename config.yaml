@@ -2,19 +2,21 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "MLP_ensemble_1"
+name: "test_CNN_3"
 
 random_state: 42
 save_plot: True
 
 training:
-    iterations: 100
     batch_size: 32
     epochs: 100
-    ndata_to_label: 10
+    ndata_to_label: 100
     initially_labelled: 20
     verbose: False
-    patience: 100
+    patience: 10
+    lr_reduce_factor: 0.1
+    iterations: 10
+    early_stopping: False
 
 data:
     dataset: 'mnist'
@@ -26,19 +28,19 @@ data:
     val_size: 100
 
 model:
-    ensemble: 5 #set to 1 for no ensemble
-    name: "MLP"
+    ensemble: 1 #set to 1 for no ensemble
+    name: "CNN"
     input_height: 28
     input_width: 28
     input_channels: 1
     output_size: 10
-    hidden_layers: [128, 128]
-    kernel_sizes: [3, 3] # only applied if a (B)CNN is used
-    dropout_probabilities: [0.0, 0.0] #[0.25, 0.5]
+    hidden_layers: [32, 32]
+    kernel_sizes: [4, 4] # only applied if a (B)CNN is used
+    dropout_probabilities: [0.25, 0.5] #[0.25, 0.5]
     use_bias: True
-    mc_dropout: False # used for MC dropout
-    mc_iterations: 1 # iterations for MC dropout
-    kl_div_weight: 1 # only used for B(C)NN, to weight the kl_div loss
+    mc_dropout: True # used for MC dropout
+    mc_iterations: 10 # iterations for MC dropout
+    kl_div_weight: 0.01 # only used for B(C)NN, to weight the kl_div loss
     adversarial_loss: False
 
 optimizer:

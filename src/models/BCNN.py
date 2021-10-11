@@ -33,7 +33,9 @@ class BCNN(torch.nn.Module):
         assert len(dropout_probas) == 2
 
         input_layer = torch.nn.Sequential(
-            BBBConv2d(input_channels, layers[0], kernel_sizes[0], stride=1, padding=1),
+            BBBConv2d(
+                input_channels, layers[0], kernel_sizes[0], stride=1, padding="same"
+            ),
             nn.ReLU(),
         )
 
@@ -45,7 +47,7 @@ class BCNN(torch.nn.Module):
                     layers[i + 1],
                     kernel_sizes[i + 1],
                     stride=1,
-                    padding=1,
+                    padding="same",
                 ),
                 nn.ReLU(),
             )
