@@ -1,0 +1,1131 @@
+Cude is available:  True
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz to /tmp/MNIST/raw/train-images-idx3-ubyte.gz
+  0%|          | 0/9912422 [00:00<?, ?it/s]  9%|▊         | 849920/9912422 [00:00<00:01, 8457267.58it/s] 88%|████████▊ | 8707072/9912422 [00:00<00:00, 49609234.93it/s]9913344it [00:00, 46070942.43it/s]                             
+Extracting /tmp/MNIST/raw/train-images-idx3-ubyte.gz to /tmp/MNIST/raw
+
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz to /tmp/MNIST/raw/train-labels-idx1-ubyte.gz
+  0%|          | 0/28881 [00:00<?, ?it/s]29696it [00:00, 12579946.63it/s]         
+Extracting /tmp/MNIST/raw/train-labels-idx1-ubyte.gz to /tmp/MNIST/raw
+
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz to /tmp/MNIST/raw/t10k-images-idx3-ubyte.gz
+  0%|          | 0/1648877 [00:00<?, ?it/s] 52%|█████▏    | 860160/1648877 [00:00<00:00, 8600623.94it/s]1649664it [00:00, 13270232.88it/s]                           
+Extracting /tmp/MNIST/raw/t10k-images-idx3-ubyte.gz to /tmp/MNIST/raw
+
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz to /tmp/MNIST/raw/t10k-labels-idx1-ubyte.gz
+  0%|          | 0/4542 [00:00<?, ?it/s]5120it [00:00, 25904507.21it/s]         
+Extracting /tmp/MNIST/raw/t10k-labels-idx1-ubyte.gz to /tmp/MNIST/raw
+
+Processing...
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torchvision/datasets/mnist.py:502: UserWarning: The given NumPy array is not writeable, and PyTorch does not support non-writeable tensors. This means you can write to the underlying (supposedly non-writeable) NumPy array using the tensor. You may want to copy the array to protect its data or make it writeable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at  /opt/conda/conda-bld/pytorch_1616554786078/work/torch/csrc/utils/tensor_numpy.cpp:143.)
+  return torch.from_numpy(parsed.astype(m[2], copy=False)).view(*s)
+Done!
+/scratch_net/airfox/fanconic/semproj2/hidden_uncertainty_active_learning/src/data/sampling.py:15: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  train_data.append(torch.unsqueeze(torch.tensor(data), 0))
+/scratch_net/airfox/fanconic/semproj2/hidden_uncertainty_active_learning/src/data/sampling.py:18: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  test_data.append(torch.unsqueeze(torch.tensor(data), 0))
+2021-10-09 02:01.38 [info     ] Starting training              dataset=20 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:474: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2021-10-09 02:02.19 [info     ] Training complete              train_loss=0.41130131483078003
+2021-10-09 02:02.19 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:02.22 [info     ] Evaluation complete            test_loss=1.4390026330947876
+{'dataset_size': 20,
+ 'test_accuracy': 0.5593051314353943,
+ 'test_loss': 1.4390026330947876,
+ 'train_accuracy': 1.0,
+ 'train_loss': 0.41130131483078003,
+ 'val_accuracy': 0.390625}
+2021-10-09 02:02.22 [info     ] Start Predict                  dataset=59880
+2021-10-09 02:02.37 [info     ] Starting training              dataset=30 epoch=100
+2021-10-09 02:03.02 [info     ] Training complete              train_loss=0.4186752736568451
+2021-10-09 02:03.02 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:03.05 [info     ] Evaluation complete            test_loss=1.5251750946044922
+{'dataset_size': 30,
+ 'test_accuracy': 0.5524161458015442,
+ 'test_loss': 1.5251750946044922,
+ 'train_accuracy': 1.0,
+ 'train_loss': 0.4186752736568451,
+ 'val_accuracy': 0.359375}
+2021-10-09 02:03.05 [info     ] Start Predict                  dataset=59870
+2021-10-09 02:03.20 [info     ] Starting training              dataset=40 epoch=100
+2021-10-09 02:04.00 [info     ] Training complete              train_loss=0.21791189908981323
+2021-10-09 02:04.00 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:04.03 [info     ] Evaluation complete            test_loss=1.323986291885376
+{'dataset_size': 40,
+ 'test_accuracy': 0.5952476263046265,
+ 'test_loss': 1.323986291885376,
+ 'train_accuracy': 1.0,
+ 'train_loss': 0.21791189908981323,
+ 'val_accuracy': 0.4140625}
+2021-10-09 02:04.03 [info     ] Start Predict                  dataset=59860
+2021-10-09 02:04.18 [info     ] Starting training              dataset=50 epoch=100
+2021-10-09 02:04.39 [info     ] Training complete              train_loss=0.48487919569015503
+2021-10-09 02:04.39 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:04.42 [info     ] Evaluation complete            test_loss=1.5589354038238525
+{'dataset_size': 50,
+ 'test_accuracy': 0.5482228398323059,
+ 'test_loss': 1.5589354038238525,
+ 'train_accuracy': 0.9375,
+ 'train_loss': 0.48487919569015503,
+ 'val_accuracy': 0.390625}
+2021-10-09 02:04.42 [info     ] Start Predict                  dataset=59850
+2021-10-09 02:04.57 [info     ] Starting training              dataset=60 epoch=100
+2021-10-09 02:05.17 [info     ] Training complete              train_loss=0.5987943410873413
+2021-10-09 02:05.17 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:05.20 [info     ] Evaluation complete            test_loss=1.5334299802780151
+{'dataset_size': 60,
+ 'test_accuracy': 0.5497204661369324,
+ 'test_loss': 1.5334299802780151,
+ 'train_accuracy': 0.9174107313156128,
+ 'train_loss': 0.5987943410873413,
+ 'val_accuracy': 0.328125}
+2021-10-09 02:05.20 [info     ] Start Predict                  dataset=59840
+2021-10-09 02:05.35 [info     ] Starting training              dataset=70 epoch=100
+2021-10-09 02:06.06 [info     ] Training complete              train_loss=0.21621417999267578
+2021-10-09 02:06.06 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:06.09 [info     ] Evaluation complete            test_loss=1.2360711097717285
+{'dataset_size': 70,
+ 'test_accuracy': 0.6491613388061523,
+ 'test_loss': 1.2360711097717285,
+ 'train_accuracy': 0.9895833134651184,
+ 'train_loss': 0.21621417999267578,
+ 'val_accuracy': 0.4921875}
+2021-10-09 02:06.09 [info     ] Start Predict                  dataset=59830
+2021-10-09 02:06.24 [info     ] Starting training              dataset=80 epoch=100
+2021-10-09 02:06.51 [info     ] Training complete              train_loss=0.31275880336761475
+2021-10-09 02:06.51 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:06.54 [info     ] Evaluation complete            test_loss=1.2731525897979736
+{'dataset_size': 80,
+ 'test_accuracy': 0.6226038336753845,
+ 'test_loss': 1.2731525897979736,
+ 'train_accuracy': 0.96875,
+ 'train_loss': 0.31275880336761475,
+ 'val_accuracy': 0.53125}
+2021-10-09 02:06.54 [info     ] Start Predict                  dataset=59820
+2021-10-09 02:07.10 [info     ] Starting training              dataset=90 epoch=100
+2021-10-09 02:07.28 [info     ] Training complete              train_loss=0.6285967230796814
+2021-10-09 02:07.28 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:07.30 [info     ] Evaluation complete            test_loss=1.3490906953811646
+{'dataset_size': 90,
+ 'test_accuracy': 0.6260982155799866,
+ 'test_loss': 1.3490906953811646,
+ 'train_accuracy': 0.891025722026825,
+ 'train_loss': 0.6285967230796814,
+ 'val_accuracy': 0.5078125}
+2021-10-09 02:07.31 [info     ] Start Predict                  dataset=59810
+2021-10-09 02:07.46 [info     ] Starting training              dataset=100 epoch=100
+2021-10-09 02:08.16 [info     ] Training complete              train_loss=0.32679879665374756
+2021-10-09 02:08.16 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:08.19 [info     ] Evaluation complete            test_loss=1.2575974464416504
+{'dataset_size': 100,
+ 'test_accuracy': 0.6166134476661682,
+ 'test_loss': 1.2575974464416504,
+ 'train_accuracy': 0.9609375,
+ 'train_loss': 0.32679879665374756,
+ 'val_accuracy': 0.3671875}
+2021-10-09 02:08.19 [info     ] Start Predict                  dataset=59800
+2021-10-09 02:08.34 [info     ] Starting training              dataset=110 epoch=100
+2021-10-09 02:08.57 [info     ] Training complete              train_loss=0.47288739681243896
+2021-10-09 02:08.57 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:09.00 [info     ] Evaluation complete            test_loss=1.2755951881408691
+{'dataset_size': 110,
+ 'test_accuracy': 0.6099241375923157,
+ 'test_loss': 1.2755951881408691,
+ 'train_accuracy': 0.9430803656578064,
+ 'train_loss': 0.47288739681243896,
+ 'val_accuracy': 0.4609375}
+2021-10-09 02:09.00 [info     ] Start Predict                  dataset=59790
+2021-10-09 02:09.15 [info     ] Starting training              dataset=120 epoch=100
+2021-10-09 02:09.39 [info     ] Training complete              train_loss=0.420494943857193
+2021-10-09 02:09.39 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:09.41 [info     ] Evaluation complete            test_loss=1.2401061058044434
+{'dataset_size': 120,
+ 'test_accuracy': 0.6263977885246277,
+ 'test_loss': 1.2401061058044434,
+ 'train_accuracy': 0.9166666865348816,
+ 'train_loss': 0.420494943857193,
+ 'val_accuracy': 0.5078125}
+2021-10-09 02:09.41 [info     ] Start Predict                  dataset=59780
+2021-10-09 02:09.56 [info     ] Starting training              dataset=130 epoch=100
+2021-10-09 02:10.26 [info     ] Training complete              train_loss=0.518519401550293
+2021-10-09 02:10.26 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:10.29 [info     ] Evaluation complete            test_loss=1.226589560508728
+{'dataset_size': 130,
+ 'test_accuracy': 0.6489616632461548,
+ 'test_loss': 1.226589560508728,
+ 'train_accuracy': 0.893750011920929,
+ 'train_loss': 0.518519401550293,
+ 'val_accuracy': 0.421875}
+2021-10-09 02:10.29 [info     ] Start Predict                  dataset=59770
+2021-10-09 02:10.44 [info     ] Starting training              dataset=140 epoch=100
+2021-10-09 02:11.16 [info     ] Training complete              train_loss=0.29828131198883057
+2021-10-09 02:11.16 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:11.19 [info     ] Evaluation complete            test_loss=0.961439847946167
+{'dataset_size': 140,
+ 'test_accuracy': 0.7119608521461487,
+ 'test_loss': 0.961439847946167,
+ 'train_accuracy': 0.9437500238418579,
+ 'train_loss': 0.29828131198883057,
+ 'val_accuracy': 0.484375}
+2021-10-09 02:11.19 [info     ] Start Predict                  dataset=59760
+2021-10-09 02:11.34 [info     ] Starting training              dataset=150 epoch=100
+2021-10-09 02:12.06 [info     ] Training complete              train_loss=0.3171629011631012
+2021-10-09 02:12.06 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:12.08 [info     ] Evaluation complete            test_loss=0.9933869242668152
+{'dataset_size': 150,
+ 'test_accuracy': 0.7126597166061401,
+ 'test_loss': 0.9933869242668152,
+ 'train_accuracy': 0.9750000238418579,
+ 'train_loss': 0.3171629011631012,
+ 'val_accuracy': 0.59375}
+2021-10-09 02:12.09 [info     ] Start Predict                  dataset=59750
+2021-10-09 02:12.24 [info     ] Starting training              dataset=160 epoch=100
+2021-10-09 02:13.05 [info     ] Training complete              train_loss=0.28236067295074463
+2021-10-09 02:13.05 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:13.08 [info     ] Evaluation complete            test_loss=0.9422670006752014
+{'dataset_size': 160,
+ 'test_accuracy': 0.7224441170692444,
+ 'test_loss': 0.9422670006752014,
+ 'train_accuracy': 0.956250011920929,
+ 'train_loss': 0.28236067295074463,
+ 'val_accuracy': 0.5859375}
+2021-10-09 02:13.08 [info     ] Start Predict                  dataset=59740
+2021-10-09 02:13.23 [info     ] Starting training              dataset=170 epoch=100
+2021-10-09 02:13.48 [info     ] Training complete              train_loss=0.4048928916454315
+2021-10-09 02:13.48 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:13.51 [info     ] Evaluation complete            test_loss=1.0378671884536743
+{'dataset_size': 170,
+ 'test_accuracy': 0.7006788849830627,
+ 'test_loss': 1.0378671884536743,
+ 'train_accuracy': 0.9166666865348816,
+ 'train_loss': 0.4048928916454315,
+ 'val_accuracy': 0.5}
+2021-10-09 02:13.51 [info     ] Start Predict                  dataset=59730
+2021-10-09 02:14.06 [info     ] Starting training              dataset=180 epoch=100
+2021-10-09 02:14.34 [info     ] Training complete              train_loss=0.3804253041744232
+2021-10-09 02:14.34 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:14.37 [info     ] Evaluation complete            test_loss=0.9165140390396118
+{'dataset_size': 180,
+ 'test_accuracy': 0.7365215420722961,
+ 'test_loss': 0.9165140390396118,
+ 'train_accuracy': 0.9312500357627869,
+ 'train_loss': 0.3804253041744232,
+ 'val_accuracy': 0.5625}
+2021-10-09 02:14.37 [info     ] Start Predict                  dataset=59720
+2021-10-09 02:14.52 [info     ] Starting training              dataset=190 epoch=100
+2021-10-09 02:15.17 [info     ] Training complete              train_loss=0.49598202109336853
+2021-10-09 02:15.17 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:15.20 [info     ] Evaluation complete            test_loss=1.0186479091644287
+{'dataset_size': 190,
+ 'test_accuracy': 0.7026757001876831,
+ 'test_loss': 1.0186479091644287,
+ 'train_accuracy': 0.8736111521720886,
+ 'train_loss': 0.49598202109336853,
+ 'val_accuracy': 0.515625}
+2021-10-09 02:15.20 [info     ] Start Predict                  dataset=59710
+2021-10-09 02:15.35 [info     ] Starting training              dataset=200 epoch=100
+2021-10-09 02:15.53 [info     ] Training complete              train_loss=0.5971356630325317
+2021-10-09 02:15.53 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:15.55 [info     ] Evaluation complete            test_loss=1.1660124063491821
+{'dataset_size': 200,
+ 'test_accuracy': 0.6630391478538513,
+ 'test_loss': 1.1660124063491821,
+ 'train_accuracy': 0.8571428656578064,
+ 'train_loss': 0.5971356630325317,
+ 'val_accuracy': 0.4921875}
+2021-10-09 02:15.55 [info     ] Start Predict                  dataset=59700
+2021-10-09 02:16.10 [info     ] Starting training              dataset=210 epoch=100
+2021-10-09 02:16.51 [info     ] Training complete              train_loss=0.30076053738594055
+2021-10-09 02:16.51 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:16.54 [info     ] Evaluation complete            test_loss=0.8576169013977051
+{'dataset_size': 210,
+ 'test_accuracy': 0.7471046447753906,
+ 'test_loss': 0.8576169013977051,
+ 'train_accuracy': 0.8878968358039856,
+ 'train_loss': 0.30076053738594055,
+ 'val_accuracy': 0.6484375}
+2021-10-09 02:16.54 [info     ] Start Predict                  dataset=59690
+2021-10-09 02:17.09 [info     ] Starting training              dataset=220 epoch=100
+2021-10-09 02:17.44 [info     ] Training complete              train_loss=0.3810884654521942
+2021-10-09 02:17.44 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:17.47 [info     ] Evaluation complete            test_loss=0.9277540445327759
+{'dataset_size': 220,
+ 'test_accuracy': 0.7260383367538452,
+ 'test_loss': 0.9277540445327759,
+ 'train_accuracy': 0.9253826141357422,
+ 'train_loss': 0.3810884654521942,
+ 'val_accuracy': 0.59375}
+2021-10-09 02:17.47 [info     ] Start Predict                  dataset=59680
+2021-10-09 02:18.03 [info     ] Starting training              dataset=230 epoch=100
+2021-10-09 02:18.36 [info     ] Training complete              train_loss=0.38223397731781006
+2021-10-09 02:18.36 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:18.39 [info     ] Evaluation complete            test_loss=0.9410366415977478
+{'dataset_size': 230,
+ 'test_accuracy': 0.7275359630584717,
+ 'test_loss': 0.9410366415977478,
+ 'train_accuracy': 0.9166666865348816,
+ 'train_loss': 0.38223397731781006,
+ 'val_accuracy': 0.5625}
+2021-10-09 02:18.39 [info     ] Start Predict                  dataset=59670
+2021-10-09 02:18.54 [info     ] Starting training              dataset=240 epoch=100
+2021-10-09 02:19.34 [info     ] Training complete              train_loss=0.36230048537254333
+2021-10-09 02:19.34 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:19.37 [info     ] Evaluation complete            test_loss=0.9105004072189331
+{'dataset_size': 240,
+ 'test_accuracy': 0.720447301864624,
+ 'test_loss': 0.9105004072189331,
+ 'train_accuracy': 0.9140625,
+ 'train_loss': 0.36230048537254333,
+ 'val_accuracy': 0.546875}
+2021-10-09 02:19.37 [info     ] Start Predict                  dataset=59660
+2021-10-09 02:19.52 [info     ] Starting training              dataset=250 epoch=100
+2021-10-09 02:20.22 [info     ] Training complete              train_loss=0.4648091793060303
+2021-10-09 02:20.22 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:20.25 [info     ] Evaluation complete            test_loss=0.9608781337738037
+{'dataset_size': 250,
+ 'test_accuracy': 0.7140575051307678,
+ 'test_loss': 0.9608781337738037,
+ 'train_accuracy': 0.8822115659713745,
+ 'train_loss': 0.4648091793060303,
+ 'val_accuracy': 0.6171875}
+2021-10-09 02:20.25 [info     ] Start Predict                  dataset=59650
+2021-10-09 02:20.40 [info     ] Starting training              dataset=260 epoch=100
+2021-10-09 02:20.58 [info     ] Training complete              train_loss=0.7354906797409058
+2021-10-09 02:20.58 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:21.00 [info     ] Evaluation complete            test_loss=1.233128309249878
+{'dataset_size': 260,
+ 'test_accuracy': 0.6363818049430847,
+ 'test_loss': 1.233128309249878,
+ 'train_accuracy': 0.78125,
+ 'train_loss': 0.7354906797409058,
+ 'val_accuracy': 0.4921875}
+2021-10-09 02:21.00 [info     ] Start Predict                  dataset=59640
+2021-10-09 02:21.16 [info     ] Starting training              dataset=270 epoch=100
+2021-10-09 02:21.36 [info     ] Training complete              train_loss=0.56992107629776
+2021-10-09 02:21.36 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:21.39 [info     ] Evaluation complete            test_loss=1.0508811473846436
+{'dataset_size': 270,
+ 'test_accuracy': 0.667931318283081,
+ 'test_loss': 1.0508811473846436,
+ 'train_accuracy': 0.836309552192688,
+ 'train_loss': 0.56992107629776,
+ 'val_accuracy': 0.453125}
+2021-10-09 02:21.39 [info     ] Start Predict                  dataset=59630
+2021-10-09 02:21.54 [info     ] Starting training              dataset=280 epoch=100
+2021-10-09 02:22.22 [info     ] Training complete              train_loss=0.44092240929603577
+2021-10-09 02:22.22 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:22.25 [info     ] Evaluation complete            test_loss=0.9544087648391724
+{'dataset_size': 280,
+ 'test_accuracy': 0.7121605277061462,
+ 'test_loss': 0.9544087648391724,
+ 'train_accuracy': 0.8715277910232544,
+ 'train_loss': 0.44092240929603577,
+ 'val_accuracy': 0.4140625}
+2021-10-09 02:22.25 [info     ] Start Predict                  dataset=59620
+2021-10-09 02:22.40 [info     ] Starting training              dataset=290 epoch=100
+2021-10-09 02:23.22 [info     ] Training complete              train_loss=0.4300726056098938
+2021-10-09 02:23.22 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:23.25 [info     ] Evaluation complete            test_loss=0.9010471701622009
+{'dataset_size': 290,
+ 'test_accuracy': 0.7380191683769226,
+ 'test_loss': 0.9010471701622009,
+ 'train_accuracy': 0.890625,
+ 'train_loss': 0.4300726056098938,
+ 'val_accuracy': 0.5078125}
+2021-10-09 02:23.25 [info     ] Start Predict                  dataset=59610
+2021-10-09 02:23.40 [info     ] Starting training              dataset=300 epoch=100
+2021-10-09 02:24.13 [info     ] Training complete              train_loss=0.46128329634666443
+2021-10-09 02:24.13 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:24.16 [info     ] Evaluation complete            test_loss=0.8929696679115295
+{'dataset_size': 300,
+ 'test_accuracy': 0.7401158213615417,
+ 'test_loss': 0.8929696679115295,
+ 'train_accuracy': 0.862500011920929,
+ 'train_loss': 0.46128329634666443,
+ 'val_accuracy': 0.59375}
+2021-10-09 02:24.16 [info     ] Start Predict                  dataset=59600
+2021-10-09 02:24.31 [info     ] Starting training              dataset=310 epoch=100
+2021-10-09 02:25.05 [info     ] Training complete              train_loss=0.40815407037734985
+2021-10-09 02:25.05 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:25.08 [info     ] Evaluation complete            test_loss=0.9429100751876831
+{'dataset_size': 310,
+ 'test_accuracy': 0.7203474640846252,
+ 'test_loss': 0.9429100751876831,
+ 'train_accuracy': 0.8909090757369995,
+ 'train_loss': 0.40815407037734985,
+ 'val_accuracy': 0.5859375}
+2021-10-09 02:25.08 [info     ] Start Predict                  dataset=59590
+2021-10-09 02:25.24 [info     ] Starting training              dataset=320 epoch=100
+2021-10-09 02:25.47 [info     ] Training complete              train_loss=0.6629561185836792
+2021-10-09 02:25.47 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:25.49 [info     ] Evaluation complete            test_loss=1.1260972023010254
+{'dataset_size': 320,
+ 'test_accuracy': 0.6666333675384521,
+ 'test_loss': 1.1260972023010254,
+ 'train_accuracy': 0.809374988079071,
+ 'train_loss': 0.6629561185836792,
+ 'val_accuracy': 0.390625}
+2021-10-09 02:25.50 [info     ] Start Predict                  dataset=59580
+2021-10-09 02:26.05 [info     ] Starting training              dataset=330 epoch=100
+2021-10-09 02:26.32 [info     ] Training complete              train_loss=0.5326457619667053
+2021-10-09 02:26.32 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:26.35 [info     ] Evaluation complete            test_loss=1.0739840269088745
+{'dataset_size': 330,
+ 'test_accuracy': 0.6723242998123169,
+ 'test_loss': 1.0739840269088745,
+ 'train_accuracy': 0.8460226655006409,
+ 'train_loss': 0.5326457619667053,
+ 'val_accuracy': 0.4765625}
+2021-10-09 02:26.35 [info     ] Start Predict                  dataset=59570
+2021-10-09 02:26.50 [info     ] Starting training              dataset=340 epoch=100
+2021-10-09 02:27.04 [info     ] Training complete              train_loss=0.854149580001831
+2021-10-09 02:27.04 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:27.06 [info     ] Evaluation complete            test_loss=1.2788933515548706
+{'dataset_size': 340,
+ 'test_accuracy': 0.6308905482292175,
+ 'test_loss': 1.2788933515548706,
+ 'train_accuracy': 0.7170454263687134,
+ 'train_loss': 0.854149580001831,
+ 'val_accuracy': 0.375}
+2021-10-09 02:27.07 [info     ] Start Predict                  dataset=59560
+2021-10-09 02:27.21 [info     ] Starting training              dataset=350 epoch=100
+2021-10-09 02:27.47 [info     ] Training complete              train_loss=0.5296801924705505
+2021-10-09 02:27.47 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:27.49 [info     ] Evaluation complete            test_loss=1.0768768787384033
+{'dataset_size': 350,
+ 'test_accuracy': 0.6836062073707581,
+ 'test_loss': 1.0768768787384033,
+ 'train_accuracy': 0.8691288232803345,
+ 'train_loss': 0.5296801924705505,
+ 'val_accuracy': 0.5}
+2021-10-09 02:27.50 [info     ] Start Predict                  dataset=59550
+2021-10-09 02:28.05 [info     ] Starting training              dataset=360 epoch=100
+2021-10-09 02:28.29 [info     ] Training complete              train_loss=0.6105533838272095
+2021-10-09 02:28.29 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:28.32 [info     ] Evaluation complete            test_loss=1.0560295581817627
+{'dataset_size': 360,
+ 'test_accuracy': 0.6886980533599854,
+ 'test_loss': 1.0560295581817627,
+ 'train_accuracy': 0.8177083134651184,
+ 'train_loss': 0.6105533838272095,
+ 'val_accuracy': 0.5625}
+2021-10-09 02:28.32 [info     ] Start Predict                  dataset=59540
+2021-10-09 02:28.47 [info     ] Starting training              dataset=370 epoch=100
+2021-10-09 02:29.06 [info     ] Training complete              train_loss=0.5782641768455505
+2021-10-09 02:29.06 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:29.09 [info     ] Evaluation complete            test_loss=1.0905569791793823
+{'dataset_size': 370,
+ 'test_accuracy': 0.6946884989738464,
+ 'test_loss': 1.0905569791793823,
+ 'train_accuracy': 0.8469328880310059,
+ 'train_loss': 0.5782641768455505,
+ 'val_accuracy': 0.546875}
+2021-10-09 02:29.09 [info     ] Start Predict                  dataset=59530
+2021-10-09 02:29.24 [info     ] Starting training              dataset=380 epoch=100
+2021-10-09 02:29.55 [info     ] Training complete              train_loss=0.47374212741851807
+2021-10-09 02:29.55 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:29.58 [info     ] Evaluation complete            test_loss=0.9867891073226929
+{'dataset_size': 380,
+ 'test_accuracy': 0.7064696550369263,
+ 'test_loss': 0.9867891073226929,
+ 'train_accuracy': 0.8601190447807312,
+ 'train_loss': 0.47374212741851807,
+ 'val_accuracy': 0.53125}
+2021-10-09 02:29.58 [info     ] Start Predict                  dataset=59520
+2021-10-09 02:30.12 [info     ] Starting training              dataset=390 epoch=100
+2021-10-09 02:30.25 [info     ] Training complete              train_loss=0.9054849147796631
+2021-10-09 02:30.25 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:30.28 [info     ] Evaluation complete            test_loss=1.2700031995773315
+{'dataset_size': 390,
+ 'test_accuracy': 0.6485623121261597,
+ 'test_loss': 1.2700031995773315,
+ 'train_accuracy': 0.7059295177459717,
+ 'train_loss': 0.9054849147796631,
+ 'val_accuracy': 0.40625}
+2021-10-09 02:30.28 [info     ] Start Predict                  dataset=59510
+2021-10-09 02:30.43 [info     ] Starting training              dataset=400 epoch=100
+2021-10-09 02:30.59 [info     ] Training complete              train_loss=0.8160194754600525
+2021-10-09 02:30.59 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:31.02 [info     ] Evaluation complete            test_loss=1.1527374982833862
+{'dataset_size': 400,
+ 'test_accuracy': 0.6680311560630798,
+ 'test_loss': 1.1527374982833862,
+ 'train_accuracy': 0.7307692170143127,
+ 'train_loss': 0.8160194754600525,
+ 'val_accuracy': 0.5078125}
+2021-10-09 02:31.02 [info     ] Start Predict                  dataset=59500
+2021-10-09 02:31.17 [info     ] Starting training              dataset=410 epoch=100
+2021-10-09 02:31.55 [info     ] Training complete              train_loss=0.3784596621990204
+2021-10-09 02:31.55 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:31.58 [info     ] Evaluation complete            test_loss=0.8945958018302917
+{'dataset_size': 410,
+ 'test_accuracy': 0.7310303449630737,
+ 'test_loss': 0.8945958018302917,
+ 'train_accuracy': 0.8859097361564636,
+ 'train_loss': 0.3784596621990204,
+ 'val_accuracy': 0.5390625}
+2021-10-09 02:31.58 [info     ] Start Predict                  dataset=59490
+2021-10-09 02:32.13 [info     ] Starting training              dataset=420 epoch=100
+2021-10-09 02:32.44 [info     ] Training complete              train_loss=0.544033408164978
+2021-10-09 02:32.44 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:32.47 [info     ] Evaluation complete            test_loss=0.9919342994689941
+{'dataset_size': 420,
+ 'test_accuracy': 0.7057707905769348,
+ 'test_loss': 0.9919342994689941,
+ 'train_accuracy': 0.8392857313156128,
+ 'train_loss': 0.544033408164978,
+ 'val_accuracy': 0.5546875}
+2021-10-09 02:32.47 [info     ] Start Predict                  dataset=59480
+2021-10-09 02:33.02 [info     ] Starting training              dataset=430 epoch=100
+2021-10-09 02:33.19 [info     ] Training complete              train_loss=0.757768988609314
+2021-10-09 02:33.19 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:33.22 [info     ] Evaluation complete            test_loss=1.133689045906067
+{'dataset_size': 430,
+ 'test_accuracy': 0.6786141991615295,
+ 'test_loss': 1.133689045906067,
+ 'train_accuracy': 0.7423468828201294,
+ 'train_loss': 0.757768988609314,
+ 'val_accuracy': 0.5}
+2021-10-09 02:33.22 [info     ] Start Predict                  dataset=59470
+2021-10-09 02:33.37 [info     ] Starting training              dataset=440 epoch=100
+2021-10-09 02:33.55 [info     ] Training complete              train_loss=0.702237069606781
+2021-10-09 02:33.55 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:33.58 [info     ] Evaluation complete            test_loss=1.156192660331726
+{'dataset_size': 440,
+ 'test_accuracy': 0.6771166324615479,
+ 'test_loss': 1.156192660331726,
+ 'train_accuracy': 0.79389888048172,
+ 'train_loss': 0.702237069606781,
+ 'val_accuracy': 0.484375}
+2021-10-09 02:33.58 [info     ] Start Predict                  dataset=59460
+2021-10-09 02:34.13 [info     ] Starting training              dataset=450 epoch=100
+2021-10-09 02:34.51 [info     ] Training complete              train_loss=0.5176193118095398
+2021-10-09 02:34.51 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:34.54 [info     ] Evaluation complete            test_loss=0.9730122089385986
+{'dataset_size': 450,
+ 'test_accuracy': 0.7190495133399963,
+ 'test_loss': 0.9730122089385986,
+ 'train_accuracy': 0.8645833134651184,
+ 'train_loss': 0.5176193118095398,
+ 'val_accuracy': 0.5078125}
+2021-10-09 02:34.54 [info     ] Start Predict                  dataset=59450
+2021-10-09 02:35.09 [info     ] Starting training              dataset=460 epoch=100
+2021-10-09 02:35.28 [info     ] Training complete              train_loss=0.747941255569458
+2021-10-09 02:35.28 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:35.31 [info     ] Evaluation complete            test_loss=1.1692523956298828
+{'dataset_size': 460,
+ 'test_accuracy': 0.6708266735076904,
+ 'test_loss': 1.1692523956298828,
+ 'train_accuracy': 0.7611110806465149,
+ 'train_loss': 0.747941255569458,
+ 'val_accuracy': 0.5625}
+2021-10-09 02:35.31 [info     ] Start Predict                  dataset=59440
+2021-10-09 02:35.46 [info     ] Starting training              dataset=470 epoch=100
+2021-10-09 02:36.18 [info     ] Training complete              train_loss=0.43983346223831177
+2021-10-09 02:36.18 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:36.21 [info     ] Evaluation complete            test_loss=1.0564528703689575
+{'dataset_size': 470,
+ 'test_accuracy': 0.7037739753723145,
+ 'test_loss': 1.0564528703689575,
+ 'train_accuracy': 0.878219723701477,
+ 'train_loss': 0.43983346223831177,
+ 'val_accuracy': 0.5234375}
+2021-10-09 02:36.21 [info     ] Start Predict                  dataset=59430
+2021-10-09 02:36.36 [info     ] Starting training              dataset=480 epoch=100
+2021-10-09 02:37.06 [info     ] Training complete              train_loss=0.546015202999115
+2021-10-09 02:37.06 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:37.09 [info     ] Evaluation complete            test_loss=0.9522263407707214
+{'dataset_size': 480,
+ 'test_accuracy': 0.7198482155799866,
+ 'test_loss': 0.9522263407707214,
+ 'train_accuracy': 0.8208333253860474,
+ 'train_loss': 0.546015202999115,
+ 'val_accuracy': 0.546875}
+2021-10-09 02:37.09 [info     ] Start Predict                  dataset=59420
+2021-10-09 02:37.24 [info     ] Starting training              dataset=490 epoch=100
+2021-10-09 02:38.03 [info     ] Training complete              train_loss=0.4859054684638977
+2021-10-09 02:38.03 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:38.06 [info     ] Evaluation complete            test_loss=0.9815132021903992
+{'dataset_size': 490,
+ 'test_accuracy': 0.7355231642723083,
+ 'test_loss': 0.9815132021903992,
+ 'train_accuracy': 0.8550781011581421,
+ 'train_loss': 0.4859054684638977,
+ 'val_accuracy': 0.4609375}
+2021-10-09 02:38.06 [info     ] Start Predict                  dataset=59410
+2021-10-09 02:38.21 [info     ] Starting training              dataset=500 epoch=100
+2021-10-09 02:38.56 [info     ] Training complete              train_loss=0.5002595782279968
+2021-10-09 02:38.56 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:38.59 [info     ] Evaluation complete            test_loss=0.9584991335868835
+{'dataset_size': 500,
+ 'test_accuracy': 0.7348242998123169,
+ 'test_loss': 0.9584991335868835,
+ 'train_accuracy': 0.8570312261581421,
+ 'train_loss': 0.5002595782279968,
+ 'val_accuracy': 0.4453125}
+2021-10-09 02:38.59 [info     ] Start Predict                  dataset=59400
+2021-10-09 02:39.14 [info     ] Starting training              dataset=510 epoch=100
+2021-10-09 02:39.53 [info     ] Training complete              train_loss=0.42340120673179626
+2021-10-09 02:39.53 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:39.56 [info     ] Evaluation complete            test_loss=0.931157112121582
+{'dataset_size': 510,
+ 'test_accuracy': 0.7341253757476807,
+ 'test_loss': 0.931157112121582,
+ 'train_accuracy': 0.8763020634651184,
+ 'train_loss': 0.42340120673179626,
+ 'val_accuracy': 0.625}
+2021-10-09 02:39.56 [info     ] Start Predict                  dataset=59390
+2021-10-09 02:40.11 [info     ] Starting training              dataset=520 epoch=100
+2021-10-09 02:40.32 [info     ] Training complete              train_loss=0.7755321264266968
+2021-10-09 02:40.32 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:40.35 [info     ] Evaluation complete            test_loss=1.1071903705596924
+{'dataset_size': 520,
+ 'test_accuracy': 0.6890974640846252,
+ 'test_loss': 1.1071903705596924,
+ 'train_accuracy': 0.7279411554336548,
+ 'train_loss': 0.7755321264266968,
+ 'val_accuracy': 0.53125}
+2021-10-09 02:40.35 [info     ] Start Predict                  dataset=59380
+2021-10-09 02:40.51 [info     ] Starting training              dataset=530 epoch=100
+2021-10-09 02:41.10 [info     ] Training complete              train_loss=0.7861505150794983
+2021-10-09 02:41.10 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:41.12 [info     ] Evaluation complete            test_loss=1.1613616943359375
+{'dataset_size': 530,
+ 'test_accuracy': 0.7053713798522949,
+ 'test_loss': 1.1613616943359375,
+ 'train_accuracy': 0.7340686321258545,
+ 'train_loss': 0.7861505150794983,
+ 'val_accuracy': 0.484375}
+2021-10-09 02:41.12 [info     ] Start Predict                  dataset=59370
+2021-10-09 02:41.27 [info     ] Starting training              dataset=540 epoch=100
+2021-10-09 02:41.57 [info     ] Training complete              train_loss=0.5992459654808044
+2021-10-09 02:41.57 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:42.00 [info     ] Evaluation complete            test_loss=0.9721020460128784
+{'dataset_size': 540,
+ 'test_accuracy': 0.7422124743461609,
+ 'test_loss': 0.9721020460128784,
+ 'train_accuracy': 0.7922794222831726,
+ 'train_loss': 0.5992459654808044,
+ 'val_accuracy': 0.5390625}
+2021-10-09 02:42.00 [info     ] Start Predict                  dataset=59360
+2021-10-09 02:42.15 [info     ] Starting training              dataset=550 epoch=100
+2021-10-09 02:42.36 [info     ] Training complete              train_loss=0.7080439329147339
+2021-10-09 02:42.36 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:42.39 [info     ] Evaluation complete            test_loss=1.0523335933685303
+{'dataset_size': 550,
+ 'test_accuracy': 0.7295327186584473,
+ 'test_loss': 1.0523335933685303,
+ 'train_accuracy': 0.7737268805503845,
+ 'train_loss': 0.7080439329147339,
+ 'val_accuracy': 0.53125}
+2021-10-09 02:42.39 [info     ] Start Predict                  dataset=59350
+2021-10-09 02:42.54 [info     ] Starting training              dataset=560 epoch=100
+2021-10-09 02:43.25 [info     ] Training complete              train_loss=0.5346643328666687
+2021-10-09 02:43.25 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:43.28 [info     ] Evaluation complete            test_loss=0.9467718005180359
+{'dataset_size': 560,
+ 'test_accuracy': 0.7382188439369202,
+ 'test_loss': 0.9467718005180359,
+ 'train_accuracy': 0.8211805820465088,
+ 'train_loss': 0.5346643328666687,
+ 'val_accuracy': 0.5546875}
+2021-10-09 02:43.28 [info     ] Start Predict                  dataset=59340
+2021-10-09 02:43.43 [info     ] Starting training              dataset=570 epoch=100
+2021-10-09 02:44.23 [info     ] Training complete              train_loss=0.4216274619102478
+2021-10-09 02:44.23 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:44.26 [info     ] Evaluation complete            test_loss=0.846765398979187
+{'dataset_size': 570,
+ 'test_accuracy': 0.754792332649231,
+ 'test_loss': 0.846765398979187,
+ 'train_accuracy': 0.8871527910232544,
+ 'train_loss': 0.4216274619102478,
+ 'val_accuracy': 0.6171875}
+2021-10-09 02:44.26 [info     ] Start Predict                  dataset=59330
+2021-10-09 02:44.41 [info     ] Starting training              dataset=580 epoch=100
+2021-10-09 02:45.04 [info     ] Training complete              train_loss=0.742034912109375
+2021-10-09 02:45.04 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:45.07 [info     ] Evaluation complete            test_loss=1.0411263704299927
+{'dataset_size': 580,
+ 'test_accuracy': 0.7191493511199951,
+ 'test_loss': 1.0411263704299927,
+ 'train_accuracy': 0.7417762875556946,
+ 'train_loss': 0.742034912109375,
+ 'val_accuracy': 0.4453125}
+2021-10-09 02:45.07 [info     ] Start Predict                  dataset=59320
+2021-10-09 02:45.22 [info     ] Starting training              dataset=590 epoch=100
+2021-10-09 02:46.01 [info     ] Training complete              train_loss=0.42990076541900635
+2021-10-09 02:46.01 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:46.03 [info     ] Evaluation complete            test_loss=0.9251607656478882
+{'dataset_size': 590,
+ 'test_accuracy': 0.7482028603553772,
+ 'test_loss': 0.9251607656478882,
+ 'train_accuracy': 0.8745300769805908,
+ 'train_loss': 0.42990076541900635,
+ 'val_accuracy': 0.6015625}
+2021-10-09 02:46.04 [info     ] Start Predict                  dataset=59310
+2021-10-09 02:46.19 [info     ] Starting training              dataset=600 epoch=100
+2021-10-09 02:46.51 [info     ] Training complete              train_loss=0.5365433692932129
+2021-10-09 02:46.51 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:46.54 [info     ] Evaluation complete            test_loss=1.0181633234024048
+{'dataset_size': 600,
+ 'test_accuracy': 0.7300319671630859,
+ 'test_loss': 1.0181633234024048,
+ 'train_accuracy': 0.8294956088066101,
+ 'train_loss': 0.5365433692932129,
+ 'val_accuracy': 0.6484375}
+2021-10-09 02:46.54 [info     ] Start Predict                  dataset=59300
+2021-10-09 02:47.09 [info     ] Starting training              dataset=610 epoch=100
+2021-10-09 02:47.38 [info     ] Training complete              train_loss=0.7923444509506226
+2021-10-09 02:47.38 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:47.40 [info     ] Evaluation complete            test_loss=1.14031982421875
+{'dataset_size': 610,
+ 'test_accuracy': 0.7158546447753906,
+ 'test_loss': 1.14031982421875,
+ 'train_accuracy': 0.7421875,
+ 'train_loss': 0.7923444509506226,
+ 'val_accuracy': 0.53125}
+2021-10-09 02:47.41 [info     ] Start Predict                  dataset=59290
+2021-10-09 02:47.56 [info     ] Starting training              dataset=620 epoch=100
+2021-10-09 02:48.26 [info     ] Training complete              train_loss=0.5770760774612427
+2021-10-09 02:48.26 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:48.29 [info     ] Evaluation complete            test_loss=0.9652369618415833
+{'dataset_size': 620,
+ 'test_accuracy': 0.7247403860092163,
+ 'test_loss': 0.9652369618415833,
+ 'train_accuracy': 0.8291667103767395,
+ 'train_loss': 0.5770760774612427,
+ 'val_accuracy': 0.609375}
+2021-10-09 02:48.29 [info     ] Start Predict                  dataset=59280
+2021-10-09 02:48.44 [info     ] Starting training              dataset=630 epoch=100
+2021-10-09 02:49.18 [info     ] Training complete              train_loss=0.6044377088546753
+2021-10-09 02:49.18 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:49.21 [info     ] Evaluation complete            test_loss=1.000131368637085
+{'dataset_size': 630,
+ 'test_accuracy': 0.7303314805030823,
+ 'test_loss': 1.000131368637085,
+ 'train_accuracy': 0.8018466234207153,
+ 'train_loss': 0.6044377088546753,
+ 'val_accuracy': 0.6328125}
+2021-10-09 02:49.21 [info     ] Start Predict                  dataset=59270
+2021-10-09 02:49.36 [info     ] Starting training              dataset=640 epoch=100
+2021-10-09 02:50.02 [info     ] Training complete              train_loss=0.6786535382270813
+2021-10-09 02:50.02 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:50.05 [info     ] Evaluation complete            test_loss=1.019627332687378
+{'dataset_size': 640,
+ 'test_accuracy': 0.7258386611938477,
+ 'test_loss': 1.019627332687378,
+ 'train_accuracy': 0.7640625238418579,
+ 'train_loss': 0.6786535382270813,
+ 'val_accuracy': 0.546875}
+2021-10-09 02:50.05 [info     ] Start Predict                  dataset=59260
+2021-10-09 02:50.20 [info     ] Starting training              dataset=650 epoch=100
+2021-10-09 02:50.42 [info     ] Training complete              train_loss=0.6914621591567993
+2021-10-09 02:50.42 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:50.45 [info     ] Evaluation complete            test_loss=1.0805408954620361
+{'dataset_size': 650,
+ 'test_accuracy': 0.7102635502815247,
+ 'test_loss': 1.0805408954620361,
+ 'train_accuracy': 0.7711309790611267,
+ 'train_loss': 0.6914621591567993,
+ 'val_accuracy': 0.4921875}
+2021-10-09 02:50.45 [info     ] Start Predict                  dataset=59250
+2021-10-09 02:51.00 [info     ] Starting training              dataset=660 epoch=100
+2021-10-09 02:52.01 [info     ] Training complete              train_loss=0.27114686369895935
+2021-10-09 02:52.01 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:52.04 [info     ] Evaluation complete            test_loss=0.7705462574958801
+{'dataset_size': 660,
+ 'test_accuracy': 0.7944288849830627,
+ 'test_loss': 0.7705462574958801,
+ 'train_accuracy': 0.9130951762199402,
+ 'train_loss': 0.27114686369895935,
+ 'val_accuracy': 0.7265625}
+2021-10-09 02:52.04 [info     ] Start Predict                  dataset=59240
+2021-10-09 02:52.19 [info     ] Starting training              dataset=670 epoch=100
+2021-10-09 02:52.54 [info     ] Training complete              train_loss=0.5998612642288208
+2021-10-09 02:52.54 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:52.57 [info     ] Evaluation complete            test_loss=0.9609255194664001
+{'dataset_size': 670,
+ 'test_accuracy': 0.7420127987861633,
+ 'test_loss': 0.9609255194664001,
+ 'train_accuracy': 0.7883928418159485,
+ 'train_loss': 0.5998612642288208,
+ 'val_accuracy': 0.578125}
+2021-10-09 02:52.57 [info     ] Start Predict                  dataset=59230
+2021-10-09 02:53.12 [info     ] Starting training              dataset=680 epoch=100
+2021-10-09 02:53.43 [info     ] Training complete              train_loss=0.6264963746070862
+2021-10-09 02:53.43 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:53.45 [info     ] Evaluation complete            test_loss=0.9852020144462585
+{'dataset_size': 680,
+ 'test_accuracy': 0.7324281334877014,
+ 'test_loss': 0.9852020144462585,
+ 'train_accuracy': 0.7997159361839294,
+ 'train_loss': 0.6264963746070862,
+ 'val_accuracy': 0.640625}
+2021-10-09 02:53.45 [info     ] Start Predict                  dataset=59220
+2021-10-09 02:54.01 [info     ] Starting training              dataset=690 epoch=100
+2021-10-09 02:54.40 [info     ] Training complete              train_loss=0.47510918974876404
+2021-10-09 02:54.40 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:54.43 [info     ] Evaluation complete            test_loss=0.9536083340644836
+{'dataset_size': 690,
+ 'test_accuracy': 0.7495008111000061,
+ 'test_loss': 0.9536083340644836,
+ 'train_accuracy': 0.8642677068710327,
+ 'train_loss': 0.47510918974876404,
+ 'val_accuracy': 0.640625}
+2021-10-09 02:54.43 [info     ] Start Predict                  dataset=59210
+2021-10-09 02:54.58 [info     ] Starting training              dataset=700 epoch=100
+2021-10-09 02:55.21 [info     ] Training complete              train_loss=0.7387893795967102
+2021-10-09 02:55.21 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:55.24 [info     ] Evaluation complete            test_loss=1.0917350053787231
+{'dataset_size': 700,
+ 'test_accuracy': 0.7135583162307739,
+ 'test_loss': 1.0917350053787231,
+ 'train_accuracy': 0.7599431872367859,
+ 'train_loss': 0.7387893795967102,
+ 'val_accuracy': 0.4453125}
+2021-10-09 02:55.24 [info     ] Start Predict                  dataset=59200
+2021-10-09 02:55.39 [info     ] Starting training              dataset=710 epoch=100
+2021-10-09 02:56.11 [info     ] Training complete              train_loss=0.5248243808746338
+2021-10-09 02:56.11 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:56.14 [info     ] Evaluation complete            test_loss=0.9739713072776794
+{'dataset_size': 710,
+ 'test_accuracy': 0.7434105277061462,
+ 'test_loss': 0.9739713072776794,
+ 'train_accuracy': 0.8319746255874634,
+ 'train_loss': 0.5248243808746338,
+ 'val_accuracy': 0.6015625}
+2021-10-09 02:56.14 [info     ] Start Predict                  dataset=59190
+2021-10-09 02:56.29 [info     ] Starting training              dataset=720 epoch=100
+2021-10-09 02:57.01 [info     ] Training complete              train_loss=0.530526876449585
+2021-10-09 02:57.01 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:57.03 [info     ] Evaluation complete            test_loss=0.9289150238037109
+{'dataset_size': 720,
+ 'test_accuracy': 0.756489634513855,
+ 'test_loss': 0.9289150238037109,
+ 'train_accuracy': 0.8301630616188049,
+ 'train_loss': 0.530526876449585,
+ 'val_accuracy': 0.5390625}
+2021-10-09 02:57.03 [info     ] Start Predict                  dataset=59180
+2021-10-09 02:57.18 [info     ] Starting training              dataset=730 epoch=100
+2021-10-09 02:57.53 [info     ] Training complete              train_loss=0.499968558549881
+2021-10-09 02:57.53 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:57.56 [info     ] Evaluation complete            test_loss=0.878584623336792
+{'dataset_size': 730,
+ 'test_accuracy': 0.7671725153923035,
+ 'test_loss': 0.878584623336792,
+ 'train_accuracy': 0.8509615063667297,
+ 'train_loss': 0.499968558549881,
+ 'val_accuracy': 0.6171875}
+2021-10-09 02:57.56 [info     ] Start Predict                  dataset=59170
+2021-10-09 02:58.11 [info     ] Starting training              dataset=740 epoch=100
+2021-10-09 02:58.37 [info     ] Training complete              train_loss=0.6873326897621155
+2021-10-09 02:58.37 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:58.39 [info     ] Evaluation complete            test_loss=0.989272952079773
+{'dataset_size': 740,
+ 'test_accuracy': 0.7344249486923218,
+ 'test_loss': 0.989272952079773,
+ 'train_accuracy': 0.7747395634651184,
+ 'train_loss': 0.6873326897621155,
+ 'val_accuracy': 0.4921875}
+2021-10-09 02:58.40 [info     ] Start Predict                  dataset=59160
+2021-10-09 02:58.55 [info     ] Starting training              dataset=750 epoch=100
+2021-10-09 02:59.16 [info     ] Training complete              train_loss=0.8553745150566101
+2021-10-09 02:59.16 [info     ] Starting evaluating            dataset=10000
+2021-10-09 02:59.19 [info     ] Evaluation complete            test_loss=1.067034363746643
+{'dataset_size': 750,
+ 'test_accuracy': 0.7385183572769165,
+ 'test_loss': 1.067034363746643,
+ 'train_accuracy': 0.6981027126312256,
+ 'train_loss': 0.8553745150566101,
+ 'val_accuracy': 0.578125}
+2021-10-09 02:59.19 [info     ] Start Predict                  dataset=59150
+2021-10-09 02:59.34 [info     ] Starting training              dataset=760 epoch=100
+2021-10-09 03:00.28 [info     ] Training complete              train_loss=0.28778716921806335
+2021-10-09 03:00.28 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:00.30 [info     ] Evaluation complete            test_loss=0.7280909419059753
+{'dataset_size': 760,
+ 'test_accuracy': 0.7995207905769348,
+ 'test_loss': 0.7280909419059753,
+ 'train_accuracy': 0.9066839814186096,
+ 'train_loss': 0.28778716921806335,
+ 'val_accuracy': 0.734375}
+2021-10-09 03:00.31 [info     ] Start Predict                  dataset=59140
+2021-10-09 03:00.46 [info     ] Starting training              dataset=770 epoch=100
+2021-10-09 03:01.18 [info     ] Training complete              train_loss=0.6664820909500122
+2021-10-09 03:01.18 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:01.21 [info     ] Evaluation complete            test_loss=0.946135401725769
+{'dataset_size': 770,
+ 'test_accuracy': 0.7368211150169373,
+ 'test_loss': 0.946135401725769,
+ 'train_accuracy': 0.7762500047683716,
+ 'train_loss': 0.6664820909500122,
+ 'val_accuracy': 0.6171875}
+2021-10-09 03:01.21 [info     ] Start Predict                  dataset=59130
+2021-10-09 03:01.36 [info     ] Starting training              dataset=780 epoch=100
+2021-10-09 03:02.09 [info     ] Training complete              train_loss=0.6095491051673889
+2021-10-09 03:02.09 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:02.11 [info     ] Evaluation complete            test_loss=0.9780380725860596
+{'dataset_size': 780,
+ 'test_accuracy': 0.7399161458015442,
+ 'test_loss': 0.9780380725860596,
+ 'train_accuracy': 0.8054167032241821,
+ 'train_loss': 0.6095491051673889,
+ 'val_accuracy': 0.5859375}
+2021-10-09 03:02.12 [info     ] Start Predict                  dataset=59120
+2021-10-09 03:02.27 [info     ] Starting training              dataset=790 epoch=100
+2021-10-09 03:02.57 [info     ] Training complete              train_loss=0.5481419563293457
+2021-10-09 03:02.57 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:03.00 [info     ] Evaluation complete            test_loss=0.8825662136077881
+{'dataset_size': 790,
+ 'test_accuracy': 0.7543929815292358,
+ 'test_loss': 0.8825662136077881,
+ 'train_accuracy': 0.8203408718109131,
+ 'train_loss': 0.5481419563293457,
+ 'val_accuracy': 0.6171875}
+2021-10-09 03:03.00 [info     ] Start Predict                  dataset=59110
+2021-10-09 03:03.14 [info     ] Starting training              dataset=800 epoch=100
+2021-10-09 03:03.53 [info     ] Training complete              train_loss=0.5000013709068298
+2021-10-09 03:03.53 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:03.56 [info     ] Evaluation complete            test_loss=0.8734528422355652
+{'dataset_size': 800,
+ 'test_accuracy': 0.7807508111000061,
+ 'test_loss': 0.8734528422355652,
+ 'train_accuracy': 0.8475000262260437,
+ 'train_loss': 0.5000013709068298,
+ 'val_accuracy': 0.6171875}
+2021-10-09 03:03.56 [info     ] Start Predict                  dataset=59100
+2021-10-09 03:04.11 [info     ] Starting training              dataset=810 epoch=100
+2021-10-09 03:05.05 [info     ] Training complete              train_loss=0.2936754524707794
+2021-10-09 03:05.05 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:05.08 [info     ] Evaluation complete            test_loss=0.7550357580184937
+{'dataset_size': 810,
+ 'test_accuracy': 0.8030151724815369,
+ 'test_loss': 0.7550357580184937,
+ 'train_accuracy': 0.9278846383094788,
+ 'train_loss': 0.2936754524707794,
+ 'val_accuracy': 0.6875}
+2021-10-09 03:05.08 [info     ] Start Predict                  dataset=59090
+2021-10-09 03:05.23 [info     ] Starting training              dataset=820 epoch=100
+2021-10-09 03:06.06 [info     ] Training complete              train_loss=0.43526458740234375
+2021-10-09 03:06.06 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:06.09 [info     ] Evaluation complete            test_loss=0.8234289884567261
+{'dataset_size': 820,
+ 'test_accuracy': 0.7694688439369202,
+ 'test_loss': 0.8234289884567261,
+ 'train_accuracy': 0.8776442408561707,
+ 'train_loss': 0.43526458740234375,
+ 'val_accuracy': 0.609375}
+2021-10-09 03:06.09 [info     ] Start Predict                  dataset=59080
+2021-10-09 03:06.24 [info     ] Starting training              dataset=830 epoch=100
+2021-10-09 03:07.14 [info     ] Training complete              train_loss=0.4207720458507538
+2021-10-09 03:07.14 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:07.17 [info     ] Evaluation complete            test_loss=0.8577052354812622
+{'dataset_size': 830,
+ 'test_accuracy': 0.7887380123138428,
+ 'test_loss': 0.8577052354812622,
+ 'train_accuracy': 0.8757210969924927,
+ 'train_loss': 0.4207720458507538,
+ 'val_accuracy': 0.6328125}
+2021-10-09 03:07.17 [info     ] Start Predict                  dataset=59070
+2021-10-09 03:07.31 [info     ] Starting training              dataset=840 epoch=100
+2021-10-09 03:07.56 [info     ] Training complete              train_loss=0.781032145023346
+2021-10-09 03:07.56 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:07.59 [info     ] Evaluation complete            test_loss=1.0169377326965332
+{'dataset_size': 840,
+ 'test_accuracy': 0.7519968152046204,
+ 'test_loss': 1.0169377326965332,
+ 'train_accuracy': 0.7129629850387573,
+ 'train_loss': 0.781032145023346,
+ 'val_accuracy': 0.5859375}
+2021-10-09 03:07.59 [info     ] Start Predict                  dataset=59060
+2021-10-09 03:08.14 [info     ] Starting training              dataset=850 epoch=100
+2021-10-09 03:08.39 [info     ] Training complete              train_loss=0.6981304287910461
+2021-10-09 03:08.39 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:08.42 [info     ] Evaluation complete            test_loss=0.9347377419471741
+{'dataset_size': 850,
+ 'test_accuracy': 0.7533945441246033,
+ 'test_loss': 0.9347377419471741,
+ 'train_accuracy': 0.7631173133850098,
+ 'train_loss': 0.6981304287910461,
+ 'val_accuracy': 0.59375}
+2021-10-09 03:08.42 [info     ] Start Predict                  dataset=59050
+2021-10-09 03:08.57 [info     ] Starting training              dataset=860 epoch=100
+2021-10-09 03:09.54 [info     ] Training complete              train_loss=0.35151734948158264
+2021-10-09 03:09.54 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:09.57 [info     ] Evaluation complete            test_loss=0.8026690483093262
+{'dataset_size': 860,
+ 'test_accuracy': 0.7954273223876953,
+ 'test_loss': 0.8026690483093262,
+ 'train_accuracy': 0.8920304179191589,
+ 'train_loss': 0.35151734948158264,
+ 'val_accuracy': 0.6328125}
+2021-10-09 03:09.57 [info     ] Start Predict                  dataset=59040
+2021-10-09 03:10.12 [info     ] Starting training              dataset=870 epoch=100
+2021-10-09 03:10.41 [info     ] Training complete              train_loss=0.6367675065994263
+2021-10-09 03:10.41 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:10.44 [info     ] Evaluation complete            test_loss=0.9442654252052307
+{'dataset_size': 870,
+ 'test_accuracy': 0.7661741375923157,
+ 'test_loss': 0.9442654252052307,
+ 'train_accuracy': 0.78125,
+ 'train_loss': 0.6367675065994263,
+ 'val_accuracy': 0.609375}
+2021-10-09 03:10.44 [info     ] Start Predict                  dataset=59030
+2021-10-09 03:10.59 [info     ] Starting training              dataset=880 epoch=100
+2021-10-09 03:11.19 [info     ] Training complete              train_loss=0.8677312135696411
+2021-10-09 03:11.19 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:11.21 [info     ] Evaluation complete            test_loss=1.0742273330688477
+{'dataset_size': 880,
+ 'test_accuracy': 0.7355231642723083,
+ 'test_loss': 1.0742273330688477,
+ 'train_accuracy': 0.6975446343421936,
+ 'train_loss': 0.8677312135696411,
+ 'val_accuracy': 0.5234375}
+2021-10-09 03:11.22 [info     ] Start Predict                  dataset=59020
+2021-10-09 03:11.36 [info     ] Starting training              dataset=890 epoch=100
+2021-10-09 03:12.30 [info     ] Training complete              train_loss=0.35282137989997864
+2021-10-09 03:12.30 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:12.32 [info     ] Evaluation complete            test_loss=0.7467894554138184
+{'dataset_size': 890,
+ 'test_accuracy': 0.8004193305969238,
+ 'test_loss': 0.7467894554138184,
+ 'train_accuracy': 0.8853880167007446,
+ 'train_loss': 0.35282137989997864,
+ 'val_accuracy': 0.7265625}
+2021-10-09 03:12.32 [info     ] Start Predict                  dataset=59010
+2021-10-09 03:12.47 [info     ] Starting training              dataset=900 epoch=100
+2021-10-09 03:13.03 [info     ] Training complete              train_loss=0.8857252597808838
+2021-10-09 03:13.03 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:13.06 [info     ] Evaluation complete            test_loss=1.0726191997528076
+{'dataset_size': 900,
+ 'test_accuracy': 0.7301318049430847,
+ 'test_loss': 1.0726191997528076,
+ 'train_accuracy': 0.7068965435028076,
+ 'train_loss': 0.8857252597808838,
+ 'val_accuracy': 0.5703125}
+2021-10-09 03:13.06 [info     ] Start Predict                  dataset=59000
+2021-10-09 03:13.21 [info     ] Starting training              dataset=910 epoch=100
+2021-10-09 03:14.26 [info     ] Training complete              train_loss=0.3355945348739624
+2021-10-09 03:14.26 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:14.28 [info     ] Evaluation complete            test_loss=0.7391323447227478
+{'dataset_size': 910,
+ 'test_accuracy': 0.8084065318107605,
+ 'test_loss': 0.7391323447227478,
+ 'train_accuracy': 0.8940886855125427,
+ 'train_loss': 0.3355945348739624,
+ 'val_accuracy': 0.71875}
+2021-10-09 03:14.29 [info     ] Start Predict                  dataset=58990
+2021-10-09 03:14.44 [info     ] Starting training              dataset=920 epoch=100
+2021-10-09 03:15.18 [info     ] Training complete              train_loss=0.5976372361183167
+2021-10-09 03:15.18 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:15.21 [info     ] Evaluation complete            test_loss=0.8697730302810669
+{'dataset_size': 920,
+ 'test_accuracy': 0.7835463285446167,
+ 'test_loss': 0.8697730302810669,
+ 'train_accuracy': 0.8071120977401733,
+ 'train_loss': 0.5976372361183167,
+ 'val_accuracy': 0.6875}
+2021-10-09 03:15.21 [info     ] Start Predict                  dataset=58980
+2021-10-09 03:15.36 [info     ] Starting training              dataset=930 epoch=100
+2021-10-09 03:16.47 [info     ] Training complete              train_loss=0.36504313349723816
+2021-10-09 03:16.47 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:16.50 [info     ] Evaluation complete            test_loss=0.7510139346122742
+{'dataset_size': 930,
+ 'test_accuracy': 0.8041134476661682,
+ 'test_loss': 0.7510139346122742,
+ 'train_accuracy': 0.8854166865348816,
+ 'train_loss': 0.36504313349723816,
+ 'val_accuracy': 0.796875}
+2021-10-09 03:16.50 [info     ] Start Predict                  dataset=58970
+2021-10-09 03:17.05 [info     ] Starting training              dataset=940 epoch=100
+2021-10-09 03:17.55 [info     ] Training complete              train_loss=0.5832289457321167
+2021-10-09 03:17.55 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:17.57 [info     ] Evaluation complete            test_loss=0.8616220951080322
+{'dataset_size': 940,
+ 'test_accuracy': 0.7751597166061401,
+ 'test_loss': 0.8616220951080322,
+ 'train_accuracy': 0.8045138716697693,
+ 'train_loss': 0.5832289457321167,
+ 'val_accuracy': 0.5625}
+2021-10-09 03:17.57 [info     ] Start Predict                  dataset=58960
+2021-10-09 03:18.12 [info     ] Starting training              dataset=950 epoch=100
+2021-10-09 03:18.42 [info     ] Training complete              train_loss=0.7667229771614075
+2021-10-09 03:18.42 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:18.45 [info     ] Evaluation complete            test_loss=0.9645807147026062
+{'dataset_size': 950,
+ 'test_accuracy': 0.7550918459892273,
+ 'test_loss': 0.9645807147026062,
+ 'train_accuracy': 0.7278409600257874,
+ 'train_loss': 0.7667229771614075,
+ 'val_accuracy': 0.5234375}
+2021-10-09 03:18.45 [info     ] Start Predict                  dataset=58950
+2021-10-09 03:19.00 [info     ] Starting training              dataset=960 epoch=100
+2021-10-09 03:19.43 [info     ] Training complete              train_loss=0.4640740752220154
+2021-10-09 03:19.43 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:19.46 [info     ] Evaluation complete            test_loss=0.7973454594612122
+{'dataset_size': 960,
+ 'test_accuracy': 0.7911341786384583,
+ 'test_loss': 0.7973454594612122,
+ 'train_accuracy': 0.8572916388511658,
+ 'train_loss': 0.4640740752220154,
+ 'val_accuracy': 0.6328125}
+2021-10-09 03:19.46 [info     ] Start Predict                  dataset=58940
+2021-10-09 03:20.01 [info     ] Starting training              dataset=970 epoch=100
+2021-10-09 03:20.24 [info     ] Training complete              train_loss=0.843960165977478
+2021-10-09 03:20.24 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:20.26 [info     ] Evaluation complete            test_loss=1.0080816745758057
+{'dataset_size': 970,
+ 'test_accuracy': 0.7410143613815308,
+ 'test_loss': 1.0080816745758057,
+ 'train_accuracy': 0.7068548798561096,
+ 'train_loss': 0.843960165977478,
+ 'val_accuracy': 0.453125}
+2021-10-09 03:20.27 [info     ] Start Predict                  dataset=58930
+2021-10-09 03:20.42 [info     ] Starting training              dataset=980 epoch=100
+2021-10-09 03:21.50 [info     ] Training complete              train_loss=0.2535327970981598
+2021-10-09 03:21.50 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:21.52 [info     ] Evaluation complete            test_loss=0.6704734563827515
+{'dataset_size': 980,
+ 'test_accuracy': 0.8264776468276978,
+ 'test_loss': 0.6704734563827515,
+ 'train_accuracy': 0.9215725660324097,
+ 'train_loss': 0.2535327970981598,
+ 'val_accuracy': 0.734375}
+2021-10-09 03:21.52 [info     ] Start Predict                  dataset=58920
+2021-10-09 03:22.08 [info     ] Starting training              dataset=990 epoch=100
+2021-10-09 03:22.37 [info     ] Training complete              train_loss=0.7670714259147644
+2021-10-09 03:22.37 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:22.40 [info     ] Evaluation complete            test_loss=1.0239771604537964
+{'dataset_size': 990,
+ 'test_accuracy': 0.7385183572769165,
+ 'test_loss': 1.0239771604537964,
+ 'train_accuracy': 0.7284274101257324,
+ 'train_loss': 0.7670714259147644,
+ 'val_accuracy': 0.5625}
+2021-10-09 03:22.40 [info     ] Start Predict                  dataset=58910
+2021-10-09 03:22.55 [info     ] Starting training              dataset=1000 epoch=100
+2021-10-09 03:23.39 [info     ] Training complete              train_loss=0.48555439710617065
+2021-10-09 03:23.39 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:23.42 [info     ] Evaluation complete            test_loss=0.8319803476333618
+{'dataset_size': 1000,
+ 'test_accuracy': 0.7866413593292236,
+ 'test_loss': 0.8319803476333618,
+ 'train_accuracy': 0.8466796875,
+ 'train_loss': 0.48555439710617065,
+ 'val_accuracy': 0.6328125}
+2021-10-09 03:23.42 [info     ] Start Predict                  dataset=58900
+2021-10-09 03:23.57 [info     ] Starting training              dataset=1010 epoch=100
+2021-10-09 03:24.33 [info     ] Training complete              train_loss=0.6682984232902527
+2021-10-09 03:24.33 [info     ] Starting evaluating            dataset=10000
+2021-10-09 03:24.35 [info     ] Evaluation complete            test_loss=0.9760856032371521
+{'dataset_size': 1010,
+ 'test_accuracy': 0.7648761868476868,
+ 'test_loss': 0.9760856032371521,
+ 'train_accuracy': 0.7858073115348816,
+ 'train_loss': 0.6682984232902527,
+ 'val_accuracy': 0.6171875}
+2021-10-09 03:24.35 [info     ] Start Predict                  dataset=58890

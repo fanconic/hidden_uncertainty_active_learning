@@ -53,22 +53,31 @@ def main():
         classes=list(range(config["data"]["nb_classes"])),
     )  # Start with 200 items labelled.
 
-    # Creates an MLP to classify MNIST
-    model = get_model(config["model"])
-    if config["model"]["mc_dropout"]:
-        model = patch_module(model)  # Set dropout layers for MC-Dropout.
+    # Loss
+    criterion = nn.CrossEntropyLoss()
 
-    if use_cuda:
-        model = model.cuda()
-    # wrapper = ModelWrapper(model=model, criterion=nn.CrossEntropyLoss())
-    optimizer = optim.Adam(
-        model.parameters(),
-        lr=config["optimizer"]["lr"],
-        betas=config["optimizer"]["betas"],
-        weight_decay=config["optimizer"]["weight_decay"],
-    )
+    # Create MLPs to classify MNIST
+    models = []
+    optimizers = []
+    for _ in range(config["model"]["ensemble"]):
+        model = get_model(config["model"])
+        if config["model"]["mc_dropout"]:
+            model = patch_module(model)  # Set dropout layers for MC-Dropout.
 
-    wrapper = ModelWrapper(model=model, criterion=nn.CrossEntropyLoss())
+        if use_cuda:
+            model = model.cuda()
+
+        optimizer = optim.Adam(
+            model.parameters(),
+            lr=config["optimizer"]["lr"],
+            betas=config["optimizer"]["betas"],
+            weight_decay=config["optimizer"]["weight_decay"],
+        )
+
+        models.append(model)
+        optimizers.append(optimizer)
+
+    wrapper = ModelWrapper(models=models, criterion=criterion)
     wrapper.add_metric("accuracy", lambda: Accuracy())
 
     # We will use BALD as our heuristic as it is a great tradeoff between performance and efficiency.
@@ -90,18 +99,20 @@ def main():
     )
 
     # Following Gal 2016, we reset the weights at the beginning of each step.
-    initial_weights = deepcopy(model.state_dict())
+    initial_weights = [deepcopy(model.state_dict()) for model in models]
 
     test_accuracies = []
     test_losses = []
     samples = []
 
     for step in range(config["training"]["iterations"]):
-        model.load_state_dict(initial_weights)
+        for i, model in enumerate(models):
+            model.load_state_dict(initial_weights[0])
+
         train_loss = wrapper.train_on_dataset(
             al_dataset,
             val_ds,
-            optimizer=optimizer,
+            optimizers=optimizers,
             batch_size=config["training"]["batch_size"],
             epoch=config["training"]["epochs"],
             use_cuda=use_cuda,

@@ -41,7 +41,7 @@ $ conda install --file requirements.txt
 
 ## How to train on CVL's GPU Cluster
 ```
-sbatch --output=experiment_outputs/%j.out --gres=gpu:1 --mem=30G ./run.sh
+sbatch --output=experiment_outputs/%j.out --gres=gpu:1 --mem=30G ./run.sh && cp config.yaml experiment_configs/%j.yaml
 ```
 
 ## Contributors
@@ -51,4 +51,4 @@ sbatch --output=experiment_outputs/%j.out --gres=gpu:1 --mem=30G ./run.sh
 ## References
 - https://github.com/kumar-shridhar/PyTorch-BayesianCNN
 - https://github.com/ElementAI/baal
-- 
+- https://github.com/cameronccohen/deep-ensembles/

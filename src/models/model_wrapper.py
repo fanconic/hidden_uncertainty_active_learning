@@ -42,8 +42,8 @@ class ModelWrapper:
         replicate_in_memory (bool): Replicate in memory optional.
     """
 
-    def __init__(self, model, criterion, replicate_in_memory=True):
-        self.model = model
+    def __init__(self, models, criterion, replicate_in_memory=True):
+        self.models = models
         self.criterion = criterion
         self.metrics = dict()
         self.add_metric("loss", lambda: Loss())
@@ -91,7 +91,7 @@ class ModelWrapper:
         self,
         dataset,
         val_dataset,
-        optimizer,
+        optimizers,
         batch_size,
         epoch,
         use_cuda,
@@ -107,7 +107,7 @@ class ModelWrapper:
         Args:
             dataset (Dataset): Pytorch Dataset to be trained on.
             val_dataset (Dataset): Pytorch Dataset, for the model to be evaluated on
-            optimizer (optim.Optimizer): Optimizer to use.
+            optimizer (optim.Optimizer): list of Optimizer to use.
             batch_size (int): The batch size used in the DataLoader.
             epoch (int): Number of epoch to train for.
             use_cuda (bool): Use cuda or not.
@@ -125,16 +125,21 @@ class ModelWrapper:
         collate_fn = collate_fn or default_collate
         best_loss = np.inf
         patience_counter = 0
+        #
         for i in range(epoch):
             self.train()
             self._reset_metrics("train")
             loader = DataLoader(
-                dataset, batch_size, True, num_workers=workers, collate_fn=collate_fn
+                dataset,
+                batch_size,
+                True,
+                num_workers=workers,
+                collate_fn=collate_fn,
             )
             if verbose:
                 loader = tqdm(loader)
             for data, target in loader:
-                _ = self.train_on_batch(data, target, optimizer, use_cuda, regularizer)
+                _ = self.train_on_batch(data, target, optimizers, use_cuda, regularizer)
 
                 if verbose:
                     loader.set_description(f"Epoch [{i+1}/{epoch}]")
@@ -144,6 +149,8 @@ class ModelWrapper:
                         val_loss=self.metrics["val_loss"].value,
                         val_acc=self.metrics["val_accuracy"].value,
                     )
+            for optimizer in optimizers:
+                optimizer.zero_grad()  # Assert that the gradient is flushed.
             history.append(self.metrics["train_loss"].value)
 
             # Validation Loop
@@ -166,7 +173,6 @@ class ModelWrapper:
                 if patience_counter == patience:
                     break
 
-        optimizer.zero_grad()  # Assert that the gradient is flushed.
         log.info("Training complete", train_loss=self.metrics["train_loss"].value)
         return history
 
@@ -330,8 +336,12 @@ class ModelWrapper:
         if verbose:
             loader = tqdm(loader, total=len(loader), file=sys.stdout)
         for idx, (data, _) in enumerate(loader):
+            preds = []
+            for model in self.models:
+                pred = self.predict_on_batch(model, data, iterations, use_cuda)
+                preds.append(pred)
 
-            pred = self.predict_on_batch(data, iterations, use_cuda)
+            pred = torch.mean(torch.stack(preds), dim=0)
             pred = map_on_tensor(lambda x: x.detach(), pred)
             if half:
                 pred = map_on_tensor(lambda x: x.half(), pred)
@@ -386,7 +396,7 @@ class ModelWrapper:
         self,
         data,
         target,
-        optimizer,
+        optimizers,
         cuda=False,
         regularizer: Optional[Callable] = None,
     ):
@@ -395,7 +405,7 @@ class ModelWrapper:
         Args:
             data (Tensor): The model input.
             target (Tensor): The ground truth.
-            optimizer (optim.Optimizer): An optimizer.
+            optimizers (optim.Optimizer): list of optimizer.
             cuda (bool): Use CUDA or not.
             regularizer (Optional[Callable]): The loss regularization for training.
         Returns:
@@ -404,22 +414,34 @@ class ModelWrapper:
 
         if cuda:
             data, target = to_cuda(data), to_cuda(target)
-        optimizer.zero_grad()
-        output = self.model(data)
-        loss = self.criterion(output, target)
 
-        if isinstance(self.model, (BNN, BCNN)):
-            # BayesNet implies additional KL-loss.
-            kl_loss = self.model.kl_div_weight * self.model.kl_loss()
-            loss += kl_loss
+        losses = []
+        outputs = []
+        for model, optimizer in zip(self.models, optimizers):
+            optimizer.zero_grad()
+            output = model(data)
+            loss = self.criterion(output, target)
 
-        if regularizer:
-            regularized_loss = loss + regularizer()
-            regularized_loss.backward()
-        else:
-            loss.backward()
+            if isinstance(model, (BNN, BCNN)):
+                # BayesNet implies additional KL-loss.
+                kl_loss = model.kl_div_weight * model.kl_loss()
+                loss += kl_loss
 
-        optimizer.step()
+            if regularizer:
+                regularized_loss = loss + regularizer()
+                regularized_loss.backward()
+            else:
+                loss.backward()
+
+            outputs.append(output)
+            losses.append(loss)
+
+            optimizer.step()
+
+        # average the ensembles, if any
+        output = torch.mean(torch.stack(outputs), dim=0)
+        loss = torch.mean(torch.stack(losses), dim=0)
+
         self._update_metrics(output, target, loss, filter="train")
         return loss
 
@@ -447,21 +469,35 @@ class ModelWrapper:
             if cuda:
                 data, target = to_cuda(data), to_cuda(target)
 
-            preds = map_on_tensor(
-                lambda p: p.mean(-1),
-                self.predict_on_batch(data, iterations=average_predictions, cuda=cuda),
-            )
-            loss = self.criterion(preds, target)
+            losses = []
+            outputs = []
+            for model in self.models:
+                preds = map_on_tensor(
+                    lambda p: p.mean(-1),
+                    self.predict_on_batch(
+                        model, data, iterations=average_predictions, cuda=cuda
+                    ),
+                )
+                loss = self.criterion(preds, target)
+
+                outputs.append(preds)
+                losses.append(loss)
+
+            # average the ensembles, if any
+            output = torch.mean(torch.stack(outputs), dim=0)
+            loss = torch.mean(torch.stack(losses), dim=0)
+
             if validate:
-                self._update_metrics(preds, target, loss, "val")
+                self._update_metrics(output, target, loss, "val")
             else:
-                self._update_metrics(preds, target, loss, "test")
+                self._update_metrics(output, target, loss, "test")
             return loss
 
-    def predict_on_batch(self, data, iterations=1, cuda=False):
+    def predict_on_batch(self, model, data, iterations=1, cuda=False):
         """
         Get the model's prediction on a batch.
         Args:
+            model (Model): single pytorch model
             data (Tensor): The model input.
             iterations (int): Number of prediction to perform.
             cuda (bool): Use CUDA or not.
@@ -474,10 +510,10 @@ class ModelWrapper:
         with torch.no_grad():
             if cuda:
                 data = to_cuda(data)
-            if self.replicate_in_memory and not isinstance(self.model, (BNN, BCNN)):
+            if self.replicate_in_memory and not isinstance(model, (BNN, BCNN)):
                 data = map_on_tensor(lambda d: stack_in_memory(d, iterations), data)
                 try:
-                    out = self.model(data)
+                    out = model(data)
                 except RuntimeError as e:
                     raise RuntimeError(
                         """CUDA ran out of memory while BaaL tried to replicate data. See the exception above.
@@ -491,7 +527,7 @@ class ModelWrapper:
                     lambda o: o.permute(1, 2, *range(3, o.ndimension()), 0), out
                 )
             else:
-                out = [self.model(data) for _ in range(iterations)]
+                out = [model(data) for _ in range(iterations)]
                 out = _stack_preds(out)
             return out
 
@@ -501,23 +537,26 @@ class ModelWrapper:
         Returns:
             Config for parameters.
         """
-        return self.model.parameters()
+        return [model.parameters() for model in self.models]
 
     def state_dict(self):
         """Get the state dict(s)."""
-        return self.model.state_dict()
+        return [model.state_dict for model in self.models]
 
-    def load_state_dict(self, state_dict, strict=True):
+    def load_state_dict(self, state_dicts, strict=True):
         """Load the model with `state_dict`."""
-        self.model.load_state_dict(state_dict, strict=strict)
+        for model, state_dict in zip(self.models, state_dicts):
+            model.load_state_dict(state_dict, strict=strict)
 
     def train(self):
         """Set the model in `train` mode."""
-        self.model.train()
+        for model in self.models:
+            model.train()
 
     def eval(self):
         """Set the model in `eval mode`."""
-        self.model.eval()
+        for model in self.models:
+            model.eval()
 
     def reset_fcs(self):
         """Reset all torch.nn.Linear layers."""
