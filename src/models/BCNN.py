@@ -67,7 +67,7 @@ class BCNN(torch.nn.Module):
         ]
         self.net = nn.Sequential(*all_layers)
 
-    def forward(self, x):
+    def forward(self, x, **kwargs):
         """Forward pass through the neural network
         Args:
             x: input data
@@ -76,7 +76,7 @@ class BCNN(torch.nn.Module):
         """
         return self.net(x)
 
-    def predict_class_probs(self, x, num_forward_passes=50):
+    def predict_class_probs(self, x, num_forward_passes=1):
         """Forward pass through the neural network and predicts class probability, via multiple forward passes
         Args:
             x: input data
@@ -84,17 +84,10 @@ class BCNN(torch.nn.Module):
         Returns:
             out: class probabilities
         """
-        ys = []
-        for _ in range(num_forward_passes):
-            y_hat = self.net(x)
-            softmax_layer = nn.Softmax(dim=1)
-            y_hat = softmax_layer(y_hat)
-
-            ys.append(y_hat.detach().numpy())
-
-        ys = np.array(ys)
-        probs = ys.mean(axis=0)
-        return torch.Tensor(probs)
+        y_hat = self.net(x)
+        softmax_layer = nn.Softmax(dim=1)
+        out = softmax_layer(y_hat)
+        return out
 
     def kl_loss(self):
         """Computes the KL divergence loss for all layers.

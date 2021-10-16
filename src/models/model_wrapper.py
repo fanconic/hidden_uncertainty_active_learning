@@ -20,9 +20,37 @@ from src.utils.metrics import Loss
 
 from src.models.BNN import BNN
 from src.models.BCNN import BCNN
+from src.models.MIR import MIR
 
 
 log = structlog.get_logger("ModelWrapper")
+
+
+def extract_features(model, dataset, cuda=False):
+    """extracts features and predictions of the MIR model
+    Args:
+        model (nn.Model): MIR model
+        dataset: training dataset
+        cuda (bool): use cuda
+    returns:
+        features, predictions
+    """
+    features = []
+    predictions = []
+    for i, batch in enumerate(dataset):
+        x, _ = batch
+
+        if cuda:
+            x = to_cuda(x)
+
+        out = model(x, return_features=True)
+        softmax_layer = nn.Softmax(dim=1)
+        features.append(softmax_layer(out["features"]).detach())
+        predictions.append(np.argmax(out["prediction"].detach(), axis=-1))
+
+    features = np.concatenate(features, axis=0)
+    predictions = np.concatenate(predictions, axis=0)
+    return features, predictions
 
 
 def _stack_preds(out):
@@ -184,6 +212,20 @@ class ModelWrapper:
 
                     if patience_counter == patience:
                         break
+
+        if isinstance(self.models[0], MIR):
+            for model in self.models:
+                features_train, pred_train = extract_features(
+                    model=model, dataset=loader, cuda=use_cuda
+                )
+
+                features_val, pred_val = extract_features(
+                    model=model, dataset=val_dataset, cuda=use_cuda
+                )
+
+                model.density.fit(
+                    x=features_train, y=pred_train, x_val=features_val, y_val=pred_val
+                )
 
         log.info("Training complete", train_loss=self.metrics["train_loss"].value)
         return history
@@ -350,7 +392,9 @@ class ModelWrapper:
         for idx, (data, _) in enumerate(loader):
             preds = []
             for model in self.models:
-                pred = self.predict_on_batch(model, data, iterations, use_cuda)
+                pred = self.predict_on_batch(
+                    model, data, iterations, use_cuda, class_probas=True
+                )
                 preds.append(pred)
 
             pred = torch.mean(torch.stack(preds), dim=0)
@@ -431,13 +475,19 @@ class ModelWrapper:
         outputs = []
         for model, optimizer in zip(self.models, optimizers):
             optimizer.zero_grad()
-            output = model(data)
-            loss = self.criterion(output, target)
+            output = model(data, return_reconstructions=True)
 
-            if isinstance(model, (BNN, BCNN)):
+            if isinstance(model, MIR):
+                loss = model.compute_loss(self.criterion, data, target, output)
+                output = output["prediction"]
+
+            elif isinstance(model, (BNN, BCNN)):
                 # BayesNet implies additional KL-loss.
+                loss = self.criterion(output, target)
                 kl_loss = model.kl_div_weight * model.kl_loss()
                 loss += kl_loss
+            else:
+                loss = self.criterion(output, target)
 
             if regularizer:
                 regularized_loss = loss + regularizer()
@@ -487,9 +537,14 @@ class ModelWrapper:
                 preds = map_on_tensor(
                     lambda p: p.mean(-1),
                     self.predict_on_batch(
-                        model, data, iterations=average_predictions, cuda=cuda
+                        model,
+                        data,
+                        iterations=average_predictions,
+                        cuda=cuda,
+                        class_probas=False,
                     ),
                 )
+
                 loss = self.criterion(preds, target)
 
                 outputs.append(preds)
@@ -505,7 +560,9 @@ class ModelWrapper:
                 self._update_metrics(output, target, loss, "test")
             return loss
 
-    def predict_on_batch(self, model, data, iterations=1, cuda=False):
+    def predict_on_batch(
+        self, model, data, iterations=1, cuda=False, class_probas=False
+    ):
         """
         Get the model's prediction on a batch.
         Args:
@@ -513,6 +570,7 @@ class ModelWrapper:
             data (Tensor): The model input.
             iterations (int): Number of prediction to perform.
             cuda (bool): Use CUDA or not.
+            class_probas (bool): return class probabilities, else logits
         Returns:
             Tensor, the loss computed from the criterion.
                     shape = {batch_size, nclass, n_iteration}.
@@ -525,7 +583,14 @@ class ModelWrapper:
             if self.replicate_in_memory and not isinstance(model, (BNN, BCNN)):
                 data = map_on_tensor(lambda d: stack_in_memory(d, iterations), data)
                 try:
-                    out = model(data)
+                    if class_probas:
+                        out = model.predict_class_probs(data)
+                        if not isinstance(out, torch.Tensor):
+                            out = torch.tensor(out)
+                            if cuda:
+                                out = to_cuda(out)
+                    else:
+                        out = model(data)
                 except RuntimeError as e:
                     raise RuntimeError(
                         """CUDA ran out of memory while BaaL tried to replicate data. See the exception above.
@@ -539,7 +604,16 @@ class ModelWrapper:
                     lambda o: o.permute(1, 2, *range(3, o.ndimension()), 0), out
                 )
             else:
-                out = [model(data) for _ in range(iterations)]
+                out = []
+                for _ in range(iterations):
+                    if class_probas:
+                        out.append(model.predict_class_probs(data))
+                        if not isinstance(out, torch.Tensor):
+                            out = torch.tensor(out)
+                            if cuda:
+                                out = to_cuda(out)
+                    else:
+                        out.append(model(data))
                 out = _stack_preds(out)
             return out
 

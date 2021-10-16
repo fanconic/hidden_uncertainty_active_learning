@@ -59,7 +59,7 @@ class CNN(torch.nn.Module):
         ]
         self.net = nn.Sequential(*all_layers)
 
-    def forward(self, x):
+    def forward(self, x, **kwargs):
         """Forward pass through the neural network
         Args:
             x: input data

@@ -3,6 +3,7 @@ from src.models.MLP import MLP
 from src.models.CNN import CNN
 from src.models.BNN import BNN
 from src.models.BCNN import BCNN
+from src.models.MIR import MIR
 
 
 def get_model(model_configs):
@@ -22,6 +23,8 @@ def get_model(model_configs):
         return BNN(model_configs)
     elif name == "BCNN":
         return BCNN(model_configs)
+    elif name == "MIR":
+        return MIR(model_configs)
     else:
         raise NotImplemented
 

@@ -17,6 +17,7 @@ from copy import deepcopy
 from pprint import pprint
 from src.data.sampling import sampleFromClass
 import matplotlib.pyplot as plt
+import pandas as pd
 
 
 def main():
@@ -49,7 +50,7 @@ def main():
     )
     al_dataset.label_randomly(
         config["training"]["initially_labelled"],
-        balanced=True,
+        balanced=config["training"]["initially_balanced"],
         classes=list(range(config["data"]["nb_classes"])),
     )  # Start with 200 items labelled.
 
@@ -177,10 +178,16 @@ def main():
         plt.grid()
         plt.title("Experiment {}".format(config["name"]))
         plt.savefig(
-            "experiment_outputs/{}.pdf".format(config["name"]),
+            "experiment_outputs/week3/{}.pdf".format(config["name"]),
             format="pdf",
             bbox_inches="tight",
         )
+
+        df = pd.DataFrame()
+        df["samples"] = samples
+        df["test_accuracy"] = test_accuracies
+        df["test_losses"] = test_losses
+        df.to_csv("experiment_outputs/week3/{}.csv".format(config["name"]))
 
 
 if __name__ == "__main__":
