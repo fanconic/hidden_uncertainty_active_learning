@@ -33,7 +33,9 @@ class ClassConditionalGMM(object):
         for i in range(self.nr_classes):
             self.class_conditional_densities.append(
                 mixture.GaussianMixture(
-                    n_components=self.n_components, covariance_type="full"
+                    n_components=self.n_components,
+                    covariance_type="full",
+                    random_state=42,
                 )
             )
 
@@ -63,7 +65,6 @@ class ClassConditionalGMM(object):
             x_val = self.pca.transform(x_val)
 
         for i in range(self.nr_classes):
-
             if np.sum(y == i) > 1:  # sanity check whether this idx exists
                 self.class_conditional_densities[i] = self.class_conditional_densities[
                     i

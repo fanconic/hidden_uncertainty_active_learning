@@ -171,6 +171,21 @@ class MIR(nn.Module):
         return out_dict["loss"]
 
     def predict_class_probs(self, data: Tuple[torch.Tensor]) -> torch.Tensor:
+        """Computes class probabilities estimates given x.
+
+        Args:
+          data: batch
+
+        Returns:
+          dictionary with entries 'prediction' and 'uncertainty'
+        """
+
+        out = self.forward(data)
+        softmax = nn.Softmax(dim=1)
+        out_preds = softmax(out)
+        return out_preds
+
+    def uncertainty(self, data: Tuple[torch.Tensor]) -> torch.Tensor:
         """Computes uncertainty estimates given x.
 
         Args:
@@ -181,5 +196,7 @@ class MIR(nn.Module):
         """
 
         output_dict = self.forward(inputs=data, return_features=True)
-        uncertainty = -1 * self.density.class_conditional_probs(output_dict["features"])
+        uncertainty = -1 * self.density.marginal_log_probs(
+            output_dict["features"].cpu().detach()
+        )
         return uncertainty

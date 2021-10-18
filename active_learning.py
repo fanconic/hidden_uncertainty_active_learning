@@ -178,7 +178,7 @@ def main():
         plt.grid()
         plt.title("Experiment {}".format(config["name"]))
         plt.savefig(
-            "experiment_outputs/week3/{}.pdf".format(config["name"]),
+            "experiment_outputs/week2/{}.pdf".format(config["name"]),
             format="pdf",
             bbox_inches="tight",
         )
@@ -187,7 +187,7 @@ def main():
         df["samples"] = samples
         df["test_accuracy"] = test_accuracies
         df["test_losses"] = test_losses
-        df.to_csv("experiment_outputs/week3/{}.csv".format(config["name"]))
+        df.to_csv("experiment_outputs/week2/{}.csv".format(config["name"]))
 
 
 if __name__ == "__main__":

@@ -262,6 +262,9 @@ class BALD(AbstractHeuristic):
         Returns:
             Array of scores.
         """
+        import IPython
+
+        IPython.embed()
         assert predictions.ndim >= 3
         # [n_sample, n_class, ..., n_iterations]
 
