@@ -5,6 +5,8 @@ from src.models.BNN import BNN
 from src.models.BCNN import BCNN
 from src.models.MIR import MIR
 
+from src.active.heuristics import *
+
 
 def get_model(model_configs):
     """create a torch model with the given configs
@@ -25,6 +27,34 @@ def get_model(model_configs):
         return BCNN(model_configs)
     elif name == "MIR":
         return MIR(model_configs)
+    else:
+        raise NotImplemented
+
+
+def get_heuristic(heuristic_name):
+    """Get the right heuristic
+    args:
+        heuristic_name (str): name of the heuristic
+    returns:
+        Heuristic
+    """
+    heuristic_name = heuristic_name.lower()
+    if heuristic_name == "bald":
+        return BALD()
+    elif heuristic_name == "batchbald":
+        return BatchBALD(4000)
+    elif heuristic_name == "variance":
+        return Variance()
+    elif heuristic_name == "random":
+        return Random()
+    elif heuristic_name == "entropy":
+        return Entropy()
+    elif heuristic_name == "margin":
+        return Margin()
+    elif heuristic_name == "certainty":
+        return Certainty()
+    elif heuristic_name == "precomputed":
+        return Precomputed()
     else:
         raise NotImplemented
 

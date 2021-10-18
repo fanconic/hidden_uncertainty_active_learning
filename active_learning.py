@@ -4,13 +4,12 @@ import argparse
 import yaml
 import torch
 from torchvision import transforms
-from src.utils.utils import load_data, get_model
+from src.utils.utils import load_data, get_model, get_heuristic
 from src.data.dataset import ActiveLearningDataset
 from src.layers.consistent_dropout import patch_module
 from src.models.model_wrapper import ModelWrapper
 from src.active.active_loop import ActiveLearningLoop
 from torch import nn, optim
-from src.active.heuristics import BALD
 from src.utils.metrics import Accuracy
 import IPython
 from copy import deepcopy
@@ -18,11 +17,24 @@ from pprint import pprint
 from src.data.sampling import sampleFromClass
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
+import random
+import os
+
+
+def set_seed(seed):
+    """Set all random seeds"""
+    random.seed(seed)
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+        torch.backends.cudnn.deterministic = True
 
 
 def main():
     """Main funciton to run"""
-
     use_cuda = torch.cuda.is_available()
     print("Cude is available: ", use_cuda)
 
@@ -30,6 +42,8 @@ def main():
     parser.add_argument("--config_path", default="config.yaml")
     args = parser.parse_args()
     config = yaml.safe_load(open(args.config_path, "r"))
+
+    set_seed(config["random_state"])
 
     # Load dataset
     train_transform = transforms.ToTensor()
@@ -88,20 +102,17 @@ def main():
         optimizers.append(optimizer)
         schedulers.append(scheduler)
 
-    wrapper = ModelWrapper(models=models, criterion=criterion)
-    wrapper.add_metric("accuracy", lambda: Accuracy())
+    heuristic = get_heuristic(config["training"]["heuristic"])
 
-    # We will use BALD as our heuristic as it is a great tradeoff between performance and efficiency.
-    bald = BALD()
+    wrapper = ModelWrapper(models=models, criterion=criterion, heuristic=heuristic)
+    wrapper.add_metric("accuracy", lambda: Accuracy())
 
     # Setup our active learning loop for our experiments
     al_loop = ActiveLearningLoop(
         dataset=al_dataset,
         get_probabilities=wrapper.predict_on_dataset,
-        heuristic=bald,
-        ndata_to_label=config["training"][
-            "ndata_to_label"
-        ],  # We will label 100 examples per step.
+        heuristic=heuristic,
+        ndata_to_label=config["training"]["ndata_to_label"],
         # KWARGS for predict_on_dataset
         iterations=config["model"]["mc_iterations"],
         batch_size=config["training"]["batch_size"],

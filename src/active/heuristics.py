@@ -262,9 +262,6 @@ class BALD(AbstractHeuristic):
         Returns:
             Array of scores.
         """
-        import IPython
-
-        IPython.embed()
         assert predictions.ndim >= 3
         # [n_sample, n_class, ..., n_iterations]
 
@@ -551,7 +548,7 @@ class Precomputed(AbstractHeuristic):
         super().__init__(shuffle_prop, reverse=reverse)
 
     def compute_score(self, predictions):
-        return predictions
+        return predictions[:, 0]
 
 
 class Random(Precomputed):

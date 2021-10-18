@@ -80,18 +80,6 @@ class MIR(nn.Module):
         else:
             raise ValueError(f"Unknown backbone {self.backbone}!")
 
-    def on_epoch_end(self):
-        if not self.warmup is None and self.warmup_counter > 0:
-            self.warmup_counter -= 1
-        else:
-            pass
-
-    def get_loss_names(self) -> List[str]:
-        if self.reconstruction_weight > 0.0:
-            return ["loss", "loss_reconstruction", "loss_prediction"]
-        else:
-            return ["loss", "loss_prediction"]
-
     def forward(
         self,
         inputs: torch.Tensor,
@@ -179,7 +167,6 @@ class MIR(nn.Module):
         Returns:
           dictionary with entries 'prediction' and 'uncertainty'
         """
-
         out = self.forward(data)
         softmax = nn.Softmax(dim=1)
         out_preds = softmax(out)
@@ -194,7 +181,6 @@ class MIR(nn.Module):
         Returns:
           dictionary with entries 'prediction' and 'uncertainty'
         """
-
         output_dict = self.forward(inputs=data, return_features=True)
         uncertainty = -1 * self.density.marginal_log_probs(
             output_dict["features"].cpu().detach()

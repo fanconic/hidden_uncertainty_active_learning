@@ -21,6 +21,7 @@ from src.utils.metrics import Loss
 from src.models.BNN import BNN
 from src.models.BCNN import BCNN
 from src.models.MIR import MIR
+from src.active.heuristics import Precomputed
 
 
 log = structlog.get_logger("ModelWrapper")
@@ -70,9 +71,10 @@ class ModelWrapper:
         replicate_in_memory (bool): Replicate in memory optional.
     """
 
-    def __init__(self, models, criterion, replicate_in_memory=True):
+    def __init__(self, models, criterion, replicate_in_memory=True, heuristic=None):
         self.models = models
         self.criterion = criterion
+        self.heuristic = heuristic
         self.metrics = dict()
         self.add_metric("loss", lambda: Loss())
         self.replicate_in_memory = replicate_in_memory
@@ -392,10 +394,12 @@ class ModelWrapper:
         for idx, (data, _) in enumerate(loader):
             preds = []
             for model in self.models:
-                pred = self.predict_on_batch(model, data, iterations, use_cuda)
+                pred = self.predict_on_batch(
+                    model, data, iterations, use_cuda, pool_prediction=True
+                )
                 preds.append(pred)
 
-            pred = torch.mean(torch.stack(preds), dim=0)
+            pred = torch.mean(_stack_preds(preds), dim=0)
             pred = map_on_tensor(lambda x: x.detach(), pred)
             if half:
                 pred = map_on_tensor(lambda x: x.half(), pred)
@@ -557,7 +561,9 @@ class ModelWrapper:
                 self._update_metrics(output, target, loss, "test")
             return loss
 
-    def predict_on_batch(self, model, data, iterations=1, cuda=False):
+    def predict_on_batch(
+        self, model, data, iterations=1, cuda=False, pool_prediction=False
+    ):
         """
         Get the model's prediction on a batch.
         Args:
@@ -565,6 +571,7 @@ class ModelWrapper:
             data (Tensor): The model input.
             iterations (int): Number of prediction to perform.
             cuda (bool): Use CUDA or not.
+            pool_prediction (bool): if the models are currently predicting on the pool
         Returns:
             Tensor, the loss computed from the criterion.
                     shape = {batch_size, nclass, n_iteration}.
@@ -577,7 +584,14 @@ class ModelWrapper:
             if self.replicate_in_memory and not isinstance(model, (BNN, BCNN)):
                 data = map_on_tensor(lambda d: stack_in_memory(d, iterations), data)
                 try:
-                    out = model(data)
+                    if pool_prediction and isinstance(self.heuristic, Precomputed):
+                        out = model.uncertainty(data)
+                        out = torch.Tensor(out)
+                        if cuda:
+                            out = to_cuda(out)
+                        return out
+                    else:
+                        out = model(data)
                 except RuntimeError as e:
                     raise RuntimeError(
                         """CUDA ran out of memory while BaaL tried to replicate data. See the exception above.
@@ -593,7 +607,13 @@ class ModelWrapper:
             else:
                 out = []
                 for _ in range(iterations):
-                    pred = model(data)
+                    if pool_prediction and isinstance(self.heuristic, Precomputed):
+                        pred = model.uncertainty(data)
+                        pred = torch.Tensor(pred)
+                        if cuda:
+                            pred = to_cuda(pred)
+                    else:
+                        pred = model(data)
                     out.append(pred)
                 out = _stack_preds(out)
             return out
