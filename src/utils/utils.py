@@ -46,7 +46,7 @@ def get_heuristic(heuristic_name):
     elif heuristic_name == "variance":
         return Variance()
     elif heuristic_name == "random":
-        return Random()
+        return Random(seed=42)
     elif heuristic_name == "entropy":
         return Entropy()
     elif heuristic_name == "margin":

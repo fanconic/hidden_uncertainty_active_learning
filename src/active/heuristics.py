@@ -551,7 +551,7 @@ class Precomputed(AbstractHeuristic):
         return predictions[:, 0]
 
 
-class Random(Precomputed):
+class Random(AbstractHeuristic):
     """Random heuristic.
     Args:
         shuffle_prop (float): UNUSED

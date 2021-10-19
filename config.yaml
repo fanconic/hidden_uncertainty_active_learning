@@ -2,13 +2,13 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "MLP_MIR_2"
+name: "MLP_BNN_random"
 
 random_state: 42
 save_plot: True
 
 training:
-    heuristic: "precomputed"
+    heuristic: "random"
     batch_size: 32
     epochs: 50
     ndata_to_label: 10
@@ -31,7 +31,7 @@ data:
 
 model:
     ensemble: 1 #set to 1 for no ensemble
-    name: "MIR"
+    name: "BNN"
     mir_configs: # only applies if name == MIR
         backbone: "MLP"
         reconstruction_weight: 1.0
@@ -45,10 +45,10 @@ model:
     output_size: 10
     hidden_layers: [128, 128]
     kernel_sizes: [4, 4] # only applied if a (B)CNN is used
-    dropout_probabilities: [0.25, 0.5] #[0.25, 0.5]
+    dropout_probabilities: [0.0, 0.0] #[0.25, 0.5]
     use_bias: True
-    mc_dropout: False # used for MC dropout
-    mc_iterations: 1 # iterations for MC dropout
+    mc_dropout: True # used for MC dropout
+    mc_iterations: 10 # iterations for MC dropout
     kl_div_weight: 0.01 # only used for B(C)NN, to weight the kl_div loss
     adversarial_loss: False
 
