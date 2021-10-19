@@ -185,4 +185,4 @@ class MIR(nn.Module):
         uncertainty = -1 * self.density.marginal_log_probs(
             output_dict["features"].cpu().detach()
         )
-        return uncertainty
+        return np.expand_dims(uncertainty, axis=-1)

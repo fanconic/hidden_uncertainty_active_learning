@@ -399,7 +399,13 @@ class ModelWrapper:
                 )
                 preds.append(pred)
 
-            pred = torch.mean(_stack_preds(preds), dim=0)
+            if len(self.models) == 1:
+                pred = preds[0]
+            elif len(self.models) > 1 and preds[0].shape[2] == 1:
+                pred = torch.stack(preds, dim=-1).squeeze(2)
+            else:
+                raise NotImplemented
+
             pred = map_on_tensor(lambda x: x.detach(), pred)
             if half:
                 pred = map_on_tensor(lambda x: x.half(), pred)
