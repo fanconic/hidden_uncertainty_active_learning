@@ -31,7 +31,7 @@ def get_model(model_configs):
         raise NotImplemented
 
 
-def get_heuristic(heuristic_name):
+def get_heuristic(heuristic_name, random_state=0):
     """Get the right heuristic
     args:
         heuristic_name (str): name of the heuristic
@@ -46,7 +46,7 @@ def get_heuristic(heuristic_name):
     elif heuristic_name == "variance":
         return Variance()
     elif heuristic_name == "random":
-        return Random(seed=42)
+        return Random(seed=random_state)
     elif heuristic_name == "entropy":
         return Entropy()
     elif heuristic_name == "margin":

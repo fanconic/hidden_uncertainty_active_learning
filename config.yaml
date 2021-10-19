@@ -2,22 +2,25 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "MLP_MIR_bald_test"
+name: "MLP_random_mult"
 
-random_state: 42
-save_plot: True
+random_state: [3, 11, 42]
+save_plot: False
+save_df: True
+runs: 3
+week: 3
 
 training:
-    heuristic: "precomputed"
-    batch_size: 32
-    epochs: 50
-    ndata_to_label: 10
-    initially_labelled: 20
+    heuristic: "random"
+    batch_size: 64
+    epochs: 40
+    ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
+    initially_labelled: 100
     initially_balanced: True
     verbose: False
     patience: 10
     lr_reduce_factor: 0.1
-    iterations: 100
+    iterations: 15
     early_stopping: False
 
 data:
@@ -27,11 +30,11 @@ data:
     img_rows: 28
     img_cols: 28
     img_channels: 1
-    val_size: 100
+    val_size: 10000
 
 model:
     ensemble: 1 #set to 1 for no ensemble
-    name: "MIR"
+    name: "MLP"
     mir_configs: # only applies if name == MIR
         backbone: "MLP"
         reconstruction_weight: 1.0
@@ -39,6 +42,7 @@ model:
         warmup: False
         feature_dims: 128
         normalize_features: True
+        dim_reduction: 10
     input_height: 28
     input_width: 28
     input_channels: 1

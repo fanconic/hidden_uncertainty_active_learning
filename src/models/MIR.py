@@ -18,6 +18,7 @@ class MIR(nn.Module):
         self.backbone = mir_configs["backbone"]
         self.density_model = mir_configs["density_model"]
         self.normalize_features = mir_configs["normalize_features"]
+        self.dim_reduction = mir_configs["dim_reduction"]
         self.nr_classes = model_configs["output_size"]
 
         # encoder, decoder & loss function
@@ -33,7 +34,7 @@ class MIR(nn.Module):
         if self.density_model == "gmm":
             self.density = ClassConditionalGMM(
                 nr_classes=self.nr_classes,
-                red_dim=-1,
+                red_dim=self.dim_reduction,
                 normalize_features=normalize_features,
             )
         else:
@@ -182,7 +183,7 @@ class MIR(nn.Module):
           dictionary with entries 'prediction' and 'uncertainty'
         """
         output_dict = self.forward(inputs=data, return_features=True)
-        uncertainty = -1 * self.density.marginal_log_probs(
+        uncertainty = self.density.marginal_log_probs(
             output_dict["features"].cpu().detach()
         )
         return np.expand_dims(uncertainty, axis=-1)

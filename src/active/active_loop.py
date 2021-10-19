@@ -38,6 +38,7 @@ class ActiveLearningLoop:
         **kwargs,
     ) -> None:
         self.ndata_to_label = ndata_to_label
+        self.counter = 0
         self.get_probabilities = get_probabilities
         self.heuristic = heuristic
         self.dataset = dataset
@@ -91,6 +92,12 @@ class ActiveLearningLoop:
                         open(pjoin(self.uncertainty_folder, uncertainty_name), "wb"),
                     )
                 if len(to_label) > 0:
-                    self.dataset.label(to_label[: self.ndata_to_label])
+                    if isinstance(self.ndata_to_label, list):
+                        self.dataset.label(
+                            to_label[: self.ndata_to_label[self.counter]]
+                        )
+                        self.counter += 1
+                    else:
+                        self.dataset.label(to_label[: self.ndata_to_label])
                     return True
         return False

@@ -33,17 +33,17 @@ def set_seed(seed):
         torch.backends.cudnn.deterministic = True
 
 
-def main():
+def main(run, random_state):
     """Main funciton to run"""
     use_cuda = torch.cuda.is_available()
-    print("Cude is available: ", use_cuda)
+    print("Cuda is available: ", use_cuda)
 
     parser = argparse.ArgumentParser(description="")
     parser.add_argument("--config_path", default="config.yaml")
     args = parser.parse_args()
     config = yaml.safe_load(open(args.config_path, "r"))
 
-    set_seed(config["random_state"])
+    set_seed(random_state)
 
     # Load dataset
     train_transform = transforms.ToTensor()
@@ -60,7 +60,7 @@ def main():
     al_dataset = ActiveLearningDataset(
         train_ds,
         # pool_specifics={"transform": test_transform},
-        random_state=config["random_state"],
+        random_state=random_state,
     )
     al_dataset.label_randomly(
         config["training"]["initially_labelled"],
@@ -102,7 +102,9 @@ def main():
         optimizers.append(optimizer)
         schedulers.append(scheduler)
 
-    heuristic = get_heuristic(config["training"]["heuristic"])
+    heuristic = get_heuristic(
+        config["training"]["heuristic"], random_state=random_state
+    )
 
     wrapper = ModelWrapper(models=models, criterion=criterion, heuristic=heuristic)
     wrapper.add_metric("accuracy", lambda: Accuracy())
@@ -189,17 +191,33 @@ def main():
         plt.grid()
         plt.title("Experiment {}".format(config["name"]))
         plt.savefig(
-            "experiment_outputs/week2/{}.pdf".format(config["name"]),
+            "experiment_outputs/week{}/{}/run_{}.pdf".format(
+                str(config["week"]), config["name"], str(run + 1)
+            ),
             format="pdf",
             bbox_inches="tight",
         )
 
+    if config["save_df"]:
         df = pd.DataFrame()
         df["samples"] = samples
-        df["test_accuracy"] = test_accuracies
-        df["test_losses"] = test_losses
-        df.to_csv("experiment_outputs/week2/{}.csv".format(config["name"]))
+        df = df.set_index("samples")
+        df["test_accuracy_run{}".format(str(run + 1))] = test_accuracies
+        df["test_losses_run{}".format(str(run + 1))] = test_losses
+        return df
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="")
+    parser.add_argument("--config_path", default="config.yaml")
+    args = parser.parse_args()
+    config = yaml.safe_load(open(args.config_path, "r"))
+    df = pd.DataFrame()
+
+    for run in range(config["runs"]):
+        run_df = main(run, config["random_state"][run])
+        df = df.join(run_df, how="right")
+
+    df.to_csv(
+        "experiment_outputs/week{}/{}.csv".format(str(config["week"]), config["name"])
+    )
