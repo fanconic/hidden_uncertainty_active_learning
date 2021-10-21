@@ -4,6 +4,7 @@ from src.models.CNN import CNN
 from src.models.BNN import BNN
 from src.models.BCNN import BCNN
 from src.models.MIR import MIR
+from src.models.resnet import ResNet
 
 from src.active.heuristics import *
 
@@ -27,6 +28,8 @@ def get_model(model_configs):
         return BCNN(model_configs)
     elif name == "MIR":
         return MIR(model_configs)
+    elif "resnet" in name:
+        return ResNet(model_configs)
     else:
         raise NotImplemented
 

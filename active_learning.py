@@ -33,15 +33,10 @@ def set_seed(seed):
         torch.backends.cudnn.deterministic = True
 
 
-def main(run, random_state):
+def main(config, run, random_state):
     """Main funciton to run"""
     use_cuda = torch.cuda.is_available()
     print("Cuda is available: ", use_cuda)
-
-    parser = argparse.ArgumentParser(description="")
-    parser.add_argument("--config_path", default="config.yaml")
-    args = parser.parse_args()
-    config = yaml.safe_load(open(args.config_path, "r"))
 
     set_seed(random_state)
 
@@ -215,7 +210,7 @@ if __name__ == "__main__":
     df = pd.DataFrame()
 
     for run in range(config["runs"]):
-        run_df = main(run, config["random_state"][run])
+        run_df = main(config, run, config["random_state"][run])
         df = df.join(run_df, how="right")
 
     df.to_csv(
