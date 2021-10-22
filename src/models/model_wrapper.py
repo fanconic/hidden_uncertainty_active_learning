@@ -133,6 +133,7 @@ class ModelWrapper:
         verbose: bool = True,
         patience: int = None,
         average_predictions: int = 1,
+        return_best_weights: bool = False,
     ):
         """
         Train for `epoch` epochs on a Dataset `dataset.
@@ -151,6 +152,7 @@ class ModelWrapper:
             verbose (bool): show training progress
             patience (int): patience epochs, as long as the model did not improve
             average_predictions (int): average predictions for validation dataset
+            return_best_weights (bool): if the best weights shall be returned
         Returns:
             The training history.
         """
@@ -159,6 +161,7 @@ class ModelWrapper:
         collate_fn = collate_fn or default_collate
         best_loss = np.inf
         patience_counter = 0
+        best_weights = None
 
         for i in range(epoch):
             self.train()
@@ -205,14 +208,16 @@ class ModelWrapper:
                         scheduler.step(val_loss)
 
                 # Early stopping
-                if early_stopping:
-                    if val_loss < best_loss:
-                        best_loss = val_loss
-                        patience_counter = 0
-                    else:
-                        patience_counter += 1
+                if val_loss <= best_loss:
+                    best_loss = val_loss
+                    patience_counter = 0
+                    if return_best_weights:
+                        best_weights = deepcopy(self.state_dict())
+                else:
+                    patience_counter += 1
 
-                    if patience_counter == patience:
+                if patience_counter == patience:
+                    if early_stopping:
                         break
 
         if isinstance(self.models[0], MIR):
@@ -230,7 +235,8 @@ class ModelWrapper:
                 )
 
         log.info("Training complete", train_loss=self.metrics["train_loss"].value)
-        return history
+
+        return history, best_weights
 
     def test_on_dataset(
         self,
@@ -278,7 +284,7 @@ class ModelWrapper:
         if validate:
             return self.metrics["val_loss"].value
         else:
-            log.info("Evaluation complete", test_loss=self.metrics["test_loss"].value)
+            log.info("Testing complete", test_loss=self.metrics["test_loss"].value)
             return self.metrics["test_loss"].value
 
     def train_and_test_on_datasets(
@@ -634,7 +640,7 @@ class ModelWrapper:
 
     def state_dict(self):
         """Get the state dict(s)."""
-        return [model.state_dict for model in self.models]
+        return [model.state_dict() for model in self.models]
 
     def load_state_dict(self, state_dicts, strict=True):
         """Load the model with `state_dict`."""

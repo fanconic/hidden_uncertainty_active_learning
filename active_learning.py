@@ -75,7 +75,6 @@ def main(config, run, random_state):
         model = get_model(config["model"])
         if config["model"]["mc_dropout"]:
             model = patch_module(model)  # Set dropout layers for MC-Dropout.
-
         if use_cuda:
             model = model.cuda()
 
@@ -139,7 +138,7 @@ def main(config, run, random_state):
 
             scheduler._reset()
 
-        train_loss = wrapper.train_on_dataset(
+        train_loss, best_weights = wrapper.train_on_dataset(
             al_dataset,
             val_ds,
             optimizers=optimizers,
@@ -150,7 +149,11 @@ def main(config, run, random_state):
             early_stopping=config["training"]["early_stopping"],
             patience=config["training"]["patience"],
             verbose=config["training"]["verbose"],
+            return_best_weights=config["training"]["load_best_model"],
         )
+
+        if config["training"]["load_best_model"]:
+            wrapper.load_state_dict(best_weights)
 
         test_loss = wrapper.test_on_dataset(
             test_ds,

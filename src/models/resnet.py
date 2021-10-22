@@ -1,6 +1,11 @@
+# Taken from https://github.com/pytorch/vision/blob/main/torchvision/models/resnet.py
 import torch
 from torch import nn
+from torch import Tensor
 from torch.nn import functional as F
+from src.models.resnet_base import load
+import copy
+import warnings
 
 
 class ResNet(torch.nn.Module):
@@ -20,12 +25,13 @@ class ResNet(torch.nn.Module):
         self.input_width = model_configs["input_width"]
         self.pretrained = model_configs["pretrained"]
         self.model_name = model_configs["name"]
+        self.dropout = model_configs["dropout_probabilities"][0]
 
-        self.model = torch.hub.load(
-            "pytorch/vision:v0.10.0",
+        self.model = load(
             self.model_name,
             pretrained=self.pretrained,
             num_classes=self.output_size,
+            dropout=self.dropout,
         )
 
     def forward(self, inputs, **kwargs):
