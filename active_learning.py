@@ -89,7 +89,7 @@ def main(config, run, random_state):
             optimizer,
             mode="min",
             factor=config["training"]["lr_reduce_factor"],
-            patience=config["training"]["patience"],
+            patience=config["training"]["patience_lr_reduce"],
         )
 
         models.append(model)
@@ -147,7 +147,7 @@ def main(config, run, random_state):
             epoch=config["training"]["epochs"],
             use_cuda=use_cuda,
             early_stopping=config["training"]["early_stopping"],
-            patience=config["training"]["patience"],
+            patience=config["training"]["patience_early_stopping"],
             verbose=config["training"]["verbose"],
             return_best_weights=config["training"]["load_best_model"],
         )

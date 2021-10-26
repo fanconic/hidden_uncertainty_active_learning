@@ -2,7 +2,7 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "mnist_MLP_random"
+name: "cifar_MIR_test"
 
 random_state: [3, 11, 42]
 save_plot: False
@@ -11,46 +11,49 @@ runs: 3
 week: 3
 
 training:
-    heuristic: "random"
-    batch_size: 32
-    epochs: 40
+    heuristic: "precomputed"
+    batch_size: 64
+    epochs: 50
     ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
     initially_labelled: 100
     initially_balanced: True
     verbose: False
-    patience: 10
     lr_reduce_factor: 0.1
+    patience_lr_reduce: 5
     iterations: 15
-    early_stopping: False
+    early_stopping: True
     load_best_model: True
+    patience_early_stopping: 10
 
 data:
-    dataset: 'mnist'
+    dataset: 'cifar10'
     nb_classes: 10
     data_augmentation: False
-    img_rows: 28
-    img_cols: 28
-    img_channels: 1
+    img_rows: 32
+    img_cols: 32
+    img_channels: 3
     val_size: 10000
 
 model:
     ensemble: 1 #set to 1 for no ensemble
-    name: "MLP"
+    name: "MIR"
     mir_configs: # only applies if name == MIR
-        backbone: "MLP"
+        backbone: "resnet18"
         reconstruction_weight: 1.0
         density_model: "gmm"
         warmup: False
-        feature_dims: 128
+        feature_dims: 512
         normalize_features: True
-        dim_reduction: 10
-    input_height: 28
-    input_width: 28
-    input_channels: 1
+        dim_reduction: -1
+        decoder_bn: True
+        num_res_blocks: 3
+    input_height: 32
+    input_width: 32
+    input_channels: 3
     output_size: 10
     hidden_layers: [128, 128]
     kernel_sizes: [4, 4] # only applied if a (B)CNN is used
-    dropout_probabilities: [0.25, 0.5] #[0.25, 0.5]
+    dropout_probabilities: [0.05, 0.5] #[0.25, 0.5]
     use_bias: True
     mc_dropout: False # used for MC dropout
     mc_iterations: 1 # iterations for MC dropout

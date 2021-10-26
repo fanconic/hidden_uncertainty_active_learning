@@ -39,6 +39,218 @@ model_urls = {
 }
 
 
+class DecodeBlock(nn.Module):
+    def __init__(
+        self,
+        in_channels,
+        num_filters: int = 16,
+        kernel_size: int = 3,
+        stride: int = 1,
+        dropout: float = 0.0,
+        batch_normalization: bool = True,
+    ) -> None:
+        super(DecodeBlock, self).__init__()
+        self.batchnorm = batch_normalization
+        self.dropout = nn.Dropout(p=dropout)
+        self.relu = nn.ReLU(inplace=True)
+        self.stride = stride
+
+        self.first_deconv = resnet_transpose_conv_layer(
+            in_channels,
+            num_filters=num_filters,
+            stride=2 * self.stride,
+            batch_normalization=self.batchnorm,
+            padding=0,
+        )
+
+        self.layer_1 = resnet_layer(
+            num_filters,
+            num_filters=num_filters,
+            stride=self.stride,
+            batch_normalization=self.batchnorm,
+        )
+
+        self.layer_2 = resnet_layer(
+            num_filters,
+            num_filters=num_filters,
+            stride=self.stride,
+            batch_normalization=self.batchnorm,
+        )
+
+        self.identity_deconv = resnet_transpose_conv_layer(
+            in_channels,
+            num_filters=num_filters,
+            kernel_size=1,
+            stride=2 * self.stride,
+            activation=False,
+            batch_normalization=self.batchnorm,
+            padding=0,
+            output_padding=0,
+        )
+
+    def forward(self, inputs):
+
+        x = inputs
+
+        y = self.first_deconv(x)
+        x_ = self.identity_deconv(x)
+
+        y = self.layer_1(y)
+        x = x_ + y
+        x = self.dropout(x)
+        x = self.relu(x)
+
+        y = self.layer_2(y)
+        x = x + y
+        x = self.dropout(x)
+        x = self.relu(x)
+        
+        import IPython
+
+        IPython.embed()
+        exit()
+
+        # TODO -> Ask Janis
+        
+        
+
+        return x
+
+
+class resnet_transpose_conv_layer(nn.Module):
+    def __init__(
+        self,
+        in_channels,
+        num_filters: int = 16,
+        kernel_size: int = 3,
+        stride: int = 1,
+        activation: bool = True,
+        batch_normalization: bool = True,
+        conv_first: bool = True,
+        padding: int = 1,
+        output_padding: int = 0,
+    ) -> None:
+        """2D Transpose Convolution-Batch Normalization-Activation stack builder
+
+        Args:
+            inputs (tensor): input tensor from input image or previous layer
+            num_filters (int): Conv2D number of filters
+            kernel_size (int): Conv2D square kernel dimensions
+            stride (int): Conv2D square stride dimensions
+            activation (bool): activation
+            batch_normalization (bool): whether to include batch normalization
+            conv_first (bool): conv-bn-activation (True) or bn-activation-conv
+            (False)
+
+        """
+        super(resnet_transpose_conv_layer, self).__init__()
+        self.conv_first = conv_first
+        self.batchnorm = batch_normalization
+        self.activation = activation
+
+        self.conv = nn.ConvTranspose2d(
+            in_channels=in_channels,
+            out_channels=num_filters,
+            kernel_size=kernel_size,
+            stride=stride,
+            padding=padding,
+            output_padding=output_padding,
+        )
+        self.relu = nn.ReLU(inplace=True)
+
+        if self.batchnorm:
+            if conv_first:
+                self.norm_layer = nn.BatchNorm2d(num_filters)
+            else:
+                self.norm_layer = nn.BatchNorm2d(in_channels)
+
+    def forward(self, inputs):
+        """Computes a transposed convolution, batch normalization and activation
+        Args:
+            inputs (torch.Tensor): input features
+        returns: processed features
+        """
+        x = inputs
+        if self.conv_first:
+            x = self.conv(x)
+            if self.batchnorm:
+                x = self.norm_layer(x)
+            if self.activation:
+                x = self.relu(x)
+        else:
+            if self.batchnorm:
+                x = self.norm_layer(x)
+            if self.activation:
+                x = self.relu(x)
+            x = self.conv(x)
+        return x
+
+
+class resnet_layer(nn.Module):
+    def __init__(
+        self,
+        in_channels,
+        num_filters: int = 16,
+        kernel_size: int = 3,
+        stride: int = 1,
+        activation: bool = True,
+        batch_normalization: bool = True,
+        conv_first: bool = True,
+    ) -> None:
+        """2D Convolution-Batch Normalization-Activation stack builder
+
+        Args:
+            inputs (tensor): input tensor from input image or previous layer
+            num_filters (int): Conv2D number of filters
+            kernel_size (int): Conv2D square kernel dimensions
+            stride (int): Conv2D square stride dimensions
+            activation (string): activation name
+            batch_normalization (bool): whether to include batch normalization
+            conv_first (bool): conv-bn-activation (True) or bn-activation-conv (False)
+
+        """
+        super(resnet_layer, self).__init__()
+        self.conv_first = conv_first
+        self.batchnorm = batch_normalization
+        self.activation = activation
+
+        self.conv = nn.Conv2d(
+            in_channels=in_channels,
+            out_channels=num_filters,
+            kernel_size=kernel_size,
+            stride=stride,
+            padding="same",
+        )
+        self.relu = nn.ReLU(inplace=True)
+
+        if self.batchnorm:
+            if conv_first:
+                self.norm_layer = nn.BatchNorm2d(num_filters)
+            else:
+                self.norm_layer = nn.BatchNorm2d(in_channels)
+
+    def forward(self, inputs):
+        """Computes convolution, batch normalization and activation
+        Args:
+            inputs (torch.Tensor): input features
+        returns: processed features
+        """
+        x = inputs
+        if self.conv_first:
+            x = self.conv(x)
+            if self.batchnorm:
+                x = self.norm_layer(x)
+            if self.activation:
+                x = self.relu(x)
+        else:
+            if self.batchnorm:
+                x = self.norm_layer(x)
+            if self.activation:
+                x = self.relu(x)
+            x = self.conv(x)
+        return x
+
+
 def conv3x3(
     in_planes: int, out_planes: int, stride: int = 1, groups: int = 1, dilation: int = 1
 ) -> nn.Conv2d:

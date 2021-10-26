@@ -1,6 +1,7 @@
 import torch
 from torch import nn
 from src.models.MLP import MLP, MLPDecoder
+from src.models.resnet import ResNet, ResNetDecoder
 from src.models.density_models import ClassConditionalGMM
 from typing import Tuple, Dict, List
 import numpy as np
@@ -62,8 +63,8 @@ class MIR(nn.Module):
         """
         if self.backbone == "MLP":
             return MLP(model_configs)
-        elif self.backbone == "resnet":
-            NotImplementedError
+        elif "resnet" in self.backbone:
+            return ResNet(model_configs, name=model_configs["mir_configs"]["backbone"])
         else:
             raise ValueError(f"Unknown backbone {self.backbone}!")
 
@@ -76,8 +77,8 @@ class MIR(nn.Module):
         """
         if self.backbone == "MLP":
             return MLPDecoder(model_configs)
-        elif self.backbone == "resnet":
-            NotImplementedError
+        elif "resnet" in self.backbone:
+            return ResNetDecoder(model_configs)
         else:
             raise ValueError(f"Unknown backbone {self.backbone}!")
 
