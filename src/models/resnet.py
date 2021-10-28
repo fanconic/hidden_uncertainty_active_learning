@@ -36,7 +36,8 @@ class ResNet(torch.nn.Module):
             dropout=self.dropout,
         )
 
-        self.feature_decoder = torch.nn.Sequential(*(list(self.model.children())[:-1]))
+        self.feature_decoder = torch.nn.Sequential(*(list(self.model.children())[:-2]))
+        self.avg_pool = self.model.avgpool
         self.output_layer = self.model.fc
 
     def forward(self, inputs, return_features=False, **kwargs):
@@ -48,8 +49,9 @@ class ResNet(torch.nn.Module):
             logis
         """
         out_features = self.feature_decoder(inputs)
-        out_features_flat = torch.flatten(out_features, 1)
-        logits = self.output_layer(out_features_flat)
+        x = self.avg_pool(out_features)
+        x = torch.flatten(x, 1)
+        logits = self.output_layer(x)
         if not return_features:
             return logits
         else:
@@ -135,6 +137,11 @@ class ResNetDecoder(torch.nn.Module):
 
             self.layers.append(decode_layer)
 
+        # upsample from 31x32 size to 32x32
+        self.upsample = nn.Upsample(
+            (self.input_height, self.input_width), mode="bilinear"
+        )
+
         self.output_layer = resnet_layer(
             in_channels=out_channels,
             num_filters=self.input_channels,
@@ -142,7 +149,9 @@ class ResNetDecoder(torch.nn.Module):
             batch_normalization=False,
         )
 
-        self.net = nn.Sequential(self.first_layer, *self.layers, self.output_layer)
+        self.net = nn.Sequential(
+            self.first_layer, *self.layers, self.upsample, self.output_layer
+        )
 
     def forward(self, x, **kwargs):
         """Forward pass through the neural network decoder

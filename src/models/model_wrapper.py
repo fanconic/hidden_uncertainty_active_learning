@@ -46,7 +46,13 @@ def extract_features(model, dataset, cuda=False):
 
         out = model(x, return_features=True)
         softmax_layer = nn.Softmax(dim=1)
-        features.append(softmax_layer(out["features"]).cpu().detach())
+        output = softmax_layer(out["features"])
+
+        # Flatten, if they are multidimensional
+        if len(output.shape) > 2:
+            output = torch.flatten(output, 1)
+
+        features.append(output.cpu().detach())
         predictions.append(np.argmax(out["prediction"].cpu().detach(), axis=-1))
 
     features = np.concatenate(features, axis=0)
@@ -173,6 +179,15 @@ class ModelWrapper:
                 num_workers=workers,
                 collate_fn=collate_fn,
             )
+
+            val_loader = DataLoader(
+                val_dataset,
+                batch_size,
+                False,
+                num_workers=workers,
+                collate_fn=None,
+            )
+
             if verbose:
                 loader = tqdm(loader)
             for data, target in loader:
@@ -197,7 +212,6 @@ class ModelWrapper:
                     batch_size,
                     use_cuda,
                     workers=workers,
-                    collate_fn=collate_fn,
                     average_predictions=average_predictions,
                     validate=True,
                 )
@@ -227,7 +241,7 @@ class ModelWrapper:
                 )
 
                 features_val, pred_val = extract_features(
-                    model=model, dataset=val_dataset, cuda=use_cuda
+                    model=model, dataset=val_loader, cuda=use_cuda
                 )
 
                 model.density.fit(

@@ -7,8 +7,8 @@ name: "cifar_MIR_test"
 random_state: [3, 11, 42]
 save_plot: False
 save_df: True
-runs: 3
-week: 3
+runs: 1
+week: 4
 
 training:
     heuristic: "precomputed"
@@ -20,7 +20,7 @@ training:
     verbose: False
     lr_reduce_factor: 0.1
     patience_lr_reduce: 5
-    iterations: 15
+    iterations: 3
     early_stopping: True
     load_best_model: True
     patience_early_stopping: 10

@@ -184,7 +184,8 @@ class MIR(nn.Module):
           dictionary with entries 'prediction' and 'uncertainty'
         """
         output_dict = self.forward(inputs=data, return_features=True)
-        uncertainty = self.density.marginal_log_probs(
-            output_dict["features"].cpu().detach()
-        )
+        output = output_dict["features"]
+        if len(output.shape) > 2:
+            output = torch.flatten(output, 1)
+        uncertainty = self.density.marginal_log_probs(output.cpu().detach())
         return np.expand_dims(uncertainty, axis=-1)

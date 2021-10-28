@@ -80,7 +80,7 @@ class DecodeBlock(nn.Module):
         self.identity_deconv = resnet_transpose_conv_layer(
             in_channels,
             num_filters=num_filters,
-            kernel_size=1,
+            # kernel_size=1,
             stride=2 * self.stride,
             activation=False,
             batch_normalization=self.batchnorm,
@@ -89,13 +89,13 @@ class DecodeBlock(nn.Module):
         )
 
     def forward(self, inputs):
-
         x = inputs
 
         y = self.first_deconv(x)
         x_ = self.identity_deconv(x)
 
         y = self.layer_1(y)
+
         x = x_ + y
         x = self.dropout(x)
         x = self.relu(x)
@@ -104,16 +104,6 @@ class DecodeBlock(nn.Module):
         x = x + y
         x = self.dropout(x)
         x = self.relu(x)
-        
-        import IPython
-
-        IPython.embed()
-        exit()
-
-        # TODO -> Ask Janis
-        
-        
-
         return x
 
 
