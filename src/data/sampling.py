@@ -1,5 +1,5 @@
 import torch
-from torch.utils.data import Dataset, TensorDataset
+from torch.utils.data import TensorDataset
 
 
 def sampleFromClass(ds, k):
@@ -27,3 +27,22 @@ def sampleFromClass(ds, k):
         TensorDataset(train_data, train_label),
         TensorDataset(test_data, test_label),
     )
+
+
+class MapDataset(torch.utils.data.Dataset):
+    """
+    Given a dataset, creates a dataset which applies a mapping function
+    to its items (lazily, only when an item is called).
+
+    Note that data is not cloned/copied from the initial dataset.
+    """
+
+    def __init__(self, dataset, map_fn):
+        self.dataset = dataset
+        self.map = map_fn
+
+    def __getitem__(self, index):
+        return self.map(self.dataset[index][0]), self.dataset[index][1]
+
+    def __len__(self):
+        return len(self.dataset)

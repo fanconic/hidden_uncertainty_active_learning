@@ -14,7 +14,7 @@ from src.utils.metrics import Accuracy
 import IPython
 from copy import deepcopy
 from pprint import pprint
-from src.data.sampling import sampleFromClass
+from src.data.sampling import MapDataset
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -41,16 +41,51 @@ def main(config, run, random_state):
     set_seed(random_state)
 
     # Load dataset
-    train_transform = transforms.ToTensor()
-    test_transform = transforms.ToTensor()
-    train_ds, test_ds = load_data(
-        config["data"]["dataset"], train_transform, test_transform
+    if config["data"]["augmentation"]:
+        train_transform = transforms.Compose(
+            [
+                transforms.RandomVerticalFlip(),
+                transforms.RandomHorizontalFlip(),
+                transforms.RandomRotation(30),
+                transforms.ToTensor(),
+                transforms.Normalize(
+                    (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
+                ),
+            ]
+        )
+    else:
+        train_transform = transforms.Compose(
+            [
+                transforms.ToTensor(),
+                transforms.Normalize(
+                    (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
+                ),
+            ]
+        )
+    test_transform = transforms.Compose(
+        [
+            transforms.ToTensor(),
+            transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+        ]
     )
 
-    # validation split
+    train_whole, test_ds = load_data(config["data"]["dataset"], None, test_transform)
+
+    """# validation split
     val_ds, train_ds = sampleFromClass(
         train_ds, config["data"]["val_size"] // config["data"]["nb_classes"]
-    )
+    )"""
+    # obtain training indices that will be used for validation
+    num_train = len(train_whole)
+    indices = list(range(num_train))
+    np.random.shuffle(indices)
+    split = int(np.floor(config["data"]["val_size"] * num_train))
+    train_idx, valid_idx = indices[split:], indices[:split]
+
+    train_subs = torch.utils.data.Subset(train_whole, train_idx)
+    val_subs = torch.utils.data.Subset(train_whole, valid_idx)
+    train_ds = MapDataset(train_subs, train_transform)
+    val_ds = MapDataset(val_subs, test_transform)
 
     al_dataset = ActiveLearningDataset(
         train_ds,

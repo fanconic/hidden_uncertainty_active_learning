@@ -2,7 +2,7 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "cifar_MIR_test"
+name: "cifar_MIR_test_aug"
 
 random_state: [3, 11, 42]
 save_plot: False
@@ -20,7 +20,7 @@ training:
     verbose: False
     lr_reduce_factor: 0.1
     patience_lr_reduce: 5
-    iterations: 3
+    iterations: 15
     early_stopping: True
     load_best_model: True
     patience_early_stopping: 10
@@ -28,11 +28,11 @@ training:
 data:
     dataset: 'cifar10'
     nb_classes: 10
-    data_augmentation: False
+    augmentation: True
     img_rows: 32
     img_cols: 32
     img_channels: 3
-    val_size: 10000
+    val_size: 0.2
 
 model:
     ensemble: 1 #set to 1 for no ensemble
