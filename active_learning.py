@@ -44,7 +44,6 @@ def main(config, run, random_state):
     if config["data"]["augmentation"]:
         train_transform = transforms.Compose(
             [
-                transforms.RandomVerticalFlip(),
                 transforms.RandomHorizontalFlip(),
                 transforms.RandomRotation(30),
                 transforms.ToTensor(),

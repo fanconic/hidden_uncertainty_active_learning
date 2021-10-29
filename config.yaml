@@ -2,28 +2,28 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "cifar_MIR_test_aug"
+name: "cifar_MIR_aug_2"
 
 random_state: [3, 11, 42]
 save_plot: False
 save_df: True
-runs: 1
+runs: 3
 week: 4
 
 training:
     heuristic: "precomputed"
     batch_size: 64
-    epochs: 50
+    epochs: 60
     ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
     initially_labelled: 100
     initially_balanced: True
     verbose: False
     lr_reduce_factor: 0.1
-    patience_lr_reduce: 5
+    patience_lr_reduce: 8
     iterations: 15
     early_stopping: True
     load_best_model: True
-    patience_early_stopping: 10
+    patience_early_stopping: 15
 
 data:
     dataset: 'cifar10'
