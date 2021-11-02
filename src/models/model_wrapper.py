@@ -27,33 +27,39 @@ from src.active.heuristics import Precomputed
 log = structlog.get_logger("ModelWrapper")
 
 
-def extract_features(model, dataset, cuda=False):
+def extract_features(model, dataset, cuda=False, return_true_labels=False):
     """extracts features and predictions of the MIR model
     Args:
         model (nn.Model): MIR model
         dataset: training dataset
         cuda (bool): use cuda
+        return_true_labels (bool): if true, returns the true labels, not predicted ones
     returns:
         features, predictions
     """
     features = []
     predictions = []
     for i, batch in enumerate(dataset):
-        x, _ = batch
+        x, y = batch
 
         if cuda:
             x = to_cuda(x)
 
         out = model(x, return_features=True)
+        feature = out["features"]
         softmax_layer = nn.Softmax(dim=1)
-        output = softmax_layer(out["features"])
+        output = softmax_layer(out["prediction"])
 
         # Flatten, if they are multidimensional
-        if len(output.shape) > 2:
-            output = torch.flatten(output, 1)
+        if len(feature.shape) > 2:
+            feature = torch.flatten(feature, 1)
 
-        features.append(output.cpu().detach())
-        predictions.append(np.argmax(out["prediction"].cpu().detach(), axis=-1))
+        features.append(feature.cpu().detach())
+
+        if return_true_labels:
+            predictions.append(y.cpu().detach())
+        else:
+            predictions.append(np.argmax(output.cpu().detach(), axis=-1))
 
     features = np.concatenate(features, axis=0)
     predictions = np.concatenate(predictions, axis=0)
@@ -235,13 +241,21 @@ class ModelWrapper:
                         break
 
         if isinstance(self.models[0], MIR):
+
             for model in self.models:
+                return_true_labels = True if model.density_model == "knn" else False
                 features_train, pred_train = extract_features(
-                    model=model, dataset=loader, cuda=use_cuda
+                    model=model,
+                    dataset=loader,
+                    cuda=use_cuda,
+                    return_true_labels=return_true_labels,
                 )
 
                 features_val, pred_val = extract_features(
-                    model=model, dataset=val_loader, cuda=use_cuda
+                    model=model,
+                    dataset=val_loader,
+                    cuda=use_cuda,
+                    return_true_labels=return_true_labels,
                 )
 
                 model.density.fit(

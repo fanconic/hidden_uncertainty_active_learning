@@ -2,7 +2,7 @@ import torch
 from torch import nn
 from src.models.MLP import MLP, MLPDecoder
 from src.models.resnet import ResNet, ResNetDecoder
-from src.models.density_models import ClassConditionalGMM
+from src.models.density_models import ClassConditionalGMM, KNearestNeighbour
 from typing import Tuple, Dict, List
 import numpy as np
 
@@ -21,6 +21,8 @@ class MIR(nn.Module):
         self.normalize_features = mir_configs["normalize_features"]
         self.dim_reduction = mir_configs["dim_reduction"]
         self.nr_classes = model_configs["output_size"]
+        self.greedy_search = mir_configs["greedy_search"]
+        self.search_step_size = mir_configs["search_step_size"]
 
         # encoder, decoder & loss function
         self.encoder = self._get_encoder(model_configs)
@@ -30,11 +32,27 @@ class MIR(nn.Module):
         self.density = None
         self.init_density(self.normalize_features)
 
-    def init_density(self, normalize_features: bool = True):
+    def init_density(
+        self,
+        normalize_features: bool = True,
+    ):
+        """Define density estimation model
+        Args:
+            normalize_features (bool): bool if the features shall be normalized
+            greedy_search (bool): bool if a greedy search over the available dimension should be performed
+            search_step_size (int): Step size of the greedy search dimensions
+        """
         # density model
         if self.density_model == "gmm":
             self.density = ClassConditionalGMM(
                 nr_classes=self.nr_classes,
+                red_dim=self.dim_reduction,
+                normalize_features=normalize_features,
+                greedy_search=self.greedy_search,
+                search_step_size=self.search_step_size,
+            )
+        elif self.density_model == "knn":
+            self.density = KNearestNeighbour(
                 red_dim=self.dim_reduction,
                 normalize_features=normalize_features,
             )

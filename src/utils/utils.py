@@ -1,4 +1,4 @@
-from torchvision.datasets import MNIST, CIFAR10, CIFAR100
+from torchvision.datasets import MNIST, CIFAR10, CIFAR100, FashionMNIST, SVHN
 from src.models.MLP import MLP
 from src.models.CNN import CNN
 from src.models.BNN import BNN
@@ -72,6 +72,8 @@ def load_data(name="mnist", train_transform=None, test_transform=None):
         train dataset, test dataset
     """
 
+    name = name.lower()
+
     if name == "cifar10":
         train_ds = CIFAR10("/tmp", train=True, transform=train_transform, download=True)
         test_ds = CIFAR10("/tmp", train=False, transform=test_transform, download=True)
@@ -85,6 +87,18 @@ def load_data(name="mnist", train_transform=None, test_transform=None):
     elif name == "mnist":
         train_ds = MNIST("/tmp", train=True, transform=train_transform, download=True)
         test_ds = MNIST("/tmp", train=False, transform=test_transform, download=True)
+
+    elif name == "fashion_mnist":
+        train_ds = FashionMNIST(
+            "/tmp", train=True, transform=train_transform, download=True
+        )
+        test_ds = FashionMNIST(
+            "/tmp", train=False, transform=test_transform, download=True
+        )
+
+    elif name == "svhn":
+        train_ds = SVHN("/tmp", split="train", transform=train_transform, download=True)
+        test_ds = SVHN("/tmp", split="test", transform=test_transform, download=True)
 
     else:
         raise NotImplemented

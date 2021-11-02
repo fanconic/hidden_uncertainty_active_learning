@@ -2,7 +2,7 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "cifar_MIR_aug_2"
+name: "mnist_MIR_test_greedy_search_mse"
 
 random_state: [3, 11, 42]
 save_plot: False
@@ -13,47 +13,50 @@ week: 4
 training:
     heuristic: "precomputed"
     batch_size: 64
-    epochs: 60
+    epochs: 40
     ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
     initially_labelled: 100
     initially_balanced: True
-    verbose: False
+    verbose: True
     lr_reduce_factor: 0.1
-    patience_lr_reduce: 8
-    iterations: 15
+    patience_lr_reduce: 5
+    iterations: 10
     early_stopping: True
     load_best_model: True
-    patience_early_stopping: 15
+    patience_early_stopping: 10
 
 data:
-    dataset: 'cifar10'
+    dataset: 'mnist'
     nb_classes: 10
-    augmentation: True
-    img_rows: 32
-    img_cols: 32
-    img_channels: 3
+    augmentation: False
+    img_rows: 28
+    img_cols: 28
+    img_channels: 1
     val_size: 0.2
+    rgb_normalization: False
 
 model:
     ensemble: 1 #set to 1 for no ensemble
     name: "MIR"
     mir_configs: # only applies if name == MIR
-        backbone: "resnet18"
+        backbone: "MLP"
         reconstruction_weight: 1.0
-        density_model: "gmm"
+        density_model: "knn"
         warmup: False
-        feature_dims: 512
+        feature_dims: 128
         normalize_features: True
         dim_reduction: -1
         decoder_bn: True
         num_res_blocks: 3
-    input_height: 32
-    input_width: 32
-    input_channels: 3
+        greedy_search: False
+        search_step_size: 10
+    input_height: 28
+    input_width: 28
+    input_channels: 1
     output_size: 10
     hidden_layers: [128, 128]
     kernel_sizes: [4, 4] # only applied if a (B)CNN is used
-    dropout_probabilities: [0.05, 0.5] #[0.25, 0.5]
+    dropout_probabilities: [0.25, 0.5] #[0.25, 0.5]
     use_bias: True
     mc_dropout: False # used for MC dropout
     mc_iterations: 1 # iterations for MC dropout

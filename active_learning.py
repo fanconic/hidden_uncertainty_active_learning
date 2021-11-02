@@ -41,39 +41,34 @@ def main(config, run, random_state):
     set_seed(random_state)
 
     # Load dataset
+    train_transform_list = []
+    test_transform_list = []
     if config["data"]["augmentation"]:
-        train_transform = transforms.Compose(
+        train_transform_list.extend(
             [
                 transforms.RandomHorizontalFlip(),
                 transforms.RandomRotation(30),
                 transforms.ToTensor(),
-                transforms.Normalize(
-                    (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
-                ),
             ]
         )
     else:
-        train_transform = transforms.Compose(
-            [
-                transforms.ToTensor(),
-                transforms.Normalize(
-                    (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
-                ),
-            ]
+        train_transform_list.append(transforms.ToTensor())
+
+    test_transform_list.append(transforms.ToTensor())
+
+    if config["data"]["rgb_normalization"]:
+        normalize = transforms.Normalize(
+            (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
         )
-    test_transform = transforms.Compose(
-        [
-            transforms.ToTensor(),
-            transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
-        ]
-    )
+
+        train_transform_list.append(normalize)
+        test_transform_list.append(normalize)
+
+    train_transform = transforms.Compose(train_transform_list)
+    test_transform = transforms.Compose(test_transform_list)
 
     train_whole, test_ds = load_data(config["data"]["dataset"], None, test_transform)
 
-    """# validation split
-    val_ds, train_ds = sampleFromClass(
-        train_ds, config["data"]["val_size"] // config["data"]["nb_classes"]
-    )"""
     # obtain training indices that will be used for validation
     num_train = len(train_whole)
     indices = list(range(num_train))
