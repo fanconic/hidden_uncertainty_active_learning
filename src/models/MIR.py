@@ -21,8 +21,15 @@ class MIR(nn.Module):
         self.normalize_features = mir_configs["normalize_features"]
         self.dim_reduction = mir_configs["dim_reduction"]
         self.nr_classes = model_configs["output_size"]
+
+        # GMM Greedy Search
         self.greedy_search = mir_configs["greedy_search"]
         self.search_step_size = mir_configs["search_step_size"]
+
+        # KNN
+        self.knn_weights = mir_configs["knn_weights"]
+        self.knn_metric = mir_configs["knn_metric"]
+        self.knn_neighbours = mir_configs["knn_neighbours"]
 
         # encoder, decoder & loss function
         self.encoder = self._get_encoder(model_configs)
@@ -53,8 +60,11 @@ class MIR(nn.Module):
             )
         elif self.density_model == "knn":
             self.density = KNearestNeighbour(
+                n_neigbours=self.knn_neighbours,
                 red_dim=self.dim_reduction,
                 normalize_features=normalize_features,
+                weights=self.knn_weights,
+                metric=self.knn_metric,
             )
         else:
             raise ValueError(f"Unknown density model {self.density_model}!")

@@ -126,7 +126,9 @@ def main(config, run, random_state):
         schedulers.append(scheduler)
 
     heuristic = get_heuristic(
-        config["training"]["heuristic"], random_state=random_state
+        config["training"]["heuristic"],
+        random_state=random_state,
+        shuffle_prop=config["training"]["shuffle_prop"],
     )
 
     wrapper = ModelWrapper(models=models, criterion=criterion, heuristic=heuristic)
@@ -239,6 +241,7 @@ if __name__ == "__main__":
     parser.add_argument("--config_path", default="config.yaml")
     args = parser.parse_args()
     config = yaml.safe_load(open(args.config_path, "r"))
+    print(config["name"])
     df = pd.DataFrame()
 
     for run in range(config["runs"]):

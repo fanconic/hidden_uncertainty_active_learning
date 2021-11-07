@@ -34,30 +34,32 @@ def get_model(model_configs):
         raise NotImplemented
 
 
-def get_heuristic(heuristic_name, random_state=0):
+def get_heuristic(heuristic_name, random_state=0, shuffle_prop=0.0):
     """Get the right heuristic
     args:
         heuristic_name (str): name of the heuristic
+        random_state (int): random state integer
+        shuffle_prop (float): proportion that is shuffled
     returns:
         Heuristic
     """
     heuristic_name = heuristic_name.lower()
     if heuristic_name == "bald":
-        return BALD()
+        return BALD(shuffle_prop=shuffle_prop)
     elif heuristic_name == "batchbald":
-        return BatchBALD(4000)
+        return BatchBALD(4000, shuffle_prop=shuffle_prop)
     elif heuristic_name == "variance":
         return Variance()
     elif heuristic_name == "random":
-        return Random(seed=random_state)
+        return Random(seed=random_state, shuffle_prop=shuffle_prop)
     elif heuristic_name == "entropy":
-        return Entropy()
+        return Entropy(shuffle_prop=shuffle_prop)
     elif heuristic_name == "margin":
-        return Margin()
+        return Margin(shuffle_prop=shuffle_prop)
     elif heuristic_name == "certainty":
-        return Certainty()
+        return Certainty(shuffle_prop=shuffle_prop)
     elif heuristic_name == "precomputed":
-        return Precomputed()
+        return Precomputed(shuffle_prop=shuffle_prop)
     else:
         raise NotImplemented
 

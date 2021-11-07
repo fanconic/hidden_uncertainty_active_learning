@@ -32,6 +32,7 @@ class ClassConditionalGMM(object):
         self.class_conditional_densities = []
         self.greedy_search = greedy_search
         self.search_step_size = search_step_size
+        self.reduce = red_dim
 
         if red_dim != -1:
             self.pca = decomposition.PCA(n_components=red_dim)
@@ -65,6 +66,8 @@ class ClassConditionalGMM(object):
             List of GMMs
         """
         nr_samples = x.shape[0]
+        if nr_samples >= 10000:
+            self.greedy_search = False
 
         if self.normalize_features:
             x = preprocessing.normalize(x)
@@ -80,6 +83,9 @@ class ClassConditionalGMM(object):
         while red_dim <= max_dim:
             if self.greedy_search:
                 self.pca = decomposition.PCA(n_components=red_dim)
+            else:
+                if self.reduce:
+                    self.pca = None
 
             if self.pca:
                 print("Fitting PCA...", flush=True)
@@ -109,9 +115,10 @@ class ClassConditionalGMM(object):
                                 x_val_in[y_val == i]
                             )
                         )
-                        # print(
-                        #    f"{i}-th component log probs | Train: {log_prob_train} | Val: {log_prob_val}"
-                        # )
+                        if not self.greedy_search:
+                            print(
+                                f"{i}-th component log probs | Train: {log_prob_train} | Val: {log_prob_val}"
+                            )
                         diffs.append(((log_prob_train - log_prob_val) / red_dim) ** 2)
 
             # compute the average negative log likelihood
@@ -193,6 +200,8 @@ class KNearestNeighbour(object):
         n_neigbours: int = 5,
         red_dim: int = 64,
         normalize_features: bool = True,
+        weights="uniform",
+        metric="euclidean",
     ):
         super(KNearestNeighbour, self).__init__()
         self.normalize_features = normalize_features
@@ -202,7 +211,11 @@ class KNearestNeighbour(object):
         else:
             self.pca = None
 
-        self.knn = KNeighborsClassifier(n_neighbors=n_neigbours, weights="distance")
+        self.knn = KNeighborsClassifier(
+            metric=metric,
+            n_neighbors=n_neigbours,
+            weights=weights,
+        )
 
     def fit(
         self,
