@@ -2,19 +2,19 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "cifar10_MIR_MCD_shuffle02"
+name: "CIFAR10_random_newaug"
 
 random_state: [3, 11, 42]
 save_plot: False
 save_df: True
 runs: 3
-week: 5
+week: 6
 
 training:
-    heuristic: "entropy"
+    heuristic: "random"
     shuffle_prop: 0.2
     batch_size: 64
-    epochs: 60
+    epochs: 40
     ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
     initially_labelled: 100
     initially_balanced: True
@@ -27,7 +27,7 @@ training:
     patience_early_stopping: 15
 
 data:
-    dataset: 'cifar10'
+    dataset: 'fashion_mnist'
     nb_classes: 10
     augmentation: True
     img_rows: 32
@@ -40,7 +40,7 @@ model:
     ensemble: 1 #set to 1 for no ensemble
     name: "resnet18"
     mir_configs: # only applies if name == MIR
-        backbone: "resnet18"
+        backbone: "MLP"
         reconstruction_weight: 1.0
         density_model: "gmm"
         warmup: False
@@ -56,8 +56,8 @@ model:
 
         # KNN
         knn_weights: "uniform"
-        knn_metric: "cosine"
-        knn_neighbours: 5
+        knn_metric: "euclidean"
+        knn_neighbours: 1
 
     input_height: 32
     input_width: 32
@@ -67,8 +67,8 @@ model:
     kernel_sizes: [4, 4] # only applied if a (B)CNN is used
     dropout_probabilities: [0.05, 0.5] #[0.25, 0.5]
     use_bias: True
-    mc_dropout: True # used for MC dropout
-    mc_iterations: 10 # iterations for MC dropout
+    mc_dropout: False # used for MC dropout
+    mc_iterations: 1 # iterations for MC dropout
     kl_div_weight: 0.01 # only used for B(C)NN, to weight the kl_div loss
     pretrained: False
 

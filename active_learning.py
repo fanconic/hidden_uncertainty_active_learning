@@ -46,8 +46,9 @@ def main(config, run, random_state):
     if config["data"]["augmentation"]:
         train_transform_list.extend(
             [
+                transforms.RandomCrop(32, padding=4),
                 transforms.RandomHorizontalFlip(),
-                transforms.RandomRotation(30),
+                transforms.RandomRotation(15),
                 transforms.ToTensor(),
             ]
         )
@@ -58,7 +59,8 @@ def main(config, run, random_state):
 
     if config["data"]["rgb_normalization"]:
         normalize = transforms.Normalize(
-            (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
+            mean=(0.49139968, 0.48215827, 0.44653124),
+            std=(0.24703233, 0.24348505, 0.26158768),
         )
 
         train_transform_list.append(normalize)

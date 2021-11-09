@@ -251,6 +251,7 @@ class KNearestNeighbour(object):
         relevant_distances = []
         for y_pred, distance, index in zip(y_preds, distances, indices):
             relevant_distances.append(distance[self.knn._y[index] == y_pred].mean())
+            # relevant_distances.append(distance.mean())
 
         return np.array(relevant_distances)
 
