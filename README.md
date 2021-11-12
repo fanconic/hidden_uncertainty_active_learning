@@ -21,7 +21,8 @@ $ conda install --file requirements.txt
 
 ### Repository Structure
 - `run.sh`: Runs the training script, include conda environment
-- `train.py`: Main training loop for
+- `active_learning_classification.py`: Main training loop for classification active learning
+- `active_learning_segmentation.py`: Main training loop for segmentation active learning
 - `config.yaml`: Config yaml file, which has all the experimental settings.
 
 

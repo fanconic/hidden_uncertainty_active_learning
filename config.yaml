@@ -2,19 +2,20 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "CIFAR10_random_newaug"
+name: "test_cityscapes"
 
 random_state: [3, 11, 42]
 save_plot: False
 save_df: True
 runs: 3
 week: 6
+problem: "classification" # "segmentation"
 
 training:
-    heuristic: "random"
+    heuristic: "precomputed"
     shuffle_prop: 0.2
     batch_size: 64
-    epochs: 40
+    epochs: 60
     ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
     initially_labelled: 100
     initially_balanced: True
@@ -27,24 +28,25 @@ training:
     patience_early_stopping: 15
 
 data:
-    dataset: 'fashion_mnist'
+    dataset: 'CityScapes'
     nb_classes: 10
-    augmentation: True
+    augmentation: False
     img_rows: 32
     img_cols: 32
     img_channels: 3
     val_size: 0.2
-    rgb_normalization: True
+    rgb_normalization: False
+    path: "/srv/beegfs02/scratch/density_estimation/data/fanconic/CityScapes" #only applies to CityScapes
 
 model:
     ensemble: 1 #set to 1 for no ensemble
-    name: "resnet18"
+    name: "MIR"
     mir_configs: # only applies if name == MIR
-        backbone: "MLP"
+        backbone: "resnet50"
         reconstruction_weight: 1.0
-        density_model: "gmm"
+        density_model: "knn"
         warmup: False
-        feature_dims: 512
+        feature_dims: 2048
         normalize_features: True
         dim_reduction: -1
         decoder_bn: True
@@ -52,24 +54,33 @@ model:
 
         # Greedy Search
         greedy_search: True
-        search_step_size: 10
+        search_step_size: 100
 
         # KNN
         knn_weights: "uniform"
         knn_metric: "euclidean"
-        knn_neighbours: 1
-
+        knn_neighbours: 5
+    
+    # Data sizes - need to be the same as in "data"
     input_height: 32
     input_width: 32
     input_channels: 3
     output_size: 10
+
+    # Layers for DNN and CNNS
     hidden_layers: [128, 128]
     kernel_sizes: [4, 4] # only applied if a (B)CNN is used
     dropout_probabilities: [0.05, 0.5] #[0.25, 0.5]
     use_bias: True
+
+    # Monte Carlo Dropout parameters
     mc_dropout: False # used for MC dropout
     mc_iterations: 1 # iterations for MC dropout
+
+    # BNN KL divergence loss
     kl_div_weight: 0.01 # only used for B(C)NN, to weight the kl_div loss
+
+    #Pretrained
     pretrained: False
 
 optimizer:

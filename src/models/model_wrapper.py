@@ -1,4 +1,5 @@
 # Taken from https://github.com/ElementAI/baal/blob/a9cc0034c40d0541234a3c27ff5ccbd97278bcb3/baal/modelwrapper.py#L30
+
 from torch import nn
 import sys
 from collections.abc import Sequence
@@ -21,6 +22,7 @@ from src.utils.metrics import Loss
 from src.models.BNN import BNN
 from src.models.BCNN import BCNN
 from src.models.MIR import MIR
+from src.models.UNet import UNet
 from src.active.heuristics import Precomputed
 
 
@@ -240,7 +242,7 @@ class ModelWrapper:
                     if early_stopping:
                         break
 
-        if isinstance(self.models[0], MIR):
+        if isinstance(self.models[0], MIR, UNet):
 
             for model in self.models:
                 return_true_labels = True if model.density_model == "knn" else False

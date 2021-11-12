@@ -98,12 +98,19 @@ class ResNetDecoder(torch.nn.Module):
 
         if self.feature_channels == 64:
             num_stacks = 3
+            self.divider = 2
         elif self.feature_channels == 32:
             num_stacks = 2
+            self.divider = 2
         elif self.feature_channels == 16:
             num_stacks = 1
+            self.divider = 2
         elif self.feature_channels == 512:
             num_stacks = 4
+            self.divider = 2
+        elif self.feature_channels == 2048:
+            num_stacks = 4
+            self.divider = 4
         else:
             assert False, "Invalid Input Channel Shape! {}".format(
                 str(self.feature_channels)
@@ -131,13 +138,13 @@ class ResNetDecoder(torch.nn.Module):
             )
 
             if stack != 0:
-                in_channels //= 2
+                in_channels //= self.divider
             if stack != num_stacks - 1:
-                out_channels //= 2
+                out_channels //= self.divider
 
             self.layers.append(decode_layer)
 
-        # upsample from 31x32 size to 32x32
+        # upsample from 31x31 size to 32x32
         self.upsample = nn.Upsample(
             (self.input_height, self.input_width), mode="bilinear"
         )

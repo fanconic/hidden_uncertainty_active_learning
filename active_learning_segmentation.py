@@ -42,10 +42,24 @@ def main(config, run, random_state):
 
     # Load dataset
     train_transform_list = []
+    train_target_transform_list = []
     test_transform_list = []
+    test_target_transform_list = []
+
+    resize = (config["data"]["img_rows"], config["data"]["img_cols"])
     if config["data"]["augmentation"]:
         train_transform_list.extend(
             [
+                transforms.Resize(resize, interpolation=2),
+                transforms.RandomCrop(32, padding=4),
+                transforms.RandomHorizontalFlip(),
+                transforms.RandomRotation(15),
+                transforms.ToTensor(),
+            ]
+        )
+        train_target_transform_list.extend(
+            [
+                transforms.Resize(resize, interpolation=0),
                 transforms.RandomCrop(32, padding=4),
                 transforms.RandomHorizontalFlip(),
                 transforms.RandomRotation(15),
@@ -53,9 +67,19 @@ def main(config, run, random_state):
             ]
         )
     else:
-        train_transform_list.append(transforms.ToTensor())
+        train_transform_list.extend(
+            [transforms.Resize(resize, interpolation=2), transforms.ToTensor()]
+        )
+        train_target_transform_list.extend(
+            [transforms.Resize(resize, interpolation=0), transforms.ToTensor()]
+        )
 
-    test_transform_list.append(transforms.ToTensor())
+    test_transform_list.extend(
+        [transforms.Resize(resize, interpolation=2), transforms.ToTensor()]
+    )
+    test_target_transform_list.extend(
+        [transforms.Resize(resize, interpolation=0), transforms.ToTensor()]
+    )
 
     if config["data"]["rgb_normalization"]:
         normalize = transforms.Normalize(
@@ -67,21 +91,20 @@ def main(config, run, random_state):
         test_transform_list.append(normalize)
 
     train_transform = transforms.Compose(train_transform_list)
+    train_target_transform = transforms.Compose(train_target_transform_list)
     test_transform = transforms.Compose(test_transform_list)
+    test_target_transform = transforms.Compose(test_target_transform_list)
 
-    train_whole, test_ds = load_data(config["data"]["dataset"], None, test_transform)
+    train_ds, test_ds, val_ds = load_data(
+        config["data"]["dataset"],
+        train_transform=train_transform,
+        test_transform=test_transform,
+        path=config["data"]["path"],
+        train_target_transform=train_target_transform,
+        test_target_transform=test_target_transform,
+    )
 
-    # obtain training indices that will be used for validation
-    num_train = len(train_whole)
-    indices = list(range(num_train))
-    np.random.shuffle(indices)
-    split = int(np.floor(config["data"]["val_size"] * num_train))
-    train_idx, valid_idx = indices[split:], indices[:split]
-
-    train_subs = torch.utils.data.Subset(train_whole, train_idx)
-    val_subs = torch.utils.data.Subset(train_whole, valid_idx)
-    train_ds = MapDataset(train_subs, train_transform)
-    val_ds = MapDataset(val_subs, test_transform)
+    IPython.embed()
 
     al_dataset = ActiveLearningDataset(
         train_ds,
@@ -92,7 +115,7 @@ def main(config, run, random_state):
         config["training"]["initially_labelled"],
         balanced=config["training"]["initially_balanced"],
         classes=list(range(config["data"]["nb_classes"])),
-    )  # Start with 200 items labelled.
+    )
 
     # Loss
     criterion = nn.CrossEntropyLoss()

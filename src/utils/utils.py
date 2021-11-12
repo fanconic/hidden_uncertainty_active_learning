@@ -1,9 +1,17 @@
-from torchvision.datasets import MNIST, CIFAR10, CIFAR100, FashionMNIST, SVHN
+from torchvision.datasets import (
+    MNIST,
+    CIFAR10,
+    CIFAR100,
+    FashionMNIST,
+    SVHN,
+    Cityscapes,
+)
 from src.models.MLP import MLP
 from src.models.CNN import CNN
 from src.models.BNN import BNN
 from src.models.BCNN import BCNN
 from src.models.MIR import MIR
+from src.models.UNet import UNet
 from src.models.resnet import ResNet
 
 from src.active.heuristics import *
@@ -30,6 +38,8 @@ def get_model(model_configs):
         return MIR(model_configs)
     elif "resnet" in name:
         return ResNet(model_configs)
+    elif "unet" in name:
+        return UNet(model_configs)
     else:
         raise NotImplemented
 
@@ -64,12 +74,22 @@ def get_heuristic(heuristic_name, random_state=0, shuffle_prop=0.0):
         raise NotImplemented
 
 
-def load_data(name="mnist", train_transform=None, test_transform=None):
+def load_data(
+    name="mnist",
+    train_transform=None,
+    test_transform=None,
+    path="/tmp",
+    train_target_transform=None,
+    test_target_transform=None,
+):
     """Load dataset
     Args:
         name (default "MNIST"): string name of the dataset
         train_transform (default None): training images transform
         test_transform (default None): test images transform
+        path (str, default "/tmp"): sting of the path to the dataset
+        train_target_transform (default None): training labels transforms
+        test_target_transform (default None): test labels transforms
     Returns:
         train dataset, test dataset
     """
@@ -101,6 +121,31 @@ def load_data(name="mnist", train_transform=None, test_transform=None):
     elif name == "svhn":
         train_ds = SVHN("/tmp", split="train", transform=train_transform, download=True)
         test_ds = SVHN("/tmp", split="test", transform=test_transform, download=True)
+
+    elif name == "cityscapes":
+        train_ds = Cityscapes(
+            path,
+            split="train",
+            target_type="semantic",
+            transform=train_transform,
+            target_transform=train_target_transform,
+        )
+        test_ds = Cityscapes(
+            path,
+            split="test",
+            target_type="semantic",
+            transform=test_transform,
+            target_transform=test_target_transform,
+        )
+        val_ds = Cityscapes(
+            path,
+            split="val",
+            target_type="semantic",
+            transform=test_transform,
+            target_transform=test_target_transform,
+        )
+
+        return train_ds, test_ds, val_ds
 
     else:
         raise NotImplemented
