@@ -14,12 +14,12 @@ problem: "classification" # "segmentation"
 training:
     heuristic: "precomputed"
     shuffle_prop: 0.2
-    batch_size: 64
+    batch_size: 2
     epochs: 60
     ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
     initially_labelled: 100
-    initially_balanced: True
-    verbose: False
+    initially_balanced: False
+    verbose: True
     lr_reduce_factor: 0.1
     patience_lr_reduce: 8
     iterations: 15
@@ -29,24 +29,24 @@ training:
 
 data:
     dataset: 'CityScapes'
-    nb_classes: 10
-    augmentation: False
-    img_rows: 32
-    img_cols: 32
+    nb_classes: 30
+    img_rows: 128
+    img_cols: 128
     img_channels: 3
     val_size: 0.2
+    augmentation: False
     rgb_normalization: False
     path: "/srv/beegfs02/scratch/density_estimation/data/fanconic/CityScapes" #only applies to CityScapes
 
 model:
     ensemble: 1 #set to 1 for no ensemble
-    name: "MIR"
+    name: "UNet"
     mir_configs: # only applies if name == MIR
         backbone: "resnet50"
         reconstruction_weight: 1.0
         density_model: "knn"
         warmup: False
-        feature_dims: 2048
+        feature_dims: 512
         normalize_features: True
         dim_reduction: -1
         decoder_bn: True
@@ -62,10 +62,10 @@ model:
         knn_neighbours: 5
     
     # Data sizes - need to be the same as in "data"
-    input_height: 32
-    input_width: 32
+    input_height: 128
+    input_width: 128
     input_channels: 3
-    output_size: 10
+    output_size: 1
 
     # Layers for DNN and CNNS
     hidden_layers: [128, 128]

@@ -73,8 +73,6 @@ def main(config, run, random_state):
         config["data"]["dataset"], None, test_transform, path=config["data"]["path"]
     )
 
-    IPython.embed()
-
     # obtain training indices that will be used for validation
     num_train = len(train_whole)
     indices = list(range(num_train))

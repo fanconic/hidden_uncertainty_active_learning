@@ -24,17 +24,17 @@ def get_model(model_configs):
     returns:
         torch model
     """
-    name = model_configs["name"]
+    name = model_configs["name"].lower()
 
-    if name == "MLP":
+    if name == "mlp":
         return MLP(model_configs)
-    elif name == "CNN":
+    elif name == "cnn":
         return CNN(model_configs)
-    elif name == "BNN":
+    elif name == "bnn":
         return BNN(model_configs)
-    elif name == "BCNN":
+    elif name == "bcnn":
         return BCNN(model_configs)
-    elif name == "MIR":
+    elif name == "mir":
         return MIR(model_configs)
     elif "resnet" in name:
         return ResNet(model_configs)

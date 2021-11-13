@@ -10,7 +10,7 @@ from src.layers.consistent_dropout import patch_module
 from src.models.model_wrapper import ModelWrapper
 from src.active.active_loop import ActiveLearningLoop
 from torch import nn, optim
-from src.utils.metrics import Accuracy
+from src.utils.metrics import IoU
 import IPython
 from copy import deepcopy
 from pprint import pprint
@@ -20,6 +20,7 @@ import pandas as pd
 import numpy as np
 import random
 import os
+from src.utils.losses import DiceLoss
 
 
 def set_seed(seed):
@@ -104,8 +105,6 @@ def main(config, run, random_state):
         test_target_transform=test_target_transform,
     )
 
-    IPython.embed()
-
     al_dataset = ActiveLearningDataset(
         train_ds,
         # pool_specifics={"transform": test_transform},
@@ -118,7 +117,7 @@ def main(config, run, random_state):
     )
 
     # Loss
-    criterion = nn.CrossEntropyLoss()
+    criterion = DiceLoss()
 
     # Create MLPs to classify MNIST
     models = []
@@ -157,7 +156,7 @@ def main(config, run, random_state):
     )
 
     wrapper = ModelWrapper(models=models, criterion=criterion, heuristic=heuristic)
-    wrapper.add_metric("accuracy", lambda: Accuracy())
+    wrapper.add_metric("iou", lambda: IoU())
 
     # Setup our active learning loop for our experiments
     al_loop = ActiveLearningLoop(
@@ -176,7 +175,7 @@ def main(config, run, random_state):
     initial_weights = [deepcopy(model.state_dict()) for model in models]
     initial_states = [deepcopy(optimizer.state_dict()) for optimizer in optimizers]
 
-    test_accuracies = []
+    test_ious = []
     test_losses = []
     samples = []
 
@@ -224,14 +223,14 @@ def main(config, run, random_state):
                 "train_loss": wrapper.metrics["train_loss"].value,
                 "val_loss": wrapper.metrics["val_loss"].value,
                 "test_loss": wrapper.metrics["test_loss"].value,
-                "train_accuracy": wrapper.metrics["train_accuracy"].value,
-                "val_accuracy": wrapper.metrics["val_accuracy"].value,
-                "test_accuracy": wrapper.metrics["test_accuracy"].value,
+                "train_iou": wrapper.metrics["train_iou"].value,
+                "val_iou": wrapper.metrics["val_iou"].value,
+                "test_iou": wrapper.metrics["test_iou"].value,
             }
         )
 
         # Log progress
-        test_accuracies.append(wrapper.metrics["test_accuracy"].value)
+        test_ious.append(wrapper.metrics["test_ious"].value)
         test_losses.append(test_loss)
         samples.append(len(al_dataset))
 
@@ -241,7 +240,7 @@ def main(config, run, random_state):
             break
 
     if config["save_plot"]:
-        plt.plot(samples, test_accuracies)
+        plt.plot(samples, test_ious)
         plt.grid()
         plt.title("Experiment {}".format(config["name"]))
         plt.savefig(
@@ -256,7 +255,7 @@ def main(config, run, random_state):
         df = pd.DataFrame()
         df["samples"] = samples
         df = df.set_index("samples")
-        df["test_accuracy_run{}".format(str(run + 1))] = test_accuracies
+        df["test_ious_run{}".format(str(run + 1))] = test_ious
         df["test_losses_run{}".format(str(run + 1))] = test_losses
         return df
 

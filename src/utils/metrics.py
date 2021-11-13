@@ -577,3 +577,96 @@ def get_beta(batch_idx, m, beta_type, epoch, num_epochs):
     else:
         beta = 0
     return beta
+
+
+class IoU(Metrics):
+    def __init__(self, average=True, smooth=1e-6, **kwargs):
+        super().__init__(average=average)
+        self.smooth = smooth
+
+    def reset(self):
+        self.iou = torch.FloatTensor()
+
+    def update(self, output=None, target=None):
+        """
+        Update TP and support.
+        Args:
+            output (tensor): predictions of model
+            target (tensor): labels
+        Raises:
+            ValueError if the first dimension of output and target don't match.
+        """
+        batch_size = target.shape[0]
+        if not output.shape[0] == target.shape[0]:
+            raise ValueError(
+                f"Sizes of the output ({output.shape[0]}) and target "
+                "({target.shape[0]}) don't match."
+            )
+        dim = 1
+
+        import IPython
+
+        IPython.embed()
+
+        # comment out if your model contains a sigmoid or equivalent activation layer
+        output = torch.sigmoid(output)
+
+        # flatten label and prediction tensors
+        output = output.view(-1)
+        target = target.view(-1)
+
+        # intersection is equivalent to True Positive count
+        # union is the mutually inclusive area of all labels & predictions
+        intersection = (output * target).sum()
+        total = (output + target).sum()
+        union = total - intersection
+
+        IoU = (intersection + self.smooth) / (union + self.smooth)
+
+        topk_acc = []
+        for k in self.topk:
+            correct_k = correct[:, :k].contiguous().view(-1).float().sum()
+            topk_acc.append(float(correct_k.mul_(1.0 / batch_size)))
+
+        if len(self.iou) == 0:
+            self.iou = torch.FloatTensor(iou).unsqueeze(0)
+        else:
+            self.iou = torch.cat([self.iou, torch.FloatTensor(iou).unsqueeze(0)], dim=0)
+
+    def calculate_result(self) -> torch.Tensor:
+        return self.iou
+
+
+class Threshold_IoU(nn.Module):
+    def __init__(self, weight=None, size_average=True):
+        super(Threshold_IoU, self).__init__()
+
+    def forward(self, inputs, targets, smooth=1e-6):
+        """
+        Computing the IOU (Intersection over Union) with rounded inputs (0,1)
+        Args:
+            inputs: predicted and rounded classificaiton (primary, background)
+            targets: underlying truth (0,1)
+            smooth: smoothing factor
+        Returns:
+            Threshold IOU score
+        """
+
+        # comment out if your model contains a sigmoid or equivalent activation layer
+        inputs = torch.sigmoid(inputs)
+
+        # flatten label and prediction tensors
+
+        inputs = inputs.view(-1)
+        inputs = inputs.round()  # Outputs are rounded to 0 or 1
+        targets = targets.view(-1)
+
+        i = (inputs == 1) & (targets == 1)
+        u = (inputs == 1) | (targets == 1)
+
+        nominator = torch.sum(i) + smooth
+        denominator = torch.sum(u) + smooth
+
+        IoU = nominator / denominator
+
+        return IoU
