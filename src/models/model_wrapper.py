@@ -101,6 +101,7 @@ class ModelWrapper:
             initializer (Callable): lambda to initialize a new instance of a
                                     baal.utils.metrics.Metric object.
         """
+        self.track_metric = name  # used if verbose during training
         self.metrics["test_" + name] = initializer()
         self.metrics["train_" + name] = initializer()
         self.metrics["val_" + name] = initializer()
@@ -200,14 +201,13 @@ class ModelWrapper:
                 loader = tqdm(loader)
             for data, target in loader:
                 _ = self.train_on_batch(data, target, optimizers, use_cuda, regularizer)
-
                 if verbose:
                     loader.set_description(f"Epoch [{i+1}/{epoch}]")
                     loader.set_postfix(
                         loss=self.metrics["train_loss"].value,
-                        acc=self.metrics["train_accuracy"].value,
+                        acc=self.metrics["train_{}".format(self.track_metric)].value,
                         val_loss=self.metrics["val_loss"].value,
-                        val_acc=self.metrics["val_accuracy"].value,
+                        val_acc=self.metrics["val_{}".format(self.track_metric)].value,
                     )
             for optimizer in optimizers:
                 optimizer.zero_grad()  # Assert that the gradient is flushed.

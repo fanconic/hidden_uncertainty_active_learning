@@ -20,7 +20,7 @@ import pandas as pd
 import numpy as np
 import random
 import os
-from src.utils.losses import DiceLoss
+from src.utils.array_utils import to_label_tensor
 
 
 def set_seed(seed):
@@ -65,6 +65,7 @@ def main(config, run, random_state):
                 transforms.RandomHorizontalFlip(),
                 transforms.RandomRotation(15),
                 transforms.ToTensor(),
+                transforms.Lambda(to_label_tensor),
             ]
         )
     else:
@@ -72,20 +73,23 @@ def main(config, run, random_state):
             [transforms.Resize(resize, interpolation=2), transforms.ToTensor()]
         )
         train_target_transform_list.extend(
-            [transforms.Resize(resize, interpolation=0), transforms.ToTensor()]
+            [
+                transforms.Resize(resize, interpolation=0),
+                transforms.Lambda(to_label_tensor),
+            ]
         )
 
     test_transform_list.extend(
         [transforms.Resize(resize, interpolation=2), transforms.ToTensor()]
     )
     test_target_transform_list.extend(
-        [transforms.Resize(resize, interpolation=0), transforms.ToTensor()]
+        [transforms.Resize(resize, interpolation=0), transforms.Lambda(to_label_tensor)]
     )
 
     if config["data"]["rgb_normalization"]:
         normalize = transforms.Normalize(
-            mean=(0.49139968, 0.48215827, 0.44653124),
-            std=(0.24703233, 0.24348505, 0.26158768),
+            mean=config["data"]["mean"],
+            std=config["data"]["std"],
         )
 
         train_transform_list.append(normalize)
@@ -117,7 +121,7 @@ def main(config, run, random_state):
     )
 
     # Loss
-    criterion = DiceLoss()
+    criterion = nn.CrossEntropyLoss(ignore_index=config["data"]["ignore_label"])
 
     # Create MLPs to classify MNIST
     models = []
@@ -156,7 +160,13 @@ def main(config, run, random_state):
     )
 
     wrapper = ModelWrapper(models=models, criterion=criterion, heuristic=heuristic)
-    wrapper.add_metric("iou", lambda: IoU())
+    wrapper.add_metric(
+        "iou",
+        lambda: IoU(
+            num_classes=config["data"]["nb_classes"],
+            ignore_label=config["data"]["ignore_label"],
+        ),
+    )
 
     # Setup our active learning loop for our experiments
     al_loop = ActiveLearningLoop(

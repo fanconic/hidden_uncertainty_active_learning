@@ -580,9 +580,20 @@ def get_beta(batch_idx, m, beta_type, epoch, num_epochs):
 
 
 class IoU(Metrics):
-    def __init__(self, average=True, smooth=1e-6, **kwargs):
+    def __init__(
+        self,
+        num_classes,
+        ignore_label,
+        class_names=None,
+        average=True,
+        smooth=1e-6,
+        **kwargs,
+    ):
         super().__init__(average=average)
         self.smooth = smooth
+        self.num_classes = num_classes
+        self.ignore_label = ignore_label
+        self.metrics_acc = None
 
     def reset(self):
         self.iou = torch.FloatTensor()
@@ -602,71 +613,33 @@ class IoU(Metrics):
                 f"Sizes of the output ({output.shape[0]}) and target "
                 "({target.shape[0]}) don't match."
             )
-        dim = 1
 
-        import IPython
-
-        IPython.embed()
-
-        # comment out if your model contains a sigmoid or equivalent activation layer
-        output = torch.sigmoid(output)
-
-        # flatten label and prediction tensors
-        output = output.view(-1)
-        target = target.view(-1)
-
-        # intersection is equivalent to True Positive count
-        # union is the mutually inclusive area of all labels & predictions
-        intersection = (output * target).sum()
-        total = (output + target).sum()
-        union = total - intersection
-
-        IoU = (intersection + self.smooth) / (union + self.smooth)
-
-        topk_acc = []
-        for k in self.topk:
-            correct_k = correct[:, :k].contiguous().view(-1).float().sum()
-            topk_acc.append(float(correct_k.mul_(1.0 / batch_size)))
+        iou = [self.IoU_score(output, target)]
 
         if len(self.iou) == 0:
             self.iou = torch.FloatTensor(iou).unsqueeze(0)
         else:
             self.iou = torch.cat([self.iou, torch.FloatTensor(iou).unsqueeze(0)], dim=0)
 
+    def IoU_score(self, inputs, targets):
+        with torch.no_grad():
+            inputs = F.softmax(inputs, dim=1)  # convert into probabilites 0-1
+            targets = (
+                F.one_hot(targets, num_classes=self.num_classes)
+                .permute(0, 3, 1, 2)
+                .contiguous()
+            )  # convert target into one-hot
+
+            inputs = inputs.contiguous().view(-1)
+            targets = targets.view(-1)
+
+            intersection = (inputs * targets).sum()
+            total = (inputs + targets).sum()
+            union = total - intersection
+
+            IoU = (intersection + self.smooth) / (union + self.smooth)
+
+            return IoU.item()
+
     def calculate_result(self) -> torch.Tensor:
         return self.iou
-
-
-class Threshold_IoU(nn.Module):
-    def __init__(self, weight=None, size_average=True):
-        super(Threshold_IoU, self).__init__()
-
-    def forward(self, inputs, targets, smooth=1e-6):
-        """
-        Computing the IOU (Intersection over Union) with rounded inputs (0,1)
-        Args:
-            inputs: predicted and rounded classificaiton (primary, background)
-            targets: underlying truth (0,1)
-            smooth: smoothing factor
-        Returns:
-            Threshold IOU score
-        """
-
-        # comment out if your model contains a sigmoid or equivalent activation layer
-        inputs = torch.sigmoid(inputs)
-
-        # flatten label and prediction tensors
-
-        inputs = inputs.view(-1)
-        inputs = inputs.round()  # Outputs are rounded to 0 or 1
-        targets = targets.view(-1)
-
-        i = (inputs == 1) & (targets == 1)
-        u = (inputs == 1) | (targets == 1)
-
-        nominator = torch.sum(i) + smooth
-        denominator = torch.sum(u) + smooth
-
-        IoU = nominator / denominator
-
-        return IoU

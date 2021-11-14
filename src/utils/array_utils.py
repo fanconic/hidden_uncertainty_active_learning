@@ -47,3 +47,14 @@ def stack_in_memory(data, iterations):
         ) from e
     data = data.view(batch_size * iterations, *input_shape[1:])
     return data
+
+
+def to_label_tensor(target):
+    """
+    Turns a luminessence label image into a 1D tensor, without normalizing it.
+    Args:
+        target (PIL.Image): input target
+    Returns:
+        image in Tensor type
+    """
+    return torch.from_numpy(np.array(target, dtype=np.uint8)).long()

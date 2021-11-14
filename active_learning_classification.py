@@ -59,8 +59,8 @@ def main(config, run, random_state):
 
     if config["data"]["rgb_normalization"]:
         normalize = transforms.Normalize(
-            mean=(0.49139968, 0.48215827, 0.44653124),
-            std=(0.24703233, 0.24348505, 0.26158768),
+            mean=config["data"]["mean"],
+            std=config["data"]["std"],
         )
 
         train_transform_list.append(normalize)
