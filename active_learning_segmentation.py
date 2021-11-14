@@ -20,7 +20,7 @@ import pandas as pd
 import numpy as np
 import random
 import os
-from src.utils.array_utils import to_label_tensor
+from src.utils.array_utils import to_label_tensor, mask_to_class
 
 
 def set_seed(seed):
@@ -48,6 +48,45 @@ def main(config, run, random_state):
     test_target_transform_list = []
 
     resize = (config["data"]["img_rows"], config["data"]["img_cols"])
+
+    mapping = {
+        0: 0,  # unlabeled
+        1: 0,  # ego vehicle
+        2: 0,  # rect border
+        3: 0,  # out of roi
+        4: 0,  # static
+        5: 0,  # dynamic
+        6: 0,  # ground
+        7: 1,  # road
+        8: 0,  # sidewalk
+        9: 0,  # parking
+        10: 0,  # rail track
+        11: 0,  # building
+        12: 0,  # wall
+        13: 0,  # fence
+        14: 0,  # guard rail
+        15: 0,  # bridge
+        16: 0,  # tunnel
+        17: 0,  # pole
+        18: 0,  # polegroup
+        19: 0,  # traffic light
+        20: 0,  # traffic sign
+        21: 0,  # vegetation
+        22: 0,  # terrain
+        23: 2,  # sky
+        24: 0,  # person
+        25: 0,  # rider
+        26: 3,  # car
+        27: 3,  # truck
+        28: 3,  # bus
+        29: 3,  # caravan
+        30: 3,  # trailer
+        31: 3,  # train
+        32: 3,  # motorcycle
+        33: 3,  # bicycle
+        -1: 0,  # licenseplate
+    }
+
     if config["data"]["augmentation"]:
         train_transform_list.extend(
             [
@@ -66,6 +105,7 @@ def main(config, run, random_state):
                 transforms.RandomRotation(15),
                 transforms.ToTensor(),
                 transforms.Lambda(to_label_tensor),
+                transforms.Lambda(lambda x: mask_to_class(x, mapping)),
             ]
         )
     else:
@@ -76,6 +116,7 @@ def main(config, run, random_state):
             [
                 transforms.Resize(resize, interpolation=0),
                 transforms.Lambda(to_label_tensor),
+                transforms.Lambda(lambda x: mask_to_class(x, mapping)),
             ]
         )
 
@@ -83,7 +124,11 @@ def main(config, run, random_state):
         [transforms.Resize(resize, interpolation=2), transforms.ToTensor()]
     )
     test_target_transform_list.extend(
-        [transforms.Resize(resize, interpolation=0), transforms.Lambda(to_label_tensor)]
+        [
+            transforms.Resize(resize, interpolation=0),
+            transforms.Lambda(to_label_tensor),
+            transforms.Lambda(lambda x: mask_to_class(x, mapping)),
+        ]
     )
 
     if config["data"]["rgb_normalization"]:

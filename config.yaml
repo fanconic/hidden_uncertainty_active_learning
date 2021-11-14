@@ -29,7 +29,7 @@ training:
 
 data:
     dataset: 'CityScapes'
-    nb_classes: 34
+    nb_classes: 4
     img_rows: 128
     img_cols: 128
     img_channels: 3
@@ -68,7 +68,7 @@ model:
     input_height: 128
     input_width: 128
     input_channels: 3
-    output_size: 34
+    output_size: 4
 
     # Layers for DNN and CNNS
     hidden_layers: [128, 128]

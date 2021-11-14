@@ -58,3 +58,20 @@ def to_label_tensor(target):
         image in Tensor type
     """
     return torch.from_numpy(np.array(target, dtype=np.uint8)).long()
+
+
+def mask_to_class(mask, mapping):
+    """Given the cityscapes dataset, this maps to a 0..classes numbers.
+    This is because we are using a subset of all masks, so we have this "mapping" function.
+    This mapping function is used to map all the standard ids into the smaller subset.
+
+    Args:
+        mask (torch.Tensor): the original label
+        mapping (dict): new mapping of labels
+    Returns:
+        new label
+    """
+    maskimg = torch.zeros((mask.size()[0], mask.size()[1]), dtype=torch.uint8)
+    for k in mapping:
+        maskimg[mask == k] = mapping[k]
+    return maskimg.long()
