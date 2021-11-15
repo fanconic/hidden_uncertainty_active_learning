@@ -242,7 +242,7 @@ class ModelWrapper:
                     if early_stopping:
                         break
 
-        if isinstance(self.models[0], MIR, UNet):
+        if isinstance(self.models[0], (MIR)):
 
             for model in self.models:
                 return_true_labels = True if model.density_model == "knn" else False

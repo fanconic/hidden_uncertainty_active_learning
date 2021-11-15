@@ -2,24 +2,23 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "test_cityscapes"
+name: "test_cityscapes_run2"
 
 random_state: [3, 11, 42]
 save_plot: False
 save_df: True
-runs: 3
+runs: 1
 week: 6
-problem: "classification" # "segmentation"
 
 training:
-    heuristic: "precomputed"
+    heuristic: "random"
     shuffle_prop: 0.2
-    batch_size: 2
-    epochs: 60
+    batch_size: 32
+    epochs: 1
     ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
     initially_labelled: 100
     initially_balanced: False
-    verbose: True
+    verbose: False
     lr_reduce_factor: 0.1
     patience_lr_reduce: 8
     iterations: 15
@@ -31,7 +30,7 @@ data:
     dataset: 'CityScapes'
     nb_classes: 4
     img_rows: 128
-    img_cols: 128
+    img_cols: 256
     img_channels: 3
     val_size: 0.2
     augmentation: False
@@ -45,7 +44,7 @@ model:
     ensemble: 1 #set to 1 for no ensemble
     name: "UNet"
     mir_configs: # only applies if name == MIR
-        backbone: "resnet50"
+        backbone: "MLP"
         reconstruction_weight: 1.0
         density_model: "knn"
         warmup: False
@@ -56,7 +55,7 @@ model:
         num_res_blocks: 3
 
         # Greedy Search
-        greedy_search: True
+        greedy_search: False
         search_step_size: 100
 
         # KNN
@@ -66,7 +65,7 @@ model:
     
     # Data sizes - need to be the same as in "data"
     input_height: 128
-    input_width: 128
+    input_width: 256
     input_channels: 3
     output_size: 4
 

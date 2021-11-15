@@ -1,5 +1,8 @@
 import torch
 import torch.nn as nn
+from src.models.density_models import ClassConditionalGMM, KNearestNeighbour
+import numpy as np
+from typing import Tuple, Dict, List
 
 
 class double_conv(nn.Module):
@@ -66,6 +69,24 @@ class UNet(nn.Module):
         out_channel = model_configs["output_size"]
         drop_prob = model_configs["dropout_probabilities"][0]
 
+        mir_configs = model_configs["mir_configs"]
+        self.density_model = mir_configs["density_model"]
+        self.normalize_features = mir_configs["normalize_features"]
+        self.dim_reduction = mir_configs["dim_reduction"]
+        self.nr_classes = model_configs["output_size"]
+
+        # GMM Greedy Search
+        self.greedy_search = mir_configs["greedy_search"]
+        self.search_step_size = mir_configs["search_step_size"]
+
+        # KNN
+        self.knn_weights = mir_configs["knn_weights"]
+        self.knn_metric = mir_configs["knn_metric"]
+        self.knn_neighbours = mir_configs["knn_neighbours"]
+
+        self.density = None
+        self.init_density(self.normalize_features)
+
         ## DownSampling Block
         self.down_block1 = double_conv(in_channel, 16)
         self.down_block2 = down_conv(16, 32, drop_prob)
@@ -121,3 +142,49 @@ class UNet(nn.Module):
             return output_dict
         else:
             return out
+
+    def init_density(
+        self,
+        normalize_features: bool = True,
+    ):
+        """Define density estimation model
+        Args:
+            normalize_features (bool): bool if the features shall be normalized
+            greedy_search (bool): bool if a greedy search over the available dimension should be performed
+            search_step_size (int): Step size of the greedy search dimensions
+        """
+        # density model
+        if self.density_model == "gmm":
+            self.density = ClassConditionalGMM(
+                nr_classes=self.nr_classes,
+                red_dim=self.dim_reduction,
+                normalize_features=normalize_features,
+                greedy_search=self.greedy_search,
+                search_step_size=self.search_step_size,
+            )
+        elif self.density_model == "knn":
+            self.density = KNearestNeighbour(
+                n_neigbours=self.knn_neighbours,
+                red_dim=self.dim_reduction,
+                normalize_features=normalize_features,
+                weights=self.knn_weights,
+                metric=self.knn_metric,
+            )
+        else:
+            raise ValueError(f"Unknown density model {self.density_model}!")
+
+        def uncertainty(self, data: Tuple[torch.Tensor]) -> torch.Tensor:
+            """Computes uncertainty estimates given x.
+
+            Args:
+            data: batch
+
+            Returns:
+            dictionary with entries 'prediction' and 'uncertainty'
+            """
+            output_dict = self.forward(inputs=data, return_features=True)
+            output = output_dict["features"]
+            if len(output.shape) > 2:
+                output = torch.flatten(output, 1)
+            uncertainty = self.density.marginal_log_probs(output.cpu().detach())
+            return np.expand_dims(uncertainty, axis=-1)

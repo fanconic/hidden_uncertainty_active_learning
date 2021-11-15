@@ -75,3 +75,17 @@ def mask_to_class(mask, mapping):
     for k in mapping:
         maskimg[mask == k] = mapping[k]
     return maskimg.long()
+
+
+def mask_to_rgb(mask, mappingrgb):
+    """
+    Given the Cityscapes mask file, this converts the ids into rgb colors.
+    This is needed as we are interested in a sub-set of labels, thus can't just use the
+    standard color output provided by the dataset.
+    """
+    rgbimg = torch.zeros((3, mask.size()[0], mask.size()[1]), dtype=torch.uint8)
+    for k in mappingrgb:
+        rgbimg[0][mask == k] = mappingrgb[k][0]
+        rgbimg[1][mask == k] = mappingrgb[k][1]
+        rgbimg[2][mask == k] = mappingrgb[k][2]
+    return rgbimg

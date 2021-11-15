@@ -29,6 +29,10 @@ def sampleFromClass(ds, k):
     )
 
 
+def identity(x):
+    return x
+
+
 class MapDataset(torch.utils.data.Dataset):
     """
     Given a dataset, creates a dataset which applies a mapping function
@@ -37,12 +41,17 @@ class MapDataset(torch.utils.data.Dataset):
     Note that data is not cloned/copied from the initial dataset.
     """
 
-    def __init__(self, dataset, map_fn):
+    def __init__(self, dataset, map_fn, target_map_fn=None):
         self.dataset = dataset
         self.map = map_fn
 
+        if target_map_fn is None:
+            self.target_map = identity
+        else:
+            self.target_map = target_map_fn
+
     def __getitem__(self, index):
-        return self.map(self.dataset[index][0]), self.dataset[index][1]
+        return self.map(self.dataset[index][0]), self.target_map(self.dataset[index][1])
 
     def __len__(self):
         return len(self.dataset)

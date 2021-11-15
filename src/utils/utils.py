@@ -130,14 +130,9 @@ def load_data(
             transform=train_transform,
             target_transform=train_target_transform,
         )
+        # in the City Scapes dataset, the test data set corresponds to the original validation dataset.
+        # The new validation dataset is computed by taking a split
         test_ds = Cityscapes(
-            path,
-            split="test",
-            target_type="semantic",
-            transform=test_transform,
-            target_transform=test_target_transform,
-        )
-        val_ds = Cityscapes(
             path,
             split="val",
             target_type="semantic",
@@ -145,7 +140,7 @@ def load_data(
             target_transform=test_target_transform,
         )
 
-        return train_ds, test_ds, val_ds
+        return train_ds, test_ds
 
     else:
         raise NotImplemented

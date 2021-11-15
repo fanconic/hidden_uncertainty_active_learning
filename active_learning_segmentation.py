@@ -20,7 +20,8 @@ import pandas as pd
 import numpy as np
 import random
 import os
-from src.utils.array_utils import to_label_tensor, mask_to_class
+from src.utils.array_utils import to_label_tensor, mask_to_class, mask_to_rgb
+from torchvision.utils import save_image
 
 
 def set_seed(seed):
@@ -145,14 +146,30 @@ def main(config, run, random_state):
     test_transform = transforms.Compose(test_transform_list)
     test_target_transform = transforms.Compose(test_target_transform_list)
 
-    train_ds, test_ds, val_ds = load_data(
+    # in the City Scapes dataset, the test data set corresponds to the original validation dataset.
+    # The new validation dataset is computed by taking a split
+    train_whole, test_ds = load_data(
         config["data"]["dataset"],
-        train_transform=train_transform,
+        train_transform=None,
         test_transform=test_transform,
         path=config["data"]["path"],
-        train_target_transform=train_target_transform,
+        train_target_transform=None,
         test_target_transform=test_target_transform,
     )
+
+    # obtain training indices that will be used for validation
+    num_train = len(train_whole)
+    indices = list(range(num_train))
+    np.random.shuffle(indices)
+    split = int(np.floor(config["data"]["val_size"] * num_train))
+    train_idx, valid_idx = indices[split:], indices[:split]
+
+    train_subs = torch.utils.data.Subset(train_whole, train_idx)
+    val_subs = torch.utils.data.Subset(train_whole, valid_idx)
+    train_ds = MapDataset(
+        train_subs, train_transform, target_map_fn=train_target_transform
+    )
+    val_ds = MapDataset(val_subs, test_transform, target_map_fn=test_target_transform)
 
     al_dataset = ActiveLearningDataset(
         train_ds,
@@ -285,7 +302,7 @@ def main(config, run, random_state):
         )
 
         # Log progress
-        test_ious.append(wrapper.metrics["test_ious"].value)
+        test_ious.append(wrapper.metrics["test_iou"].value)
         test_losses.append(test_loss)
         samples.append(len(al_dataset))
 
