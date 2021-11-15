@@ -92,19 +92,16 @@ def main(config, run, random_state):
         train_transform_list.extend(
             [
                 transforms.Resize(resize, interpolation=2),
-                transforms.RandomCrop(32, padding=4),
+                transforms.RandomCrop(resize, padding=10),
                 transforms.RandomHorizontalFlip(),
-                transforms.RandomRotation(15),
                 transforms.ToTensor(),
             ]
         )
         train_target_transform_list.extend(
             [
                 transforms.Resize(resize, interpolation=0),
-                transforms.RandomCrop(32, padding=4),
+                transforms.RandomCrop(resize, padding=10),
                 transforms.RandomHorizontalFlip(),
-                transforms.RandomRotation(15),
-                transforms.ToTensor(),
                 transforms.Lambda(to_label_tensor),
                 transforms.Lambda(lambda x: mask_to_class(x, mapping)),
             ]

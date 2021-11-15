@@ -1,5 +1,7 @@
 import torch
 from torch.utils.data import TensorDataset
+import random
+import numpy as np
 
 
 def sampleFromClass(ds, k):
@@ -51,7 +53,16 @@ class MapDataset(torch.utils.data.Dataset):
             self.target_map = target_map_fn
 
     def __getitem__(self, index):
-        return self.map(self.dataset[index][0]), self.target_map(self.dataset[index][1])
+        seed = np.random.randint(2147483647)  # make a seed with numpy generator
+        random.seed(seed)  # apply this seed to img tranfsorms
+        torch.manual_seed(seed)
+        feature = self.map(self.dataset[index][0])
+
+        random.seed(seed)  # apply this seed to target transforms
+        torch.manual_seed(seed)
+        label = self.target_map(self.dataset[index][1])
+
+        return feature, label
 
     def __len__(self):
         return len(self.dataset)

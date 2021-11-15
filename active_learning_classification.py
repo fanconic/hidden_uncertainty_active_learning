@@ -46,7 +46,7 @@ def main(config, run, random_state):
     if config["data"]["augmentation"]:
         train_transform_list.extend(
             [
-                transforms.RandomCrop(32, padding=4),
+                transforms.RandomCrop(config["data"]["img_rows"], padding=4),
                 transforms.RandomHorizontalFlip(),
                 transforms.RandomRotation(15),
                 transforms.ToTensor(),
