@@ -495,6 +495,9 @@ class Entropy(AbstractHeuristic):
     @singlepass
     @requireprobs
     def compute_score(self, predictions):
+        import IPython
+
+        IPython.embed()
         return scipy.stats.entropy(np.swapaxes(predictions, 0, 1))
 
 

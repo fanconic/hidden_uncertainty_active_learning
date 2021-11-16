@@ -22,6 +22,7 @@ import random
 import os
 from src.utils.array_utils import to_label_tensor, mask_to_class, mask_to_rgb
 from torchvision.utils import save_image
+import itertools
 
 
 def set_seed(seed):
@@ -216,6 +217,7 @@ def main(config, run, random_state):
         config["training"]["heuristic"],
         random_state=random_state,
         shuffle_prop=config["training"]["shuffle_prop"],
+        reduction=config["training"]["reduction"],
     )
 
     wrapper = ModelWrapper(models=models, criterion=criterion, heuristic=heuristic)

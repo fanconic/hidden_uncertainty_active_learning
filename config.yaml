@@ -2,43 +2,54 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "test_cityscapes_run2"
+name: "cityscapes_MCD"
 
 random_state: [3, 11, 42]
 save_plot: False
 save_df: True
-runs: 1
+runs: 3
 week: 6
 
 training:
-    heuristic: "random"
+    # active learning heuristic
+    heuristic: "entropy"
+    reduction: "sum"
     shuffle_prop: 0.2
+
+    # Neural Network Training
     batch_size: 32
-    epochs: 1
+    epochs: 20
+    
+    #Active learning steps
     ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
+    iterations: 15
     initially_labelled: 100
     initially_balanced: False
     verbose: False
+
+    # Early stopping
     lr_reduce_factor: 0.1
     patience_lr_reduce: 8
-    iterations: 15
     early_stopping: True
     load_best_model: True
     patience_early_stopping: 15
 
 data:
+    # Dataset parameters
     dataset: 'CityScapes'
     nb_classes: 4
     img_rows: 128
     img_cols: 256
     img_channels: 3
     val_size: 0.2
+
+    # Augmentation
     augmentation: True
     rgb_normalization: True
-    mean: [0.28689554, 0.32513303, 0.28389177] # CIFAR10: (0.49139968, 0.48215827, 0.44653124)
-    std: [0.18696375, 0.19017339, 0.18720214] # CIFAR10: (0.24703233, 0.24348505, 0.26158768)
+    mean: [0.28689554, 0.32513303, 0.28389177] # CIFAR10: [0.49139968, 0.48215827, 0.44653124]
+    std: [0.18696375, 0.19017339, 0.18720214] # CIFAR10: [0.24703233, 0.24348505, 0.26158768]
     path: "/srv/beegfs02/scratch/density_estimation/data/fanconic/CityScapes" #only applies to CityScapes
-    ignore_label: 255
+    ignore_label: 255 # only for sematic segmenation
 
 model:
     ensemble: 1 #set to 1 for no ensemble
@@ -72,12 +83,12 @@ model:
     # Layers for DNN and CNNS
     hidden_layers: [128, 128]
     kernel_sizes: [4, 4] # only applied if a (B)CNN is used
-    dropout_probabilities: [0.05, 0.5] #[0.25, 0.5]
+    dropout_probabilities: [0.1, 0.5] #[0.25, 0.5]
     use_bias: True
 
     # Monte Carlo Dropout parameters
-    mc_dropout: False # used for MC dropout
-    mc_iterations: 1 # iterations for MC dropout
+    mc_dropout: True # used for MC dropout
+    mc_iterations: 10 # iterations for MC dropout
 
     # BNN KL divergence loss
     kl_div_weight: 0.01 # only used for B(C)NN, to weight the kl_div loss

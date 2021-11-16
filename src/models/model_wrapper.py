@@ -427,6 +427,7 @@ class ModelWrapper:
         )
         if verbose:
             loader = tqdm(loader, total=len(loader), file=sys.stdout)
+
         for idx, (data, _) in enumerate(loader):
             preds = []
             for model in self.models:

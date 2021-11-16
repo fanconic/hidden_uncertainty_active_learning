@@ -44,7 +44,7 @@ def get_model(model_configs):
         raise NotImplemented
 
 
-def get_heuristic(heuristic_name, random_state=0, shuffle_prop=0.0):
+def get_heuristic(heuristic_name, random_state=0, shuffle_prop=0.0, reduction="none"):
     """Get the right heuristic
     args:
         heuristic_name (str): name of the heuristic
@@ -55,21 +55,21 @@ def get_heuristic(heuristic_name, random_state=0, shuffle_prop=0.0):
     """
     heuristic_name = heuristic_name.lower()
     if heuristic_name == "bald":
-        return BALD(shuffle_prop=shuffle_prop)
+        return BALD(shuffle_prop=shuffle_prop, reduction=reduction)
     elif heuristic_name == "batchbald":
-        return BatchBALD(4000, shuffle_prop=shuffle_prop)
+        return BatchBALD(4000, shuffle_prop=shuffle_prop, reduction=reduction)
     elif heuristic_name == "variance":
         return Variance()
     elif heuristic_name == "random":
-        return Random(seed=random_state, shuffle_prop=shuffle_prop)
+        return Random(seed=random_state, shuffle_prop=shuffle_prop, reduction=reduction)
     elif heuristic_name == "entropy":
-        return Entropy(shuffle_prop=shuffle_prop)
+        return Entropy(shuffle_prop=shuffle_prop, reduction=reduction)
     elif heuristic_name == "margin":
-        return Margin(shuffle_prop=shuffle_prop)
+        return Margin(shuffle_prop=shuffle_prop, reduction=reduction)
     elif heuristic_name == "certainty":
-        return Certainty(shuffle_prop=shuffle_prop)
+        return Certainty(shuffle_prop=shuffle_prop, reduction=reduction)
     elif heuristic_name == "precomputed":
-        return Precomputed(shuffle_prop=shuffle_prop)
+        return Precomputed(shuffle_prop=shuffle_prop, reduction=reduction)
     else:
         raise NotImplemented
 
