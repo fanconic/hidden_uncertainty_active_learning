@@ -20,6 +20,7 @@ import pandas as pd
 import numpy as np
 import random
 import os
+import wandb
 
 
 def set_seed(seed):
@@ -129,6 +130,10 @@ def main(config, run, random_state):
         optimizers.append(optimizer)
         schedulers.append(scheduler)
 
+    models = tuple(models)
+    optimizers = tuple(optimizers)
+    schedulers = tuple(schedulers)
+
     heuristic = get_heuristic(
         config["training"]["heuristic"],
         random_state=random_state,
@@ -155,9 +160,15 @@ def main(config, run, random_state):
     initial_weights = [deepcopy(model.state_dict()) for model in models]
     initial_states = [deepcopy(optimizer.state_dict()) for optimizer in optimizers]
 
+    samples = []
     test_accuracies = []
     test_losses = []
-    samples = []
+    train_accuracies = []
+    train_losses = []
+    val_accuracies = []
+    val_losses = []
+
+    wandb.watch(models, criterion=criterion)
 
     # Set initial model weights
     # reset the learning rate scheduler
@@ -185,6 +196,7 @@ def main(config, run, random_state):
             patience=config["training"]["patience_early_stopping"],
             verbose=config["training"]["verbose"],
             return_best_weights=config["training"]["load_best_model"],
+            al_iteration=step,
         )
 
         if config["training"]["load_best_model"]:
@@ -197,22 +209,26 @@ def main(config, run, random_state):
             average_predictions=config["model"]["mc_iterations"],
         )
 
-        pprint(
-            {
-                "dataset_size": len(al_dataset),
-                "train_loss": wrapper.metrics["train_loss"].value,
-                "val_loss": wrapper.metrics["val_loss"].value,
-                "test_loss": wrapper.metrics["test_loss"].value,
-                "train_accuracy": wrapper.metrics["train_accuracy"].value,
-                "val_accuracy": wrapper.metrics["val_accuracy"].value,
-                "test_accuracy": wrapper.metrics["test_accuracy"].value,
-            }
-        )
+        logs = {
+            "dataset_size": len(al_dataset),
+            "end_train_loss": wrapper.metrics["train_loss"].value,
+            "end_val_loss": wrapper.metrics["val_loss"].value,
+            "end_test_loss": wrapper.metrics["test_loss"].value,
+            "end_train_accuracy": wrapper.metrics["train_accuracy"].value,
+            "end_val_accuracy": wrapper.metrics["val_accuracy"].value,
+            "end_test_accuracy": wrapper.metrics["test_accuracy"].value,
+        }
+        pprint(logs)
+        wandb.log(logs)
 
         # Log progress
+        samples.append(len(al_dataset))
         test_accuracies.append(wrapper.metrics["test_accuracy"].value)
         test_losses.append(test_loss)
-        samples.append(len(al_dataset))
+        train_accuracies.append(wrapper.metrics["train_accuracy"].value)
+        train_losses.append(wrapper.metrics["train_loss"].value)
+        val_accuracies.append(wrapper.metrics["val_accuracy"].value)
+        val_losses.append(wrapper.metrics["val_loss"].value)
 
         flag = al_loop.step()
         if not flag:
@@ -237,6 +253,10 @@ def main(config, run, random_state):
         df = df.set_index("samples")
         df["test_accuracy_run{}".format(str(run + 1))] = test_accuracies
         df["test_losses_run{}".format(str(run + 1))] = test_losses
+        df["train_accuracy_run{}".format(str(run + 1))] = train_accuracies
+        df["train_losses_run{}".format(str(run + 1))] = train_losses
+        df["val_accuracy_run{}".format(str(run + 1))] = val_accuracies
+        df["val_losses_run{}".format(str(run + 1))] = val_losses
         return df
 
 
@@ -248,7 +268,16 @@ if __name__ == "__main__":
     print(config["name"])
     df = pd.DataFrame()
 
+    # Weights & Biases for tracking training
+
     for run in range(config["runs"]):
+        wandb.init(
+            project="hidden_uncertainty",
+            entity="fanconic",
+            name=config["name"] + "_run{}".format(run + 1),
+            reinit=True,
+            config=config,
+        )
         run_df = main(config, run, config["random_state"][run])
         df = df.join(run_df, how="right")
 

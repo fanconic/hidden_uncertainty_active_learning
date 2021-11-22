@@ -25,6 +25,7 @@ from src.models.MIR import MIR
 from src.models.UNet import UNet
 from src.active.heuristics import Precomputed
 
+import wandb
 
 log = structlog.get_logger("ModelWrapper")
 
@@ -149,6 +150,7 @@ class ModelWrapper:
         patience: int = None,
         average_predictions: int = 1,
         return_best_weights: bool = False,
+        al_iteration: int = 1,
     ):
         """
         Train for `epoch` epochs on a Dataset `dataset.
@@ -168,6 +170,7 @@ class ModelWrapper:
             patience (int): patience epochs, as long as the model did not improve
             average_predictions (int): average predictions for validation dataset
             return_best_weights (bool): if the best weights shall be returned
+            al_iteration: current iteration of the active learning process
         Returns:
             The training history.
         """
@@ -209,6 +212,22 @@ class ModelWrapper:
                         val_loss=self.metrics["val_loss"].value,
                         val_acc=self.metrics["val_{}".format(self.track_metric)].value,
                     )
+
+                # log in wandb:
+                wandb.log(
+                    {
+                        "epoch": i + 1,
+                        f"loss_{al_iteration}": self.metrics["train_loss"].value,
+                        f"acc_{al_iteration}": self.metrics[
+                            "train_{}".format(self.track_metric)
+                        ].value,
+                        f"val_loss_{al_iteration}": self.metrics["val_loss"].value,
+                        f"val_acc_{al_iteration}": self.metrics[
+                            "val_{}".format(self.track_metric)
+                        ].value,
+                    }
+                )
+
             for optimizer in optimizers:
                 optimizer.zero_grad()  # Assert that the gradient is flushed.
             history.append(self.metrics["train_loss"].value)

@@ -2,7 +2,7 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "cityscapes_MCD"
+name: "test_wandb_4"
 
 random_state: [3, 11, 42]
 save_plot: False
@@ -17,12 +17,12 @@ training:
     shuffle_prop: 0.2
 
     # Neural Network Training
-    batch_size: 32
-    epochs: 20
+    batch_size: 64
+    epochs: 10
     
     #Active learning steps
-    ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
-    iterations: 15
+    ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000] #, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
+    iterations: 7 #15
     initially_labelled: 100
     initially_balanced: False
     verbose: False
@@ -36,16 +36,16 @@ training:
 
 data:
     # Dataset parameters
-    dataset: 'CityScapes'
-    nb_classes: 4
-    img_rows: 128
-    img_cols: 256
-    img_channels: 3
+    dataset: 'mnist'
+    nb_classes: 10
+    img_rows: 28
+    img_cols: 28
+    img_channels: 1
     val_size: 0.2
 
     # Augmentation
-    augmentation: True
-    rgb_normalization: True
+    augmentation: False
+    rgb_normalization: False
     mean: [0.28689554, 0.32513303, 0.28389177] # CIFAR10: [0.49139968, 0.48215827, 0.44653124]
     std: [0.18696375, 0.19017339, 0.18720214] # CIFAR10: [0.24703233, 0.24348505, 0.26158768]
     path: "/srv/beegfs02/scratch/density_estimation/data/fanconic/CityScapes" #only applies to CityScapes
@@ -53,7 +53,7 @@ data:
 
 model:
     ensemble: 1 #set to 1 for no ensemble
-    name: "UNet"
+    name: "MLP"
     mir_configs: # only applies if name == MIR
         backbone: "MLP"
         reconstruction_weight: 1.0
@@ -75,20 +75,20 @@ model:
         knn_neighbours: 5
     
     # Data sizes - need to be the same as in "data"
-    input_height: 128
-    input_width: 256
-    input_channels: 3
-    output_size: 4
+    input_height: 28
+    input_width: 28
+    input_channels: 1
+    output_size: 10
 
     # Layers for DNN and CNNS
     hidden_layers: [128, 128]
     kernel_sizes: [4, 4] # only applied if a (B)CNN is used
-    dropout_probabilities: [0.1, 0.5] #[0.25, 0.5]
+    dropout_probabilities: [0.25, 0.5] #[0.25, 0.5]
     use_bias: True
 
     # Monte Carlo Dropout parameters
-    mc_dropout: True # used for MC dropout
-    mc_iterations: 10 # iterations for MC dropout
+    mc_dropout: False # used for MC dropout
+    mc_iterations: 1 # iterations for MC dropout
 
     # BNN KL divergence loss
     kl_div_weight: 0.01 # only used for B(C)NN, to weight the kl_div loss

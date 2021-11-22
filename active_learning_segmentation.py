@@ -22,7 +22,8 @@ import random
 import os
 from src.utils.array_utils import to_label_tensor, mask_to_class, mask_to_rgb
 from torchvision.utils import save_image
-import itertools
+
+import wandb
 
 
 def set_seed(seed):
@@ -213,6 +214,10 @@ def main(config, run, random_state):
         optimizers.append(optimizer)
         schedulers.append(scheduler)
 
+    models = tuple(models)
+    optimizers = tuple(optimizers)
+    schedulers = tuple(schedulers)
+
     heuristic = get_heuristic(
         config["training"]["heuristic"],
         random_state=random_state,
@@ -246,9 +251,15 @@ def main(config, run, random_state):
     initial_weights = [deepcopy(model.state_dict()) for model in models]
     initial_states = [deepcopy(optimizer.state_dict()) for optimizer in optimizers]
 
+    samples = []
     test_ious = []
     test_losses = []
-    samples = []
+    train_ious = []
+    train_losses = []
+    val_ious = []
+    val_losses = []
+
+    wandb.watch(models, criterion=criterion)
 
     # Set initial model weights
     # reset the learning rate scheduler
@@ -276,6 +287,7 @@ def main(config, run, random_state):
             patience=config["training"]["patience_early_stopping"],
             verbose=config["training"]["verbose"],
             return_best_weights=config["training"]["load_best_model"],
+            al_iteration=step,
         )
 
         if config["training"]["load_best_model"]:
@@ -288,22 +300,28 @@ def main(config, run, random_state):
             average_predictions=config["model"]["mc_iterations"],
         )
 
-        pprint(
-            {
-                "dataset_size": len(al_dataset),
-                "train_loss": wrapper.metrics["train_loss"].value,
-                "val_loss": wrapper.metrics["val_loss"].value,
-                "test_loss": wrapper.metrics["test_loss"].value,
-                "train_iou": wrapper.metrics["train_iou"].value,
-                "val_iou": wrapper.metrics["val_iou"].value,
-                "test_iou": wrapper.metrics["test_iou"].value,
-            }
-        )
+        logs = {
+            "iteration": step,
+            "dataset_size": len(al_dataset),
+            "end_train_loss": wrapper.metrics["train_loss"].value,
+            "end_val_loss": wrapper.metrics["val_loss"].value,
+            "end_test_loss": wrapper.metrics["test_loss"].value,
+            "end_train_iou": wrapper.metrics["train_iou"].value,
+            "end_val_iou": wrapper.metrics["val_iou"].value,
+            "end_test_iou": wrapper.metrics["test_iou"].value,
+        }
+
+        pprint(logs)
+        wandb.log(logs)
 
         # Log progress
+        samples.append(len(al_dataset))
         test_ious.append(wrapper.metrics["test_iou"].value)
         test_losses.append(test_loss)
-        samples.append(len(al_dataset))
+        train_ious.append(wrapper.metrics["train_iou"].value)
+        train_losses.append(wrapper.metrics["train_loss"].value)
+        val_ious.append(wrapper.metrics["val_iou"].value)
+        val_losses.append(wrapper.metrics["val_loss"].value)
 
         flag = al_loop.step()
         if not flag:
@@ -328,6 +346,10 @@ def main(config, run, random_state):
         df = df.set_index("samples")
         df["test_ious_run{}".format(str(run + 1))] = test_ious
         df["test_losses_run{}".format(str(run + 1))] = test_losses
+        df["train_ious_run{}".format(str(run + 1))] = train_ious
+        df["train_losses_run{}".format(str(run + 1))] = train_losses
+        df["val_ious_run{}".format(str(run + 1))] = val_ious
+        df["val_losses_run{}".format(str(run + 1))] = val_losses
         return df
 
 
@@ -340,6 +362,13 @@ if __name__ == "__main__":
     df = pd.DataFrame()
 
     for run in range(config["runs"]):
+        wandb.init(
+            project="hidden_uncertainty",
+            entity="fanconic",
+            name=config["name"] + "_run{}".format(run + 1),
+            reinit=True,
+            config=config,
+        )
         run_df = main(config, run, config["random_state"][run])
         df = df.join(run_df, how="right")
 
