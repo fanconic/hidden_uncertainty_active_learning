@@ -3,7 +3,7 @@
 import warnings
 from copy import deepcopy
 from itertools import zip_longest
-from typing import Union, Optional, Callable, Tuple, List, Any
+from typing import Union, Optional, Callable, Tuple, List, Any, Dict
 
 import numpy as np
 import torch
@@ -201,6 +201,23 @@ class ActiveLearningDataset(torchdata.Dataset):
                         ),
                         UserWarning,
                     )
+
+    def get_class_distribution(self, classes: List) -> Dict:
+        """
+        Get dict of every single class distribution
+        Args:
+            classes (List): List containing the labels of the classes -> only used with balanced = True
+        """
+        zeros = [0 for _ in range(len(classes))]
+        class_counter = dict(zip([f"class_{class_}" for class_ in classes], zeros))
+
+        for _, y in self:
+            class_counter[f"class_{y}"] += 1
+
+        for key in class_counter.keys():
+            class_counter[key] /= len(self)
+
+        return class_counter
 
     def label_randomly(
         self, n: int = 1, balanced: bool = False, classes: List = None

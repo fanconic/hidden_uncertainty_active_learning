@@ -173,7 +173,14 @@ def main(config, run, random_state):
     # Set initial model weights
     # reset the learning rate scheduler
     # reset the optimizer
+
     for step in range(config["training"]["iterations"]):
+        class_distribution = al_dataset.get_class_distribution(
+            classes=list(range(config["data"]["nb_classes"])),
+        )
+
+        wandb.log(class_distribution)
+
         for i, (model, optimizer, scheduler) in enumerate(
             zip(models, optimizers, schedulers)
         ):

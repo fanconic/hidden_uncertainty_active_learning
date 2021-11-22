@@ -229,6 +229,7 @@ class ModelWrapper:
                 )
 
             for optimizer in optimizers:
+                wandb.log({f"lr_{al_iteration}": optimizer.param_groups[0]["lr"]})
                 optimizer.zero_grad()  # Assert that the gradient is flushed.
             history.append(self.metrics["train_loss"].value)
 

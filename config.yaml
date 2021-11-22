@@ -2,7 +2,7 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "test_wandb_4"
+name: "cifar10_new"
 
 random_state: [3, 11, 42]
 save_plot: False
@@ -12,48 +12,48 @@ week: 6
 
 training:
     # active learning heuristic
-    heuristic: "entropy"
+    heuristic: "random"
     reduction: "sum"
     shuffle_prop: 0.2
 
     # Neural Network Training
     batch_size: 64
-    epochs: 10
+    epochs: 100
     
     #Active learning steps
-    ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000] #, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
-    iterations: 7 #15
+    ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
+    iterations: 15
     initially_labelled: 100
-    initially_balanced: False
+    initially_balanced: True
     verbose: False
 
     # Early stopping
     lr_reduce_factor: 0.1
-    patience_lr_reduce: 8
+    patience_lr_reduce: 15
     early_stopping: True
     load_best_model: True
-    patience_early_stopping: 15
+    patience_early_stopping: 25
 
 data:
     # Dataset parameters
-    dataset: 'mnist'
+    dataset: 'cifar10'
     nb_classes: 10
-    img_rows: 28
-    img_cols: 28
-    img_channels: 1
+    img_rows: 32
+    img_cols: 32
+    img_channels: 3
     val_size: 0.2
 
     # Augmentation
-    augmentation: False
-    rgb_normalization: False
-    mean: [0.28689554, 0.32513303, 0.28389177] # CIFAR10: [0.49139968, 0.48215827, 0.44653124]
-    std: [0.18696375, 0.19017339, 0.18720214] # CIFAR10: [0.24703233, 0.24348505, 0.26158768]
+    augmentation: True
+    rgb_normalization: True
+    mean: [0.49139968, 0.48215827, 0.44653124] #CS [0.28689554, 0.32513303, 0.28389177]
+    std: [0.24703233, 0.24348505, 0.26158768] #CS [0.18696375, 0.19017339, 0.18720214] 
     path: "/srv/beegfs02/scratch/density_estimation/data/fanconic/CityScapes" #only applies to CityScapes
     ignore_label: 255 # only for sematic segmenation
 
 model:
     ensemble: 1 #set to 1 for no ensemble
-    name: "MLP"
+    name: "resnet18"
     mir_configs: # only applies if name == MIR
         backbone: "MLP"
         reconstruction_weight: 1.0
@@ -75,15 +75,15 @@ model:
         knn_neighbours: 5
     
     # Data sizes - need to be the same as in "data"
-    input_height: 28
-    input_width: 28
-    input_channels: 1
+    input_height: 32
+    input_width: 32
+    input_channels: 3
     output_size: 10
 
     # Layers for DNN and CNNS
     hidden_layers: [128, 128]
     kernel_sizes: [4, 4] # only applied if a (B)CNN is used
-    dropout_probabilities: [0.25, 0.5] #[0.25, 0.5]
+    dropout_probabilities: [0.05, 0.5] #[0.25, 0.5]
     use_bias: True
 
     # Monte Carlo Dropout parameters
