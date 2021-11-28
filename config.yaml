@@ -2,62 +2,69 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "cifar10_new"
+name: "test"
 
 random_state: [3, 11, 42]
 save_plot: False
 save_df: True
 runs: 3
-week: 6
+week: 8
 
 training:
     # active learning heuristic
-    heuristic: "random"
+    heuristic: "entropy"
     reduction: "sum"
     shuffle_prop: 0.2
 
     # Neural Network Training
-    batch_size: 64
-    epochs: 100
+    batch_size: 8
+    epochs: 30
     
     #Active learning steps
-    ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
-    iterations: 15
+    ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000] #, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
+    iterations: 8
     initially_labelled: 100
-    initially_balanced: True
+    initially_balanced: False
     verbose: False
 
-    # Early stopping
+    #scheduler:
+    scheduler: "poly"
     lr_reduce_factor: 0.1
-    patience_lr_reduce: 15
+    patience_lr_reduce: 10
+    poly_reduce: 0.9
+
+    # Early stopping
     early_stopping: True
     load_best_model: True
-    patience_early_stopping: 25
+    patience_early_stopping: 31
+
+    # For segmentation
+    crop_size: 224
 
 data:
     # Dataset parameters
-    dataset: 'cifar10'
-    nb_classes: 10
-    img_rows: 32
-    img_cols: 32
+    dataset: 'cityscapes_yu'
+    nb_classes: 19
+    img_rows: 224
+    img_cols: 224
     img_channels: 3
     val_size: 0.2
 
     # Augmentation
     augmentation: True
     rgb_normalization: True
-    mean: [0.49139968, 0.48215827, 0.44653124] #CS [0.28689554, 0.32513303, 0.28389177]
-    std: [0.24703233, 0.24348505, 0.26158768] #CS [0.18696375, 0.19017339, 0.18720214] 
+    mean:  [0.290101, 0.328081, 0.286964] # CIFAR10 [0.49139968, 0.48215827, 0.44653124]
+    std: [0.182954, 0.186566, 0.184475] # CIFAR10 [0.24703233, 0.24348505, 0.26158768] 
     path: "/srv/beegfs02/scratch/density_estimation/data/fanconic/CityScapes" #only applies to CityScapes
     ignore_label: 255 # only for sematic segmenation
 
 model:
     ensemble: 1 #set to 1 for no ensemble
-    name: "resnet18"
+    name: "drn_d_22"
     mir_configs: # only applies if name == MIR
-        backbone: "MLP"
+        backbone: "resnet18"
         reconstruction_weight: 1.0
-        density_model: "knn"
+        density_model: "gmm"
         warmup: False
         feature_dims: 512
         normalize_features: True
@@ -66,8 +73,8 @@ model:
         num_res_blocks: 3
 
         # Greedy Search
-        greedy_search: False
-        search_step_size: 100
+        greedy_search: True
+        search_step_size: 50
 
         # KNN
         knn_weights: "uniform"
@@ -75,10 +82,10 @@ model:
         knn_neighbours: 5
     
     # Data sizes - need to be the same as in "data"
-    input_height: 32
-    input_width: 32
+    input_height: 128
+    input_width: 256
     input_channels: 3
-    output_size: 10
+    output_size: 19
 
     # Layers for DNN and CNNS
     hidden_layers: [128, 128]
@@ -94,10 +101,12 @@ model:
     kl_div_weight: 0.01 # only used for B(C)NN, to weight the kl_div loss
 
     #Pretrained
-    pretrained: False
+    pretrained_model: 
+    pretrained: True
+    use_torch_up: False
 
 optimizer:
-    lr: 0.001
+    lr: 0.01
     momentum: 0.9
-    weight_decay: 0.0005
+    weight_decay: 0.0001
     betas: [0.9, 0.999]

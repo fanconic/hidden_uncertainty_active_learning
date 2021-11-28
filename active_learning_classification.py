@@ -105,35 +105,17 @@ def main(config, run, random_state):
     optimizers = []
     schedulers = []
 
+    # Create Model Ensemble
     for _ in range(config["model"]["ensemble"]):
         model = get_model(config["model"])
         if config["model"]["mc_dropout"]:
             model = patch_module(model)  # Set dropout layers for MC-Dropout.
         if use_cuda:
             model = model.cuda()
-
-        optimizer = optim.Adam(
-            model.parameters(),
-            lr=config["optimizer"]["lr"],
-            betas=config["optimizer"]["betas"],
-            weight_decay=config["optimizer"]["weight_decay"],
-        )
-
-        scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer,
-            mode="min",
-            factor=config["training"]["lr_reduce_factor"],
-            patience=config["training"]["patience_lr_reduce"],
-        )
-
         models.append(model)
-        optimizers.append(optimizer)
-        schedulers.append(scheduler)
-
     models = tuple(models)
-    optimizers = tuple(optimizers)
-    schedulers = tuple(schedulers)
 
+    # Define heuristics
     heuristic = get_heuristic(
         config["training"]["heuristic"],
         random_state=random_state,
@@ -158,7 +140,6 @@ def main(config, run, random_state):
 
     # Following Gal 2016, we reset the weights at the beginning of each step.
     initial_weights = [deepcopy(model.state_dict()) for model in models]
-    initial_states = [deepcopy(optimizer.state_dict()) for optimizer in optimizers]
 
     samples = []
     test_accuracies = []
@@ -170,26 +151,41 @@ def main(config, run, random_state):
 
     wandb.watch(models, criterion=criterion)
 
-    # Set initial model weights
-    # reset the learning rate scheduler
-    # reset the optimizer
-
     for step in range(config["training"]["iterations"]):
         class_distribution = al_dataset.get_class_distribution(
             classes=list(range(config["data"]["nb_classes"])),
         )
 
-        wandb.log(class_distribution)
-
-        for i, (model, optimizer, scheduler) in enumerate(
-            zip(models, optimizers, schedulers)
-        ):
+        optimizers = []
+        schedulers = []
+        for i, model in enumerate(models):
+            # load initial model weights
             model.load_state_dict(initial_weights[i])
 
-            if isinstance(optimizer, optim.Adam):
-                optimizer.load_state_dict(initial_states[i])
+            # set optimizer
+            optimizer = optim.Adam(
+                model.parameters(),
+                lr=config["optimizer"]["lr"],
+                betas=config["optimizer"]["betas"],
+                weight_decay=config["optimizer"]["weight_decay"],
+            )
 
-            scheduler._reset()
+            # set scheduler:
+            if config["training"]["reduce_on_plateau"]:
+                scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+                    optimizer,
+                    mode="min",
+                    factor=config["training"]["lr_reduce_factor"],
+                    patience=config["training"]["patience_lr_reduce"],
+                )
+            else:
+                scheduler = optim.lr_scheduler.StepLR(
+                    optimizer,
+                    step_size=config["training"]["patience_lr_reduce"],
+                    gamma=config["training"]["lr_reduce_factor"],
+                )
+            optimizers.append(optimizer)
+            schedulers.append(scheduler)
 
         train_loss, best_weights = wrapper.train_on_dataset(
             al_dataset,
@@ -226,7 +222,7 @@ def main(config, run, random_state):
             "end_test_accuracy": wrapper.metrics["test_accuracy"].value,
         }
         pprint(logs)
-        wandb.log(logs)
+        wandb.log({**logs, **class_distribution})
 
         # Log progress
         samples.append(len(al_dataset))

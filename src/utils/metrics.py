@@ -16,6 +16,7 @@ from collections import defaultdict
 from sklearn.metrics import confusion_matrix, auc
 
 from src.utils.array_utils import to_prob
+import torchmetrics
 
 
 def transpose_and_flatten(input):
@@ -579,12 +580,20 @@ def get_beta(batch_idx, m, beta_type, epoch, num_epochs):
     return beta
 
 
+def fast_hist(pred, label, n):
+    k = (label >= 0) & (label < n)
+    return torch.bincount(n * label[k] + pred[k], minlength=n ** 2).reshape(n, n)
+
+
+def per_class_iu(hist):
+    return torch.diag(hist) / (hist.sum(1) + hist.sum(0) - torch.diag(hist))
+
+
 class IoU(Metrics):
     def __init__(
         self,
         num_classes,
         ignore_label,
-        class_names=None,
         average=True,
         smooth=1e-6,
         **kwargs,
@@ -593,7 +602,7 @@ class IoU(Metrics):
         self.smooth = smooth
         self.num_classes = num_classes
         self.ignore_label = ignore_label
-        self.metrics_acc = None
+        self.hist = torch.zeros((num_classes, num_classes))
 
     def reset(self):
         self.iou = torch.FloatTensor()
@@ -607,7 +616,6 @@ class IoU(Metrics):
         Raises:
             ValueError if the first dimension of output and target don't match.
         """
-        batch_size = target.shape[0]
         if not output.shape[0] == target.shape[0]:
             raise ValueError(
                 f"Sizes of the output ({output.shape[0]}) and target "
@@ -624,22 +632,10 @@ class IoU(Metrics):
     def IoU_score(self, inputs, targets):
         with torch.no_grad():
             inputs = F.softmax(inputs, dim=1)  # convert into probabilites 0-1
-            targets = (
-                F.one_hot(targets, num_classes=self.num_classes)
-                .permute(0, 3, 1, 2)
-                .contiguous()
-            )  # convert target into one-hot
-
-            inputs = inputs.contiguous().view(-1)
-            targets = targets.view(-1)
-
-            intersection = (inputs * targets).sum()
-            total = (inputs + targets).sum()
-            union = total - intersection
-
-            IoU = (intersection + self.smooth) / (union + self.smooth)
-
-            return IoU.item()
+            _, inputs = torch.max(inputs, 1)
+            hist = fast_hist(inputs.flatten(), targets.flatten(), self.num_classes)
+            ious = per_class_iu(hist) * 100
+            return torch.mean(ious[~ious.isnan()]).item()
 
     def calculate_result(self) -> torch.Tensor:
         return self.iou

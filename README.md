@@ -42,8 +42,24 @@ $ conda install --file requirements.txt
 
 ## How to train on CVL's GPU Cluster
 ```
-sbatch --output=experiment_outputs/%j.out --gres=gpu:1 --mem=30G ./run.sh && cp config.yaml experiment_configs/%j.yaml
+bash gpu_experiments.sh <name_of_your_experiment>
 ```
+
+## Prepare data
+## Prepare Cityscapes training data
+
+### Step 1
+
+After you get a vanilla version of Cityscape data label maps, first convert the original segmentation label ids to one of 19 training ids:
+
+```
+python3 src/data/prepare_data.py <cityscape folder>/gtFine/
+```
+(Despite if the process is queued in SLURM, as soon as it starts it will extract the copied config.yaml file)
+
+### Step 2
+
+- Copy and run `create_lists.sh` in cityscape data folder, containing `gtFine` and `leftImg8bit` to create image and label lists.
 
 ## Contributors
 - Claudio Fanconi - fanconic@ethz.ch
@@ -53,3 +69,4 @@ sbatch --output=experiment_outputs/%j.out --gres=gpu:1 --mem=30G ./run.sh && cp 
 - https://github.com/kumar-shridhar/PyTorch-BayesianCNN
 - https://github.com/ElementAI/baal
 - https://github.com/cameronccohen/deep-ensembles/
+- https://github.com/fyu/drn/

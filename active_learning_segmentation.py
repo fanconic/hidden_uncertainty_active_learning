@@ -3,7 +3,6 @@
 import argparse
 import yaml
 import torch
-from torchvision import transforms
 from src.utils.utils import load_data, get_model, get_heuristic
 from src.data.dataset import ActiveLearningDataset
 from src.layers.consistent_dropout import patch_module
@@ -20,9 +19,8 @@ import pandas as pd
 import numpy as np
 import random
 import os
-from src.utils.array_utils import to_label_tensor, mask_to_class, mask_to_rgb
 from torchvision.utils import save_image
-
+import src.data.preprocessing as transforms
 import wandb
 
 
@@ -46,90 +44,22 @@ def main(config, run, random_state):
 
     # Load dataset
     train_transform_list = []
-    train_target_transform_list = []
     test_transform_list = []
-    test_target_transform_list = []
-
-    resize = (config["data"]["img_rows"], config["data"]["img_cols"])
-
-    mapping = {
-        0: 0,  # unlabeled
-        1: 0,  # ego vehicle
-        2: 0,  # rect border
-        3: 0,  # out of roi
-        4: 0,  # static
-        5: 0,  # dynamic
-        6: 0,  # ground
-        7: 1,  # road
-        8: 0,  # sidewalk
-        9: 0,  # parking
-        10: 0,  # rail track
-        11: 0,  # building
-        12: 0,  # wall
-        13: 0,  # fence
-        14: 0,  # guard rail
-        15: 0,  # bridge
-        16: 0,  # tunnel
-        17: 0,  # pole
-        18: 0,  # polegroup
-        19: 0,  # traffic light
-        20: 0,  # traffic sign
-        21: 0,  # vegetation
-        22: 0,  # terrain
-        23: 2,  # sky
-        24: 0,  # person
-        25: 0,  # rider
-        26: 3,  # car
-        27: 3,  # truck
-        28: 3,  # bus
-        29: 3,  # caravan
-        30: 3,  # trailer
-        31: 3,  # train
-        32: 3,  # motorcycle
-        33: 3,  # bicycle
-        -1: 0,  # licenseplate
-    }
 
     if config["data"]["augmentation"]:
         train_transform_list.extend(
             [
-                transforms.Resize(resize, interpolation=2),
-                transforms.RandomCrop(resize, padding=10),
+                transforms.RandomRotate(10),
+                transforms.RandomScale(2),
+                transforms.RandomCrop(config["training"]["crop_size"]),
                 transforms.RandomHorizontalFlip(),
                 transforms.ToTensor(),
             ]
         )
-        train_target_transform_list.extend(
-            [
-                transforms.Resize(resize, interpolation=0),
-                transforms.RandomCrop(resize, padding=10),
-                transforms.RandomHorizontalFlip(),
-                transforms.Lambda(to_label_tensor),
-                transforms.Lambda(lambda x: mask_to_class(x, mapping)),
-            ]
-        )
     else:
-        train_transform_list.extend(
-            [transforms.Resize(resize, interpolation=2), transforms.ToTensor()]
-        )
-        train_target_transform_list.extend(
-            [
-                transforms.Resize(resize, interpolation=0),
-                transforms.Lambda(to_label_tensor),
-                transforms.Lambda(lambda x: mask_to_class(x, mapping)),
-            ]
-        )
+        train_transform_list.append(transforms.ToTensor())
 
-    test_transform_list.extend(
-        [transforms.Resize(resize, interpolation=2), transforms.ToTensor()]
-    )
-    test_target_transform_list.extend(
-        [
-            transforms.Resize(resize, interpolation=0),
-            transforms.Lambda(to_label_tensor),
-            transforms.Lambda(lambda x: mask_to_class(x, mapping)),
-        ]
-    )
+    test_transform_list.append(transforms.ToTensor())
 
     if config["data"]["rgb_normalization"]:
         normalize = transforms.Normalize(
@@ -141,19 +71,15 @@ def main(config, run, random_state):
         test_transform_list.append(normalize)
 
     train_transform = transforms.Compose(train_transform_list)
-    train_target_transform = transforms.Compose(train_target_transform_list)
     test_transform = transforms.Compose(test_transform_list)
-    test_target_transform = transforms.Compose(test_target_transform_list)
 
     # in the City Scapes dataset, the test data set corresponds to the original validation dataset.
     # The new validation dataset is computed by taking a split
     train_whole, test_ds = load_data(
         config["data"]["dataset"],
-        train_transform=None,
+        train_transform=train_transform,  # TODO: check here
         test_transform=test_transform,
         path=config["data"]["path"],
-        train_target_transform=None,
-        test_target_transform=test_target_transform,
     )
 
     # obtain training indices that will be used for validation
@@ -163,12 +89,10 @@ def main(config, run, random_state):
     split = int(np.floor(config["data"]["val_size"] * num_train))
     train_idx, valid_idx = indices[split:], indices[:split]
 
-    train_subs = torch.utils.data.Subset(train_whole, train_idx)
-    val_subs = torch.utils.data.Subset(train_whole, valid_idx)
-    train_ds = MapDataset(
-        train_subs, train_transform, target_map_fn=train_target_transform
-    )
-    val_ds = MapDataset(val_subs, test_transform, target_map_fn=test_target_transform)
+    train_ds = torch.utils.data.Subset(train_whole, train_idx)
+    val_ds = torch.utils.data.Subset(train_whole, valid_idx)
+    # train_ds = MapDataset(train_subs, train_transform)
+    # val_ds = MapDataset(val_subs, test_transform)
 
     al_dataset = ActiveLearningDataset(
         train_ds,
@@ -182,42 +106,23 @@ def main(config, run, random_state):
     )
 
     # Loss
+    # criterion = nn.NLLLoss(ignore_index=config["data"]["ignore_label"])
     criterion = nn.CrossEntropyLoss(ignore_index=config["data"]["ignore_label"])
 
     # Create MLPs to classify MNIST
     models = []
-    optimizers = []
-    schedulers = []
 
+    # Get (emsemble) models
     for _ in range(config["model"]["ensemble"]):
         model = get_model(config["model"])
         if config["model"]["mc_dropout"]:
             model = patch_module(model)  # Set dropout layers for MC-Dropout.
         if use_cuda:
             model = model.cuda()
-
-        optimizer = optim.Adam(
-            model.parameters(),
-            lr=config["optimizer"]["lr"],
-            betas=config["optimizer"]["betas"],
-            weight_decay=config["optimizer"]["weight_decay"],
-        )
-
-        scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer,
-            mode="min",
-            factor=config["training"]["lr_reduce_factor"],
-            patience=config["training"]["patience_lr_reduce"],
-        )
-
         models.append(model)
-        optimizers.append(optimizer)
-        schedulers.append(scheduler)
-
     models = tuple(models)
-    optimizers = tuple(optimizers)
-    schedulers = tuple(schedulers)
 
+    # Define heuristics
     heuristic = get_heuristic(
         config["training"]["heuristic"],
         random_state=random_state,
@@ -249,7 +154,6 @@ def main(config, run, random_state):
 
     # Following Gal 2016, we reset the weights at the beginning of each step.
     initial_weights = [deepcopy(model.state_dict()) for model in models]
-    initial_states = [deepcopy(optimizer.state_dict()) for optimizer in optimizers]
 
     samples = []
     test_ious = []
@@ -265,15 +169,44 @@ def main(config, run, random_state):
     # reset the learning rate scheduler
     # reset the optimizer
     for step in range(config["training"]["iterations"]):
-        for i, (model, optimizer, scheduler) in enumerate(
-            zip(models, optimizers, schedulers)
-        ):
+        optimizers = []
+        schedulers = []
+        for i, model in enumerate(models):
+            # load initial model weights
             model.load_state_dict(initial_weights[i])
 
-            if isinstance(optimizer, optim.Adam):
-                optimizer.load_state_dict(initial_states[i])
+            # set optimizer
+            optimizer = optim.SGD(
+                model.optim_parameters(),
+                lr=config["optimizer"]["lr"],
+                momentum=config["optimizer"]["momentum"],
+                weight_decay=config["optimizer"]["weight_decay"],
+            )
 
-            scheduler._reset()
+            # set scheduler:
+            if config["training"]["scheduler"] == "reduce_on_plateau":
+                scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+                    optimizer,
+                    mode="min",
+                    factor=config["training"]["lr_reduce_factor"],
+                    patience=config["training"]["patience_lr_reduce"],
+                )
+            elif config["training"]["scheduler"] == "step":
+                scheduler = optim.lr_scheduler.StepLR(
+                    optimizer,
+                    step_size=config["training"]["patience_lr_reduce"],
+                    gamma=config["training"]["lr_reduce_factor"],
+                )
+            elif config["training"]["scheduler"] == "poly":
+                epochs = config["training"]["epochs"]
+                poly_reduce = config["training"]["poly_reduce"]
+                lmbda = lambda epoch: (1 - epoch / epochs) ** poly_reduce
+                scheduler = optim.lr_scheduler.MultiplicativeLR(optimizer, lmbda)
+            else:
+                scheduler = None
+
+            optimizers.append(optimizer)
+            schedulers.append(scheduler)
 
         train_loss, best_weights = wrapper.train_on_dataset(
             al_dataset,

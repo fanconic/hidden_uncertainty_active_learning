@@ -6,6 +6,8 @@ from torchvision.datasets import (
     SVHN,
     Cityscapes,
 )
+from src.data.segmentation_dataset import SegList
+
 from src.models.MLP import MLP
 from src.models.CNN import CNN
 from src.models.BNN import BNN
@@ -13,6 +15,7 @@ from src.models.BCNN import BCNN
 from src.models.MIR import MIR
 from src.models.UNet import UNet
 from src.models.resnet import ResNet
+from src.models.DRNSeg import DRNSeg
 
 from src.active.heuristics import *
 
@@ -40,6 +43,8 @@ def get_model(model_configs):
         return ResNet(model_configs)
     elif "unet" in name:
         return UNet(model_configs)
+    elif "drn" in name:
+        return DRNSeg(model_configs)
     else:
         raise NotImplemented
 
@@ -141,6 +146,10 @@ def load_data(
         )
 
         return train_ds, test_ds
+
+    elif name == "cityscapes_yu":
+        train_ds = SegList(path, "train", transforms=train_transform)
+        test_ds = SegList(path, "val", transforms=test_transform)
 
     else:
         raise NotImplemented

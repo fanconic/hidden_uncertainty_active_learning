@@ -1,6 +1,6 @@
 # Taken from https://github.com/ElementAI/baal/blob/a9cc0034c40d0541234a3c27ff5ccbd97278bcb3/baal/modelwrapper.py#L30
 
-from torch import nn
+from torch import nn, optim
 import sys
 from collections.abc import Sequence
 from copy import deepcopy
@@ -213,23 +213,7 @@ class ModelWrapper:
                         val_acc=self.metrics["val_{}".format(self.track_metric)].value,
                     )
 
-                # log in wandb:
-                wandb.log(
-                    {
-                        "epoch": i + 1,
-                        f"loss_{al_iteration}": self.metrics["train_loss"].value,
-                        f"acc_{al_iteration}": self.metrics[
-                            "train_{}".format(self.track_metric)
-                        ].value,
-                        f"val_loss_{al_iteration}": self.metrics["val_loss"].value,
-                        f"val_acc_{al_iteration}": self.metrics[
-                            "val_{}".format(self.track_metric)
-                        ].value,
-                    }
-                )
-
             for optimizer in optimizers:
-                wandb.log({f"lr_{al_iteration}": optimizer.param_groups[0]["lr"]})
                 optimizer.zero_grad()  # Assert that the gradient is flushed.
             history.append(self.metrics["train_loss"].value)
 
@@ -247,7 +231,16 @@ class ModelWrapper:
                 # Learning rate scheduling
                 if schedulers is not None:
                     for scheduler in schedulers:
-                        scheduler.step(val_loss)
+                        if isinstance(scheduler, optim.lr_scheduler.ReduceLROnPlateau):
+                            scheduler.step(val_loss)
+                        if isinstance(
+                            scheduler,
+                            (
+                                optim.lr_scheduler.StepLR,
+                                optim.lr_scheduler.MultiplicativeLR,
+                            ),
+                        ):
+                            scheduler.step()
 
                 # Early stopping
                 if val_loss <= best_loss:
@@ -257,6 +250,22 @@ class ModelWrapper:
                         best_weights = deepcopy(self.state_dict())
                 else:
                     patience_counter += 1
+
+                # log in wandb:
+                wandb.log(
+                    {
+                        "epoch": i + 1,
+                        f"loss_{al_iteration}": self.metrics["train_loss"].value,
+                        f"{self.track_metric}_{al_iteration}": self.metrics[
+                            "train_{}".format(self.track_metric)
+                        ].value,
+                        f"val_loss_{al_iteration}": self.metrics["val_loss"].value,
+                        f"val_{self.track_metric}_{al_iteration}": self.metrics[
+                            "val_{}".format(self.track_metric)
+                        ].value,
+                        f"lr_{al_iteration}": optimizers[0].param_groups[0]["lr"],
+                    }
+                )
 
                 if patience_counter == patience:
                     if early_stopping:
