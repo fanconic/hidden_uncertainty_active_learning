@@ -46,6 +46,11 @@ def main(config, run, random_state):
     train_transform_list = []
     test_transform_list = []
 
+    if config["data"]["resize"]:
+        resize_factor = (config["data"]["img_cols"], config["data"]["img_rows"])
+        train_transform_list.append(transforms.Resize(resize_factor))
+        test_transform_list.append(transforms.Resize(resize_factor))
+
     if config["data"]["augmentation"]:
         train_transform_list.extend(
             [
@@ -77,7 +82,7 @@ def main(config, run, random_state):
     # The new validation dataset is computed by taking a split
     train_whole, test_ds = load_data(
         config["data"]["dataset"],
-        train_transform=train_transform,  # TODO: check here
+        train_transform=None,
         test_transform=test_transform,
         path=config["data"]["path"],
     )
@@ -89,10 +94,10 @@ def main(config, run, random_state):
     split = int(np.floor(config["data"]["val_size"] * num_train))
     train_idx, valid_idx = indices[split:], indices[:split]
 
-    train_ds = torch.utils.data.Subset(train_whole, train_idx)
-    val_ds = torch.utils.data.Subset(train_whole, valid_idx)
-    # train_ds = MapDataset(train_subs, train_transform)
-    # val_ds = MapDataset(val_subs, test_transform)
+    train_subs = torch.utils.data.Subset(train_whole, train_idx)
+    val_subs = torch.utils.data.Subset(train_whole, valid_idx)
+    train_ds = MapDataset(train_subs, train_transform, segmentation=True)
+    val_ds = MapDataset(val_subs, test_transform, segmentation=True)
 
     al_dataset = ActiveLearningDataset(
         train_ds,
@@ -162,6 +167,9 @@ def main(config, run, random_state):
     train_losses = []
     val_ious = []
     val_losses = []
+
+    IPython.embed()
+    exit()
 
     wandb.watch(models, criterion=criterion)
 

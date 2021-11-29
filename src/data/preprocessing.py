@@ -8,6 +8,19 @@ from PIL import Image, ImageOps
 import torch
 
 
+class Resize(object):
+    def __init__(self, size):
+        if isinstance(size, numbers.Number):
+            self.size = (int(size), int(size))
+        else:
+            self.size = size
+
+    def __call__(self, image, label):
+        return image.resize(self.size, Image.BILINEAR), label.resize(
+            self.size, Image.NEAREST
+        )
+
+
 class RandomCrop(object):
     def __init__(self, size):
         if isinstance(size, numbers.Number):

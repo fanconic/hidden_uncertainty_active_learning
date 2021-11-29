@@ -31,10 +31,6 @@ def sampleFromClass(ds, k):
     )
 
 
-def identity(x):
-    return x
-
-
 class MapDataset(torch.utils.data.Dataset):
     """
     Given a dataset, creates a dataset which applies a mapping function
@@ -43,26 +39,20 @@ class MapDataset(torch.utils.data.Dataset):
     Note that data is not cloned/copied from the initial dataset.
     """
 
-    def __init__(self, dataset, map_fn, target_map_fn=None):
+    def __init__(self, dataset, map_fn, segmentation=False):
         self.dataset = dataset
         self.map = map_fn
-
-        if target_map_fn is None:
-            self.target_map = identity
-        else:
-            self.target_map = target_map_fn
+        self.segmentation = segmentation
 
     def __getitem__(self, index):
-        seed = np.random.randint(2147483647)  # make a seed with numpy generator
-        random.seed(seed)  # apply this seed to img tranfsorms
-        torch.manual_seed(seed)
-        feature = self.map(self.dataset[index][0])
+        if self.segmentation:
+            return self.map(*self.dataset[index])
 
-        random.seed(seed)  # apply this seed to target transforms
-        torch.manual_seed(seed)
-        label = self.target_map(self.dataset[index][1])
+        else:  # classification, only transform input
+            feature = self.map(self.dataset[index][0])
+            label = self.target_map(self.dataset[index][1])
 
-        return feature, label
+            return feature, label
 
     def __len__(self):
         return len(self.dataset)

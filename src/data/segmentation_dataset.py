@@ -20,7 +20,8 @@ class SegList(torch.utils.data.Dataset):
         data = [Image.open(join(self.data_dir, self.image_list[index]))]
         if self.label_list is not None:
             data.append(Image.open(join(self.data_dir, self.label_list[index])))
-        data = list(self.transforms(*data))
+        if self.phase in ["test", "val"]:
+            data = list(self.transforms(*data))
         if self.out_name:
             if self.label_list is None:
                 data.append(data[0][0, :, :])
