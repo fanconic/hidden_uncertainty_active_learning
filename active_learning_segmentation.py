@@ -168,9 +168,6 @@ def main(config, run, random_state):
     val_ious = []
     val_losses = []
 
-    IPython.embed()
-    exit()
-
     wandb.watch(models, criterion=criterion)
 
     # Set initial model weights
