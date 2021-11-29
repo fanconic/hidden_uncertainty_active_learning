@@ -237,7 +237,7 @@ class ModelWrapper:
                             scheduler,
                             (
                                 optim.lr_scheduler.StepLR,
-                                optim.lr_scheduler.MultiplicativeLR,
+                                optim.lr_scheduler.LambdaLR,
                             ),
                         ):
                             scheduler.step()
@@ -428,6 +428,7 @@ class ModelWrapper:
         collate_fn: Optional[Callable] = None,
         half=False,
         verbose=True,
+        reduce=None,
     ):
         """
         Use the model to predict on a dataset `iterations` time.
@@ -440,6 +441,7 @@ class ModelWrapper:
             collate_fn (Optional[Callable]): The collate function to use.
             half (bool): If True use half precision.
             verbose (bool): If True use tqdm to display progress
+            reduce (str): reduction type, in case of segmentation, there would not be enough space
         Notes:
             The "batch" is made of `batch_size` * `iterations` samples.
         Returns:
@@ -487,6 +489,7 @@ class ModelWrapper:
         collate_fn: Optional[Callable] = None,
         half=False,
         verbose=True,
+        reduce=None,
     ):
         """
         Use the model to predict on a dataset `iterations` time.
@@ -499,6 +502,7 @@ class ModelWrapper:
             collate_fn (Optional[Callable]): The collate function to use.
             half (bool): If True use half precision.
             verbose (bool): If True use tqdm to show progress.
+            reduce (str): reduction type, in case of segmentation, there would not be enough space
         Notes:
             The "batch" is made of `batch_size` * `iterations` samples.
         Returns:
@@ -514,6 +518,7 @@ class ModelWrapper:
                 collate_fn=collate_fn,
                 half=half,
                 verbose=verbose,
+                reduce=reduce,
             )
         )
 

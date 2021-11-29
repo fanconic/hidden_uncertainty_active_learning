@@ -90,6 +90,7 @@ def main(config, run, random_state):
         train_ds,
         # pool_specifics={"transform": test_transform},
         random_state=random_state,
+        pool_specifics={"map": test_transform},
     )
     al_dataset.label_randomly(
         config["training"]["initially_labelled"],
@@ -171,19 +172,26 @@ def main(config, run, random_state):
             )
 
             # set scheduler:
-            if config["training"]["reduce_on_plateau"]:
+            if config["training"]["scheduler"] == "reduce_on_plateau":
                 scheduler = optim.lr_scheduler.ReduceLROnPlateau(
                     optimizer,
                     mode="min",
                     factor=config["training"]["lr_reduce_factor"],
                     patience=config["training"]["patience_lr_reduce"],
                 )
-            else:
+            elif config["training"]["scheduler"] == "step":
                 scheduler = optim.lr_scheduler.StepLR(
                     optimizer,
                     step_size=config["training"]["patience_lr_reduce"],
                     gamma=config["training"]["lr_reduce_factor"],
                 )
+            elif config["training"]["scheduler"] == "poly":
+                epochs = config["training"]["epochs"]
+                poly_reduce = config["training"]["poly_reduce"]
+                lmbda = lambda epoch: (1 - (epoch - 1) / epochs) ** poly_reduce
+                scheduler = optim.lr_scheduler.LambdaLR(optimizer, lmbda)
+            else:
+                scheduler = None
             optimizers.append(optimizer)
             schedulers.append(scheduler)
 

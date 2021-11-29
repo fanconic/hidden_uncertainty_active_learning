@@ -176,6 +176,9 @@ class AbstractHeuristic:
         if isinstance(predictions, Tensor):
             predictions = predictions.numpy()
         scores = self.compute_score(predictions)
+        import IPython
+
+        IPython.embed()
         scores = self.reduction(scores)
         if not np.all(np.isfinite(scores)):
             fixed = 0.0 if self.reversed else 10000

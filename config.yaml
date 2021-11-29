@@ -2,7 +2,7 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "entropy_yu_512x128"
+name: "test_reduce"
 
 random_state: [3, 11, 42]
 save_plot: False
@@ -18,14 +18,14 @@ training:
 
     # Neural Network Training
     batch_size: 8
-    epochs: 30
+    epochs: 1
     
     #Active learning steps
     ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000] #, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
     iterations: 8
     initially_labelled: 100
     initially_balanced: False
-    verbose: False
+    verbose: True
 
     #scheduler:
     scheduler: "poly"
@@ -39,14 +39,14 @@ training:
     patience_early_stopping: 31
 
     # For segmentation
-    crop_size: 224
+    crop_size: 128
 
 data:
     # Dataset parameters
     dataset: 'cityscapes_yu'
     nb_classes: 19
-    img_rows: 256
-    img_cols: 512
+    img_rows: 128
+    img_cols: 256
     img_channels: 3
     val_size: 0.2
 
@@ -61,7 +61,7 @@ data:
 
 model:
     ensemble: 1 #set to 1 for no ensemble
-    name: "drn_d_22"
+    name: "UNet"
     mir_configs: # only applies if name == MIR
         backbone: "resnet18"
         reconstruction_weight: 1.0
@@ -83,8 +83,8 @@ model:
         knn_neighbours: 5
     
     # Data sizes - need to be the same as in "data"
-    input_height: 256
-    input_width: 512
+    input_height: 128
+    input_width: 256
     input_channels: 3
     output_size: 19
 
@@ -107,7 +107,8 @@ model:
     use_torch_up: False
 
 optimizer:
-    lr: 0.01
+    type: "adam"
+    lr: 0.001
     momentum: 0.9
     weight_decay: 0.0001
     betas: [0.9, 0.999]

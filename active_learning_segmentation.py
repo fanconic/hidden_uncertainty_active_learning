@@ -103,6 +103,7 @@ def main(config, run, random_state):
         train_ds,
         # pool_specifics={"transform": test_transform},
         random_state=random_state,
+        pool_specifics={"map": test_transform},
     )
     al_dataset.label_randomly(
         config["training"]["initially_labelled"],
@@ -181,12 +182,20 @@ def main(config, run, random_state):
             model.load_state_dict(initial_weights[i])
 
             # set optimizer
-            optimizer = optim.SGD(
-                model.optim_parameters(),
-                lr=config["optimizer"]["lr"],
-                momentum=config["optimizer"]["momentum"],
-                weight_decay=config["optimizer"]["weight_decay"],
-            )
+            if config["optimizer"]["type"] == "SGD":
+                optimizer = optim.SGD(
+                    model.optim_parameters(),
+                    lr=config["optimizer"]["lr"],
+                    momentum=config["optimizer"]["momentum"],
+                    weight_decay=config["optimizer"]["weight_decay"],
+                )
+            else:
+                optimizer = optim.Adam(
+                    model.parameters(),
+                    lr=config["optimizer"]["lr"],
+                    betas=config["optimizer"]["betas"],
+                    weight_decay=config["optimizer"]["weight_decay"],
+                )
 
             # set scheduler:
             if config["training"]["scheduler"] == "reduce_on_plateau":
@@ -205,8 +214,8 @@ def main(config, run, random_state):
             elif config["training"]["scheduler"] == "poly":
                 epochs = config["training"]["epochs"]
                 poly_reduce = config["training"]["poly_reduce"]
-                lmbda = lambda epoch: (1 - epoch / epochs) ** poly_reduce
-                scheduler = optim.lr_scheduler.MultiplicativeLR(optimizer, lmbda)
+                lmbda = lambda epoch: (1 - (epoch - 1) / epochs) ** poly_reduce
+                scheduler = optim.lr_scheduler.LambdaLR(optimizer, lmbda)
             else:
                 scheduler = None
 
