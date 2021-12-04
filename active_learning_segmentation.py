@@ -54,8 +54,8 @@ def main(config, run, random_state):
     if config["data"]["augmentation"]:
         train_transform_list.extend(
             [
-                transforms.RandomRotate(10),
-                transforms.RandomScale(2),
+                # transforms.RandomRotate(10),
+                # transforms.RandomScale(2),
                 transforms.RandomCrop(config["training"]["crop_size"]),
                 transforms.RandomHorizontalFlip(),
                 transforms.ToTensor(),
@@ -136,7 +136,11 @@ def main(config, run, random_state):
         reduction=config["training"]["reduction"],
     )
 
-    wrapper = ModelWrapper(models=models, criterion=criterion, heuristic=heuristic)
+    wrapper = ModelWrapper(
+        models=models,
+        criterion=criterion,
+        heuristic=heuristic,
+    )
     wrapper.add_metric(
         "iou",
         lambda: IoU(
@@ -148,7 +152,7 @@ def main(config, run, random_state):
     # Setup our active learning loop for our experiments
     al_loop = ActiveLearningLoop(
         dataset=al_dataset,
-        get_probabilities=wrapper.predict_on_dataset,
+        get_probabilities=wrapper.predict_on_dataset_generator,
         heuristic=heuristic,
         ndata_to_label=config["training"]["ndata_to_label"],
         # KWARGS for predict_on_dataset
@@ -310,6 +314,7 @@ if __name__ == "__main__":
 
     for run in range(config["runs"]):
         wandb.init(
+            # mode="disabled",
             project="hidden_uncertainty",
             entity="fanconic",
             name=config["name"] + "_run{}".format(run + 1),

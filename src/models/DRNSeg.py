@@ -26,8 +26,11 @@ class DRNSeg(nn.Module):
         pretrained_model = model_configs["pretrained_model"]
         pretrained = model_configs["pretrained"]
         use_torch_up = model_configs["use_torch_up"]
+        self.dropout = model_configs["dropout_probabilities"][0]
 
-        model = drn.__dict__.get(model_name)(pretrained=pretrained, num_classes=1000)
+        model = drn.__dict__.get(model_name)(
+            pretrained=pretrained, num_classes=1000, dropout=self.dropout
+        )
         pmodel = nn.DataParallel(model)
         if pretrained_model is not None:
             pmodel.load_state_dict(pretrained_model)

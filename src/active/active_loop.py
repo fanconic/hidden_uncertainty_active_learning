@@ -70,7 +70,7 @@ class ActiveLearningLoop:
             indices = None
 
         if len(pool) > 0:
-            probs = self.get_probabilities(pool, **self.kwargs)
+            probs = self.get_probabilities(pool, **self.kwargs)  # TODO
             if probs is not None and (
                 isinstance(probs, types.GeneratorType) or len(probs) > 0
             ):

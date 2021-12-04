@@ -18,6 +18,34 @@ from src.models.resnet import ResNet
 from src.models.DRNSeg import DRNSeg
 
 from src.active.heuristics import *
+from PIL import Image
+
+CITYSCAPE_PALETTE = np.asarray(
+    [
+        [128, 64, 128],
+        [244, 35, 232],
+        [70, 70, 70],
+        [102, 102, 156],
+        [190, 153, 153],
+        [153, 153, 153],
+        [250, 170, 30],
+        [220, 220, 0],
+        [107, 142, 35],
+        [152, 251, 152],
+        [70, 130, 180],
+        [220, 20, 60],
+        [255, 0, 0],
+        [0, 0, 142],
+        [0, 0, 70],
+        [0, 60, 100],
+        [0, 80, 100],
+        [0, 0, 230],
+        [119, 11, 32],
+        [0, 0, 0],
+    ],
+    dtype=np.uint8,
+)
+CITYSCAPE_PALETTE = torch.Tensor(CITYSCAPE_PALETTE)
 
 
 def get_model(model_configs):
@@ -74,7 +102,7 @@ def get_heuristic(heuristic_name, random_state=0, shuffle_prop=0.0, reduction="n
     elif heuristic_name == "certainty":
         return Certainty(shuffle_prop=shuffle_prop, reduction=reduction)
     elif heuristic_name == "precomputed":
-        return Precomputed(shuffle_prop=shuffle_prop, reduction=reduction)
+        return Precomputed(shuffle_prop=shuffle_prop)
     else:
         raise NotImplemented
 

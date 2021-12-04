@@ -50,7 +50,7 @@ class MapDataset(torch.utils.data.Dataset):
 
         else:  # classification, only transform input
             feature = self.map(self.dataset[index][0])
-            label = self.target_map(self.dataset[index][1])
+            label = self.dataset[index][1]
 
             return feature, label
 

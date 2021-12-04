@@ -13,6 +13,7 @@ from torch.optim import Optimizer
 from torch.utils.data import DataLoader, Dataset
 from torch.utils.data.dataloader import default_collate
 from tqdm import tqdm
+import torchvision
 
 from src.utils.array_utils import stack_in_memory
 from src.utils.cuda_utils import to_cuda
@@ -24,6 +25,7 @@ from src.models.BCNN import BCNN
 from src.models.MIR import MIR
 from src.models.UNet import UNet
 from src.active.heuristics import Precomputed
+from src.utils.utils import CITYSCAPE_PALETTE
 
 import wandb
 
@@ -77,6 +79,15 @@ def _stack_preds(out):
     return out
 
 
+available_reductions = {
+    "max": lambda x: torch.max(x, axis=tuple(range(1, x.ndim - 1))),
+    "min": lambda x: torch.min(x, axis=tuple(range(1, x.ndim - 1))),
+    "mean": lambda x: torch.mean(x, axis=tuple(range(1, x.ndim - 1))),
+    "sum": lambda x: torch.sum(x, axis=tuple(range(1, x.ndim - 1))),
+    "none": lambda x: x,
+}
+
+
 class ModelWrapper:
     """
     Wrapper created to ease the training/testing/loading.
@@ -86,13 +97,26 @@ class ModelWrapper:
         replicate_in_memory (bool): Replicate in memory optional.
     """
 
-    def __init__(self, models, criterion, replicate_in_memory=True, heuristic=None):
+    def __init__(
+        self,
+        models,
+        criterion,
+        replicate_in_memory=True,
+        heuristic=None,
+        reduction="none",
+    ):
         self.models = models
         self.criterion = criterion
         self.heuristic = heuristic
         self.metrics = dict()
         self.add_metric("loss", lambda: Loss())
         self.replicate_in_memory = replicate_in_memory
+
+        assert reduction in available_reductions or callable(reduction)
+        self._reduction_name = reduction
+        self.reduction = (
+            reduction if callable(reduction) else available_reductions[reduction]
+        )
 
     def add_metric(self, name: str, initializer: Callable):
         """
@@ -180,6 +204,7 @@ class ModelWrapper:
         best_loss = np.inf
         patience_counter = 0
         best_weights = None
+        self.al_iteration = al_iteration
 
         for i in range(epoch):
             self.train()
@@ -329,6 +354,7 @@ class ModelWrapper:
             log.info("Starting evaluating", dataset=len(dataset))
             self._reset_metrics("test")
 
+        visualize = True
         for data, target in DataLoader(
             dataset, batch_size, False, num_workers=workers, collate_fn=collate_fn
         ):
@@ -338,7 +364,9 @@ class ModelWrapper:
                 cuda=use_cuda,
                 average_predictions=average_predictions,
                 validate=validate,
+                visualize=visualize,
             )
+            visualize = False
 
         if validate:
             return self.metrics["val_loss"].value
@@ -428,7 +456,6 @@ class ModelWrapper:
         collate_fn: Optional[Callable] = None,
         half=False,
         verbose=True,
-        reduce=None,
     ):
         """
         Use the model to predict on a dataset `iterations` time.
@@ -441,7 +468,6 @@ class ModelWrapper:
             collate_fn (Optional[Callable]): The collate function to use.
             half (bool): If True use half precision.
             verbose (bool): If True use tqdm to display progress
-            reduce (str): reduction type, in case of segmentation, there would not be enough space
         Notes:
             The "batch" is made of `batch_size` * `iterations` samples.
         Returns:
@@ -465,6 +491,10 @@ class ModelWrapper:
                 pred = self.predict_on_batch(
                     model, data, iterations, use_cuda, pool_prediction=True
                 )
+
+                if self.reduction is not None:
+                    pred = self.reduction(pred)  # TODO check
+
                 preds.append(pred)
 
             if len(self.models) == 1:
@@ -489,7 +519,6 @@ class ModelWrapper:
         collate_fn: Optional[Callable] = None,
         half=False,
         verbose=True,
-        reduce=None,
     ):
         """
         Use the model to predict on a dataset `iterations` time.
@@ -502,7 +531,6 @@ class ModelWrapper:
             collate_fn (Optional[Callable]): The collate function to use.
             half (bool): If True use half precision.
             verbose (bool): If True use tqdm to show progress.
-            reduce (str): reduction type, in case of segmentation, there would not be enough space
         Notes:
             The "batch" is made of `batch_size` * `iterations` samples.
         Returns:
@@ -518,9 +546,12 @@ class ModelWrapper:
                 collate_fn=collate_fn,
                 half=half,
                 verbose=verbose,
-                reduce=reduce,
             )
         )
+
+        import IPython
+
+        IPython.embed()
 
         if len(preds) > 0 and not isinstance(preds[0], Sequence):
             # Is an Array or a Tensor
@@ -593,6 +624,7 @@ class ModelWrapper:
         cuda: bool = False,
         average_predictions: int = 1,
         validate: bool = False,
+        visualize=False,
     ):
         """
         Test the current model on a batch.
@@ -603,6 +635,7 @@ class ModelWrapper:
             average_predictions (int): The number of predictions to average to
                 compute the test loss.
             validate (bool): if the model is validating data during training
+            visualize (bool): if to visualize in wandb
         Returns:
             Tensor, the loss computed from the criterion.
         """
@@ -631,6 +664,29 @@ class ModelWrapper:
             # average the ensembles, if any
             output = torch.mean(torch.stack(outputs), dim=0)
             loss = torch.mean(torch.stack(losses), dim=0)
+
+            if visualize and len(output.shape) > 2:
+                phase = "val" if validate else "test"
+                # Prediction
+                batch_size = output.shape[0]
+                batch_tensor = torch.max(output, 1)[1].long()
+                batch_tensor = CITYSCAPE_PALETTE[batch_tensor].permute(0, 3, 1, 2)
+
+                # Target
+                batch_tensor_true = deepcopy(target)
+                batch_tensor_true[batch_tensor_true == 255] = 19
+                batch_tensor_true = CITYSCAPE_PALETTE[batch_tensor_true.long()].permute(
+                    0, 3, 1, 2
+                )
+                img = torch.cat([batch_tensor, batch_tensor_true])
+                grid_img = torchvision.utils.make_grid(img, nrow=batch_size)
+                img = wandb.Image(
+                    grid_img,
+                    caption="Top: Predictions, Bottom: Ground Truth",
+                )
+
+                # log in wandb
+                wandb.log({f"{phase}_vis_{self.al_iteration}": img})
 
             if validate:
                 self._update_metrics(output, target, loss, "val")

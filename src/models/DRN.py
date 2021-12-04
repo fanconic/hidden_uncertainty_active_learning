@@ -47,6 +47,7 @@ class BasicBlock(nn.Module):
         downsample=None,
         dilation=(1, 1),
         residual=True,
+        dropout=0.0,
     ):
         super(BasicBlock, self).__init__()
         self.conv1 = conv3x3(
@@ -59,6 +60,7 @@ class BasicBlock(nn.Module):
         self.downsample = downsample
         self.stride = stride
         self.residual = residual
+        self.dropout = nn.Dropout(p=dropout)
 
     def forward(self, x):
         residual = x
@@ -74,6 +76,7 @@ class BasicBlock(nn.Module):
             residual = self.downsample(x)
         if self.residual:
             out += residual
+        out = self.dropout(out)
         out = self.relu(out)
 
         return out
@@ -90,6 +93,7 @@ class Bottleneck(nn.Module):
         downsample=None,
         dilation=(1, 1),
         residual=True,
+        dropout=0.0,
     ):
         super(Bottleneck, self).__init__()
         self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, bias=False)
@@ -109,6 +113,7 @@ class Bottleneck(nn.Module):
         self.relu = nn.ReLU(inplace=True)
         self.downsample = downsample
         self.stride = stride
+        self.dropout = nn.Dropout(p=dropout)
 
     def forward(self, x):
         residual = x
@@ -128,6 +133,7 @@ class Bottleneck(nn.Module):
             residual = self.downsample(x)
 
         out += residual
+        out = self.dropout(out)
         out = self.relu(out)
 
         return out
@@ -143,6 +149,7 @@ class DRN(nn.Module):
         out_map=False,
         out_middle=False,
         pool_size=28,
+        dropout=0.0,
         arch="D",
     ):
         super(DRN, self).__init__()
@@ -151,6 +158,7 @@ class DRN(nn.Module):
         self.out_dim = channels[-1]
         self.out_middle = out_middle
         self.arch = arch
+        self.dropout = dropout
 
         if arch == "C":
             self.conv1 = nn.Conv2d(
@@ -159,8 +167,12 @@ class DRN(nn.Module):
             self.bn1 = BatchNorm(channels[0])
             self.relu = nn.ReLU(inplace=True)
 
-            self.layer1 = self._make_layer(BasicBlock, channels[0], layers[0], stride=1)
-            self.layer2 = self._make_layer(BasicBlock, channels[1], layers[1], stride=2)
+            self.layer1 = self._make_layer(
+                BasicBlock, channels[0], layers[0], stride=1, dropout=self.dropout
+            )
+            self.layer2 = self._make_layer(
+                BasicBlock, channels[1], layers[1], stride=2, dropout=self.dropout
+            )
         elif arch == "D":
             self.layer0 = nn.Sequential(
                 nn.Conv2d(
@@ -173,16 +185,30 @@ class DRN(nn.Module):
             self.layer1 = self._make_conv_layers(channels[0], layers[0], stride=1)
             self.layer2 = self._make_conv_layers(channels[1], layers[1], stride=2)
 
-        self.layer3 = self._make_layer(block, channels[2], layers[2], stride=2)
-        self.layer4 = self._make_layer(block, channels[3], layers[3], stride=2)
+        self.layer3 = self._make_layer(
+            block, channels[2], layers[2], stride=2, dropout=self.dropout
+        )
+        self.layer4 = self._make_layer(
+            block, channels[3], layers[3], stride=2, dropout=self.dropout
+        )
         self.layer5 = self._make_layer(
-            block, channels[4], layers[4], dilation=2, new_level=False
+            block,
+            channels[4],
+            layers[4],
+            dilation=2,
+            new_level=False,
+            dropout=self.dropout,
         )
         self.layer6 = (
             None
             if layers[5] == 0
             else self._make_layer(
-                block, channels[5], layers[5], dilation=4, new_level=False
+                block,
+                channels[5],
+                layers[5],
+                dilation=4,
+                new_level=False,
+                dropout=self.dropout,
             )
         )
 
@@ -197,6 +223,7 @@ class DRN(nn.Module):
                     dilation=2,
                     new_level=False,
                     residual=False,
+                    dropout=self.dropout,
                 )
             )
             self.layer8 = (
@@ -209,6 +236,7 @@ class DRN(nn.Module):
                     dilation=1,
                     new_level=False,
                     residual=False,
+                    dropout=self.dropout,
                 )
             )
         elif arch == "D":
@@ -237,7 +265,15 @@ class DRN(nn.Module):
                 m.bias.data.zero_()
 
     def _make_layer(
-        self, block, planes, blocks, stride=1, dilation=1, new_level=True, residual=True
+        self,
+        block,
+        planes,
+        blocks,
+        stride=1,
+        dilation=1,
+        new_level=True,
+        residual=True,
+        dropout=0.0,
     ):
         assert dilation == 1 or dilation % 2 == 0
         downsample = None
@@ -264,6 +300,7 @@ class DRN(nn.Module):
                 if dilation == 1
                 else (dilation // 2 if new_level else dilation, dilation),
                 residual=residual,
+                dropout=dropout,
             )
         )
         self.inplanes = planes * block.expansion
@@ -274,12 +311,19 @@ class DRN(nn.Module):
                     planes,
                     residual=residual,
                     dilation=(dilation, dilation),
+                    dropout=dropout,
                 )
             )
 
         return nn.Sequential(*layers)
 
-    def _make_conv_layers(self, channels, convs, stride=1, dilation=1):
+    def _make_conv_layers(
+        self,
+        channels,
+        convs,
+        stride=1,
+        dilation=1,
+    ):
         modules = []
         for i in range(convs):
             modules.extend(
