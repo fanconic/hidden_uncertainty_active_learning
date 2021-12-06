@@ -4,7 +4,13 @@ import argparse
 import yaml
 import torch
 from torchvision import transforms
-from src.utils.utils import load_data, get_model, get_heuristic
+from src.utils.utils import (
+    load_data,
+    get_model,
+    get_heuristic,
+    get_optimizer,
+    get_scheduler,
+)
 from src.data.dataset import ActiveLearningDataset
 from src.layers.consistent_dropout import patch_module
 from src.models.model_wrapper import ModelWrapper
@@ -164,34 +170,11 @@ def main(config, run, random_state):
             model.load_state_dict(initial_weights[i])
 
             # set optimizer
-            optimizer = optim.Adam(
-                model.parameters(),
-                lr=config["optimizer"]["lr"],
-                betas=config["optimizer"]["betas"],
-                weight_decay=config["optimizer"]["weight_decay"],
-            )
+            optimizer = get_optimizer(model, config)
 
             # set scheduler:
-            if config["training"]["scheduler"] == "reduce_on_plateau":
-                scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-                    optimizer,
-                    mode="min",
-                    factor=config["training"]["lr_reduce_factor"],
-                    patience=config["training"]["patience_lr_reduce"],
-                )
-            elif config["training"]["scheduler"] == "step":
-                scheduler = optim.lr_scheduler.StepLR(
-                    optimizer,
-                    step_size=config["training"]["patience_lr_reduce"],
-                    gamma=config["training"]["lr_reduce_factor"],
-                )
-            elif config["training"]["scheduler"] == "poly":
-                epochs = config["training"]["epochs"]
-                poly_reduce = config["training"]["poly_reduce"]
-                lmbda = lambda epoch: (1 - (epoch - 1) / epochs) ** poly_reduce
-                scheduler = optim.lr_scheduler.LambdaLR(optimizer, lmbda)
-            else:
-                scheduler = None
+            scheduler = get_scheduler(optimizer, config)
+
             optimizers.append(optimizer)
             schedulers.append(scheduler)
 

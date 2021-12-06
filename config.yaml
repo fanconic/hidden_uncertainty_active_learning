@@ -2,17 +2,18 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "cityscape_yu_full_256x512_60_noscale_norot_poly_B16_DO"
+name: "deeplabv3p_full_DO_ftt"
 
 random_state: [3, 11, 42]
 save_plot: False
 save_df: True
-runs: 3
+runs: 1
 week: 9
+wandb_logging: True
 
 training:
     # active learning heuristic
-    heuristic: "entropy"
+    heuristic: "random"
     reduction: "sum"
     shuffle_prop: 0.0
 
@@ -21,7 +22,7 @@ training:
     epochs: 60
     
     #Active learning steps
-    ndata_to_label: 0 #[100, 200, 200, 200, 200, 1000, 2000] #, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
+    ndata_to_label: 1 #[100, 200, 200, 200, 200, 1000, 2000] #, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
     iterations: 1 #8
     initially_labelled: 2380
     initially_balanced: False
@@ -61,7 +62,7 @@ data:
 
 model:
     ensemble: 1 #set to 1 for no ensemble
-    name: "drn_d_22"
+    name: "deeplabv3+"
     mir_configs: # only applies if name == MIR
         backbone: "resnet18"
         reconstruction_weight: 1.0
@@ -112,3 +113,4 @@ optimizer:
     momentum: 0.9
     weight_decay: 0.0001
     betas: [0.9, 0.999]
+    T0: 10

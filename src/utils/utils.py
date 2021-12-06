@@ -5,7 +5,9 @@ from torchvision.datasets import (
     FashionMNIST,
     SVHN,
     Cityscapes,
+    VOCSegmentation,
 )
+from ddu_dirty_mnist import DirtyMNIST
 from src.data.segmentation_dataset import SegList
 
 from src.models.MLP import MLP
@@ -16,9 +18,10 @@ from src.models.MIR import MIR
 from src.models.UNet import UNet
 from src.models.resnet import ResNet
 from src.models.DRNSeg import DRNSeg
+from src.models.deeplab_v3plus import ModelDeepLabV3Plus
 
 from src.active.heuristics import *
-from PIL import Image
+from torch import nn, optim
 
 CITYSCAPE_PALETTE = np.asarray(
     [
@@ -73,6 +76,8 @@ def get_model(model_configs):
         return UNet(model_configs)
     elif "drn" in name:
         return DRNSeg(model_configs)
+    elif "deeplabv3+" in name:
+        return ModelDeepLabV3Plus(model_configs)
     else:
         raise NotImplemented
 
@@ -105,6 +110,80 @@ def get_heuristic(heuristic_name, random_state=0, shuffle_prop=0.0, reduction="n
         return Precomputed(shuffle_prop=shuffle_prop)
     else:
         raise NotImplemented
+
+
+def get_optimizer(model, config):
+    """Resolve the optimizer according to the configs
+    Args:
+        model: model on which the optimizer is applied on
+        config: configuration dict
+    returns:
+        optimizer
+    """
+    if config["optimizer"]["type"] == "SGD":
+        optimizer = optim.SGD(
+            model.optim_parameters(),
+            lr=config["optimizer"]["lr"],
+            momentum=config["optimizer"]["momentum"],
+            weight_decay=config["optimizer"]["weight_decay"],
+        )
+    else:
+        optimizer = optim.Adam(
+            model.parameters(),
+            lr=config["optimizer"]["lr"],
+            betas=config["optimizer"]["betas"],
+            weight_decay=config["optimizer"]["weight_decay"],
+        )
+    return optimizer
+
+
+def get_scheduler(optimizer, config):
+    """Take the specified scheduler
+    Args:
+        optimizer: optimizer on which the scheduler is applied
+        config: configuration dict
+    returns:
+        resovled scheduler
+    """
+    scheduler_name = config["training"]["scheduler"]
+    assert scheduler_name in [
+        "reduce_on_plateau",
+        "step",
+        "poly",
+        "CosAnnWarmup",
+    ], "scheduler not Implemented"
+
+    if scheduler_name == "reduce_on_plateau":
+        scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+            optimizer,
+            mode="min",
+            factor=config["training"]["lr_reduce_factor"],
+            patience=config["training"]["patience_lr_reduce"],
+        )
+    elif scheduler_name == "step":
+        scheduler = optim.lr_scheduler.StepLR(
+            optimizer,
+            step_size=config["training"]["patience_lr_reduce"],
+            gamma=config["training"]["lr_reduce_factor"],
+        )
+    elif scheduler_name == "poly":
+        epochs = config["training"]["epochs"]
+        poly_reduce = config["training"]["poly_reduce"]
+        lmbda = lambda epoch: (1 - (epoch - 1) / epochs) ** poly_reduce
+        scheduler = optim.lr_scheduler.LambdaLR(optimizer, lmbda)
+
+    elif scheduler_name == "CosAnnWarmup":
+        scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(
+            optimizer,
+            T_0=config["optimizer"]["T0"],
+            T_mult=1,
+            eta_min=config["optimizer"]["lr"] * 1e-2,
+            last_epoch=-1,
+        )
+
+    else:
+        scheduler = None
+    return scheduler
 
 
 def load_data(
@@ -151,6 +230,14 @@ def load_data(
             "/tmp", train=False, transform=test_transform, download=True
         )
 
+    elif name == "dirty_mnist":
+        train_ds = DirtyMNIST(
+            "/tmp", train=True, transform=train_transform, download=True
+        )
+        test_ds = FashionMNIST(
+            "/tmp", train=False, transform=test_transform, download=True
+        )
+
     elif name == "svhn":
         train_ds = SVHN("/tmp", split="train", transform=train_transform, download=True)
         test_ds = SVHN("/tmp", split="test", transform=test_transform, download=True)
@@ -173,7 +260,21 @@ def load_data(
             target_transform=test_target_transform,
         )
 
-        return train_ds, test_ds
+    elif name == "voc":
+        train_ds = VOCSegmentation(
+            "/tmp",
+            download=True,
+            image_set="train",
+            transform=train_transform,
+            target_transform=train_target_transform,
+        )
+        test_ds = VOCSegmentation(
+            "/tmp",
+            download=True,
+            image_set="val",
+            transform=test_transform,
+            target_transform=test_target_transform,
+        )
 
     elif name == "cityscapes_yu":
         train_ds = SegList(path, "train", transforms=train_transform)
