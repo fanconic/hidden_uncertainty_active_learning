@@ -9,7 +9,7 @@ save_plot: False
 save_df: True
 runs: 1
 week: 10
-wandb_logging: False
+wandb_logging: True
 
 training:
     # active learning heuristic
@@ -100,8 +100,8 @@ model:
     use_bias: True
 
     # Monte Carlo Dropout parameters
-    mc_dropout: True # used for MC dropout
-    mc_iterations: 10 # iterations for MC dropout
+    mc_dropout: False # used for MC dropout
+    mc_iterations: 1 # iterations for MC dropout
 
     # BNN KL divergence loss
     kl_div_weight: 0.01 # only used for B(C)NN, to weight the kl_div loss

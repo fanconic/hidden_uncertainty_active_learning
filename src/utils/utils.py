@@ -22,6 +22,7 @@ from src.models.deeplab_v3plus import ModelDeepLabV3Plus
 
 from src.active.heuristics import *
 from torch import nn, optim
+from PIL import Image
 
 CITYSCAPE_PALETTE = np.asarray(
     [
@@ -284,3 +285,13 @@ def load_data(
         raise NotImplemented
 
     return train_ds, test_ds
+
+
+def fig2img(fig):
+    """Convert a Matplotlib figure to a PIL Image and return it"""
+    import io
+    buf = io.BytesIO()
+    fig.savefig(buf)
+    buf.seek(0)
+    img = Image.open(buf)
+    return img

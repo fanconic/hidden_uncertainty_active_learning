@@ -27,7 +27,7 @@ from src.models.BCNN import BCNN
 from src.models.MIR import MIR
 from src.models.UNet import UNet
 from src.active.heuristics import Precomputed
-from src.utils.utils import CITYSCAPE_PALETTE
+from src.utils.utils import CITYSCAPE_PALETTE, fig2img
 
 import wandb
 
@@ -366,6 +366,30 @@ class ModelWrapper:
                     return_true_labels=return_true_labels,
                     segmentation=(model.decoder is None),  # if decoder is none -> seg
                 )
+
+                n_classes = self.models[0].nr_classes
+                histo_train = wandb.Histogram(
+                    np_histogram=np.histogram(pred_train, bins=range(n_classes + 1))
+                )
+                histo_val = wandb.Histogram(
+                    np_histogram=np.histogram(pred_train, bins=range(n_classes + 1))
+                )
+
+                plt.hist(pred_train, bins=range(n_classes+1))
+                fig = plt.gcf()
+                img_train = fig2img(fig)
+
+                plt.hist(pred_val, bins=range(n_classes+1))
+                fig = plt.gcf()
+                img_val = fig2img(fig)
+                
+                wandb.log(
+                    {
+                        f"train_histo_{self.al_iteration}": wandb.Image(img_train, caption="Training Class Distribution",),
+                        f"val_histo_{self.al_iteration}": wandb.Image(img_val, caption="Validation Class Distribution",),
+                    }
+                )
+                
 
                 model.density.fit(
                     x=features_train, y=pred_train, x_val=features_val, y_val=pred_val

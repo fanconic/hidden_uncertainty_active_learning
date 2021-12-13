@@ -105,6 +105,9 @@ def main(config, run, random_state):
     train_ds = MapDataset(train_subs, train_transform, segmentation=True)
     val_ds = MapDataset(val_subs, test_transform, segmentation=True)
 
+    train_ds = val_ds
+    test_ds = val_ds
+
     al_dataset = ActiveLearningDataset(
         train_ds,
         # pool_specifics={"transform": test_transform},

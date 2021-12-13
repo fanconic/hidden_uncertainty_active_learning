@@ -751,6 +751,7 @@ class PAC(Metrics):
                 stride=self.window_size,
                 padding=0,
             )
+
             uncertainty_thresholds = torch.quantile(uncertainties, self.quantiles)
 
             pacs = []
