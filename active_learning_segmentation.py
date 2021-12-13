@@ -15,7 +15,7 @@ from src.layers.consistent_dropout import patch_module
 from src.models.model_wrapper import ModelWrapper
 from src.active.active_loop import ActiveLearningLoop
 from torch import nn, optim
-from src.utils.metrics import IoU
+from src.utils.metrics import IoU, PAC
 import IPython
 from copy import deepcopy
 from pprint import pprint
@@ -118,7 +118,6 @@ def main(config, run, random_state):
     )
 
     # Loss
-    # criterion = nn.NLLLoss(ignore_index=config["data"]["ignore_label"])
     criterion = nn.CrossEntropyLoss(ignore_index=config["data"]["ignore_label"])
 
     # Create MLPs to classify MNIST
@@ -151,8 +150,17 @@ def main(config, run, random_state):
         "iou",
         lambda: IoU(
             num_classes=config["data"]["nb_classes"],
-            ignore_label=config["data"]["ignore_label"],
         ),
+    )
+    wrapper.add_metric(
+        "pac",
+        lambda: PAC(
+            heuristic=heuristic,
+            ignore_label=config["data"]["ignore_label"],
+            cuda=use_cuda,
+        ),
+        val=False,
+        train=False,
     )
 
     # Setup our active learning loop for our experiments
@@ -213,6 +221,7 @@ def main(config, run, random_state):
             verbose=config["training"]["verbose"],
             return_best_weights=config["training"]["load_best_model"],
             al_iteration=step,
+            average_predictions=1,
         )
 
         if config["training"]["load_best_model"]:
@@ -228,15 +237,16 @@ def main(config, run, random_state):
         logs = {
             "iteration": step,
             "dataset_size": len(al_dataset),
-            "end_train_loss": wrapper.metrics["train_loss"].value,
-            "end_val_loss": wrapper.metrics["val_loss"].value,
             "end_test_loss": wrapper.metrics["test_loss"].value,
-            "end_train_iou": wrapper.metrics["train_iou"].value,
-            "end_val_iou": wrapper.metrics["val_iou"].value,
             "end_test_iou": wrapper.metrics["test_iou"].value,
         }
 
         pprint(logs)
+
+        pacs = wrapper.metrics["test_pac"].value
+        pacs_df = wandb.Table(dataframe=pd.DataFrame(pacs))
+        logs[f"test_pac_{step}"] = pacs_df
+
         wandb.log(logs)
 
         # Log progress

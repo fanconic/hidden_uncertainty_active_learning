@@ -1,11 +1,13 @@
 # Taken from https://github.com/ElementAI/baal/blob/a9cc0034c40d0541234a3c27ff5ccbd97278bcb3/baal/modelwrapper.py#L30
 
+from numpy.lib.arraysetops import isin
 from torch import nn, optim
 import sys
 from collections.abc import Sequence
 from copy import deepcopy
 from typing import Callable, Optional
-
+import matplotlib.pyplot as plt
+import pandas as pd
 import numpy as np
 import structlog
 import torch
@@ -18,7 +20,7 @@ import torchvision
 from src.utils.array_utils import stack_in_memory
 from src.utils.cuda_utils import to_cuda
 from src.utils.iterutils import map_on_tensor
-from src.utils.metrics import Loss
+from src.utils.metrics import PAC, Loss
 
 from src.models.BNN import BNN
 from src.models.BCNN import BCNN
@@ -32,13 +34,16 @@ import wandb
 log = structlog.get_logger("ModelWrapper")
 
 
-def extract_features(model, dataset, cuda=False, return_true_labels=False):
+def extract_features(
+    model, dataset, cuda=False, return_true_labels=False, segmentation=False
+):
     """extracts features and predictions of the MIR model
     Args:
         model (nn.Model): MIR model
         dataset: training dataset
         cuda (bool): use cuda
         return_true_labels (bool): if true, returns the true labels, not predicted ones
+        segmentation (bool): if we are trying to solve a segmentation problem
     returns:
         features, predictions
     """
@@ -53,18 +58,28 @@ def extract_features(model, dataset, cuda=False, return_true_labels=False):
         out = model(x, return_features=True)
         feature = out["features"]
         softmax_layer = nn.Softmax(dim=1)
-        output = softmax_layer(out["prediction"])
 
-        # Flatten, if they are multidimensional
-        if len(feature.shape) > 2:
-            feature = torch.flatten(feature, 1)
+        if not segmentation:
+            output = softmax_layer(out["prediction"])
+            # Flatten, if they are multidimensional
+            if len(feature.shape) > 2:
+                feature = torch.flatten(feature, 1)
 
-        features.append(feature.cpu().detach())
+            features.append(feature.cpu().detach())
 
-        if return_true_labels:
-            predictions.append(y.cpu().detach())
+            if return_true_labels:
+                predictions.append(y.cpu().detach())
+            else:
+                predictions.append(np.argmax(output.cpu().detach(), axis=1))
+
         else:
-            predictions.append(np.argmax(output.cpu().detach(), axis=-1))
+            output = softmax_layer(out["features"])
+            # rearrange the dimensions
+            feature = feature.permute((0, 2, 3, 1)).flatten(0, 2)
+            prediction = torch.argmax(output.permute(0, 2, 3, 1), -1).flatten(0, 2)
+
+            features.append(feature.cpu().detach())
+            predictions.append(prediction.cpu().detach())
 
     features = np.concatenate(features, axis=0)
     predictions = np.concatenate(predictions, axis=0)
@@ -77,15 +92,6 @@ def _stack_preds(out):
     else:
         out = torch.stack(out, dim=-1)
     return out
-
-
-available_reductions = {
-    "max": lambda x: torch.max(x, axis=tuple(range(1, x.ndim - 1))),
-    "min": lambda x: torch.min(x, axis=tuple(range(1, x.ndim - 1))),
-    "mean": lambda x: torch.mean(x, axis=tuple(range(1, x.ndim - 1))),
-    "sum": lambda x: torch.sum(x, axis=tuple(range(1, x.ndim - 1))),
-    "none": lambda x: x,
-}
 
 
 class ModelWrapper:
@@ -103,33 +109,43 @@ class ModelWrapper:
         criterion,
         replicate_in_memory=True,
         heuristic=None,
-        reduction="none",
     ):
         self.models = models
         self.criterion = criterion
         self.heuristic = heuristic
         self.metrics = dict()
-        self.add_metric("loss", lambda: Loss())
+        self.track_metric = []
+        self.add_metric("loss", lambda: Loss(), track_metric=False)
         self.replicate_in_memory = replicate_in_memory
 
-        assert reduction in available_reductions or callable(reduction)
-        self._reduction_name = reduction
-        self.reduction = (
-            reduction if callable(reduction) else available_reductions[reduction]
-        )
-
-    def add_metric(self, name: str, initializer: Callable):
+    def add_metric(
+        self,
+        name: str,
+        initializer: Callable,
+        train=True,
+        test=True,
+        val=True,
+        track_metric=True,
+    ):
         """
         Add a baal.utils.metric.Metric to the Model.
         Args:
             name (str): name of the metric.
             initializer (Callable): lambda to initialize a new instance of a
                                     baal.utils.metrics.Metric object.
+            train (bool): log training
+            test (bool): log test
+            val (bool): log validation
+            track_metric (bool): if the metric is tracked
         """
-        self.track_metric = name  # used if verbose during training
-        self.metrics["test_" + name] = initializer()
-        self.metrics["train_" + name] = initializer()
-        self.metrics["val_" + name] = initializer()
+        if track_metric:
+            self.track_metric.append(name)  # used if verbose during training
+        if test:
+            self.metrics["test_" + name] = initializer()
+        if train:
+            self.metrics["train_" + name] = initializer()
+        if val:
+            self.metrics["val_" + name] = initializer()
 
     def _reset_metrics(self, filter=""):
         """
@@ -141,7 +157,9 @@ class ModelWrapper:
             if filter in k:
                 v.reset()
 
-    def _update_metrics(self, out, target, loss, filter=""):
+    def _update_metrics(
+        self, out, target, loss, filter="", reduce=False, uncertainty=None
+    ):
         """
         Update all metrics.
         Args:
@@ -149,13 +167,33 @@ class ModelWrapper:
             target (Tensor): Ground truth.
             loss (Tensor): Loss from the criterion.
             filter (str): Only update metrics according to this filter.
+            reduce (bool): if the full iterations (MC, DE) are passed, without taking the mean
+            uncertainty (Tensor): precomputed uncertainties
         """
+        if reduce:
+            out_unreduced = deepcopy(out)
+            out = out.mean(-1)
         for k, v in self.metrics.items():
             if filter in k:
                 if "loss" in k:
                     v.update(loss)
                 else:
-                    v.update(out, target)
+                    if (
+                        isinstance(v, PAC)
+                        and reduce
+                        and not isinstance(self.heuristic, Precomputed)
+                    ):
+                        v.update(out_unreduced, target)
+                    elif (
+                        isinstance(v, PAC)
+                        and reduce
+                        and isinstance(self.heuristic, Precomputed)
+                    ):
+                        v.update(out_unreduced, target, uncertainty=uncertainty)
+                    elif isinstance(v, PAC) and not reduce:
+                        raise ValueError
+                    else:
+                        v.update(out, target)
 
     def train_on_dataset(
         self,
@@ -233,9 +271,11 @@ class ModelWrapper:
                     loader.set_description(f"Epoch [{i+1}/{epoch}]")
                     loader.set_postfix(
                         loss=self.metrics["train_loss"].value,
-                        acc=self.metrics["train_{}".format(self.track_metric)].value,
+                        acc=self.metrics["train_{}".format(self.track_metric[0])].value,
                         val_loss=self.metrics["val_loss"].value,
-                        val_acc=self.metrics["val_{}".format(self.track_metric)].value,
+                        val_acc=self.metrics[
+                            "val_{}".format(self.track_metric[0])
+                        ].value,
                     )
 
             for optimizer in optimizers:
@@ -276,28 +316,39 @@ class ModelWrapper:
                 else:
                     patience_counter += 1
 
+                log_dict = {
+                    "epoch": i + 1,
+                    f"loss_{al_iteration}": self.metrics["train_loss"].value,
+                    f"val_loss_{al_iteration}": self.metrics["val_loss"].value,
+                    f"lr_{al_iteration}": optimizers[0].param_groups[0]["lr"],
+                }
+
+                # This is used to track the metrics, such as iou, accuracy, pac, pui, pavpu
+                for m in self.track_metric:
+                    if "train_{}".format(m) in self.metrics.keys():
+                        train_m = self.metrics["train_{}".format(m)].value
+                        if isinstance(train_m, dict):
+                            train_df = wandb.Table(dataframe=pd.DataFrame(train_m))
+                            log_dict["train_pac"] = train_df
+                        else:
+                            log_dict[f"{m}_{al_iteration}"] = train_m
+                    if "val_{}".format(m) in self.metrics.keys():
+                        val_m = self.metrics["val_{}".format(m)].value
+                        if isinstance(val_m, dict):
+                            val_df = wandb.Table(dataframe=pd.DataFrame(val_m))
+                            log_dict["val_pac"] = val_df
+
+                        else:
+                            log_dict[f"val_{m}_{al_iteration}"] = val_m
+
                 # log in wandb:
-                wandb.log(
-                    {
-                        "epoch": i + 1,
-                        f"loss_{al_iteration}": self.metrics["train_loss"].value,
-                        f"{self.track_metric}_{al_iteration}": self.metrics[
-                            "train_{}".format(self.track_metric)
-                        ].value,
-                        f"val_loss_{al_iteration}": self.metrics["val_loss"].value,
-                        f"val_{self.track_metric}_{al_iteration}": self.metrics[
-                            "val_{}".format(self.track_metric)
-                        ].value,
-                        f"lr_{al_iteration}": optimizers[0].param_groups[0]["lr"],
-                    }
-                )
+                wandb.log(log_dict)
 
                 if patience_counter == patience:
                     if early_stopping:
                         break
 
         if isinstance(self.models[0], (MIR)):
-
             for model in self.models:
                 return_true_labels = True if model.density_model == "knn" else False
                 features_train, pred_train = extract_features(
@@ -305,6 +356,7 @@ class ModelWrapper:
                     dataset=loader,
                     cuda=use_cuda,
                     return_true_labels=return_true_labels,
+                    segmentation=(model.decoder is None),  # if decoder is none -> seg
                 )
 
                 features_val, pred_val = extract_features(
@@ -312,6 +364,7 @@ class ModelWrapper:
                     dataset=val_loader,
                     cuda=use_cuda,
                     return_true_labels=return_true_labels,
+                    segmentation=(model.decoder is None),  # if decoder is none -> seg
                 )
 
                 model.density.fit(
@@ -485,16 +538,19 @@ class ModelWrapper:
         if verbose:
             loader = tqdm(loader, total=len(loader), file=sys.stdout)
 
+        visualize = True
         for idx, (data, _) in enumerate(loader):
             preds = []
             for model in self.models:
                 pred = self.predict_on_batch(
-                    model, data, iterations, use_cuda, pool_prediction=True
+                    model,
+                    data,
+                    iterations,
+                    use_cuda,
+                    pool_prediction=True,
+                    visualize=visualize,
                 )
-
-                if self.reduction is not None:
-                    pred = self.reduction(pred)  # TODO check
-
+                visualize = False
                 preds.append(pred)
 
             if len(self.models) == 1:
@@ -548,11 +604,6 @@ class ModelWrapper:
                 verbose=verbose,
             )
         )
-
-        import IPython
-
-        IPython.embed()
-
         if len(preds) > 0 and not isinstance(preds[0], Sequence):
             # Is an Array or a Tensor
             return np.vstack(preds)
@@ -646,23 +697,27 @@ class ModelWrapper:
             losses = []
             outputs = []
             for model in self.models:
-                preds = map_on_tensor(
-                    lambda p: p.mean(-1),
-                    self.predict_on_batch(
-                        model,
-                        data,
-                        iterations=average_predictions,
-                        cuda=cuda,
-                    ),
+                preds_it = self.predict_on_batch(
+                    model,
+                    data,
+                    iterations=average_predictions,
+                    cuda=cuda,
                 )
-
+                preds = preds_it.mean(-1)
                 loss = self.criterion(preds, target)
-
                 outputs.append(preds)
                 losses.append(loss)
 
+            # Check if either MCD iteration or Ensemble
+            if len(self.models) == 1:
+                pass
+            elif len(self.models) > 1 and preds_it.shape[-1] == 1:
+                preds_it = torch.stack(outputs, dim=-1)
+            else:
+                raise ValueError
+
             # average the ensembles, if any
-            output = torch.mean(torch.stack(outputs), dim=0)
+            output = torch.mean(torch.stack(outputs, dim=-1), dim=-1)
             loss = torch.mean(torch.stack(losses), dim=0)
 
             if visualize and len(output.shape) > 2:
@@ -689,13 +744,40 @@ class ModelWrapper:
                 wandb.log({f"{phase}_vis_{self.al_iteration}": img})
 
             if validate:
-                self._update_metrics(output, target, loss, "val")
+                self._update_metrics(preds_it, target, loss, "val", reduce=True)
             else:
-                self._update_metrics(output, target, loss, "test")
+                if any(
+                    [isinstance(v, PAC) for v in self.metrics.values()]
+                ) and isinstance(self.heuristic, Precomputed):
+                    uncertainty = self.predict_on_batch(
+                        model,
+                        data,
+                        average_predictions,
+                        cuda,
+                        pool_prediction=True,
+                        visualize=False,
+                    )
+
+                    self._update_metrics(
+                        preds_it,
+                        target,
+                        loss,
+                        "test",
+                        reduce=True,
+                        uncertainty=uncertainty,
+                    )
+                else:
+                    self._update_metrics(preds_it, target, loss, "test", reduce=True)
             return loss
 
     def predict_on_batch(
-        self, model, data, iterations=1, cuda=False, pool_prediction=False
+        self,
+        model,
+        data,
+        iterations=1,
+        cuda=False,
+        pool_prediction=False,
+        visualize=False,
     ):
         """
         Get the model's prediction on a batch.
@@ -705,6 +787,7 @@ class ModelWrapper:
             iterations (int): Number of prediction to perform.
             cuda (bool): Use CUDA or not.
             pool_prediction (bool): if the models are currently predicting on the pool
+            visualize (bool): visualize the uncertainty
         Returns:
             Tensor, the loss computed from the criterion.
                     shape = {batch_size, nclass, n_iteration}.
@@ -719,6 +802,8 @@ class ModelWrapper:
                 try:
                     if pool_prediction and isinstance(self.heuristic, Precomputed):
                         out = model.uncertainty(data)
+                        # if visualize:
+                        #    plt.imsave("debug_uncertainty.png", out[0])
                         out = torch.Tensor(out)
                         if cuda:
                             out = to_cuda(out)

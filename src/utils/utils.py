@@ -76,7 +76,7 @@ def get_model(model_configs):
         return UNet(model_configs)
     elif "drn" in name:
         return DRNSeg(model_configs)
-    elif "deeplabv3+" in name:
+    elif "deeplab" in name:
         return ModelDeepLabV3Plus(model_configs)
     else:
         raise NotImplemented
@@ -107,7 +107,7 @@ def get_heuristic(heuristic_name, random_state=0, shuffle_prop=0.0, reduction="n
     elif heuristic_name == "certainty":
         return Certainty(shuffle_prop=shuffle_prop, reduction=reduction)
     elif heuristic_name == "precomputed":
-        return Precomputed(shuffle_prop=shuffle_prop)
+        return Precomputed(shuffle_prop=shuffle_prop, reduction=reduction)
     else:
         raise NotImplemented
 
@@ -262,14 +262,14 @@ def load_data(
 
     elif name == "voc":
         train_ds = VOCSegmentation(
-            "/tmp",
+            "/srv/beegfs02/scratch/density_estimation/data/fanconic/",
             download=True,
             image_set="train",
             transform=train_transform,
             target_transform=train_target_transform,
         )
         test_ds = VOCSegmentation(
-            "/tmp",
+            "/srv/beegfs02/scratch/density_estimation/data/fanconic/",
             download=True,
             image_set="val",
             transform=test_transform,

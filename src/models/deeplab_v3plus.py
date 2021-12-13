@@ -4,9 +4,11 @@ import torchvision.models.resnet as resnet
 
 
 class ModelDeepLabV3Plus(torch.nn.Module):
-    def __init__(self, model_configs):
+    def __init__(self, model_configs, name=None):
         super().__init__()
-        self.backbone = model_configs["mir_configs"]["backbone"]
+        self.backbone = (
+            model_configs["deeplab_configs"]["backbone"] if name is None else name
+        )
         ch_out = model_configs["output_size"]
 
         self.encoder = Encoder(
@@ -51,7 +53,11 @@ class ModelDeepLabV3Plus(torch.nn.Module):
             predictions_4x, size=input_resolution, mode="bilinear", align_corners=False
         )
         # Number of channels here is semseg_num_classes and resolution same as input image
-        return predictions_1x
+        return_features = kwargs.pop("return_features", False)
+        if return_features:
+            return predictions_1x, predictions_4x  # predictions_4x
+        else:
+            return predictions_1x
 
 
 class BasicBlockWithDilation(torch.nn.Module):

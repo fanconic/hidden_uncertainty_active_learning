@@ -2,31 +2,31 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "deeplabv3p_full_DO_ftt"
+name: "test"
 
 random_state: [3, 11, 42]
 save_plot: False
 save_df: True
 runs: 1
-week: 9
-wandb_logging: True
+week: 10
+wandb_logging: False
 
 training:
     # active learning heuristic
-    heuristic: "random"
+    heuristic: "precomputed"
     reduction: "sum"
     shuffle_prop: 0.0
 
     # Neural Network Training
     batch_size: 16
-    epochs: 60
+    epochs: 1
     
     #Active learning steps
-    ndata_to_label: 1 #[100, 200, 200, 200, 200, 1000, 2000] #, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
+    ndata_to_label: 10 #[100, 200, 200, 200, 200, 1000, 2000] #, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
     iterations: 1 #8
-    initially_labelled: 2380
+    initially_labelled: 10 #100
     initially_balanced: False
-    verbose: False
+    verbose: True
 
     #scheduler:
     scheduler: "poly"
@@ -49,7 +49,7 @@ data:
     img_rows: 256
     img_cols: 512
     img_channels: 3
-    val_size: 0.2
+    val_size: 0.01
 
     # Augmentation
     resize: True
@@ -62,9 +62,9 @@ data:
 
 model:
     ensemble: 1 #set to 1 for no ensemble
-    name: "deeplabv3+"
+    name: "MIR"
     mir_configs: # only applies if name == MIR
-        backbone: "resnet18"
+        backbone: "drn_d_22"
         reconstruction_weight: 1.0
         density_model: "gmm"
         warmup: False
@@ -75,13 +75,17 @@ model:
         num_res_blocks: 3
 
         # Greedy Search
-        greedy_search: True
+        greedy_search: False
         search_step_size: 50
 
         # KNN
         knn_weights: "uniform"
         knn_metric: "euclidean"
         knn_neighbours: 5
+
+    # DeepLab
+    deeplab_configs:
+        backbone: "resnet18"
     
     # Data sizes - need to be the same as in "data"
     input_height: 256
@@ -96,8 +100,8 @@ model:
     use_bias: True
 
     # Monte Carlo Dropout parameters
-    mc_dropout: False # used for MC dropout
-    mc_iterations: 1 # iterations for MC dropout
+    mc_dropout: True # used for MC dropout
+    mc_iterations: 10 # iterations for MC dropout
 
     # BNN KL divergence loss
     kl_div_weight: 0.01 # only used for B(C)NN, to weight the kl_div loss

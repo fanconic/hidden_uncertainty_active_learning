@@ -16,7 +16,7 @@ from collections import defaultdict
 from sklearn.metrics import confusion_matrix, auc
 
 from src.utils.array_utils import to_prob
-import torchmetrics
+from src.active.heuristics import Precomputed
 
 
 def transpose_and_flatten(input):
@@ -72,13 +72,25 @@ class Metrics(object):
         Returns:
             result (np.array / float): final metric result
         """
-        self.result = torch.FloatTensor(self.calculate_result())
-        if self._average and self.result.numel() == self.result.size(0):
-            return self.result.mean(0).cpu().numpy().item()
-        elif self._average:
-            return self.result.mean(0).cpu().numpy()
+        result = self.calculate_result()
+        if isinstance(result, dict):
+            for k in result.keys():
+                if self._average and result[k].numel() == result[k].size(0):
+                    result[k] = result[k].mean(0).cpu().numpy().item()
+                elif self._average:
+                    result[k] = result[k].mean(0).cpu().numpy()
+                else:
+                    result[k] = result[k].cpu().numpy()
+            return result
+
         else:
-            return self.result.cpu().numpy()
+            self.result = torch.FloatTensor(result)
+            if self._average and self.result.numel() == self.result.size(0):
+                return self.result.mean(0).cpu().numpy().item()
+            elif self._average:
+                return self.result.mean(0).cpu().numpy()
+            else:
+                return self.result.cpu().numpy()
 
     @property
     def standard_dev(self):
@@ -581,7 +593,7 @@ def get_beta(batch_idx, m, beta_type, epoch, num_epochs):
 
 
 def fast_hist(pred, label, n):
-    k = (label >= 0) & (label < n)
+    k = (label >= 0) & (label < n)  # here checks for the ones out of 19
     return torch.bincount(n * label[k] + pred[k], minlength=n ** 2).reshape(n, n)
 
 
@@ -593,7 +605,6 @@ class IoU(Metrics):
     def __init__(
         self,
         num_classes,
-        ignore_label,
         average=True,
         smooth=1e-6,
         **kwargs,
@@ -601,7 +612,6 @@ class IoU(Metrics):
         super().__init__(average=average)
         self.smooth = smooth
         self.num_classes = num_classes
-        self.ignore_label = ignore_label
         self.hist = torch.zeros((num_classes, num_classes))
 
     def reset(self):
@@ -639,3 +649,156 @@ class IoU(Metrics):
 
     def calculate_result(self) -> torch.Tensor:
         return self.iou
+
+
+class PAC(Metrics):
+    def __init__(
+        self,
+        heuristic,
+        ignore_label,
+        average=True,
+        accuracy_threshold=0.5,
+        window_size=5,
+        steps_percentiles=20,
+        cuda=False,
+        **kwargs,
+    ):
+        super().__init__(average=average)
+        self.heuristic = heuristic
+        self.ignore_label = ignore_label
+        self.accuracy_threshold = accuracy_threshold
+        self.window_size = window_size
+        self.steps_percentiles = steps_percentiles
+        self.cuda = cuda
+
+        self.quantiles = torch.Tensor(
+            [(i) * (1 / self.steps_percentiles) for i in range(self.steps_percentiles)]
+        )
+
+        mean_filter = (1 / self.window_size) ** 2 * torch.ones(
+            (self.window_size, self.window_size)
+        )
+        self.mean_filter = mean_filter.view(1, 1, self.window_size, self.window_size)
+        if self.cuda:
+            self.mean_filter = self.mean_filter.cuda()
+            self.quantiles = self.quantiles.cuda()
+
+    def reset(self):
+        self.pac = torch.FloatTensor()
+        self.pui = torch.FloatTensor()
+        self.pavpu = torch.FloatTensor()
+
+    def update(self, predictions=None, target=None, uncertainty=None):
+        """
+        Update TP and support.
+        Args:
+            predictions (tensor): predictions of model
+            target (tensor): labels
+            uncertainty (tensor): map of uncertainty, used when heuristic is precomputed
+        Raises:
+            ValueError if the first dimension of output and target don't match.
+        """
+
+        if not predictions.shape[0] == target.shape[0]:
+            raise ValueError(
+                f"Sizes of the output ({predictions.shape[0]}) and target "
+                "({target.shape[0]}) don't match."
+            )
+
+        if not isinstance(self.heuristic, Precomputed):
+            uncert = self.heuristic.compute_score(predictions.cpu().detach().numpy())
+            uncert = torch.Tensor(uncert)
+        else:
+            uncert = uncertainty
+            size = predictions.shape[2:4]
+            uncert = F.interpolate(uncert.permute(0, 3, 1, 2), size, mode="bilinear")
+            uncert = uncert.squeeze(1)
+
+        if self.cuda:
+            uncert = uncert.cuda()
+
+        pac, pui, pavpu = self.scores(predictions.mean(-1), target, uncert)
+
+        if len(self.pac) == 0:
+            self.pac = pac
+            self.pui = pui
+            self.pavpu = pavpu
+        else:
+            self.pac = torch.cat([self.pac, pac], dim=0)
+            self.pui = torch.cat([self.pui, pui], dim=0)
+            self.pavpu = torch.cat([self.pavpu, pavpu], dim=0)
+
+    def scores(self, inputs, targets, uncertainties):
+        with torch.no_grad():
+            preds = torch.argmax(inputs, 1)
+            batch_size = preds.shape[0]
+
+            # compute accurate
+            accuracy_map = (targets == preds).float()
+            accuracy_map[targets == self.ignore_label] = float("nan")
+            accuracy_map = accuracy_map.unsqueeze(1)
+
+            output = F.conv2d(
+                accuracy_map, self.mean_filter, stride=self.window_size, padding=0
+            )
+            nan_indices = output.isnan().squeeze(1)
+            acc_output = output.squeeze(1) > self.accuracy_threshold
+
+            # compute certain
+            cert_output = F.conv2d(
+                uncertainties.unsqueeze(1),
+                self.mean_filter,
+                stride=self.window_size,
+                padding=0,
+            )
+            uncertainty_thresholds = torch.quantile(uncertainties, self.quantiles)
+
+            pacs = []
+            puis = []
+            pavpus = []
+            for t in uncertainty_thresholds:
+                cert_t = cert_output.squeeze(1) <= t
+
+                # Mukhoti and Gal:
+                n_ac = (acc_output * cert_t).float()
+                n_ac[nan_indices] = float("nan")
+                n_ac = n_ac.nansum((1, 2))
+
+                n_ic = (~acc_output * cert_t).float()
+                n_ic[nan_indices] = float("nan")
+                n_ic = n_ic.nansum((1, 2))
+
+                n_au = (acc_output * ~cert_t).float()
+                n_au[nan_indices] = float("nan")
+                n_au = n_au.nansum((1, 2))
+
+                n_iu = (~acc_output * ~cert_t).float()
+                n_iu[nan_indices] = float("nan")
+                n_iu = n_iu.nansum((1, 2))
+
+                pac = n_ac / (n_ac + n_ic)
+                pui = n_iu / (n_ic + n_iu)
+                pavpu = (n_ac + n_iu) / (n_ac + n_au + n_ic + n_iu)
+
+                pacs.append(pac)
+                puis.append(pui)
+                pavpus.append(pavpu)
+
+            pacs, puis, pavpus = (
+                torch.stack(pacs),
+                torch.stack(puis),
+                torch.stack(pavpus),
+            )
+            return (
+                pacs.nansum(1).unsqueeze(0) / batch_size,
+                puis.nansum(1).unsqueeze(0) / batch_size,
+                pavpus.nansum(1).unsqueeze(0) / batch_size,
+            )
+
+    def calculate_result(self) -> torch.Tensor:
+        return {
+            "pac": self.pac,
+            "pui": self.pui,
+            "pavpu": self.pavpu,
+            "quantiles": self.quantiles.unsqueeze(0),
+        }

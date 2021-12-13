@@ -2,6 +2,8 @@ import torch
 from torch import nn
 from src.models.MLP import MLP, MLPDecoder
 from src.models.resnet import ResNet, ResNetDecoder
+from src.models.DRNSeg import DRNSeg
+from src.models.deeplab_v3plus import ModelDeepLabV3Plus
 from src.models.density_models import ClassConditionalGMM, KNearestNeighbour
 from typing import Tuple, Dict, List
 import numpy as np
@@ -92,7 +94,11 @@ class MIR(nn.Module):
         if self.backbone == "MLP":
             return MLP(model_configs)
         elif "resnet" in self.backbone:
-            return ResNet(model_configs, name=model_configs["mir_configs"]["backbone"])
+            return ResNet(model_configs, name=self.backbone)
+        elif "drn" in self.backbone:
+            return DRNSeg(model_configs, name=self.backbone)
+        elif "deeplab" in self.backbone:
+            return ModelDeepLabV3Plus(model_configs)
         else:
             raise ValueError(f"Unknown backbone {self.backbone}!")
 
@@ -107,6 +113,10 @@ class MIR(nn.Module):
             return MLPDecoder(model_configs)
         elif "resnet" in self.backbone:
             return ResNetDecoder(model_configs)
+        elif "drn" in self.backbone or "deeplab" in self.backbone:
+            return (
+                None  # Not needed for Segmenation as the models are implicity decoders
+            )
         else:
             raise ValueError(f"Unknown backbone {self.backbone}!")
 
@@ -135,7 +145,7 @@ class MIR(nn.Module):
             output_dict["features"] = output_features
 
         if return_reconstructions:
-            if self.reconstruction_weight > 0.0:
+            if self.reconstruction_weight > 0.0 and self.decoder is not None:
                 output_dict["reconstructions"] = self.decoder(output_features)
 
         if not return_reconstructions and not return_features:
@@ -167,8 +177,10 @@ class MIR(nn.Module):
         out_dict["loss_prediction"] = loss(out_dict["prediction"], y)
         out_dict["loss_weighted"] = prediction_weight * out_dict["loss_prediction"]
         if self.reconstruction_weight > 0.0:
-            out_dict["loss_reconstruction"] = self.loss_func_reconstruction(
-                x, out_dict["reconstructions"]
+            out_dict["loss_reconstruction"] = (
+                self.loss_func_reconstruction(x, out_dict["reconstructions"])
+                if self.decoder is not None
+                else 0
             )
             out_dict["loss_weighted"] += (
                 reconstruction_weight * out_dict["loss_reconstruction"]
@@ -213,7 +225,17 @@ class MIR(nn.Module):
         """
         output_dict = self.forward(inputs=data, return_features=True)
         output = output_dict["features"]
-        if len(output.shape) > 2:
-            output = torch.flatten(output, 1)
+        in_shapes = output.shape
+
+        if self.decoder is None:  # is segmentation
+            output = output.permute((0, 2, 3, 1)).flatten(0, 2)
+
+        else:
+            if len(output.shape) > 2:
+                output = torch.flatten(output, 1)
         uncertainty = self.density.marginal_log_probs(output.cpu().detach())
+
+        if self.decoder is None:  # is segmentation
+            uncertainty = uncertainty.reshape(in_shapes[0], in_shapes[2], in_shapes[3])
+
         return np.expand_dims(uncertainty, axis=-1)

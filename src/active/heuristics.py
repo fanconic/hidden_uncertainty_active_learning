@@ -544,8 +544,8 @@ class Precomputed(AbstractHeuristic):
         reverse (Bool): Sort from lowest to highest if False.
     """
 
-    def __init__(self, shuffle_prop=0.0, reverse=False):
-        super().__init__(shuffle_prop, reverse=reverse)
+    def __init__(self, shuffle_prop=0.0, reverse=False, reduction="none"):
+        super().__init__(shuffle_prop, reverse=reverse, reduction=reduction)
 
     def compute_score(self, predictions):
         return predictions[:, 0]

@@ -17,11 +17,10 @@ def fill_up_weights(up):
 
 
 class DRNSeg(nn.Module):
-    def __init__(self, model_configs):
+    def __init__(self, model_configs, name=None):
         super(DRNSeg, self).__init__()
-
         # extract from model configs
-        model_name = model_configs["name"]
+        model_name = model_configs["name"] if name is None else name
         classes = model_configs["output_size"]
         pretrained_model = model_configs["pretrained_model"]
         pretrained = model_configs["pretrained"]
@@ -63,8 +62,12 @@ class DRNSeg(nn.Module):
         x = self.base(x)
         x = self.seg(x)
         y = self.up(x)
-        # return self.softmax(y), x
-        return y
+
+        return_features = kwargs.pop("return_features", False)
+        if return_features:
+            return y, x
+        else:
+            return y
 
     def optim_parameters(self, memo=None):
         for param in self.base.parameters():

@@ -68,6 +68,7 @@ class ClassConditionalGMM(object):
         nr_samples = x.shape[0]
         if nr_samples >= 10000:
             self.greedy_search = False
+            print("Nr of samples: {}".format(nr_samples))
 
         if self.normalize_features:
             x = preprocessing.normalize(x)
