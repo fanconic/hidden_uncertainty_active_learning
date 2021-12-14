@@ -20,14 +20,14 @@ import torchvision
 from src.utils.array_utils import stack_in_memory
 from src.utils.cuda_utils import to_cuda
 from src.utils.iterutils import map_on_tensor
-from src.utils.metrics import PAC, Loss
+from src.utils.metrics import AUROC, PAC, Loss
 
 from src.models.BNN import BNN
 from src.models.BCNN import BCNN
 from src.models.MIR import MIR
 from src.models.UNet import UNet
 from src.active.heuristics import Precomputed
-from src.utils.utils import CITYSCAPE_PALETTE, fig2img
+from src.utils.utils import CITYSCAPE_PALETTE, fig2img, addlabels
 
 import wandb
 
@@ -179,18 +179,18 @@ class ModelWrapper:
                     v.update(loss)
                 else:
                     if (
-                        isinstance(v, PAC)
+                        isinstance(v, (PAC, AUROC))
                         and reduce
                         and not isinstance(self.heuristic, Precomputed)
                     ):
                         v.update(out_unreduced, target)
                     elif (
-                        isinstance(v, PAC)
+                        isinstance(v, (PAC, AUROC))
                         and reduce
                         and isinstance(self.heuristic, Precomputed)
                     ):
                         v.update(out_unreduced, target, uncertainty=uncertainty)
-                    elif isinstance(v, PAC) and not reduce:
+                    elif isinstance(v, (AUROC,PAC)) and not reduce:
                         raise ValueError
                     else:
                         v.update(out, target)
@@ -375,21 +375,28 @@ class ModelWrapper:
                     np_histogram=np.histogram(pred_train, bins=range(n_classes + 1))
                 )
 
-                plt.hist(pred_train, bins=range(n_classes+1))
+                hist_train = np.histogram(pred_train, bins=range(n_classes+1))
+                plt.bar(list(map(str, range(n_classes))),hist_train[0])
+                plt.yscale('log')
+                addlabels(list(map(str, range(n_classes))), hist_train[0])
                 fig = plt.gcf()
                 img_train = fig2img(fig)
+                plt.cla()
 
-                plt.hist(pred_val, bins=range(n_classes+1))
+                hist_val = np.histogram(pred_val, bins=range(n_classes+1))
+                plt.bar(list(map(str, range(n_classes))),hist_val[0])
+                plt.yscale('log')
                 fig = plt.gcf()
+                addlabels(list(map(str, range(n_classes))), hist_val[0])
                 img_val = fig2img(fig)
-                
+                plt.cla()
+
                 wandb.log(
                     {
                         f"train_histo_{self.al_iteration}": wandb.Image(img_train, caption="Training Class Distribution",),
                         f"val_histo_{self.al_iteration}": wandb.Image(img_val, caption="Validation Class Distribution",),
                     }
                 )
-                
 
                 model.density.fit(
                     x=features_train, y=pred_train, x_val=features_val, y_val=pred_val
@@ -771,7 +778,7 @@ class ModelWrapper:
                 self._update_metrics(preds_it, target, loss, "val", reduce=True)
             else:
                 if any(
-                    [isinstance(v, PAC) for v in self.metrics.values()]
+                    [isinstance(v, (PAC, AUROC)) for v in self.metrics.values()]
                 ) and isinstance(self.heuristic, Precomputed):
                     uncertainty = self.predict_on_batch(
                         model,

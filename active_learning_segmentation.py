@@ -15,7 +15,7 @@ from src.layers.consistent_dropout import patch_module
 from src.models.model_wrapper import ModelWrapper
 from src.active.active_loop import ActiveLearningLoop
 from torch import nn, optim
-from src.utils.metrics import IoU, PAC
+from src.utils.metrics import IoU, AUROC
 import IPython
 from copy import deepcopy
 from pprint import pprint
@@ -153,14 +153,14 @@ def main(config, run, random_state):
         ),
     )
     wrapper.add_metric(
-        "pac",
-        lambda: PAC(
+        "auroc",
+        lambda: AUROC(
+            num_classes=config["data"]["nb_classes"],
             heuristic=heuristic,
-            ignore_label=config["data"]["ignore_label"],
-            cuda=use_cuda,
+            ignore_label=config["data"]["ignore_label"]
         ),
-        val=False,
         train=False,
+        val=False
     )
 
     # Setup our active learning loop for our experiments
@@ -239,14 +239,10 @@ def main(config, run, random_state):
             "dataset_size": len(al_dataset),
             "end_test_loss": wrapper.metrics["test_loss"].value,
             "end_test_iou": wrapper.metrics["test_iou"].value,
+            "end_test_auroc": wrapper.metrics["test_auroc"].value
         }
 
         pprint(logs)
-
-        pacs = wrapper.metrics["test_pac"].value
-        pacs_df = wandb.Table(dataframe=pd.DataFrame(pacs))
-        logs[f"test_pac_{step}"] = pacs_df
-
         wandb.log(logs)
 
         # Log progress

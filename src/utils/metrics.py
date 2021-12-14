@@ -6,7 +6,7 @@ import numpy as np
 import torch.nn.functional as F
 from torch import nn
 import torch
-
+import sklearn
 
 import dataclasses
 import math
@@ -803,3 +803,70 @@ class PAC(Metrics):
             "pavpu": self.pavpu,
             "quantiles": self.quantiles.unsqueeze(0),
         }
+
+
+class AUROC(Metrics):
+    def __init__(
+        self,
+        num_classes,
+        heuristic,
+        average=True,
+        ignore_label=None,
+        **kwargs,
+    ):
+        super().__init__(average=average)
+        self.num_classes = num_classes
+        self.heuristic = heuristic
+        self.ignore_label = ignore_label
+
+    def reset(self):
+        self.auroc = torch.FloatTensor()
+
+    def update(self, predictions=None, target=None, uncertainty=None):
+        """
+        Update TP and support.
+        Args:
+            output (tensor): predictions of model
+            target (tensor): labels
+        Raises:
+            ValueError if the first dimension of output and target don't match.
+        """
+        if not predictions.shape[0] == target.shape[0]:
+            raise ValueError(
+                f"Sizes of the output ({predictions.shape[0]}) and target "
+                "({target.shape[0]}) don't match."
+            )
+
+        if not isinstance(self.heuristic, Precomputed):
+            uncert = self.heuristic.compute_score(predictions.cpu().detach().numpy())
+            uncert = torch.Tensor(uncert)
+        else:
+            uncert = uncertainty
+            size = predictions.shape[2:4]
+            uncert = F.interpolate(uncert.permute(0, 3, 1, 2), size, mode="bilinear")
+            uncert = uncert.squeeze(1)
+
+        auroc = self.AUROC_score(predictions.mean(-1), target, uncert)
+
+        if len(self.auroc) == 0:
+            self.auroc = auroc
+        else:
+            self.auroc = torch.cat([self.auroc, auroc], dim=0)
+
+    def AUROC_score(self, preds, targets, uncertainties):
+        with torch.no_grad():
+            preds = F.softmax(preds, dim=1)
+            preds = torch.argmax(preds, 1)
+
+            aurocs = []
+            for p,t,u in zip(preds, targets, uncertainties):
+                acc = (p == t)
+                acc = acc[t != self.ignore_label]
+                u = u[t != self.ignore_label]
+                auroc = sklearn.metrics.roc_auc_score(acc, -1 * u)
+                aurocs.append(auroc)
+
+        return torch.Tensor(aurocs)
+
+    def calculate_result(self) -> torch.Tensor:
+        return self.auroc

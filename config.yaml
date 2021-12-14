@@ -9,7 +9,7 @@ save_plot: False
 save_df: True
 runs: 1
 week: 10
-wandb_logging: True
+wandb_logging: False
 
 training:
     # active learning heuristic

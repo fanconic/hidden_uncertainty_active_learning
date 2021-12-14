@@ -23,6 +23,7 @@ from src.models.deeplab_v3plus import ModelDeepLabV3Plus
 from src.active.heuristics import *
 from torch import nn, optim
 from PIL import Image
+import matplotlib.pyplot as plt
 
 CITYSCAPE_PALETTE = np.asarray(
     [
@@ -295,3 +296,7 @@ def fig2img(fig):
     buf.seek(0)
     img = Image.open(buf)
     return img
+
+def addlabels(x,y):
+    for i in range(len(x)):
+        plt.text(i,y[i],y[i], ha='center')
