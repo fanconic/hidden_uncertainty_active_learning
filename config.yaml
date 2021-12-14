@@ -9,24 +9,24 @@ save_plot: False
 save_df: True
 runs: 1
 week: 10
-wandb_logging: False
+wandb_logging: True
 
 training:
     # active learning heuristic
-    heuristic: "precomputed"
+    heuristic: "entropy"
     reduction: "sum"
     shuffle_prop: 0.0
 
     # Neural Network Training
     batch_size: 16
-    epochs: 1
+    epochs: 60
     
     #Active learning steps
-    ndata_to_label: 10 #[100, 200, 200, 200, 200, 1000, 2000] #, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
-    iterations: 1 #8
-    initially_labelled: 10 #100
+    ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000] #, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
+    iterations: 8
+    initially_labelled: 100
     initially_balanced: False
-    verbose: True
+    verbose: False
 
     #scheduler:
     scheduler: "poly"
@@ -49,7 +49,7 @@ data:
     img_rows: 256
     img_cols: 512
     img_channels: 3
-    val_size: 0.01
+    val_size: 0.2
 
     # Augmentation
     resize: True
@@ -62,7 +62,7 @@ data:
 
 model:
     ensemble: 1 #set to 1 for no ensemble
-    name: "MIR"
+    name: "drn_d_22"
     mir_configs: # only applies if name == MIR
         backbone: "drn_d_22"
         reconstruction_weight: 1.0

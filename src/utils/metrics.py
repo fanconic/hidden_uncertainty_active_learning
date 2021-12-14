@@ -3,6 +3,7 @@
 # Taken from https://github.com/ElementAI/baal/blob/a9cc0034c40d0541234a3c27ff5ccbd97278bcb3/baal/utils/metrics.py#L281
 
 import numpy as np
+from numpy.lib.arraysetops import isin
 import torch.nn.functional as F
 from torch import nn
 import torch
@@ -16,7 +17,7 @@ from collections import defaultdict
 from sklearn.metrics import confusion_matrix, auc
 
 from src.utils.array_utils import to_prob
-from src.active.heuristics import Precomputed
+from src.active.heuristics import Entropy, Precomputed, Random
 
 
 def transpose_and_flatten(input):
@@ -859,10 +860,10 @@ class AUROC(Metrics):
             preds = torch.argmax(preds, 1)
 
             aurocs = []
-            for p,t,u in zip(preds, targets, uncertainties):
-                acc = (p == t)
-                acc = acc[t != self.ignore_label]
-                u = u[t != self.ignore_label]
+            for p, t, u in zip(preds, targets, uncertainties):
+                acc = p == t
+                acc = acc[t != self.ignore_label].cpu()
+                u = u[t != self.ignore_label].cpu()
                 auroc = sklearn.metrics.roc_auc_score(acc, -1 * u)
                 aurocs.append(auroc)
 

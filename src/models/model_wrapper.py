@@ -190,7 +190,7 @@ class ModelWrapper:
                         and isinstance(self.heuristic, Precomputed)
                     ):
                         v.update(out_unreduced, target, uncertainty=uncertainty)
-                    elif isinstance(v, (AUROC,PAC)) and not reduce:
+                    elif isinstance(v, (AUROC, PAC)) and not reduce:
                         raise ValueError
                     else:
                         v.update(out, target)
@@ -375,17 +375,19 @@ class ModelWrapper:
                     np_histogram=np.histogram(pred_train, bins=range(n_classes + 1))
                 )
 
-                hist_train = np.histogram(pred_train, bins=range(n_classes+1))
-                plt.bar(list(map(str, range(n_classes))),hist_train[0])
-                plt.yscale('log')
+                hist_train = np.histogram(pred_train, bins=range(n_classes + 1))
+                plt.bar(list(map(str, range(n_classes))), hist_train[0])
+                plt.yscale("log")
+                plt.title("Training Class Distribution")
                 addlabels(list(map(str, range(n_classes))), hist_train[0])
                 fig = plt.gcf()
                 img_train = fig2img(fig)
                 plt.cla()
 
-                hist_val = np.histogram(pred_val, bins=range(n_classes+1))
-                plt.bar(list(map(str, range(n_classes))),hist_val[0])
-                plt.yscale('log')
+                hist_val = np.histogram(pred_val, bins=range(n_classes + 1))
+                plt.bar(list(map(str, range(n_classes))), hist_val[0])
+                plt.yscale("log")
+                plt.title("Validation Class Distribution")
                 fig = plt.gcf()
                 addlabels(list(map(str, range(n_classes))), hist_val[0])
                 img_val = fig2img(fig)
@@ -393,8 +395,14 @@ class ModelWrapper:
 
                 wandb.log(
                     {
-                        f"train_histo_{self.al_iteration}": wandb.Image(img_train, caption="Training Class Distribution",),
-                        f"val_histo_{self.al_iteration}": wandb.Image(img_val, caption="Validation Class Distribution",),
+                        f"train_histo_{self.al_iteration}": wandb.Image(
+                            img_train,
+                            caption="Training Class Distribution",
+                        ),
+                        f"val_histo_{self.al_iteration}": wandb.Image(
+                            img_val,
+                            caption="Validation Class Distribution",
+                        ),
                     }
                 )
 

@@ -157,10 +157,10 @@ def main(config, run, random_state):
         lambda: AUROC(
             num_classes=config["data"]["nb_classes"],
             heuristic=heuristic,
-            ignore_label=config["data"]["ignore_label"]
+            ignore_label=config["data"]["ignore_label"],
         ),
         train=False,
-        val=False
+        val=False,
     )
 
     # Setup our active learning loop for our experiments
@@ -239,7 +239,7 @@ def main(config, run, random_state):
             "dataset_size": len(al_dataset),
             "end_test_loss": wrapper.metrics["test_loss"].value,
             "end_test_iou": wrapper.metrics["test_iou"].value,
-            "end_test_auroc": wrapper.metrics["test_auroc"].value
+            "end_test_auroc": wrapper.metrics["test_auroc"].value,
         }
 
         pprint(logs)
