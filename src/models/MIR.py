@@ -233,7 +233,7 @@ class MIR(nn.Module):
         else:
             if len(output.shape) > 2:
                 output = torch.flatten(output, 1)
-        uncertainty = self.density.marginal_log_probs(output.cpu().detach())
+        uncertainty = -1 * self.density.marginal_log_probs(output.cpu().detach())
 
         if self.decoder is None:  # is segmentation
             uncertainty = uncertainty.reshape(in_shapes[0], in_shapes[2], in_shapes[3])

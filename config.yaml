@@ -4,10 +4,10 @@
 
 name: "test"
 
-random_state: [3, 11, 42]
+random_state: [11, 42]
 save_plot: False
 save_df: True
-runs: 1
+runs: 3
 week: 10
 wandb_logging: True
 

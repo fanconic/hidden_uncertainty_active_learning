@@ -817,7 +817,10 @@ class AUROC(Metrics):
     ):
         super().__init__(average=average)
         self.num_classes = num_classes
-        self.heuristic = heuristic
+        if isinstance(heuristic, Random):
+            self.heuristic = Entropy(shuffle_prop=0.0, reduction="sum")
+        else:
+            self.heuristic = heuristic
         self.ignore_label = ignore_label
 
     def reset(self):

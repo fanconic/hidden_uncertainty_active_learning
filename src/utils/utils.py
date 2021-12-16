@@ -109,7 +109,7 @@ def get_heuristic(heuristic_name, random_state=0, shuffle_prop=0.0, reduction="n
     elif heuristic_name == "certainty":
         return Certainty(shuffle_prop=shuffle_prop, reduction=reduction)
     elif heuristic_name == "precomputed":
-        return Precomputed(shuffle_prop=shuffle_prop, reduction=reduction)
+        return Precomputed(shuffle_prop=shuffle_prop, reduction=reduction, reverse=True)
     else:
         raise NotImplemented
 
