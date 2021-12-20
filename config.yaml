@@ -2,9 +2,9 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "test"
+name: "CSYU_MIR_KNN_3"
 
-random_state: [11, 42]
+random_state: [3, 11, 42]
 save_plot: False
 save_df: True
 runs: 3
@@ -13,7 +13,7 @@ wandb_logging: True
 
 training:
     # active learning heuristic
-    heuristic: "entropy"
+    heuristic: "precomputed"
     reduction: "sum"
     shuffle_prop: 0.0
 
@@ -62,11 +62,11 @@ data:
 
 model:
     ensemble: 1 #set to 1 for no ensemble
-    name: "drn_d_22"
+    name: "MIR"
     mir_configs: # only applies if name == MIR
         backbone: "drn_d_22"
         reconstruction_weight: 1.0
-        density_model: "gmm"
+        density_model: "knn"
         warmup: False
         feature_dims: 512
         normalize_features: True
@@ -79,9 +79,10 @@ model:
         search_step_size: 50
 
         # KNN
-        knn_weights: "uniform"
+        knn_weights: "distance"
         knn_metric: "euclidean"
         knn_neighbours: 5
+        max_samples: 1000
 
     # DeepLab
     deeplab_configs:

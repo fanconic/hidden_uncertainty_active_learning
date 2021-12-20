@@ -191,6 +191,7 @@ def main(config, run, random_state):
             verbose=config["training"]["verbose"],
             return_best_weights=config["training"]["load_best_model"],
             al_iteration=step,
+            workers=3,
         )
 
         if config["training"]["load_best_model"]:
@@ -201,6 +202,7 @@ def main(config, run, random_state):
             batch_size=config["training"]["batch_size"],
             use_cuda=use_cuda,
             average_predictions=config["model"]["mc_iterations"],
+            workers=3,
         )
 
         logs = {

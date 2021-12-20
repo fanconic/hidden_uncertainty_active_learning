@@ -32,6 +32,7 @@ class MIR(nn.Module):
         self.knn_weights = mir_configs["knn_weights"]
         self.knn_metric = mir_configs["knn_metric"]
         self.knn_neighbours = mir_configs["knn_neighbours"]
+        self.max_samples = mir_configs["max_samples"]
 
         # encoder, decoder & loss function
         self.encoder = self._get_encoder(model_configs)
@@ -67,6 +68,8 @@ class MIR(nn.Module):
                 normalize_features=normalize_features,
                 weights=self.knn_weights,
                 metric=self.knn_metric,
+                nr_classes=self.nr_classes,
+                max_samples=self.max_samples,
             )
         else:
             raise ValueError(f"Unknown density model {self.density_model}!")

@@ -847,7 +847,9 @@ class AUROC(Metrics):
         else:
             uncert = uncertainty
             size = predictions.shape[2:4]
-            uncert = F.interpolate(uncert.permute(0, 3, 1, 2), size, mode="bilinear")
+            uncert = F.interpolate(
+                uncert.permute(0, 3, 1, 2), size, mode="bilinear", align_corners=True
+            )
             uncert = uncert.squeeze(1)
 
         auroc = self.AUROC_score(predictions.mean(-1), target, uncert)

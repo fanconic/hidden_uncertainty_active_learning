@@ -36,6 +36,8 @@ def set_seed(seed):
     os.environ["PYTHONHASHSEED"] = str(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
+    g = torch.Generator()
+    g.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
         torch.backends.cudnn.deterministic = True
@@ -104,6 +106,9 @@ def main(config, run, random_state):
     val_subs = torch.utils.data.Subset(train_whole, valid_idx)
     train_ds = MapDataset(train_subs, train_transform, segmentation=True)
     val_ds = MapDataset(val_subs, test_transform, segmentation=True)
+
+    train_ds = val_ds
+    test_ds = val_ds
 
     al_dataset = ActiveLearningDataset(
         train_ds,
@@ -220,6 +225,7 @@ def main(config, run, random_state):
             patience=config["training"]["patience_early_stopping"],
             verbose=config["training"]["verbose"],
             return_best_weights=config["training"]["load_best_model"],
+            workers=3,
             al_iteration=step,
             average_predictions=1,
         )
@@ -232,6 +238,7 @@ def main(config, run, random_state):
             batch_size=config["training"]["batch_size"],
             use_cuda=use_cuda,
             average_predictions=config["model"]["mc_iterations"],
+            workers=3,
         )
 
         logs = {

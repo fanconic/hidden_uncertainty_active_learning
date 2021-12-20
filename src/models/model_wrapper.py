@@ -16,6 +16,7 @@ from torch.utils.data import DataLoader, Dataset
 from torch.utils.data.dataloader import default_collate
 from tqdm import tqdm
 import torchvision
+import torch.nn.functional as F
 
 from src.utils.array_utils import stack_in_memory
 from src.utils.cuda_utils import to_cuda
@@ -28,10 +29,16 @@ from src.models.MIR import MIR
 from src.models.UNet import UNet
 from src.active.heuristics import Precomputed
 from src.utils.utils import CITYSCAPE_PALETTE, fig2img, addlabels
-
+import random
 import wandb
 
 log = structlog.get_logger("ModelWrapper")
+
+
+def seed_worker(worker_id):
+    worker_seed = torch.initial_seed() % 2 ** 32
+    np.random.seed(worker_seed)
+    random.seed(worker_seed)
 
 
 def extract_features(
@@ -57,10 +64,9 @@ def extract_features(
 
         out = model(x, return_features=True)
         feature = out["features"]
-        softmax_layer = nn.Softmax(dim=1)
 
         if not segmentation:
-            output = softmax_layer(out["prediction"])
+            output = F.softmax(out["prediction"], 1)
             # Flatten, if they are multidimensional
             if len(feature.shape) > 2:
                 feature = torch.flatten(feature, 1)
@@ -73,7 +79,7 @@ def extract_features(
                 predictions.append(np.argmax(output.cpu().detach(), axis=1))
 
         else:
-            output = softmax_layer(out["features"])
+            output = F.softmax(out["features"], 1)
             # rearrange the dimensions
             feature = feature.permute((0, 2, 3, 1)).flatten(0, 2)
             prediction = torch.argmax(output.permute(0, 2, 3, 1), -1).flatten(0, 2)
@@ -253,6 +259,7 @@ class ModelWrapper:
                 True,
                 num_workers=workers,
                 collate_fn=collate_fn,
+                worker_init_fn=seed_worker,
             )
 
             val_loader = DataLoader(
@@ -261,6 +268,7 @@ class ModelWrapper:
                 False,
                 num_workers=workers,
                 collate_fn=None,
+                worker_init_fn=seed_worker,
             )
 
             if verbose:
@@ -368,28 +376,24 @@ class ModelWrapper:
                 )
 
                 n_classes = self.models[0].nr_classes
-                histo_train = wandb.Histogram(
-                    np_histogram=np.histogram(pred_train, bins=range(n_classes + 1))
-                )
-                histo_val = wandb.Histogram(
-                    np_histogram=np.histogram(pred_train, bins=range(n_classes + 1))
-                )
 
-                hist_train = np.histogram(pred_train, bins=range(n_classes + 1))
-                plt.bar(list(map(str, range(n_classes))), hist_train[0])
+                hist_train = np.array(
+                    [np.sum(pred_train == c) for c in range(n_classes)]
+                )
+                plt.bar(list(map(str, range(n_classes))), hist_train)
                 plt.yscale("log")
                 plt.title("Training Class Distribution")
-                addlabels(list(map(str, range(n_classes))), hist_train[0])
+                addlabels(list(map(str, range(n_classes))), hist_train)
                 fig = plt.gcf()
                 img_train = fig2img(fig)
                 plt.cla()
 
-                hist_val = np.histogram(pred_val, bins=range(n_classes + 1))
-                plt.bar(list(map(str, range(n_classes))), hist_val[0])
+                hist_val = np.array([np.sum(pred_val == c) for c in range(n_classes)])
+                plt.bar(list(map(str, range(n_classes))), hist_val)
                 plt.yscale("log")
                 plt.title("Validation Class Distribution")
                 fig = plt.gcf()
-                addlabels(list(map(str, range(n_classes))), hist_val[0])
+                addlabels(list(map(str, range(n_classes))), hist_val)
                 img_val = fig2img(fig)
                 plt.cla()
 
@@ -448,7 +452,12 @@ class ModelWrapper:
 
         visualize = True
         for data, target in DataLoader(
-            dataset, batch_size, False, num_workers=workers, collate_fn=collate_fn
+            dataset,
+            batch_size,
+            False,
+            num_workers=workers,
+            collate_fn=collate_fn,
+            worker_init_fn=seed_worker,
         ):
             _ = self.test_on_batch(
                 data,
@@ -572,7 +581,12 @@ class ModelWrapper:
         log.info("Start Predict", dataset=len(dataset))
         collate_fn = collate_fn or default_collate
         loader = DataLoader(
-            dataset, batch_size, False, num_workers=workers, collate_fn=collate_fn
+            dataset,
+            batch_size,
+            False,
+            num_workers=workers,
+            collate_fn=collate_fn,
+            worker_init_fn=seed_worker,
         )
         if verbose:
             loader = tqdm(loader, total=len(loader), file=sys.stdout)

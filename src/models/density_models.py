@@ -11,6 +11,21 @@ import sklearn.preprocessing as preprocessing
 import scipy.ndimage
 from copy import deepcopy
 from sklearn.neighbors import KNeighborsClassifier
+from imblearn.under_sampling import RandomUnderSampler
+
+
+def class_probs(labels, num_classes):
+    """Calculates the probability of each class
+    Args:
+        labels (np.array): the labels
+        num_classes (int): number of classes
+    returns:
+        np array of length num_classes with their respective probability
+    """
+    class_n = len(labels)
+    class_count = np.array([np.sum(labels == c) for c in range(num_classes)])
+    class_prob = class_count / class_n
+    return class_prob
 
 
 class ClassConditionalGMM(object):
@@ -33,6 +48,7 @@ class ClassConditionalGMM(object):
         self.greedy_search = greedy_search
         self.search_step_size = search_step_size
         self.reduce = red_dim
+        self.class_distribution = None
 
         if red_dim != -1:
             self.pca = decomposition.PCA(n_components=red_dim)
@@ -66,9 +82,9 @@ class ClassConditionalGMM(object):
             List of GMMs
         """
         nr_samples = x.shape[0]
-        if nr_samples >= 10000:
-            self.greedy_search = False
-            print("Nr of samples: {}".format(nr_samples))
+
+        # calculate the class distribution to figure out the densities
+        self.class_distribution = class_probs(y, self.nr_classes)
 
         if self.normalize_features:
             x = preprocessing.normalize(x)
@@ -82,7 +98,7 @@ class ClassConditionalGMM(object):
         best_pca = None
 
         while red_dim <= max_dim:
-            if self.greedy_search:
+            if self.greedy_search and max_dim != red_dim:
                 self.pca = decomposition.PCA(n_components=red_dim)
             else:
                 if self.reduce:
@@ -120,6 +136,10 @@ class ClassConditionalGMM(object):
                             print(
                                 f"{i}-th component log probs | Train: {log_prob_train} | Val: {log_prob_val}"
                             )
+                        else:
+                            print(
+                                f"{i}-th component log probs | Train: {log_prob_train/red_dim} | Val: {log_prob_val/red_dim}"
+                            )
                         diffs.append(((log_prob_train - log_prob_val) / red_dim) ** 2)
 
             # compute the average negative log likelihood
@@ -154,8 +174,8 @@ class ClassConditionalGMM(object):
             )
 
     def class_conditional_log_probs(self, x: Any) -> Any:
+        class_idx = []
         log_probs = []
-
         if self.normalize_features:
             x = preprocessing.normalize(x)
         if self.pca:
@@ -163,34 +183,22 @@ class ClassConditionalGMM(object):
         for density in self.class_conditional_densities:
             try:
                 log_probs.append(np.expand_dims(density.score_samples(x), -1))
+                class_idx.append(True)
             except:
-                pass
-        return np.concatenate(log_probs, -1)
-
-    def class_conditional_probs(self, x: Any) -> Any:
-        probs = []
-        if self.normalize_features:
-            x = preprocessing.normalize(x)
-        if self.pca:
-            x = self.pca.transform(x)
-        for density in self.class_conditional_densities:
-            try:
-                probs.append(density.predict_proba(x))
-            except:
-                pass
-        return np.concatenate(probs, -1)
+                class_idx.append(False)
+        return np.concatenate(log_probs, -1), class_idx
 
     def marginal_log_probs(self, x: Any):
-        """Computes marginal likelihood (epistemic uncertainty)of x. Assuming class balance.
-
+        """Computes marginal likelihood (epistemic uncertainty)of x.
         Args:
             x (np.array): array of dim batch_size x features
-
         Returns:
           epistemic uncertainty: dim batch_size
         """
-        cc_log_probs = self.class_conditional_log_probs(x)
-        return scipy.special.logsumexp(cc_log_probs, axis=-1)
+        cc_log_probs, class_idx = self.class_conditional_log_probs(x)
+        return scipy.special.logsumexp(
+            cc_log_probs, b=self.class_distribution[class_idx], axis=-1
+        )
 
 
 class KNearestNeighbour(object):
@@ -203,9 +211,14 @@ class KNearestNeighbour(object):
         normalize_features: bool = True,
         weights="uniform",
         metric="euclidean",
+        nr_classes=10,
+        max_samples=5000,
     ):
         super(KNearestNeighbour, self).__init__()
         self.normalize_features = normalize_features
+        self.nr_classes = nr_classes
+        self.max_samples = max_samples
+        self.class_distribution = None
 
         if red_dim != -1:
             self.pca = decomposition.PCA(n_components=red_dim)
@@ -216,6 +229,8 @@ class KNearestNeighbour(object):
             metric=metric,
             n_neighbors=n_neigbours,
             weights=weights,
+            n_jobs=-1,
+            algorithm="ball_tree",
         )
 
     def fit(
@@ -226,13 +241,11 @@ class KNearestNeighbour(object):
         y_val: Any,
     ):
         """Fit KNN.
-
         Args:
             x: Training data
             y: Predictions on training data
             x_val: Validation data
             y_val: Predictions on validation data
-
         Returns:
             fitted KNN
         """
@@ -240,8 +253,29 @@ class KNearestNeighbour(object):
             x = preprocessing.normalize(x)
             x_val = preprocessing.normalize(x_val)
 
+        self.class_distribution = class_probs(y, self.nr_classes)
+
+        if self.max_samples != -1:
+            class_n = np.array([np.sum(y == c) for c in range(self.nr_classes)])
+            class_n_val = np.array([np.sum(y_val == c) for c in range(self.nr_classes)])
+
+            y_samples = {}
+            y_samples_val = {}
+            for c in range(self.nr_classes):
+                if class_n[c] != 0:
+                    y_samples[c] = min(class_n[c], self.max_samples)
+                    y_samples_val[c] = min(class_n_val[c], self.max_samples)
+
+            rus = RandomUnderSampler(sampling_strategy=y_samples, random_state=42)
+            rus_val = RandomUnderSampler(
+                sampling_strategy=y_samples_val, random_state=42
+            )
+            x, y = rus.fit_resample(x, y)
+            x_val, y_val = rus_val.fit_resample(x_val, y_val)
+
         print("Fitting KNN")
         self.knn.fit(x, y)
+        self.y = y
         eval = self.evaluate(x_val)
         print(f"Mean distance validation: {eval.mean():.4f}")
 
@@ -251,7 +285,7 @@ class KNearestNeighbour(object):
 
         relevant_distances = []
         for y_pred, distance, index in zip(y_preds, distances, indices):
-            relevant_distances.append(distance[self.knn._y[index] == y_pred].mean())
+            relevant_distances.append(np.nanmean(distance[self.y[index] == y_pred]))
             # relevant_distances.append(distance.mean())
 
         return np.array(relevant_distances)
@@ -261,16 +295,13 @@ class KNearestNeighbour(object):
             x = preprocessing.normalize(x)
         if self.pca:
             x = self.pca.transform(x)
-
         return self.evaluate(x)
 
     def marginal_log_probs(self, x: Any):
-        """Computes marginal likelihood (epistemic uncertainty)of x. Assuming class balance.
-
+        """Computes the distances as proxy of the density (kernel density approximation).
         Args:
             x (np.array): array of dim batch_size x features
-
         Returns:
-          epistemic uncertainty: dim batch_size
+          distance: dim batch_size
         """
         return -1 * self.class_conditional_log_probs(x)
