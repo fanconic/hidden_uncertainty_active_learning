@@ -278,5 +278,5 @@ if __name__ == "__main__":
         df = df.join(run_df, how="right")
 
     df.to_csv(
-        "experiment_outputs/week{}/{}.csv".format(str(config["week"]), config["name"])
+        "experiment_outputs/final_runs/{}.csv".format(config["name"])
     )

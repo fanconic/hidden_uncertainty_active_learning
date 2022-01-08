@@ -2,36 +2,36 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "CSYU_MIR_KNN_3"
+name: "svhn_knn"
 
 random_state: [3, 11, 42]
 save_plot: False
 save_df: True
 runs: 3
-week: 10
+week: 0
 wandb_logging: True
 
 training:
     # active learning heuristic
     heuristic: "precomputed"
     reduction: "sum"
-    shuffle_prop: 0.0
+    shuffle_prop: 0.2
 
     # Neural Network Training
-    batch_size: 16
-    epochs: 60
+    batch_size: 64
+    epochs: 100
     
     #Active learning steps
-    ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000] #, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
-    iterations: 8
+    ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
+    iterations: 15
     initially_labelled: 100
-    initially_balanced: False
+    initially_balanced: True
     verbose: False
 
     #scheduler:
-    scheduler: "poly"
+    scheduler: "step"
     lr_reduce_factor: 0.1
-    patience_lr_reduce: 20
+    patience_lr_reduce: 30
     poly_reduce: 0.9
 
     # Early stopping
@@ -44,19 +44,19 @@ training:
 
 data:
     # Dataset parameters
-    dataset: 'cityscapes_yu'
-    nb_classes: 19
-    img_rows: 256
-    img_cols: 512
+    dataset: 'svhn'
+    nb_classes: 10
+    img_rows: 32
+    img_cols: 32
     img_channels: 3
     val_size: 0.2
 
     # Augmentation
-    resize: True
-    augmentation: True
+    resize: False
+    augmentation: False
     rgb_normalization: True
-    mean:  [0.290101, 0.328081, 0.286964] # CIFAR10 [0.49139968, 0.48215827, 0.44653124]
-    std: [0.182954, 0.186566, 0.184475] # CIFAR10 [0.24703233, 0.24348505, 0.26158768] 
+    mean:  [0.4376821, 0.4437697, 0.47280442] # cityscape [0.290101, 0.328081, 0.286964]
+    std: [0.19803012, 0.20101562, 0.19703614]  # cityscape [0.182954, 0.186566, 0.184475] 
     path: "/srv/beegfs02/scratch/density_estimation/data/fanconic/CityScapes" #only applies to CityScapes
     ignore_label: 255 # only for sematic segmenation
 
@@ -64,7 +64,7 @@ model:
     ensemble: 1 #set to 1 for no ensemble
     name: "MIR"
     mir_configs: # only applies if name == MIR
-        backbone: "drn_d_22"
+        backbone: "resnet18"
         reconstruction_weight: 1.0
         density_model: "knn"
         warmup: False
@@ -77,22 +77,24 @@ model:
         # Greedy Search
         greedy_search: False
         search_step_size: 50
+        reduction: "mean"
+        metric: "val_l2"
 
         # KNN
         knn_weights: "distance"
         knn_metric: "euclidean"
         knn_neighbours: 5
-        max_samples: 1000
+        max_samples: 5000
 
     # DeepLab
     deeplab_configs:
         backbone: "resnet18"
     
     # Data sizes - need to be the same as in "data"
-    input_height: 256
-    input_width: 512
+    input_height: 32
+    input_width: 32
     input_channels: 3
-    output_size: 19
+    output_size: 10
 
     # Layers for DNN and CNNS
     hidden_layers: [128, 128]
@@ -109,7 +111,7 @@ model:
 
     #Pretrained
     pretrained_model: 
-    pretrained: True
+    pretrained: False
     use_torch_up: False
 
 optimizer:

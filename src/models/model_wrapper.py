@@ -64,7 +64,6 @@ def extract_features(
 
         out = model(x, return_features=True)
         feature = out["features"]
-
         if not segmentation:
             output = F.softmax(out["prediction"], 1)
             # Flatten, if they are multidimensional
@@ -261,7 +260,6 @@ class ModelWrapper:
                 collate_fn=collate_fn,
                 worker_init_fn=seed_worker,
             )
-
             val_loader = DataLoader(
                 val_dataset,
                 batch_size,
@@ -270,7 +268,6 @@ class ModelWrapper:
                 collate_fn=None,
                 worker_init_fn=seed_worker,
             )
-
             if verbose:
                 loader = tqdm(loader)
             for data, target in loader:
@@ -285,7 +282,6 @@ class ModelWrapper:
                             "val_{}".format(self.track_metric[0])
                         ].value,
                     )
-
             for optimizer in optimizers:
                 optimizer.zero_grad()  # Assert that the gradient is flushed.
             history.append(self.metrics["train_loss"].value)
@@ -358,7 +354,7 @@ class ModelWrapper:
 
         if isinstance(self.models[0], (MIR)):
             for model in self.models:
-                return_true_labels = True if model.density_model == "knn" else False
+                return_true_labels = True  # if model.density_model == "knn" else False
                 features_train, pred_train = extract_features(
                     model=model,
                     dataset=loader,
@@ -409,7 +405,6 @@ class ModelWrapper:
                         ),
                     }
                 )
-
                 model.density.fit(
                     x=features_train, y=pred_train, x_val=features_val, y_val=pred_val
                 )

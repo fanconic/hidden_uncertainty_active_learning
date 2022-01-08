@@ -39,6 +39,8 @@ class ClassConditionalGMM(object):
         normalize_features: bool = True,
         greedy_search: bool = False,
         search_step_size: int = 10,
+        metric: str = "L2",
+        reduction: str = "mean",
     ):
         super(ClassConditionalGMM, self).__init__()
         self.n_components = n_components
@@ -48,6 +50,8 @@ class ClassConditionalGMM(object):
         self.greedy_search = greedy_search
         self.search_step_size = search_step_size
         self.reduce = red_dim
+        self.metric = metric
+        self.reduction = reduction
         self.class_distribution = None
 
         if red_dim != -1:
@@ -82,6 +86,7 @@ class ClassConditionalGMM(object):
             List of GMMs
         """
         nr_samples = x.shape[0]
+        print(nr_samples)
 
         # calculate the class distribution to figure out the densities
         self.class_distribution = class_probs(y, self.nr_classes)
@@ -122,25 +127,30 @@ class ClassConditionalGMM(object):
 
                     # log log_prob on train/val
                     if np.sum(y_val == i) > 0:
-                        log_prob_train = np.mean(
-                            self.class_conditional_densities[i].score_samples(
-                                x_in[y == i]
-                            )
-                        )
-                        log_prob_val = np.mean(
-                            self.class_conditional_densities[i].score_samples(
-                                x_val_in[y_val == i]
-                            )
-                        )
+                        log_prob_train = self.class_conditional_densities[
+                            i
+                        ].score_samples(x_in[y == i])
+
+                        log_prob_val = self.class_conditional_densities[
+                            i
+                        ].score_samples(x_val_in[y_val == i])
                         if not self.greedy_search:
                             print(
-                                f"{i}-th component log probs | Train: {log_prob_train} | Val: {log_prob_val}"
+                                f"{i}-th component log probs | Train: {log_prob_train.mean()} | Val: {log_prob_val.mean()}"
                             )
                         else:
                             print(
-                                f"{i}-th component log probs | Train: {log_prob_train/red_dim} | Val: {log_prob_val/red_dim}"
+                                f"{i}-th component log probs | Train: {(log_prob_train/red_dim).mean()} | Val: {(log_prob_val/red_dim).mean()}"
                             )
-                        diffs.append(((log_prob_train - log_prob_val) / red_dim) ** 2)
+                        diff = self.metric_function(
+                            log_prob_train,
+                            log_prob_val,
+                            red_dim,
+                            metric=self.metric,
+                            reduction=self.reduction,
+                        )
+
+                        diffs.append(diff)
 
             # compute the average negative log likelihood
             avg_diff = np.mean(diffs)
@@ -172,6 +182,75 @@ class ClassConditionalGMM(object):
                     best_dim, min_diff
                 )
             )
+
+    def metric_function(
+        self, log_prob_train, log_prob_val, dimension, metric="L2", reduction="mean"
+    ):
+        """Calulcates a metric between the log probability of the training set and the log probability of the validation set
+        Args:
+            log_prob_train: log probability of the training examples
+            log_prob_val: log probability of the validation examples
+            dimension: dimension of the samples
+            metric (default L2): metric
+            reduction (default "mean"): reduction method
+        Returns:
+            metric
+        """
+        if reduction == "mean":
+            log_prob_train = log_prob_train.mean()
+            log_prob_val = log_prob_val.mean()
+
+        elif reduction == "sum":
+            log_prob_train = log_prob_train.sum()
+            log_prob_val = log_prob_val.sum()
+
+        elif reduction == "max":
+            log_prob_train = log_prob_train.max()
+            log_prob_val = log_prob_val.max()
+
+        elif reduction == "min":
+            log_prob_train = log_prob_train.min()
+            log_prob_val = log_prob_val.min()
+
+        elif reduction == "median":
+            log_prob_train = np.median(log_prob_train)
+            log_prob_val = np.median(log_prob_val)
+
+        else:
+            raise NotImplementedError
+
+        if metric == "L2":
+            return ((log_prob_train - log_prob_val) / dimension) ** 2
+        elif metric == "L1":
+            return np.abs(log_prob_train / dimension - log_prob_val / dimension)
+        elif metric == "train":
+            return -log_prob_train / dimension
+        elif metric == "val":
+            return -log_prob_val / dimension
+        elif metric == "train_l2":
+            return (
+                -log_prob_train / dimension
+                + ((log_prob_train - log_prob_val) / dimension) ** 2
+            )
+        elif metric == "train_val_l2":
+            return (
+                -log_prob_train / dimension
+                - log_prob_val / dimension
+                + ((log_prob_train - log_prob_val) / dimension) ** 2
+            )
+        elif metric == "val_l2":
+            return (
+                - log_prob_val / dimension
+                + ((log_prob_train - log_prob_val) / dimension) ** 2
+            )
+        elif metric == "train_val_l1":
+            return (
+                -log_prob_train / dimension
+                - log_prob_val / dimension
+                + np.abs(log_prob_train / dimension - log_prob_val / dimension)
+            )
+        else:
+            raise NotImplementedError
 
     def class_conditional_log_probs(self, x: Any) -> Any:
         class_idx = []

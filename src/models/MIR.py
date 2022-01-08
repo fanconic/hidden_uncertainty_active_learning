@@ -27,6 +27,8 @@ class MIR(nn.Module):
         # GMM Greedy Search
         self.greedy_search = mir_configs["greedy_search"]
         self.search_step_size = mir_configs["search_step_size"]
+        self.metric = mir_configs["metric"]
+        self.reduction = mir_configs["reduction"]
 
         # KNN
         self.knn_weights = mir_configs["knn_weights"]
@@ -60,6 +62,8 @@ class MIR(nn.Module):
                 normalize_features=normalize_features,
                 greedy_search=self.greedy_search,
                 search_step_size=self.search_step_size,
+                reduction=self.reduction,
+                metric=self.metric,
             )
         elif self.density_model == "knn":
             self.density = KNearestNeighbour(
