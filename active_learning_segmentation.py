@@ -268,8 +268,8 @@ def main(config, run, random_state):
         plt.grid()
         plt.title("Experiment {}".format(config["name"]))
         plt.savefig(
-            "experiment_outputs/week{}/{}/run_{}.pdf".format(
-                str(config["week"]), config["name"], str(run + 1)
+            "experiment_outputs/final_runs/{}/run_{}.pdf".format(
+                config["name"], str(run + 1)
             ),
             format="pdf",
             bbox_inches="tight",
@@ -310,6 +310,4 @@ if __name__ == "__main__":
         run_df = main(config, run, config["random_state"][run])
         df = df.join(run_df, how="right")
 
-    df.to_csv(
-        "experiment_outputs/week{}/{}.csv".format(str(config["week"]), config["name"])
-    )
+    df.to_csv("experiment_outputs/final_runs/{}.csv".format(config["name"]))

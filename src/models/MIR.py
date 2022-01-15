@@ -4,7 +4,11 @@ from src.models.MLP import MLP, MLPDecoder
 from src.models.resnet import ResNet, ResNetDecoder
 from src.models.DRNSeg import DRNSeg
 from src.models.deeplab_v3plus import ModelDeepLabV3Plus
-from src.models.density_models import ClassConditionalGMM, KNearestNeighbour
+from src.models.density_models import (
+    ClassConditionalGMM,
+    KNearestNeighbour,
+    ClassConditionalGMM_Seg,
+)
 from typing import Tuple, Dict, List
 import numpy as np
 
@@ -74,6 +78,16 @@ class MIR(nn.Module):
                 metric=self.knn_metric,
                 nr_classes=self.nr_classes,
                 max_samples=self.max_samples,
+            )
+        elif self.density_model == "gmm_seg":
+            self.density = ClassConditionalGMM_Seg(
+                nr_classes=self.nr_classes,
+                red_dim=self.dim_reduction,
+                normalize_features=normalize_features,
+                greedy_search=self.greedy_search,
+                search_step_size=self.search_step_size,
+                reduction=self.reduction,
+                metric=self.metric,
             )
         else:
             raise ValueError(f"Unknown density model {self.density_model}!")

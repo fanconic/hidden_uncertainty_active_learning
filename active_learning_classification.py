@@ -277,6 +277,4 @@ if __name__ == "__main__":
         run_df = main(config, run, config["random_state"][run])
         df = df.join(run_df, how="right")
 
-    df.to_csv(
-        "experiment_outputs/final_runs/{}.csv".format(config["name"])
-    )
+    df.to_csv("experiment_outputs/final_runs/{}.csv".format(config["name"]))

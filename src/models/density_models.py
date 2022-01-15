@@ -14,6 +14,80 @@ from sklearn.neighbors import KNeighborsClassifier
 from imblearn.under_sampling import RandomUnderSampler
 
 
+def metric_function(
+    log_prob_train, log_prob_val, dimension, metric="L2", reduction="mean"
+):
+    """Calulcates a metric between the log probability of the training set and the log probability of the validation set
+    Args:
+        log_prob_train: log probability of the training examples
+        log_prob_val: log probability of the validation examples
+        dimension: dimension of the samples
+        metric (default L2): metric
+        reduction (default "mean"): reduction method
+    Returns:
+        metric
+    """
+    if reduction == "mean":
+        log_prob_train = log_prob_train.mean()
+        log_prob_val = log_prob_val.mean()
+
+    elif reduction == "sum":
+        log_prob_train = log_prob_train.sum()
+        log_prob_val = log_prob_val.sum()
+
+    elif reduction == "max":
+        log_prob_train = log_prob_train.max()
+        log_prob_val = log_prob_val.max()
+
+    elif reduction == "min":
+        log_prob_train = log_prob_train.min()
+        log_prob_val = log_prob_val.min()
+
+    elif reduction == "median":
+        log_prob_train = np.median(log_prob_train)
+        log_prob_val = np.median(log_prob_val)
+
+    else:
+        raise NotImplementedError
+
+    if metric == "L2":
+        return ((log_prob_train - log_prob_val) / dimension) ** 2
+    elif metric == "L1":
+        return np.abs(log_prob_train / dimension - log_prob_val / dimension)
+    elif metric == "train":
+        return -log_prob_train / dimension
+    elif metric == "val":
+        return -log_prob_val / dimension
+    elif metric == "train_l2":
+        return (
+            -log_prob_train / dimension
+            + ((log_prob_train - log_prob_val) / dimension) ** 2
+        )
+    elif metric == "train_val_l2":
+        return (
+            -log_prob_train / dimension
+            - log_prob_val / dimension
+            + ((log_prob_train - log_prob_val) / dimension) ** 2
+        )
+    elif metric == "val_l2":
+        return (
+            -log_prob_val / dimension
+            + ((log_prob_train - log_prob_val) / dimension) ** 2
+        )
+    elif metric == "train_val_l1":
+        return (
+            -log_prob_train / dimension
+            - log_prob_val / dimension
+            + np.abs(log_prob_train / dimension - log_prob_val / dimension)
+        )
+    elif metric == "val_l1":
+        return -log_prob_val / dimension + np.abs(
+            log_prob_train / dimension - log_prob_val / dimension
+        )
+    else:
+        raise NotImplementedError
+
+
 def class_probs(labels, num_classes):
     """Calculates the probability of each class
     Args:
@@ -108,7 +182,6 @@ class ClassConditionalGMM(object):
             else:
                 if self.reduce:
                     self.pca = None
-
             if self.pca:
                 print("Fitting PCA...", flush=True)
                 self.pca.fit(x)
@@ -142,7 +215,7 @@ class ClassConditionalGMM(object):
                             print(
                                 f"{i}-th component log probs | Train: {(log_prob_train/red_dim).mean()} | Val: {(log_prob_val/red_dim).mean()}"
                             )
-                        diff = self.metric_function(
+                        diff = metric_function(
                             log_prob_train,
                             log_prob_val,
                             red_dim,
@@ -182,75 +255,6 @@ class ClassConditionalGMM(object):
                     best_dim, min_diff
                 )
             )
-
-    def metric_function(
-        self, log_prob_train, log_prob_val, dimension, metric="L2", reduction="mean"
-    ):
-        """Calulcates a metric between the log probability of the training set and the log probability of the validation set
-        Args:
-            log_prob_train: log probability of the training examples
-            log_prob_val: log probability of the validation examples
-            dimension: dimension of the samples
-            metric (default L2): metric
-            reduction (default "mean"): reduction method
-        Returns:
-            metric
-        """
-        if reduction == "mean":
-            log_prob_train = log_prob_train.mean()
-            log_prob_val = log_prob_val.mean()
-
-        elif reduction == "sum":
-            log_prob_train = log_prob_train.sum()
-            log_prob_val = log_prob_val.sum()
-
-        elif reduction == "max":
-            log_prob_train = log_prob_train.max()
-            log_prob_val = log_prob_val.max()
-
-        elif reduction == "min":
-            log_prob_train = log_prob_train.min()
-            log_prob_val = log_prob_val.min()
-
-        elif reduction == "median":
-            log_prob_train = np.median(log_prob_train)
-            log_prob_val = np.median(log_prob_val)
-
-        else:
-            raise NotImplementedError
-
-        if metric == "L2":
-            return ((log_prob_train - log_prob_val) / dimension) ** 2
-        elif metric == "L1":
-            return np.abs(log_prob_train / dimension - log_prob_val / dimension)
-        elif metric == "train":
-            return -log_prob_train / dimension
-        elif metric == "val":
-            return -log_prob_val / dimension
-        elif metric == "train_l2":
-            return (
-                -log_prob_train / dimension
-                + ((log_prob_train - log_prob_val) / dimension) ** 2
-            )
-        elif metric == "train_val_l2":
-            return (
-                -log_prob_train / dimension
-                - log_prob_val / dimension
-                + ((log_prob_train - log_prob_val) / dimension) ** 2
-            )
-        elif metric == "val_l2":
-            return (
-                - log_prob_val / dimension
-                + ((log_prob_train - log_prob_val) / dimension) ** 2
-            )
-        elif metric == "train_val_l1":
-            return (
-                -log_prob_train / dimension
-                - log_prob_val / dimension
-                + np.abs(log_prob_train / dimension - log_prob_val / dimension)
-            )
-        else:
-            raise NotImplementedError
 
     def class_conditional_log_probs(self, x: Any) -> Any:
         class_idx = []
@@ -384,3 +388,169 @@ class KNearestNeighbour(object):
           distance: dim batch_size
         """
         return -1 * self.class_conditional_log_probs(x)
+
+
+class ClassConditionalGMM_Seg(object):
+    """Wraps conditional densities for segmenetation."""
+
+    def __init__(
+        self,
+        n_components: int = 1,
+        nr_classes: int = 10,
+        red_dim: int = 64,
+        normalize_features: bool = True,
+        greedy_search: bool = False,
+        search_step_size: int = 10,
+        metric: str = "L2",
+        reduction: str = "mean",
+    ):
+        super(ClassConditionalGMM_Seg, self).__init__()
+        self.n_components = n_components
+        self.nr_classes = nr_classes
+        self.normalize_features = normalize_features
+        self.class_conditional_densities = []
+        self.greedy_search = greedy_search
+        self.search_step_size = search_step_size
+        self.reduce = red_dim
+        self.metric = metric
+        self.reduction = reduction
+        self.class_distribution = None
+
+        if red_dim != -1:
+            self.pca = decomposition.PCA(n_components=red_dim)
+        else:
+            self.pca = None
+        for i in range(self.nr_classes):
+            self.class_conditional_densities.append(
+                mixture.GaussianMixture(
+                    n_components=self.n_components,
+                    covariance_type="full",
+                    random_state=42,
+                )
+            )
+
+    def fit(
+        self,
+        x: Any,
+        y: Any,
+        x_val: Any,
+        y_val: Any,
+    ):
+        """Fit output-conditional density. The distribution of x associated with each class is estimated using separate GMM.
+
+        Args:
+            x: Training data
+            y: Predictions on training data
+            x_val: Validation data
+            y_val: Predictions on validation data
+
+        Returns:
+            List of GMMs
+        """
+        nr_samples = x.shape[0]
+        print(nr_samples)
+
+        # calculate the class distribution to figure out the densities
+        self.class_distribution = class_probs(y, self.nr_classes)
+
+        self.pcas = [None for i in range(self.nr_classes)]
+        for i in range(self.nr_classes):
+            best_dim = x.shape[1]
+            max_dim = min(x.shape[0], x.shape[1]) if self.greedy_search else x.shape[1]
+            red_dim = self.search_step_size if self.greedy_search else max_dim
+            min_diff = np.inf
+            best_model = None
+            best_pca = None
+            if np.sum(y == i) > 1:  # sanity check whether this idx exists
+                while red_dim <= max_dim:
+                    x_in = x[y == i]
+                    if self.greedy_search and max_dim != red_dim:
+                        pca = decomposition.PCA(n_components=red_dim)
+                    else:
+                        if self.reduce:
+                            pca = None
+                    if pca:
+                        if red_dim > x_in.shape[0]:
+                            break
+                        pca.fit(x_in)
+                        x_in = pca.transform(x_in)
+                    if self.normalize_features:
+                        x_in = preprocessing.normalize(x_in)
+                    self.class_conditional_densities[
+                        i
+                    ] = self.class_conditional_densities[i].fit(X=x_in)
+
+                    # log log_prob on train/val
+                    if np.sum(y_val == i) > 0:
+                        x_val_in = x_val[y_val == i]
+                        if pca:
+                            x_val_in = pca.transform(x_val_in)
+                        if self.normalize_features:
+                            x_val_in = preprocessing.normalize(x_val_in)
+                        log_prob_train = self.class_conditional_densities[
+                            i
+                        ].score_samples(x_in)
+                        log_prob_val = self.class_conditional_densities[
+                            i
+                        ].score_samples(x_val_in)
+                        diff = metric_function(
+                            log_prob_train,
+                            log_prob_val,
+                            red_dim,
+                            metric=self.metric,
+                            reduction=self.reduction,
+                        )
+
+                        # update model and params if we find a better log likelihood
+                        if diff < min_diff:
+                            min_diff = diff
+                            best_model = deepcopy(self.class_conditional_densities[i])
+                            best_pca = deepcopy(pca)
+                            best_dim = red_dim
+
+                    # Increase the dimensions
+                    if red_dim == max_dim:
+                        break
+                    else:
+                        red_dim = min(red_dim + self.search_step_size, max_dim)
+
+                self.class_conditional_densities[i] = (
+                    best_model
+                    if best_model is not None
+                    else self.class_conditional_densities[i]
+                )
+                self.pcas[i] = best_pca
+                if self.greedy_search:
+                    print(
+                        "best average differences for {}-th component at {} dimensions: {}".format(
+                            i, best_dim, min_diff
+                        )
+                    )
+
+    def class_conditional_log_probs(self, x: Any) -> Any:
+        class_idx = []
+        log_probs = []
+        for pca, density in zip(self.pcas, self.class_conditional_densities):
+            try:
+                x_in = x
+                if pca is not None:
+                    x_in = pca.transform(x_in)
+                if self.normalize_features:
+                    x_in = preprocessing.normalize(x_in)
+                log_probs.append(np.expand_dims(density.score_samples(x_in), -1))
+                class_idx.append(True)
+            except:
+                class_idx.append(False)
+        return np.concatenate(log_probs, -1), class_idx
+
+    def marginal_log_probs(self, x: Any):
+        """Computes marginal likelihood (epistemic uncertainty)of x.
+        Args:
+            x (np.array): array of dim batch_size x features
+        Returns:
+          epistemic uncertainty: dim batch_size
+        """
+        cc_log_probs, class_idx = self.class_conditional_log_probs(x)
+        return scipy.special.logsumexp(
+            cc_log_probs, b=self.class_distribution[class_idx], axis=-1
+        )
