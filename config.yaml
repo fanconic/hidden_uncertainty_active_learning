@@ -2,122 +2,122 @@
 # Hidden Uncertainty for Active Learning
 # For further questions contact Claudio Fanconi, fanconic@ethz.ch
 
-name: "cityscape_gdgmm_r3"
+name: "cityscape_gdgmm_r3"          # name of the experiment
 
-random_state: [42]
-save_plot: False
-save_df: True
-runs: 1
-week: 0
-wandb_logging: True
+random_state: [42]                  # Random state for reproducibility
+save_plot: False                    # Saves a plt plot in the end unter <name>_run<run>.pdf
+save_df: True                       # Saves a pd dataframe at the end of ecery round
+runs: 1                             # Number of runs that the experiment is repeated
+week: 0                             # Week, if you wish to save it in a weekly folder
+wandb_logging: True                 # W&B logging, might require W&B account if activated
 
 training:
     # active learning heuristic
-    heuristic: "precomputed"
-    reduction: "sum"
-    shuffle_prop: 0.0
+    heuristic: "precomputed"        # heuristic for acquistion of samples. Use ["random", "entropy", "BALD", "precomputed"]
+    reduction: "sum"                # Reduction method, used for segmentation
+    shuffle_prop: 0.0               # Shuffle percentage, x% of the uncertainties are taken randomly
 
     # Neural Network Training
-    batch_size: 16
-    epochs: 60
+    batch_size: 16                  # Size of the training and testing batches
+    epochs: 60                      # Number of training epochs
     
     #Active learning steps
-    ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000] #, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
-    iterations: 8
-    initially_labelled: 100
-    initially_balanced: False
-    verbose: False
+    ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0] # images drawn in every AL iteration
+    iterations: 8                   # Total number of iterations
+    initially_labelled: 100         # How many images are picked from the pool as first training set
+    initially_balanced: False       # If the initial training set is balanced
+    verbose: False                  # Shows the training progress
 
     #scheduler:
-    scheduler: "poly"
-    lr_reduce_factor: 0.1
-    patience_lr_reduce: 20
-    poly_reduce: 0.9
+    scheduler: "poly"                # Learning rate scheduler ["poly", "step", None, "cosineannealing"]
+    lr_reduce_factor: 0.1            # Learning rate reduction for "step"
+    patience_lr_reduce: 20           # Learning rate patients for "step"
+    poly_reduce: 0.9                 # Polynomial reduction for "poly"
 
     # Early stopping
-    early_stopping: True
-    load_best_model: True
-    patience_early_stopping: 20
+    early_stopping: True            # Early stopping if validation loss does not improve
+    load_best_model: True           # Load best model after training, based on the validation loss
+    patience_early_stopping: 20     # Early stopping patience
 
     # For segmentation
-    crop_size: 224
+    crop_size: 224                  # Crop size, only applies to segmentation
 
 data:
     # Dataset parameters
-    dataset: 'cityscapes_yu'
-    nb_classes: 19
-    img_rows: 256
-    img_cols: 512
-    img_channels: 3
-    val_size: 0.2
+    dataset: 'cityscapes_yu'        # Dataset ["mnist", "fashion_mnist", "svhn","cifar10","cityscapes_yu"]
+    nb_classes: 19                  # Number of classes to predict
+    img_rows: 256                   # Image height
+    img_cols: 512                   # Image width
+    img_channels: 3                 # Image channels
+    val_size: 0.2                   # Percentage of the training set taken as validation set
 
     # Augmentation
-    resize: True
-    augmentation: True
-    rgb_normalization: True
-    mean:  [0.290101, 0.328081, 0.286964] # CIFAR10 [0.49139968, 0.48215827, 0.44653124]
-    std: [0.182954, 0.186566, 0.184475] # CIFAR10 [0.24703233, 0.24348505, 0.26158768] 
-    path: "/srv/beegfs02/scratch/density_estimation/data/fanconic/CityScapes" #only applies to CityScapes
-    ignore_label: 255 # only for sematic segmenation
+    resize: True                    # resizing of images (only happing for segmentation)
+    augmentation: True              # augmentation of training images
+    rgb_normalization: True         # RGB normalization
+    mean:  [0.290101, 0.328081, 0.286964]           # RGB mean values, CIFAR10 [0.49139968, 0.48215827, 0.44653124]
+    std: [0.182954, 0.186566, 0.184475]             # RGB std values, CIFAR10 [0.24703233, 0.24348505, 0.26158768] 
+    path: "/srv/beegfs02/scratch/density_estimation/data/fanconic/CityScapes" # Path to data (only applies to CityScapes)
+    ignore_label: 255               # Ignored index in loss, only for sematic segmenation
 
 model:
-    ensemble: 1 #set to 1 for no ensemble
-    name: "MIR"
-    mir_configs: # only applies if name == MIR
-        backbone: "drn_d_22"
-        reconstruction_weight: 1.0
-        density_model: "gmm_seg"
-        warmup: False
-        feature_dims: 512
-        normalize_features: True
-        dim_reduction: -1
-        decoder_bn: True
-        num_res_blocks: 3
+    ensemble: 1                     # Number of ensemble models, set to 1 for no ensemble
+    name: "MIR"                     # Name of model ["MIR", "drn_d_{}", "resnet{}", "MLP"]
+    mir_configs:                    # only applies if name == MIR
+        backbone: "drn_d_22"        # Backbone ["resnet{}", "MLP", "deeplabv3plus", "drn_d_{}"]    
+        reconstruction_weight: 1.0  # Reconstruction hyperparameter \lamdba
+        density_model: "gmm_seg"    # Density estimator ["gmm", "knn", "gmm_seg"]
+        warmup: False               # Warm up schedule
+        feature_dims: 512           # Number of dimension in the hidden representations
+        normalize_features: True    # Normalize the features before fitting the density estimator
+        dim_reduction: -1           # Dimension reduction, -1 does not reduce the dimensions
+        decoder_bn: True            # Batchnormalization in the decoder
+        num_res_blocks: 3           # Number of residual blocks
 
         # Greedy Search
-        greedy_search: True
-        search_step_size: 1
-        reduction: "mean"
-        metric: "val"
+        greedy_search: True         # Applies HU Greedy if density_model = "gmm", and HU Class Greedy if density_model = "gmm_seg"
+        search_step_size: 1         # Step size for greedily searching the dimensions
+        reduction: "mean"           # reduction of the log-likelihood values ["mean", "sum", "max", "min", "median"]
+        metric: "val"               # discrepancy metric ["val", "L1", "L2", val_l2, val_l1, train_val_l1, train_val_l2]
 
         # KNN
-        knn_weights: "distance"
-        knn_metric: "euclidean"
-        knn_neighbours: 5
-        max_samples: 1000
+        knn_weights: "distance"     # How to calculate nearest neighbours
+        knn_metric: "euclidean"     # Metric for nearest neighbours
+        knn_neighbours: 5           # Number for neares neighbours
+        max_samples: 1000           # Maximal number of samples of a class when fitting KNN
 
     # DeepLab
     deeplab_configs:
-        backbone: "resnet18"
+        backbone: "resnet18"        # Deeplab backbone
     
     # Data sizes - need to be the same as in "data"
-    input_height: 256
-    input_width: 512
-    input_channels: 3
-    output_size: 19
+    input_height: 256               # Model input height, same as img_rows
+    input_width: 512                # Model input width, needs to be as img_cols
+    input_channels: 3               # Input channels, same as img_channels
+    output_size: 19                 # Same as the n_classes
 
     # Layers for DNN and CNNS
-    hidden_layers: [128, 128]
-    kernel_sizes: [4, 4] # only applied if a (B)CNN is used
-    dropout_probabilities: [0.05, 0.5] #[0.25, 0.5]
-    use_bias: True
+    hidden_layers: [128, 128]       # Hidden layers, only applied when model "MLP"
+    kernel_sizes: [4, 4]            # only applied if a (B)CNN is used
+    dropout_probabilities: [0.05, 0.5]  # Either the list for the hidden_layers. If resnet is chosen or another big model, we only take the first element 
+    use_bias: True                  # Activates weight biases
 
     # Monte Carlo Dropout parameters
-    mc_dropout: False # used for MC dropout
-    mc_iterations: 1 # iterations for MC dropout
+    mc_dropout: False               # Used for MC dropout, activates dropout during inference
+    mc_iterations: 1                # iterations for MC dropout
 
     # BNN KL divergence loss
-    kl_div_weight: 0.01 # only used for B(C)NN, to weight the kl_div loss
+    kl_div_weight: 0.01             # only used for B(C)NN, to weight the kl_div loss
 
     #Pretrained
-    pretrained_model: 
-    pretrained: True
-    use_torch_up: False
+    pretrained_model:               # Pretrained model
+    pretrained: True                # If to use an imagenet trained model
+    use_torch_up: False             # No idea tbh...
 
 optimizer:
-    type: "adam"
-    lr: 0.001
-    momentum: 0.9
-    weight_decay: 0.0001
-    betas: [0.9, 0.999]
-    T0: 10
+    type: "adam"                    # Optimizer ["adam", "sgd"]
+    lr: 0.001                       # learning rate
+    momentum: 0.9                   # momentum, only for "sgd"
+    weight_decay: 0.0001            # Weight decay metric
+    betas: [0.9, 0.999]             # betas, only for "adam"
+    T0: 10                          # warmup epochs, only when using "cosineannealing"

@@ -1,6 +1,7 @@
 # Folder
-experiment_outputs
-experiment_configs
+experiment_outputs/*
+experiment_configs/week*
+experiment_configs/backup
 wandb.key
 wandb
 

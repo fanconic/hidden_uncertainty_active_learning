@@ -1,0 +1,123 @@
+# Semester Project 2 at ETH
+# Hidden Uncertainty for Active Learning
+# For further questions contact Claudio Fanconi, fanconic@ethz.ch
+
+name: "mnist_random"
+
+random_state: [3, 11, 42]
+save_plot: False
+save_df: True
+runs: 3
+week: 0
+wandb_logging: True
+
+training:
+    # active learning heuristic
+    heuristic: "random"
+    reduction: "sum"
+    shuffle_prop: 0.2
+
+    # Neural Network Training
+    batch_size: 64
+    epochs: 60
+    
+    #Active learning steps
+    ndata_to_label: [100, 200, 200, 200, 200, 1000, 2000, 2000, 2000, 2000, 10000, 10000, 10000, 10000, 0]
+    iterations: 15
+    initially_labelled: 100
+    initially_balanced: True
+    verbose: False
+
+    #scheduler:
+    scheduler: "step"
+    lr_reduce_factor: 0.1
+    patience_lr_reduce: 20
+    poly_reduce: 0.9
+
+    # Early stopping
+    early_stopping: True
+    load_best_model: True
+    patience_early_stopping: 20
+
+    # For segmentation
+    crop_size: 224
+
+data:
+    # Dataset parameters
+    dataset: 'mnist'
+    nb_classes: 10
+    img_rows: 28
+    img_cols: 28
+    img_channels: 1
+    val_size: 0.2
+
+    # Augmentation
+    resize: False
+    augmentation: False
+    rgb_normalization: False
+    mean:  [0.290101, 0.328081, 0.286964] # CIFAR10 [0.49139968, 0.48215827, 0.44653124]
+    std: [0.182954, 0.186566, 0.184475] # CIFAR10 [0.24703233, 0.24348505, 0.26158768] 
+    path: "/srv/beegfs02/scratch/density_estimation/data/fanconic/CityScapes" #only applies to CityScapes
+    ignore_label: 255 # only for sematic segmenation
+
+model:
+    ensemble: 1 #set to 1 for no ensemble
+    name: "MLP"
+    mir_configs: # only applies if name == MIR
+        backbone: "MLP"
+        reconstruction_weight: 1.0
+        density_model: "gmm"
+        warmup: False
+        feature_dims: 128
+        normalize_features: True
+        dim_reduction: -1
+        decoder_bn: True
+        num_res_blocks: 3
+
+        # Greedy Search
+        greedy_search: True
+        search_step_size: 1
+        reduction: "mean"
+        metric: "train_val_l2"
+
+        # KNN
+        knn_weights: "distance"
+        knn_metric: "euclidean"
+        knn_neighbours: 5
+        max_samples: 1000
+
+    # DeepLab
+    deeplab_configs:
+        backbone: "resnet18"
+    
+    # Data sizes - need to be the same as in "data"
+    input_height: 28
+    input_width: 28
+    input_channels: 1
+    output_size: 10
+
+    # Layers for DNN and CNNS
+    hidden_layers: [128, 128]
+    kernel_sizes: [4, 4] # only applied if a (B)CNN is used
+    dropout_probabilities: [0.25, 0.5] #[0.25, 0.5]
+    use_bias: True
+
+    # Monte Carlo Dropout parameters
+    mc_dropout: False # used for MC dropout
+    mc_iterations: 1 # iterations for MC dropout
+
+    # BNN KL divergence loss
+    kl_div_weight: 0.01 # only used for B(C)NN, to weight the kl_div loss
+
+    #Pretrained
+    pretrained_model: 
+    pretrained: False
+    use_torch_up: False
+
+optimizer:
+    type: "adam"
+    lr: 0.001
+    momentum: 0.9
+    weight_decay: 0.0001
+    betas: [0.9, 0.999]
+    T0: 10

@@ -1,0 +1,60 @@
+Experiments for Semester Thesis on Hidden Uncertainty for Active Learning.
+
+############# MNIST #############
+Random:        python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_random.yaml
+Softmax:       python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_softmax.yaml                   
+MC-dropout:    python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_mcd.yaml                              
+Ensembles:     python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_de.yaml                           
+HU:            python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_hu.yaml 
+HU Greedy:     python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_hu_greedy_l2.yaml                           
+HU KDE:        python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_knn.yaml                          
+
+############# Fashion MNIST #############
+Random:        python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/fashion_mnist_random.yaml
+Softmax:       python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/fashion_mnist_softmax.yaml                           
+MC-dropout:    python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/fashion_mnist_mcd.yaml                              
+Ensembles:     python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/fashion_mnist_de.yaml                           
+HU:            python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/fashion_mnist_hu.yaml 
+HU Greedy:     python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/fashion_mnist_hu_greedy_l2.yaml                           
+HU KDE:        python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/fashion_mnist_knn.yaml                          
+
+############# CIFAR10 #############
+Random:        python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/cifar10_random.yaml
+Softmax:       python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/cifar10_softmax.yaml                           
+MC-dropout:    python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/cifar10_mcd.yaml                              
+Ensembles:     python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/cifar10_de.yaml                           
+HU:            python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/cifar10_hu.yaml 
+HU Greedy:     python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/cifar10_hu_greedy_l2.yaml                           
+HU KDE:        python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/cifar10_knn.yaml                          
+
+############# SVHN #############
+Random:        python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/svhn_random.yaml
+Softmax:       python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/svhn_softmax.yaml                           
+MC-dropout:    python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/svhn_mcd.yaml                              
+Ensembles:     python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/svhn_de.yaml                           
+HU:            python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/svhn_hu.yaml 
+HU Greedy:     python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/svhn_hu_greedy_l2.yaml                           
+HU KDE:        python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/svhn_knn.yaml                          
+
+############# Ciyscapes #############
+Random:                 python3 -u acitve_learning_segmentation.py --config_path ./experiment_configs/final_runs/cityscape_random.yaml
+Softmax:                python3 -u acitve_learning_segmentation.py --config_path ./experiment_configs/final_runs/cityscape_softmax.yaml                           
+MC-dropout:             python3 -u acitve_learning_segmentation.py --config_path ./experiment_configs/final_runs/cityscape_mcd.yaml                            
+HU:                     python3 -u acitve_learning_segmentation.py --config_path ./experiment_configs/final_runs/cityscape_hu.yaml 
+HU Greedy:              python3 -u acitve_learning_segmentation.py --config_path ./experiment_configs/final_runs/cityscape_hu_greedy_l2.yaml                           
+HU KDE:                 python3 -u acitve_learning_segmentation.py --config_path ./experiment_configs/final_runs/cityscape_knn.yaml 
+HU Class Greedy:        python3 -u acitve_learning_segmentation.py --config_path ./experiment_configs/final_runs/cityscape_class_greedy.yaml 
+
+Extra experiments:
+############# MNIST ablation for discrepancy #############
+L1:             python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_hu_greedy_l1.yaml 
+L2:             python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_hu_greedy_l2.yaml 
+L1 + Val:       python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_hu_greedy_vall1.yaml 
+L2 + Val:       python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_hu_greedy_vall2.yaml
+Val:            python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_hu_greedy_val.yaml 
+
+############# MNIST ablation for \lambda #############
+HU (\lambda = 1):               python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_hu.yaml
+HU (\lambda = 100):             python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_hu_100.yaml
+HU Greedy (\lambda = 1):        python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_hu_greedy_l2.yaml 
+HU Greedy (\lambda = 100):      python3 -u acitve_learning_classification.py --config_path ./experiment_configs/final_runs/mnist_hu_greedy_l2_100.yaml
