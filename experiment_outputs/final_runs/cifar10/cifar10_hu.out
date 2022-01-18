@@ -1,0 +1,1646 @@
+cifar10_hu
+wandb: Currently logged in as: eth_dlad_team32 (use `wandb login --relogin` to force relogin)
+wandb: wandb version 0.12.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.7
+wandb: Syncing run cifar10_hu_run1
+wandb:  View project at https://wandb.ai/fanconic/hidden_uncertainty
+wandb:  View run at https://wandb.ai/fanconic/hidden_uncertainty/runs/hul70gkn
+wandb: Run data is saved locally in /scratch_net/airfox/fanconic/semproj2/hidden_uncertainty_active_learning/wandb/run-20220108_001829-hul70gkn
+wandb: Run `wandb offline` to turn off syncing.
+
+Cuda is available:  True
+Files already downloaded and verified
+Files already downloaded and verified
+2022-01-08 00:18.40 [info     ] Starting training              dataset=100 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+100
+0-th component log probs | Train: 3016.5908275625343 | Val: -121766.69270822723
+1-th component log probs | Train: 3015.6755492953766 | Val: -199038.72579027648
+2-th component log probs | Train: 3015.4409615725776 | Val: -109248.11639750737
+3-th component log probs | Train: 3014.5496004038882 | Val: -151412.84715667085
+4-th component log probs | Train: 3015.4448411484127 | Val: -106078.27262216948
+5-th component log probs | Train: 3017.4096627246827 | Val: -181281.93609518517
+6-th component log probs | Train: 3018.1300355707253 | Val: -113809.82673634092
+7-th component log probs | Train: 3015.954906705744 | Val: -170062.1465920432
+8-th component log probs | Train: 3017.060579635633 | Val: -116547.73436581004
+9-th component log probs | Train: 3015.801103737991 | Val: -183920.83480921685
+2022-01-08 00:19.41 [info     ] Training complete              train_loss=1.9178733825683594
+2022-01-08 00:19.41 [info     ] Starting evaluating            dataset=10000
+2022-01-08 00:19.43 [info     ] Testing complete               test_loss=2.2898807525634766
+{'dataset_size': 100,
+ 'end_test_accuracy': 0.14739251136779785,
+ 'end_test_loss': 2.2898807525634766,
+ 'end_train_accuracy': 0.7369791269302368,
+ 'end_train_loss': 1.9178733825683594,
+ 'end_val_accuracy': 0.22541798651218414,
+ 'end_val_loss': 3.0539534091949463}
+2022-01-08 00:19.43 [info     ] Start Predict                  dataset=39900
+2022-01-08 00:20.19 [info     ] Starting training              dataset=200 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+200
+0-th component log probs | Train: 2969.7037355364873 | Val: -38068.17194605214
+1-th component log probs | Train: 2976.058242815327 | Val: -45811.71455020947
+2-th component log probs | Train: 2994.074288228213 | Val: -40156.717187046015
+3-th component log probs | Train: 2968.065608107961 | Val: -70778.84483582531
+4-th component log probs | Train: 2986.5000360355907 | Val: -32975.32439224629
+5-th component log probs | Train: 2982.4491444399346 | Val: -59955.72607556777
+6-th component log probs | Train: 2981.943831324899 | Val: -31635.811641709282
+7-th component log probs | Train: 2942.143928463647 | Val: -43028.97591173494
+8-th component log probs | Train: 3000.745793915158 | Val: -60728.04177725582
+9-th component log probs | Train: 2945.3053099862486 | Val: -48528.46671159567
+2022-01-08 00:21.27 [info     ] Training complete              train_loss=2.7033462524414062
+2022-01-08 00:21.27 [info     ] Starting evaluating            dataset=10000
+2022-01-08 00:21.29 [info     ] Testing complete               test_loss=2.2125914096832275
+{'dataset_size': 200,
+ 'end_test_accuracy': 0.18172770738601685,
+ 'end_test_loss': 2.2125914096832275,
+ 'end_train_accuracy': 0.3671875,
+ 'end_train_loss': 2.7033462524414062,
+ 'end_val_accuracy': 0.2489052563905716,
+ 'end_val_loss': 2.3464438915252686}
+2022-01-08 00:21.29 [info     ] Start Predict                  dataset=39800
+2022-01-08 00:22.05 [info     ] Starting training              dataset=400 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+400
+0-th component log probs | Train: 2940.2954039605484 | Val: -33470.938919007705
+1-th component log probs | Train: 2846.4392789872027 | Val: -56186.90724566105
+2-th component log probs | Train: 2953.9210091563405 | Val: -50625.49451390907
+3-th component log probs | Train: 2810.85041288689 | Val: -39626.95874877209
+4-th component log probs | Train: 2934.4561766834922 | Val: -48531.599837615846
+5-th component log probs | Train: 2842.386120992916 | Val: -33710.92505947218
+6-th component log probs | Train: 2857.105968336631 | Val: -41513.04854074568
+7-th component log probs | Train: 2890.25505840289 | Val: -53093.410555181385
+8-th component log probs | Train: 2948.3812022953525 | Val: -39081.92539829129
+9-th component log probs | Train: 2886.6476521276063 | Val: -54330.80770834454
+2022-01-08 00:23.39 [info     ] Training complete              train_loss=2.0109541416168213
+2022-01-08 00:23.39 [info     ] Starting evaluating            dataset=10000
+2022-01-08 00:23.41 [info     ] Testing complete               test_loss=2.1136562824249268
+{'dataset_size': 400,
+ 'end_test_accuracy': 0.2627388536930084,
+ 'end_test_loss': 2.1136562824249268,
+ 'end_train_accuracy': 0.5982142686843872,
+ 'end_train_loss': 2.0109541416168213,
+ 'end_val_accuracy': 0.29438695311546326,
+ 'end_val_loss': 2.4395744800567627}
+2022-01-08 00:23.41 [info     ] Start Predict                  dataset=39600
+2022-01-08 00:24.17 [info     ] Starting training              dataset=600 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+600
+0-th component log probs | Train: 2876.3921572756785 | Val: -40728.65440181068
+1-th component log probs | Train: 2724.150052151128 | Val: -45228.378188724055
+2-th component log probs | Train: 2920.6979658260766 | Val: -61497.7223856531
+3-th component log probs | Train: 2749.1260626304206 | Val: -46950.65449421878
+4-th component log probs | Train: 2896.826701163926 | Val: -45051.07225333128
+5-th component log probs | Train: 2779.716470205558 | Val: -35839.0793930403
+6-th component log probs | Train: 2821.5264871992804 | Val: -35038.53125357834
+7-th component log probs | Train: 2834.1783781997315 | Val: -51633.60549138167
+8-th component log probs | Train: 2921.4008509534997 | Val: -49426.69381708606
+9-th component log probs | Train: 2677.676131942864 | Val: -36665.67411980298
+2022-01-08 00:26.17 [info     ] Training complete              train_loss=1.6767441034317017
+2022-01-08 00:26.17 [info     ] Starting evaluating            dataset=10000
+2022-01-08 00:26.19 [info     ] Testing complete               test_loss=1.9018473625183105
+{'dataset_size': 600,
+ 'end_test_accuracy': 0.3333996832370758,
+ 'end_test_loss': 1.9018473625183105,
+ 'end_train_accuracy': 0.6875,
+ 'end_train_loss': 1.6767441034317017,
+ 'end_val_accuracy': 0.3614649772644043,
+ 'end_val_loss': 2.0579960346221924}
+2022-01-08 00:26.19 [info     ] Start Predict                  dataset=39400
+2022-01-08 00:26.54 [info     ] Starting training              dataset=800 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+800
+0-th component log probs | Train: 2828.0441238422463 | Val: -47527.273325244656
+1-th component log probs | Train: 2638.9468592593585 | Val: -27216.4235232107
+2-th component log probs | Train: 2853.6392211632906 | Val: -50013.78443381161
+3-th component log probs | Train: 2663.249672761836 | Val: -39473.23162254866
+4-th component log probs | Train: 2834.2929053403527 | Val: -48181.14839363978
+5-th component log probs | Train: 2702.0281956144363 | Val: -33922.730572053086
+6-th component log probs | Train: 2786.780362724442 | Val: -33565.2468083518
+7-th component log probs | Train: 2682.506981622983 | Val: -39214.561204244004
+8-th component log probs | Train: 2845.664972433142 | Val: -43576.79949461781
+9-th component log probs | Train: 2627.6767992404184 | Val: -27626.428468649803
+2022-01-08 00:29.01 [info     ] Training complete              train_loss=1.6770237684249878
+2022-01-08 00:29.01 [info     ] Starting evaluating            dataset=10000
+2022-01-08 00:29.03 [info     ] Testing complete               test_loss=1.8252652883529663
+{'dataset_size': 800,
+ 'end_test_accuracy': 0.3404657542705536,
+ 'end_test_loss': 1.8252652883529663,
+ 'end_train_accuracy': 0.671875,
+ 'end_train_loss': 1.6770237684249878,
+ 'end_val_accuracy': 0.3872412443161011,
+ 'end_val_loss': 1.9268555641174316}
+2022-01-08 00:29.03 [info     ] Start Predict                  dataset=39200
+2022-01-08 00:29.37 [info     ] Starting training              dataset=1000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+1000
+0-th component log probs | Train: 2745.484458595129 | Val: -36297.83162339779
+1-th component log probs | Train: 2609.6396643539233 | Val: -32171.276618031407
+2-th component log probs | Train: 2795.231262823161 | Val: -50498.303450464904
+3-th component log probs | Train: 2566.316568671205 | Val: -35772.02089872955
+4-th component log probs | Train: 2801.756562262268 | Val: -51018.248934567804
+5-th component log probs | Train: 2649.8444553007585 | Val: -34834.63750020216
+6-th component log probs | Train: 2675.104391255048 | Val: -34089.380171756675
+7-th component log probs | Train: 2571.1128351561724 | Val: -35455.9346318413
+8-th component log probs | Train: 2788.073160337796 | Val: -36285.95722906541
+9-th component log probs | Train: 2566.213242789268 | Val: -31155.67544943933
+2022-01-08 00:32.25 [info     ] Training complete              train_loss=1.476726770401001
+2022-01-08 00:32.25 [info     ] Starting evaluating            dataset=10000
+2022-01-08 00:32.27 [info     ] Testing complete               test_loss=1.7461408376693726
+{'dataset_size': 1000,
+ 'end_test_accuracy': 0.3865445852279663,
+ 'end_test_loss': 1.7461408376693726,
+ 'end_train_accuracy': 0.7279297113418579,
+ 'end_train_loss': 1.476726770401001,
+ 'end_val_accuracy': 0.42257165908813477,
+ 'end_val_loss': 1.865225076675415}
+2022-01-08 00:32.27 [info     ] Start Predict                  dataset=39000
+2022-01-08 00:33.02 [info     ] Starting training              dataset=2000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+2000
+0-th component log probs | Train: 2518.419118596741 | Val: -22331.598124009324
+1-th component log probs | Train: 2352.127720266854 | Val: -16766.784325411452
+2-th component log probs | Train: 2479.311333262478 | Val: -24951.900435026335
+3-th component log probs | Train: 2150.939368938384 | Val: -11967.557377325618
+4-th component log probs | Train: 2505.450448645611 | Val: -24407.685966292876
+5-th component log probs | Train: 2393.364184818714 | Val: -19188.07604225484
+6-th component log probs | Train: 2385.7728731724337 | Val: -16544.957949925698
+7-th component log probs | Train: 2362.8284198346555 | Val: -20424.926175282795
+8-th component log probs | Train: 2570.3166162795696 | Val: -22706.99014769677
+9-th component log probs | Train: 2168.15358552653 | Val: -10560.031869979402
+2022-01-08 00:38.59 [info     ] Training complete              train_loss=1.34287691116333
+2022-01-08 00:38.59 [info     ] Starting evaluating            dataset=10000
+2022-01-08 00:39.01 [info     ] Testing complete               test_loss=1.4249958992004395
+{'dataset_size': 2000,
+ 'end_test_accuracy': 0.512042224407196,
+ 'end_test_loss': 1.4249958992004395,
+ 'end_train_accuracy': 0.732421875,
+ 'end_train_loss': 1.34287691116333,
+ 'end_val_accuracy': 0.5299562215805054,
+ 'end_val_loss': 1.579184651374817}
+2022-01-08 00:39.01 [info     ] Start Predict                  dataset=38000
+2022-01-08 00:39.37 [info     ] Starting training              dataset=4000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+4000
+0-th component log probs | Train: 1887.4501589722593 | Val: -2410.5374097920853
+1-th component log probs | Train: 1993.6698402788545 | Val: -5029.388972354662
+2-th component log probs | Train: 1881.0366423635764 | Val: -4914.346937734818
+3-th component log probs | Train: 1867.8117830297076 | Val: -4781.845800055631
+4-th component log probs | Train: 1863.9715312345816 | Val: -2284.8806056967583
+5-th component log probs | Train: 2060.489209407349 | Val: -8740.931287678188
+6-th component log probs | Train: 2043.6208583359535 | Val: -6208.468634155946
+7-th component log probs | Train: 1970.6100613655133 | Val: -4632.282505604496
+8-th component log probs | Train: 2010.9836772190833 | Val: -4804.688457750818
+9-th component log probs | Train: 1903.4941648470158 | Val: -3705.799933772813
+2022-01-08 00:50.46 [info     ] Training complete              train_loss=1.1664633750915527
+2022-01-08 00:50.46 [info     ] Starting evaluating            dataset=10000
+2022-01-08 00:50.47 [info     ] Testing complete               test_loss=1.115673303604126
+{'dataset_size': 4000,
+ 'end_test_accuracy': 0.625,
+ 'end_test_loss': 1.115673303604126,
+ 'end_train_accuracy': 0.758184552192688,
+ 'end_train_loss': 1.1664633750915527,
+ 'end_val_accuracy': 0.6328622698783875,
+ 'end_val_loss': 1.1967476606369019}
+2022-01-08 00:50.48 [info     ] Start Predict                  dataset=36000
+2022-01-08 00:51.23 [info     ] Starting training              dataset=6000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+6000
+0-th component log probs | Train: 1716.4421975638293 | Val: 604.5100484100897
+1-th component log probs | Train: 1772.1248958978902 | Val: 94.81794019279492
+2-th component log probs | Train: 1657.9057585133244 | Val: 757.1124301404387
+3-th component log probs | Train: 1576.737913389918 | Val: 1062.0233267201675
+4-th component log probs | Train: 1741.0918782962 | Val: 430.9209723485803
+5-th component log probs | Train: 1730.665755624183 | Val: -71.76953356633373
+6-th component log probs | Train: 1780.7644467653083 | Val: -30.819211808834638
+7-th component log probs | Train: 1726.720469657511 | Val: 153.4118352395559
+8-th component log probs | Train: 1795.957019830605 | Val: 638.7348067711238
+9-th component log probs | Train: 1683.159839375415 | Val: 644.0407017144158
+2022-01-08 01:06.15 [info     ] Training complete              train_loss=1.1860271692276
+2022-01-08 01:06.15 [info     ] Starting evaluating            dataset=10000
+2022-01-08 01:06.17 [info     ] Testing complete               test_loss=0.9057958126068115
+{'dataset_size': 6000,
+ 'end_test_accuracy': 0.6859076619148254,
+ 'end_test_loss': 0.9057958126068115,
+ 'end_train_accuracy': 0.740857720375061,
+ 'end_train_loss': 1.1860271692276,
+ 'end_val_accuracy': 0.6966560482978821,
+ 'end_val_loss': 0.9394070506095886}
+2022-01-08 01:06.17 [info     ] Start Predict                  dataset=34000
+2022-01-08 01:06.53 [info     ] Starting training              dataset=8000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+8000
+0-th component log probs | Train: 1595.8509773046853 | Val: 1256.5309235271518
+1-th component log probs | Train: 1639.5730465459737 | Val: 1307.7675457624252
+2-th component log probs | Train: 1596.2442993448283 | Val: 1110.28938582244
+3-th component log probs | Train: 1571.0026296873536 | Val: 1175.9821530707773
+4-th component log probs | Train: 1661.0735699295703 | Val: 1059.4297072952918
+5-th component log probs | Train: 1688.1874004309373 | Val: 689.5015457939455
+6-th component log probs | Train: 1722.3931761187505 | Val: 932.3337632475782
+7-th component log probs | Train: 1651.8094820417914 | Val: 1134.707225551252
+8-th component log probs | Train: 1665.7321718773476 | Val: 1257.6973364640787
+9-th component log probs | Train: 1606.372117452662 | Val: 1314.8489631129703
+2022-01-08 01:27.05 [info     ] Training complete              train_loss=1.0922685861587524
+2022-01-08 01:27.05 [info     ] Starting evaluating            dataset=10000
+2022-01-08 01:27.07 [info     ] Testing complete               test_loss=0.8148294687271118
+{'dataset_size': 8000,
+ 'end_test_accuracy': 0.7231289744377136,
+ 'end_test_loss': 0.8148294687271118,
+ 'end_train_accuracy': 0.7637500166893005,
+ 'end_train_loss': 1.0922685861587524,
+ 'end_val_accuracy': 0.7296974658966064,
+ 'end_val_loss': 0.8399341106414795}
+2022-01-08 01:27.07 [info     ] Start Predict                  dataset=32000
+2022-01-08 01:27.43 [info     ] Starting training              dataset=10000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+10000
+0-th component log probs | Train: 1570.2427885377238 | Val: 1361.2857686086634
+1-th component log probs | Train: 1686.2342008315825 | Val: 1497.6470074195083
+2-th component log probs | Train: 1547.837604489266 | Val: 1318.5085838384834
+3-th component log probs | Train: 1505.563534694223 | Val: 1324.225905682226
+4-th component log probs | Train: 1584.576492218719 | Val: 1310.01735678908
+5-th component log probs | Train: 1591.484213938664 | Val: 1199.947421750005
+6-th component log probs | Train: 1604.2828992147054 | Val: 1377.0938030183713
+7-th component log probs | Train: 1591.7250305791765 | Val: 1317.6811481426537
+8-th component log probs | Train: 1621.4581176575643 | Val: 1353.694436353785
+9-th component log probs | Train: 1573.9418957717928 | Val: 1379.8273512315798
+2022-01-08 01:57.08 [info     ] Training complete              train_loss=1.0373506546020508
+2022-01-08 01:57.08 [info     ] Starting evaluating            dataset=10000
+2022-01-08 01:57.10 [info     ] Testing complete               test_loss=0.7411245107650757
+{'dataset_size': 10000,
+ 'end_test_accuracy': 0.7540804147720337,
+ 'end_test_loss': 0.7411245107650757,
+ 'end_train_accuracy': 0.7757762670516968,
+ 'end_train_loss': 1.0373506546020508,
+ 'end_val_accuracy': 0.762340784072876,
+ 'end_val_loss': 0.7233503460884094}
+2022-01-08 01:57.10 [info     ] Start Predict                  dataset=30000
+2022-01-08 01:57.51 [info     ] Starting training              dataset=20000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+20000
+0-th component log probs | Train: 1573.2400124109295 | Val: 1477.03018757014
+1-th component log probs | Train: 1576.665752423538 | Val: 1501.1971504744429
+2-th component log probs | Train: 1545.471627010511 | Val: 1472.3055935286716
+3-th component log probs | Train: 1493.7020767451565 | Val: 1434.959405863225
+4-th component log probs | Train: 1579.4716145378623 | Val: 1508.1173426220873
+5-th component log probs | Train: 1541.2281103706478 | Val: 1447.8565765545854
+6-th component log probs | Train: 1593.0110696817992 | Val: 1504.325432024014
+7-th component log probs | Train: 1581.7335301577748 | Val: 1497.4731274845342
+8-th component log probs | Train: 1615.989694000656 | Val: 1515.7076867490741
+9-th component log probs | Train: 1570.3215989724965 | Val: 1499.915629402113
+2022-01-08 03:18.32 [info     ] Training complete              train_loss=0.8827067017555237
+2022-01-08 03:18.32 [info     ] Starting evaluating            dataset=10000
+2022-01-08 03:18.34 [info     ] Testing complete               test_loss=0.5907191634178162
+{'dataset_size': 20000,
+ 'end_test_accuracy': 0.8132961988449097,
+ 'end_test_loss': 0.5907191634178162,
+ 'end_train_accuracy': 0.8136980533599854,
+ 'end_train_loss': 0.8827067017555237,
+ 'end_val_accuracy': 0.8174760937690735,
+ 'end_val_loss': 0.5581565499305725}
+2022-01-08 03:18.34 [info     ] Start Predict                  dataset=20000
+2022-01-08 03:19.09 [info     ] Starting training              dataset=30000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+30000
+0-th component log probs | Train: 1577.3630532090679 | Val: 1523.5536753461504
+1-th component log probs | Train: 1638.9169025879182 | Val: 1561.4847019819033
+2-th component log probs | Train: 1560.7083341971295 | Val: 1520.7126150312358
+3-th component log probs | Train: 1518.4903915316536 | Val: 1476.9311309720608
+4-th component log probs | Train: 1593.554512442071 | Val: 1547.1404035257724
+5-th component log probs | Train: 1553.6191971197204 | Val: 1504.146129422529
+6-th component log probs | Train: 1617.8630784593674 | Val: 1568.1307174150888
+7-th component log probs | Train: 1587.9513223054298 | Val: 1536.8218522464945
+8-th component log probs | Train: 1648.1537831933942 | Val: 1610.4616274210025
+9-th component log probs | Train: 1594.927953369779 | Val: 1548.7125512737714
+2022-01-08 05:11.55 [info     ] Training complete              train_loss=0.814308762550354
+2022-01-08 05:11.55 [info     ] Starting evaluating            dataset=10000
+2022-01-08 05:11.57 [info     ] Testing complete               test_loss=0.4968167841434479
+{'dataset_size': 30000,
+ 'end_test_accuracy': 0.8389729261398315,
+ 'end_test_loss': 0.4968167841434479,
+ 'end_train_accuracy': 0.8287246823310852,
+ 'end_train_loss': 0.814308762550354,
+ 'end_val_accuracy': 0.843949019908905,
+ 'end_val_loss': 0.4717583656311035}
+2022-01-08 05:11.57 [info     ] Start Predict                  dataset=10000
+2022-01-08 05:12.27 [info     ] Starting training              dataset=40000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+40000
+0-th component log probs | Train: 1661.3960309174638 | Val: 1591.0357416197642
+1-th component log probs | Train: 1694.9996635036937 | Val: 1604.3565696178662
+2-th component log probs | Train: 1630.0402781276252 | Val: 1564.0542566946901
+3-th component log probs | Train: 1573.8449310148562 | Val: 1527.231937459742
+4-th component log probs | Train: 1676.7281595514496 | Val: 1606.0314247416368
+5-th component log probs | Train: 1625.8289095170107 | Val: 1558.0709966474217
+6-th component log probs | Train: 1694.44694177625 | Val: 1611.3760166865459
+7-th component log probs | Train: 1652.7822488342408 | Val: 1583.9142132750944
+8-th component log probs | Train: 1708.4323038478856 | Val: 1623.9114749925725
+9-th component log probs | Train: 1655.837874436872 | Val: 1595.5165964613345
+2022-01-08 07:35.28 [info     ] Training complete              train_loss=0.6804225444793701
+2022-01-08 07:35.28 [info     ] Starting evaluating            dataset=10000
+2022-01-08 07:35.30 [info     ] Testing complete               test_loss=0.4648069143295288
+{'dataset_size': 40000,
+ 'end_test_accuracy': 0.8464370965957642,
+ 'end_test_loss': 0.4648069143295288,
+ 'end_train_accuracy': 0.8658000230789185,
+ 'end_train_loss': 0.6804225444793701,
+ 'end_val_accuracy': 0.8523089289665222,
+ 'end_val_loss': 0.44675615429878235}
+
+wandb: Waiting for W&B process to finish, PID 22692... (success).
+wandb: - 0.57MB of 0.57MB uploaded (0.00MB deduped)wandb: \ 0.57MB of 0.57MB uploaded (0.00MB deduped)wandb: | 0.57MB of 0.57MB uploaded (0.00MB deduped)wandb: / 0.57MB of 0.85MB uploaded (0.00MB deduped)wandb: - 0.57MB of 0.85MB uploaded (0.00MB deduped)wandb: \ 0.76MB of 0.85MB uploaded (0.00MB deduped)wandb: | 0.85MB of 0.85MB uploaded (0.00MB deduped)wandb: / 0.85MB of 0.85MB uploaded (0.00MB deduped)wandb: - 0.85MB of 0.85MB uploaded (0.00MB deduped)wandb: \ 0.85MB of 0.85MB uploaded (0.00MB deduped)wandb: | 0.85MB of 0.85MB uploaded (0.00MB deduped)wandb: / 0.85MB of 0.85MB uploaded (0.00MB deduped)wandb: - 0.85MB of 0.85MB uploaded (0.00MB deduped)wandb:                                                                                
+wandb: Run history:
+wandb:           accuracy_0 ▁▂▃▂▃▃▂▄▄▄▅▄▅▅▅▆▅▅▆▆▆▆█
+wandb:           accuracy_1 ▃▁▃▃▂▅▃▅▆▆█▆▇▆▆▆▇▇▆█▆█▇▇
+wandb:          accuracy_10 ▁▂▂▃▃▃▄▄▄▄▅▅▅▅▅▆▆▆▇▇▇▇▇▇▇▇▇█████████████
+wandb:          accuracy_11 ▁▂▃▄▄▅▅▅▆▆▆▆▇▇▇▇▇▇██████████████████████
+wandb:          accuracy_12 ▁▃▄▄▅▅▅▆▆▆▆▆▆▇▇▇▇███████████████████████
+wandb:          accuracy_13 ▁▃▄▅▅▆▆▆▆▆▆▇▇▇▇▇▇███████████████████████
+wandb:           accuracy_2 ▁▁▂▂▃▃▃▄▄▄▅▅▅▅▅▅▆▇▆▅▆▆▆▇▇▇▇█▇
+wandb:           accuracy_3 ▁▁▂▂▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▆▆▇▇▇▇███
+wandb:           accuracy_4 ▁▂▂▂▃▄▃▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▆▇▆▇▇▇▇▇█
+wandb:           accuracy_5 ▁▂▂▃▃▃▄▄▄▄▄▄▄▅▄▅▅▅▅▅▅▆▆▆▆▆▆▆▆▆▇▇█████
+wandb:           accuracy_6 ▁▂▂▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▅▅▆▆▆▆▇▇▇▇▇▇▇▇▇███████
+wandb:           accuracy_7 ▁▂▂▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▅▆▆▆▇▇▇▇▇▇▇▇▇█████████
+wandb:           accuracy_8 ▁▂▂▃▃▃▃▄▄▄▄▄▅▅▅▅▅▆▅▆▆▆▇▇▇▇▇▇▇▇██████████
+wandb:           accuracy_9 ▁▂▂▃▃▃▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇▇▇███████████
+wandb:              class_0 ▆▇▂▁▁▂▂█▆▇▆▄▅▆
+wandb:              class_1 ▂▁▄▅▅▄▃▁▁▄▃█▄▂
+wandb:              class_2 ▇▄▂▁▂▂▄██▇▇▆▇▇
+wandb:              class_3 ▁▃█▅▅▅▇▂▄▁▂▁▄▁
+wandb:              class_4 ▆▄▂▁▁▁▃█▆▅▆▆▅▆
+wandb:              class_5 ▄▃█▇▆▅▄▂▃▁▁▂▅▄
+wandb:              class_6 ▄▃█▅▂▄▄▂▂▁▄▁▁▃
+wandb:              class_7 ▃█▃▁▆█▄▃▂▃▃▂▁▃
+wandb:              class_8 █▃▂▁▂▃▃▇██▇▅▅█
+wandb:              class_9 ▁▅▁█▆▅▆▂▁▂▁▂▂▁
+wandb:         dataset_size ▁▁▁▁▁▁▁▂▂▂▃▄▆█
+wandb:    end_test_accuracy ▁▁▂▃▃▃▅▆▆▇▇███
+wandb:        end_test_loss ██▇▇▆▆▅▃▃▂▂▁▁▁
+wandb:   end_train_accuracy ▆▁▄▅▅▆▆▆▆▇▇▇▇█
+wandb:       end_train_loss ▅█▆▄▄▄▃▃▃▂▂▂▁▁
+wandb:     end_val_accuracy ▁▁▂▃▃▃▄▆▆▇▇███
+wandb:         end_val_loss █▆▆▅▅▅▄▃▂▂▂▁▁▁
+wandb:                epoch ▂▁▂▂▁▃▂▃▂▄▃▄▁▃▄▂▃▄▂▃▅▂▃▅▆▂▄▅▇█▂▃▅▆█▂▃▅▆█
+wandb:               loss_0 █▆▆▅▅▅▄▄▄▄▃▃▃▃▃▂▃▂▂▂▂▂▁
+wandb:               loss_1 █▆▅▅▅▄▄▃▃▃▂▃▂▂▂▂▂▂▁▂▁▂▁▁
+wandb:              loss_10 █▇▆▅▅▅▄▄▄▄▄▃▃▃▃▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_11 █▆▅▄▄▄▄▃▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_12 █▆▅▄▄▄▃▃▃▃▃▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_13 █▅▄▄▄▃▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_2 █▇▆▆▅▅▄▄▄▃▃▄▃▃▃▂▂▂▂▂▂▂▂▂▂▁▁▁▁
+wandb:               loss_3 █▇▆▅▅▅▅▄▄▄▄▄▃▃▃▃▃▃▃▂▃▂▂▂▂▂▂▂▂▂▁▁▁
+wandb:               loss_4 █▇▆▅▅▄▅▄▄▄▃▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:               loss_5 █▇▆▆▅▅▅▅▄▄▄▄▄▄▄▃▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁
+wandb:               loss_6 █▇▆▆▅▅▅▄▄▄▄▄▄▃▃▃▃▃▃▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_7 █▇▆▅▅▅▅▄▄▄▄▄▄▃▃▃▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_8 █▇▆▆▅▅▅▄▄▄▄▄▄▃▃▃▃▃▃▃▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_9 █▇▆▅▅▅▅▄▄▄▄▄▄▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_0 ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_1 ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_10 █████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁
+wandb:                lr_11 ████████████▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_12 ████████████▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_13 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_2 ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_3 █████████████████████████████▁▁▁▁
+wandb:                 lr_4 █████████████████████████████▁▁
+wandb:                 lr_5 █████████████████████████████▁▁▁▁▁▁▁▁
+wandb:                 lr_6 ███████████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_7 ████████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_8 █████████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_9 ████████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:       val_accuracy_0 ▁▂▄▄▄▄▄▆▆▆▇▇▇▇▇▇█▇▇████
+wandb:       val_accuracy_1 ▁▂▃▅▄▆▆▆▆▆▅▇▇▇▆▆▇██▇▆▇▇▇
+wandb:      val_accuracy_10 ▁▂▃▄▄▄▅▅▆▆▆▆▆▆▇▇▇▇██████████████████████
+wandb:      val_accuracy_11 ▁▂▄▅▅▆▆▆▇▇▇▇████████████████████████████
+wandb:      val_accuracy_12 ▁▃▄▅▆▆▆▆▆▇▇▇▇███████████████████████████
+wandb:      val_accuracy_13 ▁▃▄▅▆▆▆▇▇▇▇▇▇███████████████████████████
+wandb:       val_accuracy_2 ▁▃▄▅▅▆▅▆▆▆▆▅▆▆▇▇▇▇█▇██▇▇▇██▇▇
+wandb:       val_accuracy_3 ▁▃▃▂▅▅▅▆▅▆▆▆▇▅▆▆▆▆▇▇▆▇▆▇▆▇▆▇▇▇███
+wandb:       val_accuracy_4 ▁▃▄▅▅▄▆▆▆▆▇▆▇▇▇▇█▇▇▇█▇█▇███████
+wandb:       val_accuracy_5 ▁▂▃▃▃▄▄▄▆▅▅▅▆▆▆▆▇▆▇▇▆▇▇▇▇▇▇▆█▇▇██████
+wandb:       val_accuracy_6 ▁▁▃▃▄▄▅▄▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇█████████████████
+wandb:       val_accuracy_7 ▁▂▃▄▃▄▅▅▅▅▅▆▆▅▆▆▇▆▆▆▆▇██████████████████
+wandb:       val_accuracy_8 ▁▂▂▃▃▃▄▅▅▅▅▆▆▆▆▆▆▆▇▇▇▇██████████████████
+wandb:       val_accuracy_9 ▁▂▂▃▂▃▄▅▅▆▅▆▆▆▆▆▇▇▇▇▇███████████████████
+wandb:           val_loss_0 ▁▁▁▁▁▂▄▅▆▅▃▃▅▇██▆▆▆▆▆▆▆
+wandb:           val_loss_1 ▂▂▁▁▂▄▄▅█▅▃▂▂▂▂▂▂▂▁▂▃▃▂▂
+wandb:          val_loss_10 █▇▆▅▆▅▄▄▃▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_11 █▇▅▄▄▃▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_12 █▅▅▄▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_13 █▆▅▄▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_2 ▅▄▅▅▅▅▆▇▁▁▃█▂▂▂▃▂▃▃▄▂▂▅▂▄▅▄██
+wandb:           val_loss_3 ▃▆▅█▂▂▂▁▂▂▂▂▁▂▂▂▃▃▁▁▂▂▃▂▃▂▄▃▃▃▂▂▂
+wandb:           val_loss_4 ▇█▇▅▇▄▂▂▃▂▁▅▁▃▂▂▂▃▃▃▃▃▂▃▃▃▅▃▃▄▂
+wandb:           val_loss_5 ▇█▄▅▄▃▂▄▂▃▃▃▁▁▂▂▁▂▁▂▂▁▂▂▃▃▂▅▃▄▂▂▂▂▂▂▂
+wandb:           val_loss_6 █▆▅▄▄▄▃▄▂▂▃▂▂▂▂▂▂▂▂▂▃▃▂▁▁▁▁▁▁▁▂▂▂▂▂▂▂▂▂▂
+wandb:           val_loss_7 █▇▆▅▆▄▄▄▃▃▄▃▃▄▂▂▂▃▂▃▃▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▁▂▂▂
+wandb:           val_loss_8 █▇▇▆▆▆▅▄▄▄▄▃▃▃▃▃▃▂▂▂▃▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_9 ██▇▆▆▆▄▄▄▃▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:           accuracy_0 0.73698
+wandb:           accuracy_1 0.36719
+wandb:          accuracy_10 0.77578
+wandb:          accuracy_11 0.8137
+wandb:          accuracy_12 0.82872
+wandb:          accuracy_13 0.8658
+wandb:           accuracy_2 0.59821
+wandb:           accuracy_3 0.6875
+wandb:           accuracy_4 0.67188
+wandb:           accuracy_5 0.72793
+wandb:           accuracy_6 0.73242
+wandb:           accuracy_7 0.75818
+wandb:           accuracy_8 0.74086
+wandb:           accuracy_9 0.76375
+wandb:              class_0 0.0992
+wandb:              class_1 0.10122
+wandb:              class_2 0.09917
+wandb:              class_3 0.10015
+wandb:              class_4 0.10205
+wandb:              class_5 0.09985
+wandb:              class_6 0.09892
+wandb:              class_7 0.099
+wandb:              class_8 0.10075
+wandb:              class_9 0.09967
+wandb:         dataset_size 40000
+wandb:    end_test_accuracy 0.84644
+wandb:        end_test_loss 0.46481
+wandb:   end_train_accuracy 0.8658
+wandb:       end_train_loss 0.68042
+wandb:     end_val_accuracy 0.85231
+wandb:         end_val_loss 0.44676
+wandb:                epoch 94
+wandb:               loss_0 1.91787
+wandb:               loss_1 2.70335
+wandb:              loss_10 1.03735
+wandb:              loss_11 0.88271
+wandb:              loss_12 0.81431
+wandb:              loss_13 0.68042
+wandb:               loss_2 2.01095
+wandb:               loss_3 1.67674
+wandb:               loss_4 1.67702
+wandb:               loss_5 1.47673
+wandb:               loss_6 1.34288
+wandb:               loss_7 1.16646
+wandb:               loss_8 1.18603
+wandb:               loss_9 1.09227
+wandb:                 lr_0 0.001
+wandb:                 lr_1 0.001
+wandb:                lr_10 1e-05
+wandb:                lr_11 0.0
+wandb:                lr_12 0.0
+wandb:                lr_13 0.0
+wandb:                 lr_2 0.001
+wandb:                 lr_3 0.0001
+wandb:                 lr_4 0.0001
+wandb:                 lr_5 0.0001
+wandb:                 lr_6 0.0001
+wandb:                 lr_7 0.0001
+wandb:                 lr_8 0.0001
+wandb:                 lr_9 0.0001
+wandb:       val_accuracy_0 0.22542
+wandb:       val_accuracy_1 0.24891
+wandb:      val_accuracy_10 0.76234
+wandb:      val_accuracy_11 0.81748
+wandb:      val_accuracy_12 0.84395
+wandb:      val_accuracy_13 0.85231
+wandb:       val_accuracy_2 0.29439
+wandb:       val_accuracy_3 0.36146
+wandb:       val_accuracy_4 0.38724
+wandb:       val_accuracy_5 0.42257
+wandb:       val_accuracy_6 0.52996
+wandb:       val_accuracy_7 0.63286
+wandb:       val_accuracy_8 0.69666
+wandb:       val_accuracy_9 0.7297
+wandb:           val_loss_0 3.05395
+wandb:           val_loss_1 2.34644
+wandb:          val_loss_10 0.72335
+wandb:          val_loss_11 0.55816
+wandb:          val_loss_12 0.47176
+wandb:          val_loss_13 0.44676
+wandb:           val_loss_2 2.43957
+wandb:           val_loss_3 2.058
+wandb:           val_loss_4 1.92686
+wandb:           val_loss_5 1.86523
+wandb:           val_loss_6 1.57918
+wandb:           val_loss_7 1.19675
+wandb:           val_loss_8 0.93941
+wandb:           val_loss_9 0.83993
+wandb: 
+wandb: Synced 6 W&B file(s), 28 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Synced cifar10_hu_run1: https://wandb.ai/fanconic/hidden_uncertainty/runs/hul70gkn
+wandb: Find logs at: ./wandb/run-20220108_001829-hul70gkn/logs/debug.log
+wandb: 
+wandb: wandb version 0.12.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.7
+wandb: Syncing run cifar10_hu_run2
+wandb:  View project at https://wandb.ai/fanconic/hidden_uncertainty
+wandb:  View run at https://wandb.ai/fanconic/hidden_uncertainty/runs/i2jo62hz
+wandb: Run data is saved locally in /scratch_net/airfox/fanconic/semproj2/hidden_uncertainty_active_learning/wandb/run-20220108_073530-i2jo62hz
+wandb: Run `wandb offline` to turn off syncing.
+
+Cuda is available:  True
+Files already downloaded and verified
+Files already downloaded and verified
+2022-01-08 07:35.51 [info     ] Starting training              dataset=100 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+100
+0-th component log probs | Train: 3018.135461706698 | Val: -147864.80270771033
+1-th component log probs | Train: 3014.92181861309 | Val: -192248.78428348026
+2-th component log probs | Train: 3014.161148997472 | Val: -140334.6427078909
+3-th component log probs | Train: 3015.732958120136 | Val: -169473.89400283783
+4-th component log probs | Train: 3015.5763018657044 | Val: -123549.42578105927
+5-th component log probs | Train: 3015.937657148327 | Val: -165829.69007211298
+6-th component log probs | Train: 3018.0155926180805 | Val: -122968.57030623799
+7-th component log probs | Train: 3014.993236178082 | Val: -180685.44858351382
+8-th component log probs | Train: 3017.2580223615005 | Val: -152856.4754211418
+9-th component log probs | Train: 3017.528671675735 | Val: -235423.61998137736
+2022-01-08 07:36.58 [info     ] Training complete              train_loss=1.6479425430297852
+2022-01-08 07:36.58 [info     ] Starting evaluating            dataset=10000
+2022-01-08 07:37.00 [info     ] Testing complete               test_loss=2.2101645469665527
+{'dataset_size': 100,
+ 'end_test_accuracy': 0.17983677983283997,
+ 'end_test_loss': 2.2101645469665527,
+ 'end_train_accuracy': 0.7361111044883728,
+ 'end_train_loss': 1.6479425430297852,
+ 'end_val_accuracy': 0.23158837854862213,
+ 'end_val_loss': 3.587583541870117}
+2022-01-08 07:37.00 [info     ] Start Predict                  dataset=39900
+2022-01-08 07:37.32 [info     ] Starting training              dataset=200 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+200
+0-th component log probs | Train: 2971.782529520723 | Val: -37786.177619885995
+1-th component log probs | Train: 2917.5828934159404 | Val: -59735.69325610788
+2-th component log probs | Train: 2987.488361084442 | Val: -51129.98103360058
+3-th component log probs | Train: 2984.7538049907753 | Val: -65778.2135153082
+4-th component log probs | Train: 2992.818785510738 | Val: -42488.453198498515
+5-th component log probs | Train: 2971.1119821136335 | Val: -126265.89513969455
+6-th component log probs | Train: 2997.8769586097314 | Val: -88819.63144518671
+7-th component log probs | Train: 2965.6406818504643 | Val: -72674.84951714789
+8-th component log probs | Train: 2966.2309861221875 | Val: -43390.48743406434
+9-th component log probs | Train: 2955.66018042374 | Val: -72398.44800649353
+2022-01-08 07:38.36 [info     ] Training complete              train_loss=2.666548252105713
+2022-01-08 07:38.36 [info     ] Starting evaluating            dataset=10000
+2022-01-08 07:38.38 [info     ] Testing complete               test_loss=2.2661795616149902
+{'dataset_size': 200,
+ 'end_test_accuracy': 0.1614251583814621,
+ 'end_test_loss': 2.2661795616149902,
+ 'end_train_accuracy': 0.34765625,
+ 'end_train_loss': 2.666548252105713,
+ 'end_val_accuracy': 0.21009156107902527,
+ 'end_val_loss': 2.9566650390625}
+2022-01-08 07:38.38 [info     ] Start Predict                  dataset=39800
+2022-01-08 07:39.11 [info     ] Starting training              dataset=400 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+400
+0-th component log probs | Train: 2896.6892445704443 | Val: -43502.525530356506
+1-th component log probs | Train: 2812.5834702879392 | Val: -60639.641407005656
+2-th component log probs | Train: 2965.861453157868 | Val: -92918.5151689905
+3-th component log probs | Train: 2888.906123628646 | Val: -66994.34850457036
+4-th component log probs | Train: 2955.509276350527 | Val: -63205.675218273405
+5-th component log probs | Train: 2825.8471260922724 | Val: -56201.82767564954
+6-th component log probs | Train: 2955.2885951776684 | Val: -72869.70151167038
+7-th component log probs | Train: 2830.481427192834 | Val: -60866.27304375945
+8-th component log probs | Train: 2876.341062491789 | Val: -51355.89302138503
+9-th component log probs | Train: 2903.6341494702756 | Val: -70967.71566813612
+2022-01-08 07:41.07 [info     ] Training complete              train_loss=1.6804498434066772
+2022-01-08 07:41.08 [info     ] Starting evaluating            dataset=10000
+2022-01-08 07:41.09 [info     ] Testing complete               test_loss=2.0593254566192627
+{'dataset_size': 400,
+ 'end_test_accuracy': 0.3230493664741516,
+ 'end_test_loss': 2.0593254566192627,
+ 'end_train_accuracy': 0.7142857313156128,
+ 'end_train_loss': 1.6804498434066772,
+ 'end_val_accuracy': 0.34504377841949463,
+ 'end_val_loss': 2.274158477783203}
+2022-01-08 07:41.10 [info     ] Start Predict                  dataset=39600
+2022-01-08 07:41.44 [info     ] Starting training              dataset=600 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+600
+0-th component log probs | Train: 2807.299340292315 | Val: -33720.13185694024
+1-th component log probs | Train: 2766.1002764035206 | Val: -54111.53571031447
+2-th component log probs | Train: 2901.2570579161093 | Val: -71547.87526112596
+3-th component log probs | Train: 2810.34056680939 | Val: -57497.15162474318
+4-th component log probs | Train: 2875.2951829612 | Val: -53580.4198244665
+5-th component log probs | Train: 2756.1323028611278 | Val: -44870.539541353995
+6-th component log probs | Train: 2893.995668598571 | Val: -48418.45304250177
+7-th component log probs | Train: 2707.8412393401554 | Val: -37185.73584761586
+8-th component log probs | Train: 2805.9648507103166 | Val: -43248.28955622033
+9-th component log probs | Train: 2804.7823907172574 | Val: -57072.141838123716
+2022-01-08 07:43.53 [info     ] Training complete              train_loss=1.6492717266082764
+2022-01-08 07:43.53 [info     ] Starting evaluating            dataset=10000
+2022-01-08 07:43.55 [info     ] Testing complete               test_loss=1.8853667974472046
+{'dataset_size': 600,
+ 'end_test_accuracy': 0.35340365767478943,
+ 'end_test_loss': 1.8853667974472046,
+ 'end_train_accuracy': 0.7229167222976685,
+ 'end_train_loss': 1.6492717266082764,
+ 'end_val_accuracy': 0.37649282813072205,
+ 'end_val_loss': 2.175137758255005}
+2022-01-08 07:43.55 [info     ] Start Predict                  dataset=39400
+2022-01-08 07:44.28 [info     ] Starting training              dataset=800 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+800
+0-th component log probs | Train: 2731.9427138320702 | Val: -29695.24245843423
+1-th component log probs | Train: 2700.3993906061323 | Val: -31819.388726110472
+2-th component log probs | Train: 2830.502780208753 | Val: -51605.83450905814
+3-th component log probs | Train: 2762.3375324220688 | Val: -50069.45461799853
+4-th component log probs | Train: 2815.3400545100267 | Val: -42133.99788574736
+5-th component log probs | Train: 2707.5252144878145 | Val: -41766.68507422874
+6-th component log probs | Train: 2867.8424310105283 | Val: -44884.02188139169
+7-th component log probs | Train: 2647.5078148488883 | Val: -34495.01508387696
+8-th component log probs | Train: 2697.2334070778957 | Val: -29204.398130619902
+9-th component log probs | Train: 2670.2672107952385 | Val: -33433.40930648983
+2022-01-08 07:46.48 [info     ] Training complete              train_loss=1.6511497497558594
+2022-01-08 07:46.48 [info     ] Starting evaluating            dataset=10000
+2022-01-08 07:46.50 [info     ] Testing complete               test_loss=1.8445887565612793
+{'dataset_size': 800,
+ 'end_test_accuracy': 0.35370221734046936,
+ 'end_test_loss': 1.8445887565612793,
+ 'end_train_accuracy': 0.6814903616905212,
+ 'end_train_loss': 1.6511497497558594,
+ 'end_val_accuracy': 0.40157246589660645,
+ 'end_val_loss': 1.9059984683990479}
+2022-01-08 07:46.50 [info     ] Start Predict                  dataset=39200
+2022-01-08 07:47.23 [info     ] Starting training              dataset=1000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+1000
+0-th component log probs | Train: 2689.0603094710327 | Val: -29393.787113533377
+1-th component log probs | Train: 2677.7255584630234 | Val: -27885.901866798064
+2-th component log probs | Train: 2730.770959103384 | Val: -37000.63710715659
+3-th component log probs | Train: 2614.577610036895 | Val: -32339.198202602933
+4-th component log probs | Train: 2742.707209870664 | Val: -30540.31038916954
+5-th component log probs | Train: 2606.769676342585 | Val: -26339.509344421094
+6-th component log probs | Train: 2821.457938114996 | Val: -39235.67895618027
+7-th component log probs | Train: 2582.7244149342446 | Val: -25727.60546784734
+8-th component log probs | Train: 2675.1177320346646 | Val: -23195.50285171965
+9-th component log probs | Train: 2646.024259403975 | Val: -30290.202523288157
+2022-01-08 07:50.07 [info     ] Training complete              train_loss=1.524712324142456
+2022-01-08 07:50.07 [info     ] Starting evaluating            dataset=10000
+2022-01-08 07:50.09 [info     ] Testing complete               test_loss=1.7516257762908936
+{'dataset_size': 1000,
+ 'end_test_accuracy': 0.3958001732826233,
+ 'end_test_loss': 1.7516257762908936,
+ 'end_train_accuracy': 0.7076171636581421,
+ 'end_train_loss': 1.524712324142456,
+ 'end_val_accuracy': 0.4301353394985199,
+ 'end_val_loss': 1.8200640678405762}
+2022-01-08 07:50.09 [info     ] Start Predict                  dataset=39000
+2022-01-08 07:50.44 [info     ] Starting training              dataset=2000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+2000
+0-th component log probs | Train: 2434.3141691542255 | Val: -17864.378897603376
+1-th component log probs | Train: 2286.5613897532926 | Val: -9867.26836098693
+2-th component log probs | Train: 2471.7571831557525 | Val: -30355.500212575294
+3-th component log probs | Train: 2181.3698554838456 | Val: -14947.341452783616
+4-th component log probs | Train: 2499.197968323209 | Val: -24067.17743945162
+5-th component log probs | Train: 2342.6232104316246 | Val: -18331.107317953913
+6-th component log probs | Train: 2552.5792401217614 | Val: -23368.170778721847
+7-th component log probs | Train: 2386.4241779614918 | Val: -18027.85408676821
+8-th component log probs | Train: 2452.0923806744595 | Val: -18588.521158853528
+9-th component log probs | Train: 2257.7973163196116 | Val: -11338.554001290473
+2022-01-08 07:56.43 [info     ] Training complete              train_loss=1.3918489217758179
+2022-01-08 07:56.43 [info     ] Starting evaluating            dataset=10000
+2022-01-08 07:56.45 [info     ] Testing complete               test_loss=1.4052172899246216
+{'dataset_size': 2000,
+ 'end_test_accuracy': 0.5100517272949219,
+ 'end_test_loss': 1.4052172899246216,
+ 'end_train_accuracy': 0.7060546875,
+ 'end_train_loss': 1.3918489217758179,
+ 'end_val_accuracy': 0.5240843892097473,
+ 'end_val_loss': 1.5799200534820557}
+2022-01-08 07:56.45 [info     ] Start Predict                  dataset=38000
+2022-01-08 07:57.21 [info     ] Starting training              dataset=4000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+4000
+0-th component log probs | Train: 1933.6541539503792 | Val: -4570.711791530895
+1-th component log probs | Train: 2027.8473691531556 | Val: -3699.7321427078637
+2-th component log probs | Train: 1849.2519603951464 | Val: -3163.718162814439
+3-th component log probs | Train: 1814.0938321954177 | Val: -2356.2559928260957
+4-th component log probs | Train: 1885.4238393615274 | Val: -2846.5127774010357
+5-th component log probs | Train: 1980.7660731785124 | Val: -5894.401900021765
+6-th component log probs | Train: 1984.6425200390497 | Val: -3461.1283107766467
+7-th component log probs | Train: 1986.273893983129 | Val: -5457.69893447597
+8-th component log probs | Train: 2021.3623123104585 | Val: -3816.3233921805263
+9-th component log probs | Train: 1956.3282295078561 | Val: -4323.420849312186
+2022-01-08 08:08.22 [info     ] Training complete              train_loss=1.2294812202453613
+2022-01-08 08:08.22 [info     ] Starting evaluating            dataset=10000
+2022-01-08 08:08.24 [info     ] Testing complete               test_loss=1.0790891647338867
+{'dataset_size': 4000,
+ 'end_test_accuracy': 0.6392316818237305,
+ 'end_test_loss': 1.0790891647338867,
+ 'end_train_accuracy': 0.7234622836112976,
+ 'end_train_loss': 1.2294812202453613,
+ 'end_val_accuracy': 0.6415206789970398,
+ 'end_val_loss': 1.1413034200668335}
+2022-01-08 08:08.24 [info     ] Start Predict                  dataset=36000
+2022-01-08 08:09.00 [info     ] Starting training              dataset=6000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+6000
+0-th component log probs | Train: 1638.14652106636 | Val: 933.5594070833396
+1-th component log probs | Train: 1749.5148788683136 | Val: 768.8028048617703
+2-th component log probs | Train: 1662.8857929246747 | Val: 275.47033339873144
+3-th component log probs | Train: 1615.0231311702817 | Val: 655.1952001261442
+4-th component log probs | Train: 1714.2953064945616 | Val: 231.63168597391558
+5-th component log probs | Train: 1775.9545508423173 | Val: -1279.183676874548
+6-th component log probs | Train: 1801.4831177974875 | Val: -360.33072405765705
+7-th component log probs | Train: 1713.2825379713802 | Val: 453.22394221877613
+8-th component log probs | Train: 1753.3750900358698 | Val: 799.1241753844423
+9-th component log probs | Train: 1668.6954775852425 | Val: 1026.5351358857504
+2022-01-08 08:27.50 [info     ] Training complete              train_loss=1.1298786401748657
+2022-01-08 08:27.50 [info     ] Starting evaluating            dataset=10000
+2022-01-08 08:27.51 [info     ] Testing complete               test_loss=0.9240719676017761
+{'dataset_size': 6000,
+ 'end_test_accuracy': 0.6878980994224548,
+ 'end_test_loss': 0.9240719676017761,
+ 'end_train_accuracy': 0.7544880509376526,
+ 'end_train_loss': 1.1298786401748657,
+ 'end_val_accuracy': 0.6988455653190613,
+ 'end_val_loss': 0.9451395273208618}
+2022-01-08 08:27.52 [info     ] Start Predict                  dataset=34000
+2022-01-08 08:28.25 [info     ] Starting training              dataset=8000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+8000
+0-th component log probs | Train: 1610.4592730045028 | Val: 1217.3578311406425
+1-th component log probs | Train: 1679.5504166025094 | Val: 1130.4028792228805
+2-th component log probs | Train: 1556.2246331147119 | Val: 1190.8635031001922
+3-th component log probs | Train: 1541.0792071232504 | Val: 1193.9692983827106
+4-th component log probs | Train: 1602.5045237000843 | Val: 1221.721885410855
+5-th component log probs | Train: 1609.8198807439849 | Val: 1029.3008099094864
+6-th component log probs | Train: 1623.3118455003007 | Val: 1265.8273057912095
+7-th component log probs | Train: 1608.3305058258172 | Val: 1159.0856904700647
+8-th component log probs | Train: 1707.0167522273107 | Val: 1269.5590959813067
+9-th component log probs | Train: 1612.3939392816424 | Val: 1239.8403615720201
+2022-01-08 08:48.35 [info     ] Training complete              train_loss=1.163816213607788
+2022-01-08 08:48.35 [info     ] Starting evaluating            dataset=10000
+2022-01-08 08:48.37 [info     ] Testing complete               test_loss=0.8438153862953186
+{'dataset_size': 8000,
+ 'end_test_accuracy': 0.7093949317932129,
+ 'end_test_loss': 0.8438153862953186,
+ 'end_train_accuracy': 0.734499990940094,
+ 'end_train_loss': 1.163816213607788,
+ 'end_val_accuracy': 0.721835196018219,
+ 'end_val_loss': 0.8547907471656799}
+2022-01-08 08:48.37 [info     ] Start Predict                  dataset=32000
+2022-01-08 08:49.12 [info     ] Starting training              dataset=10000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+10000
+0-th component log probs | Train: 1556.166640253739 | Val: 1342.8927588794222
+1-th component log probs | Train: 1636.188813813022 | Val: 1357.5200890299254
+2-th component log probs | Train: 1534.9886561369321 | Val: 1259.7140520685734
+3-th component log probs | Train: 1512.4649779982828 | Val: 1270.8629276588842
+4-th component log probs | Train: 1583.3483118874838 | Val: 1295.1893372293366
+5-th component log probs | Train: 1566.9646923901853 | Val: 1233.0077024054665
+6-th component log probs | Train: 1626.548869278188 | Val: 1277.8331474264673
+7-th component log probs | Train: 1574.9239922576517 | Val: 1320.3157833791165
+8-th component log probs | Train: 1614.2302094681415 | Val: 1478.4643438027722
+9-th component log probs | Train: 1585.77666248721 | Val: 1375.7805091459356
+2022-01-08 09:16.45 [info     ] Training complete              train_loss=1.0768828392028809
+2022-01-08 09:16.45 [info     ] Starting evaluating            dataset=10000
+2022-01-08 09:16.47 [info     ] Testing complete               test_loss=0.7599164843559265
+{'dataset_size': 10000,
+ 'end_test_accuracy': 0.7369625568389893,
+ 'end_test_loss': 0.7599164843559265,
+ 'end_train_accuracy': 0.7583598494529724,
+ 'end_train_loss': 1.0768828392028809,
+ 'end_val_accuracy': 0.7463176846504211,
+ 'end_val_loss': 0.7599332332611084}
+2022-01-08 09:16.47 [info     ] Start Predict                  dataset=30000
+2022-01-08 09:17.27 [info     ] Starting training              dataset=20000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+20000
+0-th component log probs | Train: 1556.269337242876 | Val: 1502.7598943794549
+1-th component log probs | Train: 1607.7319706298747 | Val: 1493.3786751354962
+2-th component log probs | Train: 1542.8477657378255 | Val: 1471.312911612568
+3-th component log probs | Train: 1500.7960898775916 | Val: 1427.2858007036068
+4-th component log probs | Train: 1573.1580063451518 | Val: 1514.6682866763995
+5-th component log probs | Train: 1541.1699322377415 | Val: 1479.138756402254
+6-th component log probs | Train: 1609.8175025234884 | Val: 1517.6619925357468
+7-th component log probs | Train: 1566.0224698711409 | Val: 1493.728300709251
+8-th component log probs | Train: 1599.251358783987 | Val: 1512.7636819975212
+9-th component log probs | Train: 1561.5817917186282 | Val: 1507.1181128056853
+2022-01-08 10:29.47 [info     ] Training complete              train_loss=0.892499566078186
+2022-01-08 10:29.47 [info     ] Starting evaluating            dataset=10000
+2022-01-08 10:29.49 [info     ] Testing complete               test_loss=0.5735407471656799
+{'dataset_size': 20000,
+ 'end_test_accuracy': 0.8074243664741516,
+ 'end_test_loss': 0.5735407471656799,
+ 'end_train_accuracy': 0.8055111765861511,
+ 'end_train_loss': 0.892499566078186,
+ 'end_val_accuracy': 0.8095143437385559,
+ 'end_val_loss': 0.5732865929603577}
+2022-01-08 10:29.49 [info     ] Start Predict                  dataset=20000
+2022-01-08 10:30.26 [info     ] Starting training              dataset=30000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+30000
+0-th component log probs | Train: 1609.1157059180732 | Val: 1578.0930044157508
+1-th component log probs | Train: 1652.1809944672202 | Val: 1579.9685068117226
+2-th component log probs | Train: 1583.0436438258207 | Val: 1532.4001291937163
+3-th component log probs | Train: 1534.3248009937574 | Val: 1477.9787635642604
+4-th component log probs | Train: 1613.4778202787477 | Val: 1570.6737849333244
+5-th component log probs | Train: 1573.3781863271797 | Val: 1530.4633878222976
+6-th component log probs | Train: 1611.4949715521946 | Val: 1562.3658854103883
+7-th component log probs | Train: 1594.7001534296394 | Val: 1542.3263478436656
+8-th component log probs | Train: 1641.9738952652376 | Val: 1563.1617099583445
+9-th component log probs | Train: 1612.829729541361 | Val: 1581.1641396048294
+2022-01-08 12:15.48 [info     ] Training complete              train_loss=0.7970190644264221
+2022-01-08 12:15.48 [info     ] Starting evaluating            dataset=10000
+2022-01-08 12:15.50 [info     ] Testing complete               test_loss=0.4888037443161011
+{'dataset_size': 30000,
+ 'end_test_accuracy': 0.8396695852279663,
+ 'end_test_loss': 0.4888037443161011,
+ 'end_train_accuracy': 0.8337886333465576,
+ 'end_train_loss': 0.7970190644264221,
+ 'end_val_accuracy': 0.8383758068084717,
+ 'end_val_loss': 0.4837038516998291}
+2022-01-08 12:15.50 [info     ] Start Predict                  dataset=10000
+2022-01-08 12:16.20 [info     ] Starting training              dataset=40000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+40000
+0-th component log probs | Train: 1646.1788191731061 | Val: 1582.3811389727705
+1-th component log probs | Train: 1684.2118787048514 | Val: 1605.7558502610043
+2-th component log probs | Train: 1636.1986112748316 | Val: 1562.7774241051627
+3-th component log probs | Train: 1573.0351902937123 | Val: 1506.297037670914
+4-th component log probs | Train: 1682.6561145056214 | Val: 1607.1623697215093
+5-th component log probs | Train: 1619.0994700234294 | Val: 1559.3165481295123
+6-th component log probs | Train: 1698.0348653714545 | Val: 1601.214253445392
+7-th component log probs | Train: 1650.555267040357 | Val: 1574.9646051477982
+8-th component log probs | Train: 1686.2236226593718 | Val: 1628.1740846360678
+9-th component log probs | Train: 1646.2253391330307 | Val: 1603.0744123503052
+2022-01-08 14:27.48 [info     ] Training complete              train_loss=0.6826392412185669
+2022-01-08 14:27.48 [info     ] Starting evaluating            dataset=10000
+2022-01-08 14:27.50 [info     ] Testing complete               test_loss=0.4651516377925873
+{'dataset_size': 40000,
+ 'end_test_accuracy': 0.8474323153495789,
+ 'end_test_loss': 0.4651516377925873,
+ 'end_train_accuracy': 0.8669000267982483,
+ 'end_train_loss': 0.6826392412185669,
+ 'end_val_accuracy': 0.8503184914588928,
+ 'end_val_loss': 0.4503069818019867}
+
+wandb: Waiting for W&B process to finish, PID 18597... (success).
+wandb: - 0.58MB of 0.58MB uploaded (0.00MB deduped)wandb: \ 0.58MB of 0.58MB uploaded (0.00MB deduped)wandb: | 0.58MB of 0.58MB uploaded (0.00MB deduped)wandb: / 0.58MB of 0.87MB uploaded (0.00MB deduped)wandb: - 0.58MB of 0.87MB uploaded (0.00MB deduped)wandb: \ 0.86MB of 0.87MB uploaded (0.00MB deduped)wandb: | 0.87MB of 0.87MB uploaded (0.00MB deduped)wandb: / 0.87MB of 0.87MB uploaded (0.00MB deduped)wandb: - 0.87MB of 0.87MB uploaded (0.00MB deduped)wandb: \ 0.87MB of 0.87MB uploaded (0.00MB deduped)wandb: | 0.87MB of 0.87MB uploaded (0.00MB deduped)wandb: / 0.87MB of 0.87MB uploaded (0.00MB deduped)wandb: - 0.87MB of 0.87MB uploaded (0.00MB deduped)wandb:                                                                                
+wandb: Run history:
+wandb:           accuracy_0 ▁▁▃▃▂▂▃▄▅▄▄▆▅▆▆▆▆█▆▆▆▇▇██
+wandb:           accuracy_1 ▁▃▂▂▂▁▁▁▅▂▄▃▂▃▄▄▆▆▅▆█▅
+wandb:          accuracy_10 ▁▂▂▃▃▃▄▄▄▅▅▅▅▅▅▆▆▆▇▇▇▇▇▇▇▇▇▇▇███████████
+wandb:          accuracy_11 ▁▂▃▄▄▄▅▅▅▆▆▆▆▆▇▇▇▇▇▇▇███████████████████
+wandb:          accuracy_12 ▁▃▃▄▄▅▅▅▆▆▆▆▆▆▇▇▇▇▇▇████████████████████
+wandb:          accuracy_13 ▁▃▄▅▅▅▆▆▆▆▆▆▆▇▇▇▇▇██████████████████████
+wandb:           accuracy_2 ▁▂▂▃▄▃▃▄▄▅▄▅▅▅▆▅▆▅▅▅▅▆▆▆▆▇▇▆▆▇█▇▇███
+wandb:           accuracy_3 ▁▁▂▂▂▃▃▄▃▄▄▄▄▅▅▅▅▅▅▅▅▆▆▆▆▆▆▆▆▇▇▇▇█
+wandb:           accuracy_4 ▁▁▂▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▅▆▆▆▆▆▆▇▇▆▇▇███
+wandb:           accuracy_5 ▁▂▂▂▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▅▅▆▆▆▆▆▆▆▇▇▇█▇█
+wandb:           accuracy_6 ▁▁▂▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▅▆▆▆▆▇▇▇▇█▇██████████
+wandb:           accuracy_7 ▁▂▂▃▃▃▃▄▄▄▄▅▅▅▅▅▅▅▆▆▆▇▇▇▇▇████▇█████████
+wandb:           accuracy_8 ▁▂▂▃▃▃▄▄▄▄▅▅▅▅▅▆▆▆▇▇▇▇▇▇▇▇▇▇█▇██████████
+wandb:           accuracy_9 ▁▂▂▃▃▃▃▄▄▄▄▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇▇▇███████████
+wandb:              class_0 ▅▅▃▆▆▃▁▄█▃▆▄▄▅
+wandb:              class_1 ▃██▅▄▃▅▃▄▂▃▁▁▃
+wandb:              class_2 ▇▄▁▂▃▅▄█▆▇▆▇▇▇
+wandb:              class_3 ▃▁▃▃▂▅█▅▄▄▃▄▆▃
+wandb:              class_4 ▇▃▁▃▃▄▃█▆█▇▆▆▇
+wandb:              class_5 ▃▃█▆▄▆▄▂▁▂▁▃▄▃
+wandb:              class_6 ▇▃▂▂▁▁▃▆▅█▆▅▄▇
+wandb:              class_7 ▂▃▇█▆▆▂▂▃▃▂▁▁▂
+wandb:              class_8 ▂▃▃▃▄▂▁▂▂▂▄█▄▂
+wandb:              class_9 ▄▆▂▄▇▅█▃▆▄▄▁▃▄
+wandb:         dataset_size ▁▁▁▁▁▁▁▂▂▂▃▄▆█
+wandb:    end_test_accuracy ▁▁▃▃▃▃▅▆▆▇▇███
+wandb:        end_test_loss ██▇▇▆▆▅▃▃▂▂▁▁▁
+wandb:   end_train_accuracy ▆▁▆▆▆▆▆▆▆▆▇▇██
+wandb:       end_train_loss ▄█▅▄▄▄▄▃▃▃▂▂▁▁
+wandb:     end_val_accuracy ▁▁▂▃▃▃▄▆▆▇▇███
+wandb:         end_val_loss █▇▅▅▄▄▄▃▂▂▂▁▁▁
+wandb:                epoch ▂▃▂▂▄▂▁▃▂▃▁▃▅▂▄▅▂▄▅▇▂▄▆▂▄▅▂▃▅▇█▂▄▅▇▁▂▄▆█
+wandb:               loss_0 ██▆▅▅▅▄▄▃▃▃▃▃▃▂▂▂▁▂▂▂▁▁▁▁
+wandb:               loss_1 █▅▆▆▄▅▅▄▃▄▃▃▃▃▃▂▂▂▂▁▁▁
+wandb:              loss_10 █▇▆▅▅▅▅▄▄▄▄▄▃▃▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_11 █▆▅▅▄▄▄▄▃▃▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_12 █▆▅▅▄▄▄▃▃▃▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_13 █▅▅▄▄▃▃▃▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_2 █▆▆▅▅▅▅▄▄▄▄▃▃▃▃▃▃▃▃▃▃▂▃▂▂▂▂▂▂▂▁▁▁▁▁▁
+wandb:               loss_3 █▇▆▅▅▅▅▄▄▄▄▄▃▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▁▁▁▁
+wandb:               loss_4 █▇▆▅▅▅▄▄▄▄▄▄▄▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▁▁▁
+wandb:               loss_5 █▇▆▆▅▅▅▄▄▄▄▄▄▄▃▃▃▃▃▃▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁
+wandb:               loss_6 █▇▆▅▅▅▅▅▄▄▄▄▄▄▃▃▃▃▃▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_7 █▇▆▆▅▅▅▅▄▄▄▄▄▃▃▃▃▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_8 █▇▆▆▅▅▅▄▄▄▄▄▄▃▃▃▃▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_9 █▇▆▆▅▅▅▄▄▄▄▄▄▃▃▃▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_0 ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_1 ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_10 ██████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁
+wandb:                lr_11 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_12 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_13 ██████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_2 █████████████████████████████▁▁▁▁▁▁▁
+wandb:                 lr_3 █████████████████████████████▁▁▁▁▁
+wandb:                 lr_4 █████████████████████████████▁▁▁▁▁
+wandb:                 lr_5 █████████████████████████████▁▁▁▁▁▁▁
+wandb:                 lr_6 ██████████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_7 ████████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_8 █████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁
+wandb:                 lr_9 ████████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:       val_accuracy_0 ▂▁▂▄▄▄▅▆▆▆▇▆▇▇▇▇██▇▇████▇
+wandb:       val_accuracy_1 ▃▄▄▂▄▅▅▅▁▂▁▁▄▆▇▆▆▇▇█▇▇
+wandb:      val_accuracy_10 ▁▂▂▃▄▄▄▅▅▆▆▅▆▆▆▆▇▇██████████████████████
+wandb:      val_accuracy_11 ▁▂▄▄▅▅▆▆▆▆▇▆▇▇██████████████████████████
+wandb:      val_accuracy_12 ▁▃▄▄▅▆▆▆▆▆▇▇▆▇██████████████████████████
+wandb:      val_accuracy_13 ▁▃▄▅▅▆▆▆▆▇▇▆▇▇▇█████████████████████████
+wandb:       val_accuracy_2 ▂▁▂▃▄▅▅▅▅▆▆▆▆▆▇▇▇▇▇▆▆▆▇█▇▇▇▇▇▇▇▇████
+wandb:       val_accuracy_3 ▁▃▃▄▅▅▅▅▆▆▇▆▆▇▇▇▇▇▇▇▇█▇▇▇▇██▇█████
+wandb:       val_accuracy_4 ▂▁▃▄▄▄▅▆▆▅▅▅▆▆▇▅▆▇▆▆▇▇▆▇▇▇▇▇▇▇████
+wandb:       val_accuracy_5 ▁▂▃▃▄▅▅▅▃▆▅▆▆▆▅▇▆▇▆▆▇▆▆▇▇█▇▇▇▇▇█████
+wandb:       val_accuracy_6 ▁▂▃▃▄▄▄▅▅▆▆▆▆▆▆▆▆▆▆▆▇▇▇▇████████████████
+wandb:       val_accuracy_7 ▁▂▂▃▃▄▄▄▅▅▅▆▆▆▆▆▆▆▆▆▇███████████████████
+wandb:       val_accuracy_8 ▁▁▃▃▄▄▄▅▅▅▅▆▆▆▇▇▆███████████████████████
+wandb:       val_accuracy_9 ▁▂▂▂▃▄▃▅▄▅▅▅▆▆▆▆▆▇▇▆▇███████████████████
+wandb:           val_loss_0 ▁▁▁▁▁▁▂▂▃▄▃▃▄▅▆▆▆▇███▇▇▇█
+wandb:           val_loss_1 ▁▁▁▂▃▄▅▆███▅▃▃▂▃▃▂▂▁▂▃
+wandb:          val_loss_10 ▆▆█▄▄▄▄▄▄▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_11 █▇▅▅▄▄▃▃▂▃▂▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_12 █▆▅▅▄▃▃▃▃▃▂▂▃▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_13 █▆▅▄▄▃▃▃▃▂▂▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_2 ▁▂▅█▃▃▃▂▁▁▁▂▁▂▁▁▂▂▂▃▂▂▁▁▂▂▂▂▂▃▂▂▂▂▂▂
+wandb:           val_loss_3 ▄▅█▃▂▂▃▂▁▃▂▆▂▁▂▂▂▄▄▃▃▂▃▄▆▄▃▄▅▄▃▃▄▄
+wandb:           val_loss_4 ▄█▆▄▃▂▂▂▁▂▃▅▂▁▁▃▂▁▃▃▂▂▄▂▂▂▄▃▂▂▂▁▂▁
+wandb:           val_loss_5 ▅█▅▄▃▂▃▂▆▁▃▂▁▁▄▁▅▁▄▃▂▅▄▄▂▁▃▃▄▂▂▁▁▂▂▂
+wandb:           val_loss_6 █▅▄▄▃▄▃▂▄▂▂▂▂▂▂▂▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▂▂▂▂▂▂▂
+wandb:           val_loss_7 █▇▇▆▅▄▄▅▄▄▃▃▃▂▂▂▃▃▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_8 █▇▇▆▅▆▅▃▃▄▄▃▃▃▂▂▃▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_9 █▇██▆▅▆▄▆▄▄▃▃▃▃▃▂▂▂▃▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:           accuracy_0 0.73611
+wandb:           accuracy_1 0.34766
+wandb:          accuracy_10 0.75836
+wandb:          accuracy_11 0.80551
+wandb:          accuracy_12 0.83379
+wandb:          accuracy_13 0.8669
+wandb:           accuracy_2 0.71429
+wandb:           accuracy_3 0.72292
+wandb:           accuracy_4 0.68149
+wandb:           accuracy_5 0.70762
+wandb:           accuracy_6 0.70605
+wandb:           accuracy_7 0.72346
+wandb:           accuracy_8 0.75449
+wandb:           accuracy_9 0.7345
+wandb:              class_0 0.10063
+wandb:              class_1 0.10028
+wandb:              class_2 0.10005
+wandb:              class_3 0.09982
+wandb:              class_4 0.10047
+wandb:              class_5 0.09863
+wandb:              class_6 0.1001
+wandb:              class_7 0.09942
+wandb:              class_8 0.10007
+wandb:              class_9 0.10053
+wandb:         dataset_size 40000
+wandb:    end_test_accuracy 0.84743
+wandb:        end_test_loss 0.46515
+wandb:   end_train_accuracy 0.8669
+wandb:       end_train_loss 0.68264
+wandb:     end_val_accuracy 0.85032
+wandb:         end_val_loss 0.45031
+wandb:                epoch 83
+wandb:               loss_0 1.64794
+wandb:               loss_1 2.66655
+wandb:              loss_10 1.07688
+wandb:              loss_11 0.8925
+wandb:              loss_12 0.79702
+wandb:              loss_13 0.68264
+wandb:               loss_2 1.68045
+wandb:               loss_3 1.64927
+wandb:               loss_4 1.65115
+wandb:               loss_5 1.52471
+wandb:               loss_6 1.39185
+wandb:               loss_7 1.22948
+wandb:               loss_8 1.12988
+wandb:               loss_9 1.16382
+wandb:                 lr_0 0.001
+wandb:                 lr_1 0.001
+wandb:                lr_10 1e-05
+wandb:                lr_11 1e-05
+wandb:                lr_12 1e-05
+wandb:                lr_13 1e-05
+wandb:                 lr_2 0.0001
+wandb:                 lr_3 0.0001
+wandb:                 lr_4 0.0001
+wandb:                 lr_5 0.0001
+wandb:                 lr_6 0.0001
+wandb:                 lr_7 0.0001
+wandb:                 lr_8 1e-05
+wandb:                 lr_9 0.0001
+wandb:       val_accuracy_0 0.23159
+wandb:       val_accuracy_1 0.21009
+wandb:      val_accuracy_10 0.74632
+wandb:      val_accuracy_11 0.80951
+wandb:      val_accuracy_12 0.83838
+wandb:      val_accuracy_13 0.85032
+wandb:       val_accuracy_2 0.34504
+wandb:       val_accuracy_3 0.37649
+wandb:       val_accuracy_4 0.40157
+wandb:       val_accuracy_5 0.43014
+wandb:       val_accuracy_6 0.52408
+wandb:       val_accuracy_7 0.64152
+wandb:       val_accuracy_8 0.69885
+wandb:       val_accuracy_9 0.72184
+wandb:           val_loss_0 3.58758
+wandb:           val_loss_1 2.95667
+wandb:          val_loss_10 0.75993
+wandb:          val_loss_11 0.57329
+wandb:          val_loss_12 0.4837
+wandb:          val_loss_13 0.45031
+wandb:           val_loss_2 2.27416
+wandb:           val_loss_3 2.17514
+wandb:           val_loss_4 1.906
+wandb:           val_loss_5 1.82006
+wandb:           val_loss_6 1.57992
+wandb:           val_loss_7 1.1413
+wandb:           val_loss_8 0.94514
+wandb:           val_loss_9 0.85479
+wandb: 
+wandb: Synced 6 W&B file(s), 28 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Synced cifar10_hu_run2: https://wandb.ai/fanconic/hidden_uncertainty/runs/i2jo62hz
+wandb: Find logs at: ./wandb/run-20220108_073530-i2jo62hz/logs/debug.log
+wandb: 
+wandb: wandb version 0.12.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.7
+wandb: Syncing run cifar10_hu_run3
+wandb:  View project at https://wandb.ai/fanconic/hidden_uncertainty
+wandb:  View run at https://wandb.ai/fanconic/hidden_uncertainty/runs/2jfsh3cq
+wandb: Run data is saved locally in /scratch_net/airfox/fanconic/semproj2/hidden_uncertainty_active_learning/wandb/run-20220108_142750-2jfsh3cq
+wandb: Run `wandb offline` to turn off syncing.
+
+Cuda is available:  True
+Files already downloaded and verified
+Files already downloaded and verified
+2022-01-08 14:28.10 [info     ] Starting training              dataset=100 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+100
+0-th component log probs | Train: 3016.637560034582 | Val: -149086.49769774725
+1-th component log probs | Train: 3015.8683367207664 | Val: -231465.44908133263
+2-th component log probs | Train: 3016.8993074232976 | Val: -141387.32954926734
+3-th component log probs | Train: 3014.821557720617 | Val: -150475.37598770866
+4-th component log probs | Train: 3015.8462890808114 | Val: -109864.9214035761
+5-th component log probs | Train: 3015.7533581921066 | Val: -154024.7300309109
+6-th component log probs | Train: 3018.857208966982 | Val: -155756.71984154897
+7-th component log probs | Train: 3015.7850303759014 | Val: -181947.50878670084
+8-th component log probs | Train: 3015.708425828495 | Val: -126453.42015198954
+9-th component log probs | Train: 3015.4489434634734 | Val: -182044.0426107353
+2022-01-08 14:29.13 [info     ] Training complete              train_loss=1.677473783493042
+2022-01-08 14:29.13 [info     ] Starting evaluating            dataset=10000
+2022-01-08 14:29.15 [info     ] Testing complete               test_loss=2.274245262145996
+{'dataset_size': 100,
+ 'end_test_accuracy': 0.16470938920974731,
+ 'end_test_loss': 2.274245262145996,
+ 'end_train_accuracy': 0.7317708730697632,
+ 'end_train_loss': 1.677473783493042,
+ 'end_val_accuracy': 0.20810110867023468,
+ 'end_val_loss': 4.09561014175415}
+2022-01-08 14:29.15 [info     ] Start Predict                  dataset=39900
+2022-01-08 14:29.53 [info     ] Starting training              dataset=200 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+200
+0-th component log probs | Train: 2955.704891393015 | Val: -84965.65825858228
+1-th component log probs | Train: 2988.5607147005758 | Val: -123894.68828149379
+2-th component log probs | Train: 2984.9596716581245 | Val: -70251.89199794724
+3-th component log probs | Train: 2974.780712185822 | Val: -62285.05868706632
+4-th component log probs | Train: 2999.760805683202 | Val: -77328.80323347825
+5-th component log probs | Train: 2943.923587800868 | Val: -58335.82864924536
+6-th component log probs | Train: 3009.3995955166597 | Val: -59041.7960614704
+7-th component log probs | Train: 2928.250805307216 | Val: -69329.43885418815
+8-th component log probs | Train: 2985.696712368376 | Val: -60270.46671357074
+9-th component log probs | Train: 2958.5087121235238 | Val: -76941.9189299934
+2022-01-08 14:32.43 [info     ] Training complete              train_loss=2.056546211242676
+2022-01-08 14:32.43 [info     ] Starting evaluating            dataset=10000
+2022-01-08 14:32.45 [info     ] Testing complete               test_loss=2.0963056087493896
+{'dataset_size': 200,
+ 'end_test_accuracy': 0.29826831817626953,
+ 'end_test_loss': 2.0963056087493896,
+ 'end_train_accuracy': 0.59765625,
+ 'end_train_loss': 2.056546211242676,
+ 'end_val_accuracy': 0.29548168182373047,
+ 'end_val_loss': 2.1902196407318115}
+2022-01-08 14:32.45 [info     ] Start Predict                  dataset=39800
+2022-01-08 14:33.21 [info     ] Starting training              dataset=400 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+400
+0-th component log probs | Train: 2879.6968164045898 | Val: -36529.656395688486
+1-th component log probs | Train: 2920.6111034487167 | Val: -75611.24987173315
+2-th component log probs | Train: 2954.7695254306714 | Val: -65926.15631774567
+3-th component log probs | Train: 2840.3221208489786 | Val: -57712.48847055597
+4-th component log probs | Train: 2942.1251290245696 | Val: -48314.90374491738
+5-th component log probs | Train: 2836.621708980464 | Val: -45314.09752658128
+6-th component log probs | Train: 2889.324296883573 | Val: -43257.87798885868
+7-th component log probs | Train: 2859.03327409355 | Val: -52062.844735120096
+8-th component log probs | Train: 2925.731195660008 | Val: -40012.74462549759
+9-th component log probs | Train: 2830.4208704618095 | Val: -45300.2663699331
+2022-01-08 14:34.56 [info     ] Training complete              train_loss=2.294025421142578
+2022-01-08 14:34.56 [info     ] Starting evaluating            dataset=10000
+2022-01-08 14:34.58 [info     ] Testing complete               test_loss=2.055462598800659
+{'dataset_size': 400,
+ 'end_test_accuracy': 0.28264331817626953,
+ 'end_test_loss': 2.055462598800659,
+ 'end_train_accuracy': 0.5736607313156128,
+ 'end_train_loss': 2.294025421142578,
+ 'end_val_accuracy': 0.29856687784194946,
+ 'end_val_loss': 2.4853320121765137}
+2022-01-08 14:34.58 [info     ] Start Predict                  dataset=39600
+2022-01-08 14:35.36 [info     ] Starting training              dataset=600 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+600
+0-th component log probs | Train: 2814.024133095079 | Val: -38068.30055412685
+1-th component log probs | Train: 2857.4451277883704 | Val: -61985.34304189228
+2-th component log probs | Train: 2893.835791512163 | Val: -65772.9954677942
+3-th component log probs | Train: 2740.6498157899546 | Val: -41377.159130462074
+4-th component log probs | Train: 2863.352625490887 | Val: -47150.850731734805
+5-th component log probs | Train: 2776.0696263450022 | Val: -46638.710974354435
+6-th component log probs | Train: 2867.2959254334687 | Val: -44269.13695603232
+7-th component log probs | Train: 2733.545592157612 | Val: -45546.68484027357
+8-th component log probs | Train: 2841.4786690761925 | Val: -42056.33968866299
+9-th component log probs | Train: 2721.0257916675428 | Val: -41203.62454638513
+2022-01-08 14:37.23 [info     ] Training complete              train_loss=2.123070240020752
+2022-01-08 14:37.23 [info     ] Starting evaluating            dataset=10000
+2022-01-08 14:37.25 [info     ] Testing complete               test_loss=1.9681861400604248
+{'dataset_size': 600,
+ 'end_test_accuracy': 0.3096138536930084,
+ 'end_test_loss': 1.9681861400604248,
+ 'end_train_accuracy': 0.5765625238418579,
+ 'end_train_loss': 2.123070240020752,
+ 'end_val_accuracy': 0.315585196018219,
+ 'end_val_loss': 2.3108417987823486}
+2022-01-08 14:37.25 [info     ] Start Predict                  dataset=39400
+2022-01-08 14:38.01 [info     ] Starting training              dataset=800 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+800
+0-th component log probs | Train: 2771.8282318689585 | Val: -39432.016677162996
+1-th component log probs | Train: 2778.410330184333 | Val: -47927.60057087354
+2-th component log probs | Train: 2837.300664654953 | Val: -55837.02354925682
+3-th component log probs | Train: 2636.709476620632 | Val: -33858.11107530827
+4-th component log probs | Train: 2833.829745061331 | Val: -45968.74927645086
+5-th component log probs | Train: 2669.5333494836727 | Val: -33767.25632147078
+6-th component log probs | Train: 2800.9535368822603 | Val: -41047.44490182469
+7-th component log probs | Train: 2656.828633468886 | Val: -36280.19614076806
+8-th component log probs | Train: 2774.304759495258 | Val: -33864.84795519468
+9-th component log probs | Train: 2652.0301003400377 | Val: -32525.387770137128
+2022-01-08 14:40.37 [info     ] Training complete              train_loss=1.6873095035552979
+2022-01-08 14:40.37 [info     ] Starting evaluating            dataset=10000
+2022-01-08 14:40.39 [info     ] Testing complete               test_loss=1.8075153827667236
+{'dataset_size': 800,
+ 'end_test_accuracy': 0.38286226987838745,
+ 'end_test_loss': 1.8075153827667236,
+ 'end_train_accuracy': 0.6862980723381042,
+ 'end_train_loss': 1.6873095035552979,
+ 'end_val_accuracy': 0.40057721734046936,
+ 'end_val_loss': 1.908776879310608}
+2022-01-08 14:40.39 [info     ] Start Predict                  dataset=39200
+2022-01-08 14:41.15 [info     ] Starting training              dataset=1000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+1000
+0-th component log probs | Train: 2666.5247114959257 | Val: -26245.002330747953
+1-th component log probs | Train: 2692.2278929838585 | Val: -29428.774774851317
+2-th component log probs | Train: 2760.6049441671357 | Val: -41456.58207668576
+3-th component log probs | Train: 2552.132561752404 | Val: -26930.82466453048
+4-th component log probs | Train: 2771.971406061689 | Val: -31690.601596312812
+5-th component log probs | Train: 2617.1292101934173 | Val: -26677.615657406393
+6-th component log probs | Train: 2760.6231163633893 | Val: -26388.476611232505
+7-th component log probs | Train: 2629.1744110582963 | Val: -20154.494729631624
+8-th component log probs | Train: 2722.3876473403075 | Val: -26328.47142709822
+9-th component log probs | Train: 2611.662468070886 | Val: -21875.716162852463
+2022-01-08 14:43.35 [info     ] Training complete              train_loss=2.0487937927246094
+2022-01-08 14:43.35 [info     ] Starting evaluating            dataset=10000
+2022-01-08 14:43.37 [info     ] Testing complete               test_loss=1.8231256008148193
+{'dataset_size': 1000,
+ 'end_test_accuracy': 0.35798168182373047,
+ 'end_test_loss': 1.8231256008148193,
+ 'end_train_accuracy': 0.5472656488418579,
+ 'end_train_loss': 2.0487937927246094,
+ 'end_val_accuracy': 0.3855493664741516,
+ 'end_val_loss': 2.0259287357330322}
+2022-01-08 14:43.37 [info     ] Start Predict                  dataset=39000
+2022-01-08 14:44.12 [info     ] Starting training              dataset=2000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+2000
+0-th component log probs | Train: 2352.232511624779 | Val: -17987.867980450912
+1-th component log probs | Train: 2589.45173800846 | Val: -23812.669172596463
+2-th component log probs | Train: 2327.571512967553 | Val: -22364.150522447137
+3-th component log probs | Train: 2083.9961576405976 | Val: -12845.09481392835
+4-th component log probs | Train: 2485.6821315255543 | Val: -25478.870111839613
+5-th component log probs | Train: 2213.385972318751 | Val: -15914.652913147605
+6-th component log probs | Train: 2431.209973023366 | Val: -22073.093607026334
+7-th component log probs | Train: 2415.720354480151 | Val: -21503.708430060888
+8-th component log probs | Train: 2462.8848515496898 | Val: -17451.072832792586
+9-th component log probs | Train: 2492.989080590696 | Val: -21554.11482924268
+2022-01-08 14:50.37 [info     ] Training complete              train_loss=1.4133039712905884
+2022-01-08 14:50.37 [info     ] Starting evaluating            dataset=10000
+2022-01-08 14:50.38 [info     ] Testing complete               test_loss=1.475822925567627
+{'dataset_size': 2000,
+ 'end_test_accuracy': 0.5046775341033936,
+ 'end_test_loss': 1.475822925567627,
+ 'end_train_accuracy': 0.69677734375,
+ 'end_train_loss': 1.4133039712905884,
+ 'end_val_accuracy': 0.5077627301216125,
+ 'end_val_loss': 1.577938199043274}
+2022-01-08 14:50.39 [info     ] Start Predict                  dataset=38000
+2022-01-08 14:51.16 [info     ] Starting training              dataset=4000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+4000
+0-th component log probs | Train: 1899.0077210959694 | Val: -4121.742073901891
+1-th component log probs | Train: 1904.2099024924958 | Val: -869.6924365504191
+2-th component log probs | Train: 1908.2067129056481 | Val: -5406.246574309396
+3-th component log probs | Train: 1839.493274620994 | Val: -4189.678918180758
+4-th component log probs | Train: 1957.6915998240204 | Val: -7553.552282378258
+5-th component log probs | Train: 1974.7352822235998 | Val: -5529.156944307912
+6-th component log probs | Train: 2044.0610356395307 | Val: -6803.93721026987
+7-th component log probs | Train: 1992.9796227683782 | Val: -7271.950976936866
+8-th component log probs | Train: 2025.1100968979285 | Val: -5575.29005837224
+9-th component log probs | Train: 1895.3491693579363 | Val: -3212.014138698563
+2022-01-08 15:02.13 [info     ] Training complete              train_loss=1.2046087980270386
+2022-01-08 15:02.13 [info     ] Starting evaluating            dataset=10000
+2022-01-08 15:02.15 [info     ] Testing complete               test_loss=1.095170259475708
+{'dataset_size': 4000,
+ 'end_test_accuracy': 0.6162420511245728,
+ 'end_test_loss': 1.095170259475708,
+ 'end_train_accuracy': 0.7385912537574768,
+ 'end_train_loss': 1.2046087980270386,
+ 'end_val_accuracy': 0.6335589289665222,
+ 'end_val_loss': 1.1559855937957764}
+2022-01-08 15:02.15 [info     ] Start Predict                  dataset=36000
+2022-01-08 15:02.50 [info     ] Starting training              dataset=6000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+6000
+0-th component log probs | Train: 1686.6207337189026 | Val: 567.5241055769006
+1-th component log probs | Train: 1873.0040126173371 | Val: -134.1087546303925
+2-th component log probs | Train: 1679.5929813121634 | Val: 499.5342080897775
+3-th component log probs | Train: 1609.5917588399536 | Val: 711.7667271098186
+4-th component log probs | Train: 1667.2675036117153 | Val: 875.7124890197869
+5-th component log probs | Train: 1709.1058542034318 | Val: 111.2899191246759
+6-th component log probs | Train: 1765.4310788432435 | Val: 208.55143685931583
+7-th component log probs | Train: 1677.3508764242504 | Val: 638.1926691888978
+8-th component log probs | Train: 1802.0223331513919 | Val: 209.89570705593755
+9-th component log probs | Train: 1721.864953214971 | Val: 163.9653597639508
+2022-01-08 15:19.27 [info     ] Training complete              train_loss=1.1397439241409302
+2022-01-08 15:19.27 [info     ] Starting evaluating            dataset=10000
+2022-01-08 15:19.29 [info     ] Testing complete               test_loss=0.9250055551528931
+{'dataset_size': 6000,
+ 'end_test_accuracy': 0.6829219460487366,
+ 'end_test_loss': 0.9250055551528931,
+ 'end_train_accuracy': 0.7530474662780762,
+ 'end_train_loss': 1.1397439241409302,
+ 'end_val_accuracy': 0.6979498267173767,
+ 'end_val_loss': 0.9361203908920288}
+2022-01-08 15:19.29 [info     ] Start Predict                  dataset=34000
+2022-01-08 15:20.04 [info     ] Starting training              dataset=8000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+8000
+0-th component log probs | Train: 1615.1083084290153 | Val: 1254.6302694426056
+1-th component log probs | Train: 1675.9685297861745 | Val: 1362.7983275204697
+2-th component log probs | Train: 1613.2939929801937 | Val: 1014.4484170334104
+3-th component log probs | Train: 1561.251649460669 | Val: 1118.874617557389
+4-th component log probs | Train: 1644.1055737363079 | Val: 1097.3611113549491
+5-th component log probs | Train: 1646.8656454659147 | Val: 888.6008519938397
+6-th component log probs | Train: 1683.6367389504242 | Val: 1104.4530989101158
+7-th component log probs | Train: 1638.5581396702628 | Val: 1114.1401202192312
+8-th component log probs | Train: 1648.2953937698853 | Val: 1221.9154870844302
+9-th component log probs | Train: 1602.3083489662042 | Val: 1317.77240206048
+2022-01-08 15:39.22 [info     ] Training complete              train_loss=1.149009346961975
+2022-01-08 15:39.22 [info     ] Starting evaluating            dataset=10000
+2022-01-08 15:39.24 [info     ] Testing complete               test_loss=0.8297008275985718
+{'dataset_size': 8000,
+ 'end_test_accuracy': 0.7141719460487366,
+ 'end_test_loss': 0.8297008275985718,
+ 'end_train_accuracy': 0.7505000233650208,
+ 'end_train_loss': 1.149009346961975,
+ 'end_val_accuracy': 0.7231289744377136,
+ 'end_val_loss': 0.8416661620140076}
+2022-01-08 15:39.24 [info     ] Start Predict                  dataset=32000
+2022-01-08 15:39.58 [info     ] Starting training              dataset=10000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+10000
+0-th component log probs | Train: 1554.0340574616196 | Val: 1353.6395267233518
+1-th component log probs | Train: 1609.6026898685902 | Val: 1406.472510057463
+2-th component log probs | Train: 1536.1511607357404 | Val: 1273.615883576015
+3-th component log probs | Train: 1497.2992623773293 | Val: 1319.3087840153319
+4-th component log probs | Train: 1574.1982845841724 | Val: 1307.2546121992254
+5-th component log probs | Train: 1564.7396236082704 | Val: 1255.485325040136
+6-th component log probs | Train: 1609.3290893687954 | Val: 1338.6043022079841
+7-th component log probs | Train: 1570.6763292483852 | Val: 1272.4715847482528
+8-th component log probs | Train: 1659.3013774535984 | Val: 1456.4460451804005
+9-th component log probs | Train: 1576.744087946808 | Val: 1379.7813659428343
+2022-01-08 16:12.30 [info     ] Training complete              train_loss=1.0564323663711548
+2022-01-08 16:12.30 [info     ] Starting evaluating            dataset=10000
+2022-01-08 16:12.31 [info     ] Testing complete               test_loss=0.7470953464508057
+{'dataset_size': 10000,
+ 'end_test_accuracy': 0.7482085824012756,
+ 'end_test_loss': 0.7470953464508057,
+ 'end_train_accuracy': 0.7713972926139832,
+ 'end_train_loss': 1.0564323663711548,
+ 'end_val_accuracy': 0.7505971193313599,
+ 'end_val_loss': 0.760674238204956}
+2022-01-08 16:12.32 [info     ] Start Predict                  dataset=30000
+2022-01-08 16:13.12 [info     ] Starting training              dataset=20000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+20000
+0-th component log probs | Train: 1527.8272611063553 | Val: 1471.5895003924738
+1-th component log probs | Train: 1587.7940170295753 | Val: 1508.7218073810982
+2-th component log probs | Train: 1513.4497223159256 | Val: 1446.7998090387327
+3-th component log probs | Train: 1467.6692506269355 | Val: 1417.055001285233
+4-th component log probs | Train: 1557.592586454551 | Val: 1496.225158643835
+5-th component log probs | Train: 1517.708211877548 | Val: 1459.051881295828
+6-th component log probs | Train: 1567.0636634864811 | Val: 1508.7293178896123
+7-th component log probs | Train: 1544.9168982082456 | Val: 1482.378321432683
+8-th component log probs | Train: 1609.2043749918973 | Val: 1592.160888999042
+9-th component log probs | Train: 1545.8319285626953 | Val: 1493.749628997132
+2022-01-08 17:30.35 [info     ] Training complete              train_loss=0.9316746592521667
+2022-01-08 17:30.35 [info     ] Starting evaluating            dataset=10000
+2022-01-08 17:30.36 [info     ] Testing complete               test_loss=0.5616492629051208
+{'dataset_size': 20000,
+ 'end_test_accuracy': 0.816082775592804,
+ 'end_test_loss': 0.5616492629051208,
+ 'end_train_accuracy': 0.7952775359153748,
+ 'end_train_loss': 0.9316746592521667,
+ 'end_val_accuracy': 0.8205612897872925,
+ 'end_val_loss': 0.5546954870223999}
+2022-01-08 17:30.37 [info     ] Start Predict                  dataset=20000
+2022-01-08 17:31.13 [info     ] Starting training              dataset=30000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+30000
+0-th component log probs | Train: 1603.8023810443428 | Val: 1551.6443117448596
+1-th component log probs | Train: 1648.0133544652947 | Val: 1571.9507591918837
+2-th component log probs | Train: 1567.5501918920015 | Val: 1509.159275446251
+3-th component log probs | Train: 1534.2513360195226 | Val: 1486.706422999314
+4-th component log probs | Train: 1609.0771133192638 | Val: 1580.470474638982
+5-th component log probs | Train: 1560.9323742385404 | Val: 1529.4859506466419
+6-th component log probs | Train: 1635.6074179758116 | Val: 1592.1598670545097
+7-th component log probs | Train: 1593.5854536797024 | Val: 1546.3910408146787
+8-th component log probs | Train: 1630.5338837684887 | Val: 1616.3250755292474
+9-th component log probs | Train: 1605.3355866726172 | Val: 1569.4655775361284
+2022-01-08 19:24.15 [info     ] Training complete              train_loss=0.8131987452507019
+2022-01-08 19:24.15 [info     ] Starting evaluating            dataset=10000
+2022-01-08 19:24.17 [info     ] Testing complete               test_loss=0.493899941444397
+{'dataset_size': 30000,
+ 'end_test_accuracy': 0.837082028388977,
+ 'end_test_loss': 0.493899941444397,
+ 'end_train_accuracy': 0.8280583620071411,
+ 'end_train_loss': 0.8131987452507019,
+ 'end_val_accuracy': 0.8451433181762695,
+ 'end_val_loss': 0.4816940128803253}
+2022-01-08 19:24.17 [info     ] Start Predict                  dataset=10000
+2022-01-08 19:24.49 [info     ] Starting training              dataset=40000 epoch=100
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/nn/functional.py:3631: UserWarning: Default upsampling behavior when mode=bilinear is changed to align_corners=False since 0.4.0. Please specify align_corners=True if the old behavior is desired. See the documentation of nn.Upsample for details.
+  warnings.warn(
+40000
+0-th component log probs | Train: 1646.4597474334266 | Val: 1566.8308304585632
+1-th component log probs | Train: 1697.9774828114193 | Val: 1609.3820262156178
+2-th component log probs | Train: 1629.1956876934628 | Val: 1552.346400447484
+3-th component log probs | Train: 1570.1819933146212 | Val: 1535.2365442619664
+4-th component log probs | Train: 1680.4953955846859 | Val: 1620.503637713701
+5-th component log probs | Train: 1621.480556690818 | Val: 1572.9309089116623
+6-th component log probs | Train: 1696.5757173279358 | Val: 1621.2430912338543
+7-th component log probs | Train: 1652.7781212185885 | Val: 1586.3712089023425
+8-th component log probs | Train: 1678.2157540594992 | Val: 1606.8025623440838
+9-th component log probs | Train: 1665.2355931609716 | Val: 1605.6727808354508
+2022-01-08 21:52.39 [info     ] Training complete              train_loss=0.6726645231246948
+2022-01-08 21:52.39 [info     ] Starting evaluating            dataset=10000
+2022-01-08 21:52.41 [info     ] Testing complete               test_loss=0.45930907130241394
+{'dataset_size': 40000,
+ 'end_test_accuracy': 0.847034215927124,
+ 'end_test_loss': 0.45930907130241394,
+ 'end_train_accuracy': 0.870199978351593,
+ 'end_train_loss': 0.6726645231246948,
+ 'end_val_accuracy': 0.8519108295440674,
+ 'end_val_loss': 0.44794589281082153}
+
+wandb: Waiting for W&B process to finish, PID 25757... (success).
+wandb: - 0.55MB of 0.55MB uploaded (0.00MB deduped)wandb: \ 0.55MB of 0.55MB uploaded (0.00MB deduped)wandb: | 0.55MB of 0.55MB uploaded (0.00MB deduped)wandb: / 0.55MB of 0.84MB uploaded (0.00MB deduped)wandb: - 0.55MB of 0.84MB uploaded (0.00MB deduped)wandb: \ 0.83MB of 0.84MB uploaded (0.00MB deduped)wandb: | 0.83MB of 0.84MB uploaded (0.00MB deduped)wandb: / 0.84MB of 0.84MB uploaded (0.00MB deduped)wandb: - 0.84MB of 0.84MB uploaded (0.00MB deduped)wandb: \ 0.84MB of 0.84MB uploaded (0.00MB deduped)wandb: | 0.84MB of 0.84MB uploaded (0.00MB deduped)wandb: / 0.84MB of 0.84MB uploaded (0.00MB deduped)wandb: - 0.84MB of 0.84MB uploaded (0.00MB deduped)wandb: \ 0.84MB of 0.84MB uploaded (0.00MB deduped)wandb:                                                                                
+wandb: Run history:
+wandb:           accuracy_0 ▁▃▂▂▃▃▄▃▄▅▄▆▅▅▆▇▆▇▇▇▇██
+wandb:           accuracy_1 ▁▃▂▃▄▂▄▄▄▅▆▅▅▅▇▅▅▅▄▇▆█▇▇▆▆▆▇▇▇▇█▇▇▇▇████
+wandb:          accuracy_10 ▁▂▂▃▃▃▄▄▄▅▅▅▅▆▆▆▇▇▇▇▇▇▇▇▇▇██████████████
+wandb:          accuracy_11 ▁▂▃▄▄▄▅▅▅▆▆▆▆▇▇▇▇▇▇▇████████████████████
+wandb:          accuracy_12 ▁▃▃▄▅▅▅▆▆▆▆▆▆▇▇▇▇▇▇█████████████████████
+wandb:          accuracy_13 ▁▃▄▅▅▆▆▆▆▆▆▆▇▇▇▇▇███████████████████████
+wandb:           accuracy_2 ▁▂▂▂▄▄▄▄▄▅▅▅▅▅▆▆▆▆▆▆▇▇▇▇████
+wandb:           accuracy_3 ▁▂▂▃▃▃▄▅▅▅▅▅▆▆▆▆▇▇▆▇▆▇██████
+wandb:           accuracy_4 ▁▂▂▂▃▃▃▄▄▄▄▅▅▄▅▅▅▅▅▆▆▆▆▆▆▆▆▆▆▆▇▇▇████
+wandb:           accuracy_5 ▁▂▃▃▄▄▅▄▅▅▅▆▆▆▆▆▇▇▇▇▇▇▇▇▇█████
+wandb:           accuracy_6 ▁▂▂▃▃▃▄▄▄▄▄▄▅▅▅▅▆▅▅▆▆▆▆▇▇▇▇▇▇▇▇▇████████
+wandb:           accuracy_7 ▁▂▂▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▇▇▇▇▇▇▇███████████
+wandb:           accuracy_8 ▁▂▂▃▃▃▃▄▄▄▄▄▅▅▅▅▅▆▅▆▇▇▇▇▇▇▇▇▇▇▇█████████
+wandb:           accuracy_9 ▁▂▂▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇▇███████████
+wandb:              class_0 ▄█▆▄▁▄▆▅▄▄▄▆▆▅
+wandb:              class_1 ▅▃▂▃▄▄▁█▄█▆▃▃▅
+wandb:              class_2 ▇▅▁▂▂▃█▇▇▆▆██▇
+wandb:              class_3 ▂▁▅▅▆▆█▂▂▁▃▄▅▂
+wandb:              class_4 ▆▂▁▂▁▂▃▄█▅▅▅▅▆
+wandb:              class_5 ▃█▇▅▇▆█▃▃▁▂▄▅▃
+wandb:              class_6 █▁█▄▄▃▆▆▇▆▇▇▆█
+wandb:              class_7 ▂█▄▆▆▅▁▁▃▂▂▂▂▂
+wandb:              class_8 █▄▁▄▄▄▄▅▅█▇▆▃█
+wandb:              class_9 ▃▅▇█▇▆▁▄▂▅▄▂▃▃
+wandb:         dataset_size ▁▁▁▁▁▁▁▂▂▂▃▄▆█
+wandb:    end_test_accuracy ▁▂▂▂▃▃▄▆▆▇▇███
+wandb:        end_test_loss █▇▇▇▆▆▅▃▃▂▂▁▁▁
+wandb:   end_train_accuracy ▅▂▂▂▄▁▄▅▅▅▆▆▇█
+wandb:       end_train_loss ▅▇█▇▅▇▄▃▃▃▃▂▂▁
+wandb:     end_val_accuracy ▁▂▂▂▃▃▄▆▆▇▇███
+wandb:         end_val_loss █▄▅▅▄▄▃▂▂▂▂▁▁▁
+wandb:                epoch ▂▁▃▄▁▃▂▁▃▂▁▂▄▁▃▄▂▃▅▁▃▅▂▃▅▆▂▄▆▇▁▂▄▅▇▁▃▄▆█
+wandb:               loss_0 █▆▆▅▆▅▅▄▄▄▃▃▃▃▂▂▂▂▂▂▂▁▁
+wandb:               loss_1 █▆▆▅▅▅▅▄▄▃▃▃▃▃▃▃▃▃▃▃▃▁▂▂▂▂▂▃▂▂▂▁▂▂▁▂▁▁▁▁
+wandb:              loss_10 █▇▆▅▅▅▄▄▄▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_11 █▆▅▅▄▄▄▃▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_12 █▆▅▄▄▄▃▃▃▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_13 █▅▅▄▄▃▃▃▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_2 █▇▇▆▅▅▄▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▁▁▁▁
+wandb:               loss_3 █▇▆▅▅▄▄▄▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▁▁▁▁▁
+wandb:               loss_4 █▇▆▆▅▅▅▄▄▄▄▄▄▄▃▃▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁
+wandb:               loss_5 █▇▆▅▅▄▄▄▄▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁
+wandb:               loss_6 █▆▆▅▅▅▄▄▄▄▄▃▃▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_7 █▇▆▅▅▅▅▄▄▄▄▄▄▃▃▃▃▃▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_8 █▇▆▅▅▅▅▄▄▄▄▄▄▃▃▃▃▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_9 █▇▆▅▅▅▅▅▄▄▄▄▄▃▃▃▃▃▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_0 ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_1 ████████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                lr_10 ████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁
+wandb:                lr_11 ████████████▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_12 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_13 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_2 ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_3 ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_4 █████████████████████████████▁▁▁▁▁▁▁▁
+wandb:                 lr_5 █████████████████████████████▁
+wandb:                 lr_6 █████████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_7 █████████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_8 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                 lr_9 █████████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:       val_accuracy_0 ▁▄▄▃▄▃▄▅▅▄▅▅▅▅▅▅▆▆▇███▇
+wandb:       val_accuracy_1 ▁▁▃▂▄▄▄▅▅▅▅▅▆▅▆▆▇▇▇▇▆▇▇▇▇██████▇▇▇██████
+wandb:      val_accuracy_10 ▁▁▃▃▄▅▅▆▅▆▆▆▆▇▇▇████████████████████████
+wandb:      val_accuracy_11 ▁▃▃▄▅▅▆▆▆▇▇▇▇███████████████████████████
+wandb:      val_accuracy_12 ▁▃▄▄▅▆▆▇▆▇▇▇▇███████████████████████████
+wandb:      val_accuracy_13 ▁▄▅▅▆▆▇▇▇▇▇▇▇███████████████████████████
+wandb:       val_accuracy_2 ▁▃▃▃▄▄▅▆▆▆▆▆▇▇▇█▇▇▇▇▇▆██▇▇█▇
+wandb:       val_accuracy_3 ▁▂▃▄▅▆▅▇▆▆▆▇▆▇▇▆▇█▇█▆█▇▇██▇▇
+wandb:       val_accuracy_4 ▂▁▄▄▄▄▅▅▆▆▆▅▆▇▆▆▇▇▇▇▇▇▆▇▆▇█▇▇▇███████
+wandb:       val_accuracy_5 ▁▃▄▅▅▆▅▆▆▇▇▇▆▆▇▇▇▇██▇█▇▇███▇██
+wandb:       val_accuracy_6 ▁▂▂▄▄▄▄▅▅▅▆▆▆▆▆▆▆▆▆▇▆▆▇▇████████████████
+wandb:       val_accuracy_7 ▁▂▃▃▄▃▄▄▅▅▆▅▅▆▆▆▇▇▆▆▇▇██████████████████
+wandb:       val_accuracy_8 ▁▂▃▂▃▄▄▅▅▅▅▆▆▆▆▆▇▇▆▇████████████████████
+wandb:       val_accuracy_9 ▁▂▃▄▄▄▄▅▅▅▅▆▆▆▆▆▆▇▆▇▇▇██████████████████
+wandb:           val_loss_0 ▁▁▁▁▁▁▁▂▂▂▃▃▄▄▅▆▇█▆▅▄▄▆
+wandb:           val_loss_1 ▂▂▃█▅▄▃▃▂▂▂▂▃▃▂▂▁▁▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_10 ▇█▆▆▅▄▄▃▄▃▄▂▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_11 █▆▆▅▄▄▃▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_12 █▆▅▅▄▃▃▂▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_13 █▅▄▄▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_2 ▂▂█▅▄▃▁▁▂▃▂▂▂▂▂▁▂▃▂▂▃▅▂▁▂▃▂▃
+wandb:           val_loss_3 ▆▆▇▆▄▂▄▁▄▄█▄▇▂▂▄▂▃▄▃▅▃▄▅▄▇▆▆
+wandb:           val_loss_4 ▅█▅▆▄▄▃▃▄▂▂▄▃▂▂▂▁▄▂▂▂▃▃▂▃▃▃▆▄▃▂▁▁▁▁▁▂
+wandb:           val_loss_5 ▆█▄▂▂▂▄▂▃▁▁▁▃▄▂▂▃▃▂▂▂▁▅▂▁▃▃▄▂▃
+wandb:           val_loss_6 █▅▆▃▄▃▃▂▂▃▂▂▂▂▂▃▂▂▂▁▂▃▁▁▁▁▁▁▁▁▁▁▂▁▁▁▂▂▂▂
+wandb:           val_loss_7 █▇▆▅▅▆▄▄▃▄▃▃▄▃▃▃▂▂▂▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂
+wandb:           val_loss_8 ██▅▆▆▅▅▄▄▃▄▃▃▃▃▂▂▂▃▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_9 █▇▆▅▅▅▅▄▄▄▄▃▃▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:           accuracy_0 0.73177
+wandb:           accuracy_1 0.59766
+wandb:          accuracy_10 0.7714
+wandb:          accuracy_11 0.79528
+wandb:          accuracy_12 0.82806
+wandb:          accuracy_13 0.8702
+wandb:           accuracy_2 0.57366
+wandb:           accuracy_3 0.57656
+wandb:           accuracy_4 0.6863
+wandb:           accuracy_5 0.54727
+wandb:           accuracy_6 0.69678
+wandb:           accuracy_7 0.73859
+wandb:           accuracy_8 0.75305
+wandb:           accuracy_9 0.7505
+wandb:              class_0 0.10068
+wandb:              class_1 0.10053
+wandb:              class_2 0.09925
+wandb:              class_3 0.09942
+wandb:              class_4 0.10168
+wandb:              class_5 0.09963
+wandb:              class_6 0.1001
+wandb:              class_7 0.10015
+wandb:              class_8 0.09957
+wandb:              class_9 0.099
+wandb:         dataset_size 40000
+wandb:    end_test_accuracy 0.84703
+wandb:        end_test_loss 0.45931
+wandb:   end_train_accuracy 0.8702
+wandb:       end_train_loss 0.67266
+wandb:     end_val_accuracy 0.85191
+wandb:         end_val_loss 0.44795
+wandb:                epoch 93
+wandb:               loss_0 1.67747
+wandb:               loss_1 2.05655
+wandb:              loss_10 1.05643
+wandb:              loss_11 0.93167
+wandb:              loss_12 0.8132
+wandb:              loss_13 0.67266
+wandb:               loss_2 2.29403
+wandb:               loss_3 2.12307
+wandb:               loss_4 1.68731
+wandb:               loss_5 2.04879
+wandb:               loss_6 1.4133
+wandb:               loss_7 1.20461
+wandb:               loss_8 1.13974
+wandb:               loss_9 1.14901
+wandb:                 lr_0 0.001
+wandb:                 lr_1 1e-05
+wandb:                lr_10 1e-05
+wandb:                lr_11 0.0
+wandb:                lr_12 0.0
+wandb:                lr_13 0.0
+wandb:                 lr_2 0.001
+wandb:                 lr_3 0.001
+wandb:                 lr_4 0.0001
+wandb:                 lr_5 0.0001
+wandb:                 lr_6 0.0001
+wandb:                 lr_7 0.0001
+wandb:                 lr_8 1e-05
+wandb:                 lr_9 0.0001
+wandb:       val_accuracy_0 0.2081
+wandb:       val_accuracy_1 0.29548
+wandb:      val_accuracy_10 0.7506
+wandb:      val_accuracy_11 0.82056
+wandb:      val_accuracy_12 0.84514
+wandb:      val_accuracy_13 0.85191
+wandb:       val_accuracy_2 0.29857
+wandb:       val_accuracy_3 0.31559
+wandb:       val_accuracy_4 0.40058
+wandb:       val_accuracy_5 0.38555
+wandb:       val_accuracy_6 0.50776
+wandb:       val_accuracy_7 0.63356
+wandb:       val_accuracy_8 0.69795
+wandb:       val_accuracy_9 0.72313
+wandb:           val_loss_0 4.09561
+wandb:           val_loss_1 2.19022
+wandb:          val_loss_10 0.76067
+wandb:          val_loss_11 0.5547
+wandb:          val_loss_12 0.48169
+wandb:          val_loss_13 0.44795
+wandb:           val_loss_2 2.48533
+wandb:           val_loss_3 2.31084
+wandb:           val_loss_4 1.90878
+wandb:           val_loss_5 2.02593
+wandb:           val_loss_6 1.57794
+wandb:           val_loss_7 1.15599
+wandb:           val_loss_8 0.93612
+wandb:           val_loss_9 0.84167
+wandb: 
+wandb: Synced 6 W&B file(s), 28 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Synced cifar10_hu_run3: https://wandb.ai/fanconic/hidden_uncertainty/runs/2jfsh3cq
+wandb: Find logs at: ./wandb/run-20220108_142750-2jfsh3cq/logs/debug.log
+wandb: 

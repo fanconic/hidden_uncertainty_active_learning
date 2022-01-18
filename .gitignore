@@ -1,5 +1,5 @@
 # Folder
-experiment_outputs/*
+experiment_outputs/week*
 experiment_configs/week*
 experiment_configs/backup
 wandb.key

@@ -1,0 +1,1655 @@
+fashion_mnist_hu
+wandb: Currently logged in as: eth_dlad_team32 (use `wandb login --relogin` to force relogin)
+wandb: wandb version 0.12.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.7
+wandb: Syncing run fashion_mnist_hu_run1
+wandb:  View project at https://wandb.ai/fanconic/hidden_uncertainty
+wandb:  View run at https://wandb.ai/fanconic/hidden_uncertainty/runs/iqq0eo11
+wandb: Run data is saved locally in /scratch_net/airfox/fanconic/semproj2/hidden_uncertainty_active_learning/wandb/run-20220107_161947-iqq0eo11
+wandb: Run `wandb offline` to turn off syncing.
+
+Cuda is available:  True
+2022-01-07 16:19.59 [info     ] Starting training              dataset=100 epoch=60
+100
+0-th component log probs | Train: 732.7893448159806 | Val: -1601.2294799573654
+1-th component log probs | Train: 738.0208523428713 | Val: -2039.0078296688862
+2-th component log probs | Train: 732.9767682939639 | Val: -3374.4918674882
+3-th component log probs | Train: 732.6306892034243 | Val: -1061.8512982246855
+4-th component log probs | Train: 732.1152982301944 | Val: -2098.780624548297
+5-th component log probs | Train: 728.7069535941034 | Val: -6503.292587842678
+6-th component log probs | Train: 733.4586328613142 | Val: -4443.443646312449
+7-th component log probs | Train: 735.9822016457374 | Val: -149.5967968505549
+8-th component log probs | Train: 732.0470388838421 | Val: -8734.315661568422
+9-th component log probs | Train: 733.577024275378 | Val: -1832.0695593933074
+2022-01-07 16:21.31 [info     ] Training complete              train_loss=0.5408778786659241
+2022-01-07 16:21.31 [info     ] Starting evaluating            dataset=10000
+2022-01-07 16:21.32 [info     ] Testing complete               test_loss=0.908513069152832
+{'dataset_size': 100,
+ 'end_test_accuracy': 0.6658041477203369,
+ 'end_test_loss': 0.908513069152832,
+ 'end_train_accuracy': 0.8663194179534912,
+ 'end_train_loss': 0.5408778786659241,
+ 'end_val_accuracy': 0.6731216907501221,
+ 'end_val_loss': 0.8938019871711731}
+2022-01-07 16:21.32 [info     ] Start Predict                  dataset=47900
+2022-01-07 16:21.53 [info     ] Starting training              dataset=200 epoch=60
+200
+0-th component log probs | Train: 689.1875402087716 | Val: -584.5340554986931
+1-th component log probs | Train: 725.0853300294805 | Val: -1331.704628390144
+2-th component log probs | Train: 723.0294404312552 | Val: -3527.4085102262625
+3-th component log probs | Train: 720.8832823289014 | Val: -1030.4699972847086
+4-th component log probs | Train: 720.3415620020037 | Val: -1157.2510366173435
+5-th component log probs | Train: 653.9121185764615 | Val: -817.227724478915
+6-th component log probs | Train: 725.500872349875 | Val: -3959.580565254715
+7-th component log probs | Train: 727.012992812519 | Val: -621.8556179419863
+8-th component log probs | Train: 657.5818561057998 | Val: 45.91617412848369
+9-th component log probs | Train: 720.4576741532073 | Val: -1370.1478727593021
+2022-01-07 16:23.04 [info     ] Training complete              train_loss=0.4364243149757385
+2022-01-07 16:23.04 [info     ] Starting evaluating            dataset=10000
+2022-01-07 16:23.05 [info     ] Testing complete               test_loss=0.8826786875724792
+{'dataset_size': 200,
+ 'end_test_accuracy': 0.6970541477203369,
+ 'end_test_loss': 0.8826786875724792,
+ 'end_train_accuracy': 0.8828125,
+ 'end_train_loss': 0.4364243149757385,
+ 'end_val_accuracy': 0.698387622833252,
+ 'end_val_loss': 0.876589834690094}
+2022-01-07 16:23.05 [info     ] Start Predict                  dataset=47800
+2022-01-07 16:23.27 [info     ] Starting training              dataset=400 epoch=60
+400
+0-th component log probs | Train: 639.2039680413784 | Val: -175.81644957449652
+1-th component log probs | Train: 693.0792398065446 | Val: -615.5686179347632
+2-th component log probs | Train: 603.955971185059 | Val: 77.24144379766966
+3-th component log probs | Train: 648.3908020957765 | Val: 85.0623724518944
+4-th component log probs | Train: 675.4599852716572 | Val: -280.0142592343562
+5-th component log probs | Train: 632.8866969415675 | Val: -1507.8245105405922
+6-th component log probs | Train: 631.9596754764985 | Val: -187.84696128156486
+7-th component log probs | Train: 717.3870955774197 | Val: -388.93705046245884
+8-th component log probs | Train: 622.6965128865953 | Val: -85.27390362623446
+9-th component log probs | Train: 706.8427978129118 | Val: -1568.0456585970342
+2022-01-07 16:24.56 [info     ] Training complete              train_loss=0.45406532287597656
+2022-01-07 16:24.56 [info     ] Starting evaluating            dataset=10000
+2022-01-07 16:24.57 [info     ] Testing complete               test_loss=0.7969406247138977
+{'dataset_size': 400,
+ 'end_test_accuracy': 0.727707028388977,
+ 'end_test_loss': 0.7969406247138977,
+ 'end_train_accuracy': 0.8861607313156128,
+ 'end_train_loss': 0.45406532287597656,
+ 'end_val_accuracy': 0.726978063583374,
+ 'end_val_loss': 0.8044263124465942}
+2022-01-07 16:24.57 [info     ] Start Predict                  dataset=47600
+2022-01-07 16:25.18 [info     ] Starting training              dataset=600 epoch=60
+600
+0-th component log probs | Train: 613.8956779683566 | Val: -36.62649891052393
+1-th component log probs | Train: 655.0255832450921 | Val: -103.04683416605087
+2-th component log probs | Train: 596.2418216818529 | Val: 21.023150553316384
+3-th component log probs | Train: 632.0531142937738 | Val: 96.8082201602103
+4-th component log probs | Train: 658.5980603797843 | Val: -202.52004729113514
+5-th component log probs | Train: 562.2612769150124 | Val: 445.8018092842248
+6-th component log probs | Train: 627.8678779771817 | Val: -361.5957428045145
+7-th component log probs | Train: 682.6454114813691 | Val: 251.5647338774114
+8-th component log probs | Train: 598.0609118656146 | Val: 75.67569539870814
+9-th component log probs | Train: 665.5461206336608 | Val: 11.069527280361099
+2022-01-07 16:26.19 [info     ] Training complete              train_loss=0.31167662143707275
+2022-01-07 16:26.19 [info     ] Starting evaluating            dataset=10000
+2022-01-07 16:26.20 [info     ] Testing complete               test_loss=0.7245808839797974
+{'dataset_size': 600,
+ 'end_test_accuracy': 0.75,
+ 'end_test_loss': 0.7245808839797974,
+ 'end_train_accuracy': 0.916145920753479,
+ 'end_train_loss': 0.31167662143707275,
+ 'end_val_accuracy': 0.772606372833252,
+ 'end_val_loss': 0.7272688150405884}
+2022-01-07 16:26.20 [info     ] Start Predict                  dataset=47400
+2022-01-07 16:26.41 [info     ] Starting training              dataset=800 epoch=60
+800
+0-th component log probs | Train: 569.7985650942522 | Val: 271.2433669343384
+1-th component log probs | Train: 609.6559867670284 | Val: 362.78082247990386
+2-th component log probs | Train: 558.3105444238458 | Val: 362.8363080179347
+3-th component log probs | Train: 591.6903936869978 | Val: 239.54232345031156
+4-th component log probs | Train: 646.2778519813454 | Val: -261.53169570314134
+5-th component log probs | Train: 561.381517716826 | Val: 437.4089926889877
+6-th component log probs | Train: 573.1637795633983 | Val: 108.76112741359839
+7-th component log probs | Train: 681.3600517360253 | Val: 269.8768678180208
+8-th component log probs | Train: 570.6361741782174 | Val: 301.92987187202215
+9-th component log probs | Train: 656.9649403824124 | Val: 212.55800804709074
+2022-01-07 16:27.54 [info     ] Training complete              train_loss=0.3550439178943634
+2022-01-07 16:27.54 [info     ] Starting evaluating            dataset=10000
+2022-01-07 16:27.55 [info     ] Testing complete               test_loss=0.6560864448547363
+{'dataset_size': 800,
+ 'end_test_accuracy': 0.7679139971733093,
+ 'end_test_loss': 0.6560864448547363,
+ 'end_train_accuracy': 0.9134615659713745,
+ 'end_train_loss': 0.3550439178943634,
+ 'end_val_accuracy': 0.7741023898124695,
+ 'end_val_loss': 0.6563154458999634}
+2022-01-07 16:27.55 [info     ] Start Predict                  dataset=47200
+2022-01-07 16:28.17 [info     ] Starting training              dataset=1000 epoch=60
+1000
+0-th component log probs | Train: 532.5172956992509 | Val: 337.552861231932
+1-th component log probs | Train: 583.603714363735 | Val: 399.483997641269
+2-th component log probs | Train: 534.4029982005529 | Val: 370.96225840413234
+3-th component log probs | Train: 533.1391570820955 | Val: 421.63539415478493
+4-th component log probs | Train: 598.647673377207 | Val: 175.66203891401116
+5-th component log probs | Train: 536.0882971320912 | Val: 422.15167238394514
+6-th component log probs | Train: 533.1984950986684 | Val: 245.40320302818984
+7-th component log probs | Train: 661.4842648340236 | Val: 275.651145633658
+8-th component log probs | Train: 528.0487892405716 | Val: 338.9893577071038
+9-th component log probs | Train: 636.5154148472542 | Val: 110.24598032477755
+2022-01-07 16:29.40 [info     ] Training complete              train_loss=0.3456937074661255
+2022-01-07 16:29.40 [info     ] Starting evaluating            dataset=10000
+2022-01-07 16:29.41 [info     ] Testing complete               test_loss=0.5856768488883972
+{'dataset_size': 1000,
+ 'end_test_accuracy': 0.7936902642250061,
+ 'end_test_loss': 0.5856768488883972,
+ 'end_train_accuracy': 0.915820300579071,
+ 'end_train_loss': 0.3456937074661255,
+ 'end_val_accuracy': 0.7991189956665039,
+ 'end_val_loss': 0.5691786408424377}
+2022-01-07 16:29.41 [info     ] Start Predict                  dataset=47000
+2022-01-07 16:30.03 [info     ] Starting training              dataset=2000 epoch=60
+2000
+0-th component log probs | Train: 484.29701150624396 | Val: 453.65226524122016
+1-th component log probs | Train: 549.7718547602435 | Val: 459.38256501886855
+2-th component log probs | Train: 478.9057756942023 | Val: 470.30974650716246
+3-th component log probs | Train: 489.2459211688967 | Val: 457.914829974275
+4-th component log probs | Train: 512.7401749477131 | Val: 466.1063719226798
+5-th component log probs | Train: 505.6555937336537 | Val: 459.89672925913766
+6-th component log probs | Train: 470.7884744061307 | Val: 449.71558139838794
+7-th component log probs | Train: 590.0474869377246 | Val: 514.4372630834931
+8-th component log probs | Train: 483.38175193122254 | Val: 464.1602348353948
+9-th component log probs | Train: 567.693897275387 | Val: 477.6268916108558
+2022-01-07 16:31.25 [info     ] Training complete              train_loss=0.32478001713752747
+2022-01-07 16:31.25 [info     ] Starting evaluating            dataset=10000
+2022-01-07 16:31.26 [info     ] Testing complete               test_loss=0.5285467505455017
+{'dataset_size': 2000,
+ 'end_test_accuracy': 0.8137937784194946,
+ 'end_test_loss': 0.5285467505455017,
+ 'end_train_accuracy': 0.916015625,
+ 'end_train_loss': 0.32478001713752747,
+ 'end_val_accuracy': 0.8241356611251831,
+ 'end_val_loss': 0.5155220627784729}
+2022-01-07 16:31.26 [info     ] Start Predict                  dataset=46000
+2022-01-07 16:31.48 [info     ] Starting training              dataset=4000 epoch=60
+4000
+0-th component log probs | Train: 460.22408774180525 | Val: 439.37281364545834
+1-th component log probs | Train: 548.7125584217532 | Val: 490.01087933387976
+2-th component log probs | Train: 459.12033824723795 | Val: 431.13462500557273
+3-th component log probs | Train: 466.8235641313678 | Val: 433.86594502182896
+4-th component log probs | Train: 476.289118656946 | Val: 436.1506360292762
+5-th component log probs | Train: 487.061198079572 | Val: 457.2001015169346
+6-th component log probs | Train: 446.7517349763846 | Val: 421.37674088944607
+7-th component log probs | Train: 564.0079913306355 | Val: 495.0125133583235
+8-th component log probs | Train: 464.8559885825088 | Val: 438.8782279706893
+9-th component log probs | Train: 550.42772217985 | Val: 478.90141651839343
+2022-01-07 16:33.13 [info     ] Training complete              train_loss=0.13919474184513092
+2022-01-07 16:33.13 [info     ] Starting evaluating            dataset=10000
+2022-01-07 16:33.14 [info     ] Testing complete               test_loss=0.5065243244171143
+{'dataset_size': 4000,
+ 'end_test_accuracy': 0.8385748267173767,
+ 'end_test_loss': 0.5065243244171143,
+ 'end_train_accuracy': 0.9652777910232544,
+ 'end_train_loss': 0.13919474184513092,
+ 'end_val_accuracy': 0.8421708941459656,
+ 'end_val_loss': 0.4897817373275757}
+2022-01-07 16:33.14 [info     ] Start Predict                  dataset=44000
+2022-01-07 16:33.35 [info     ] Starting training              dataset=6000 epoch=60
+6000
+0-th component log probs | Train: 439.17905162141307 | Val: 442.7488176218981
+1-th component log probs | Train: 537.2765723208908 | Val: 490.12578183296466
+2-th component log probs | Train: 452.07865231356914 | Val: 444.2503588437795
+3-th component log probs | Train: 452.56567107284195 | Val: 440.50981003280003
+4-th component log probs | Train: 464.17265854519525 | Val: 453.45923069275386
+5-th component log probs | Train: 472.8672316368452 | Val: 451.00213909850675
+6-th component log probs | Train: 435.4918396633062 | Val: 424.9924562902693
+7-th component log probs | Train: 549.4173434667164 | Val: 518.4110817182094
+8-th component log probs | Train: 459.8205252910332 | Val: 446.276218414087
+9-th component log probs | Train: 522.3137551797325 | Val: 498.84710000738835
+2022-01-07 16:35.13 [info     ] Training complete              train_loss=0.1927034854888916
+2022-01-07 16:35.14 [info     ] Starting evaluating            dataset=10000
+2022-01-07 16:35.15 [info     ] Testing complete               test_loss=0.45423218607902527
+{'dataset_size': 6000,
+ 'end_test_accuracy': 0.8479299545288086,
+ 'end_test_loss': 0.45423218607902527,
+ 'end_train_accuracy': 0.9452016949653625,
+ 'end_train_loss': 0.1927034854888916,
+ 'end_val_accuracy': 0.854637622833252,
+ 'end_val_loss': 0.4324094355106354}
+2022-01-07 16:35.15 [info     ] Start Predict                  dataset=42000
+2022-01-07 16:35.36 [info     ] Starting training              dataset=8000 epoch=60
+8000
+0-th component log probs | Train: 419.53230542645616 | Val: 418.1077952784414
+1-th component log probs | Train: 524.7515340313494 | Val: 481.5328869430797
+2-th component log probs | Train: 435.4798092805547 | Val: 422.7672384326654
+3-th component log probs | Train: 434.3460557399169 | Val: 423.2282201806732
+4-th component log probs | Train: 449.8274544507972 | Val: 437.25942622512554
+5-th component log probs | Train: 449.13317011370503 | Val: 433.3499274547322
+6-th component log probs | Train: 420.3539759447685 | Val: 397.6747757495428
+7-th component log probs | Train: 506.70035971228936 | Val: 485.4993566997699
+8-th component log probs | Train: 435.02618779590296 | Val: 424.20282467183705
+9-th component log probs | Train: 511.60381576316564 | Val: 487.77095462034555
+2022-01-07 16:37.26 [info     ] Training complete              train_loss=0.17699149250984192
+2022-01-07 16:37.26 [info     ] Starting evaluating            dataset=10000
+2022-01-07 16:37.27 [info     ] Testing complete               test_loss=0.44862765073776245
+{'dataset_size': 8000,
+ 'end_test_accuracy': 0.8498208522796631,
+ 'end_test_loss': 0.44862765073776245,
+ 'end_train_accuracy': 0.9509999752044678,
+ 'end_train_loss': 0.17699149250984192,
+ 'end_val_accuracy': 0.8633643388748169,
+ 'end_val_loss': 0.41823118925094604}
+2022-01-07 16:37.27 [info     ] Start Predict                  dataset=40000
+2022-01-07 16:37.49 [info     ] Starting training              dataset=10000 epoch=60
+10000
+0-th component log probs | Train: 426.69746914616104 | Val: 427.4044436050093
+1-th component log probs | Train: 499.76303331281696 | Val: 489.947656945606
+2-th component log probs | Train: 443.90448910282544 | Val: 435.15330492891235
+3-th component log probs | Train: 423.7222578630693 | Val: 427.78488800338806
+4-th component log probs | Train: 446.99196801806033 | Val: 440.8420599587211
+5-th component log probs | Train: 436.6742929483524 | Val: 434.62266776833684
+6-th component log probs | Train: 422.9701864872935 | Val: 407.8751742357599
+7-th component log probs | Train: 494.4758090306394 | Val: 487.5335497155075
+8-th component log probs | Train: 437.94426520872275 | Val: 431.8339568135698
+9-th component log probs | Train: 506.10272133193865 | Val: 483.0548328749351
+2022-01-07 16:39.54 [info     ] Training complete              train_loss=0.17042596638202667
+2022-01-07 16:39.54 [info     ] Starting evaluating            dataset=10000
+2022-01-07 16:39.55 [info     ] Testing complete               test_loss=0.4220375120639801
+{'dataset_size': 10000,
+ 'end_test_accuracy': 0.8586783409118652,
+ 'end_test_loss': 0.4220375120639801,
+ 'end_train_accuracy': 0.9528264403343201,
+ 'end_train_loss': 0.17042596638202667,
+ 'end_val_accuracy': 0.8683510422706604,
+ 'end_val_loss': 0.3986991047859192}
+2022-01-07 16:39.55 [info     ] Start Predict                  dataset=38000
+2022-01-07 16:40.20 [info     ] Starting training              dataset=20000 epoch=60
+20000
+0-th component log probs | Train: 392.67702020864465 | Val: 407.7128775478509
+1-th component log probs | Train: 482.85159985633146 | Val: 465.00465112886616
+2-th component log probs | Train: 406.12169560153154 | Val: 406.3822001503574
+3-th component log probs | Train: 402.1405545591325 | Val: 407.66083409816054
+4-th component log probs | Train: 418.4984491102001 | Val: 417.006522705886
+5-th component log probs | Train: 412.63938184769586 | Val: 415.0767342820101
+6-th component log probs | Train: 387.03347068816583 | Val: 386.88669157156295
+7-th component log probs | Train: 481.91765810121984 | Val: 464.2772052555123
+8-th component log probs | Train: 406.9046639723084 | Val: 405.8230908308894
+9-th component log probs | Train: 478.8204993001246 | Val: 474.9442002609683
+2022-01-07 16:43.44 [info     ] Training complete              train_loss=0.14168718457221985
+2022-01-07 16:43.44 [info     ] Starting evaluating            dataset=10000
+2022-01-07 16:43.45 [info     ] Testing complete               test_loss=0.36973822116851807
+{'dataset_size': 20000,
+ 'end_test_accuracy': 0.8760947585105896,
+ 'end_test_loss': 0.36973822116851807,
+ 'end_train_accuracy': 0.9603134989738464,
+ 'end_train_loss': 0.14168718457221985,
+ 'end_val_accuracy': 0.8876329660415649,
+ 'end_val_loss': 0.35107913613319397}
+2022-01-07 16:43.45 [info     ] Start Predict                  dataset=28000
+2022-01-07 16:44.10 [info     ] Starting training              dataset=30000 epoch=60
+30000
+0-th component log probs | Train: 380.09470961979565 | Val: 392.176276136169
+1-th component log probs | Train: 464.8044911190974 | Val: 447.4425897155984
+2-th component log probs | Train: 382.9567557108959 | Val: 381.958825997277
+3-th component log probs | Train: 381.8875129050618 | Val: 388.10139636364494
+4-th component log probs | Train: 397.0320934729533 | Val: 392.08062354068556
+5-th component log probs | Train: 404.34653905869015 | Val: 396.31549945200794
+6-th component log probs | Train: 364.52062866408744 | Val: 365.6121520251396
+7-th component log probs | Train: 453.42198733312784 | Val: 442.7187815421489
+8-th component log probs | Train: 402.4807372566411 | Val: 387.10422632515815
+9-th component log probs | Train: 480.0226806428412 | Val: 458.5285624142184
+2022-01-07 16:48.39 [info     ] Training complete              train_loss=0.13605602085590363
+2022-01-07 16:48.39 [info     ] Starting evaluating            dataset=10000
+2022-01-07 16:48.40 [info     ] Testing complete               test_loss=0.35648074746131897
+{'dataset_size': 30000,
+ 'end_test_accuracy': 0.8823646306991577,
+ 'end_test_loss': 0.35648074746131897,
+ 'end_train_accuracy': 0.9616315364837646,
+ 'end_train_loss': 0.13605602085590363,
+ 'end_val_accuracy': 0.891040563583374,
+ 'end_val_loss': 0.3292105197906494}
+2022-01-07 16:48.40 [info     ] Start Predict                  dataset=18000
+2022-01-07 16:49.01 [info     ] Starting training              dataset=40000 epoch=60
+40000
+0-th component log probs | Train: 373.67515903766343 | Val: 376.86762009533544
+1-th component log probs | Train: 471.0116929165024 | Val: 453.50165116793426
+2-th component log probs | Train: 377.0911066423285 | Val: 365.4949551832555
+3-th component log probs | Train: 382.9675483121128 | Val: 369.43604554360746
+4-th component log probs | Train: 383.7047133892868 | Val: 375.68464998065207
+5-th component log probs | Train: 393.83646572316303 | Val: 386.36271371654817
+6-th component log probs | Train: 352.1818176494002 | Val: 347.48787202658696
+7-th component log probs | Train: 454.3452319812477 | Val: 445.95688417558637
+8-th component log probs | Train: 392.9281434834257 | Val: 372.7186578828234
+9-th component log probs | Train: 482.7001290027851 | Val: 450.30873631811505
+2022-01-07 16:54.16 [info     ] Training complete              train_loss=0.15650010108947754
+2022-01-07 16:54.16 [info     ] Starting evaluating            dataset=10000
+2022-01-07 16:54.17 [info     ] Testing complete               test_loss=0.32647186517715454
+{'dataset_size': 40000,
+ 'end_test_accuracy': 0.8892316818237305,
+ 'end_test_loss': 0.32647186517715454,
+ 'end_train_accuracy': 0.9540249705314636,
+ 'end_train_loss': 0.15650010108947754,
+ 'end_val_accuracy': 0.9013463854789734,
+ 'end_val_loss': 0.3048892915248871}
+2022-01-07 16:54.17 [info     ] Start Predict                  dataset=8000
+2022-01-07 16:54.33 [info     ] Starting training              dataset=48000 epoch=60
+48000
+0-th component log probs | Train: 382.62384089814526 | Val: 370.3562785809742
+1-th component log probs | Train: 456.32156245432196 | Val: 442.9156068900361
+2-th component log probs | Train: 367.3710347521131 | Val: 347.8705932481241
+3-th component log probs | Train: 375.22015436564334 | Val: 357.7574506627741
+4-th component log probs | Train: 373.5636567615731 | Val: 358.25779786834084
+5-th component log probs | Train: 385.10049838472844 | Val: 376.039972988314
+6-th component log probs | Train: 351.9386597235589 | Val: 335.1307069218634
+7-th component log probs | Train: 452.4646346496274 | Val: 443.68748439307285
+8-th component log probs | Train: 384.56598699443447 | Val: 357.98625591408245
+9-th component log probs | Train: 468.1281218834493 | Val: 445.84320753236966
+2022-01-07 17:00.16 [info     ] Training complete              train_loss=0.16588999330997467
+2022-01-07 17:00.16 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:00.17 [info     ] Testing complete               test_loss=0.3185080289840698
+{'dataset_size': 48000,
+ 'end_test_accuracy': 0.8923168778419495,
+ 'end_test_loss': 0.3185080289840698,
+ 'end_train_accuracy': 0.9489791393280029,
+ 'end_train_loss': 0.16588999330997467,
+ 'end_val_accuracy': 0.9020112752914429,
+ 'end_val_loss': 0.2909276783466339}
+
+wandb: Waiting for W&B process to finish, PID 31063... (success).
+wandb: - 0.58MB of 0.58MB uploaded (0.00MB deduped)wandb: \ 0.58MB of 0.58MB uploaded (0.00MB deduped)wandb: | 0.58MB of 0.58MB uploaded (0.00MB deduped)wandb: / 0.58MB of 0.65MB uploaded (0.00MB deduped)wandb: - 0.58MB of 0.65MB uploaded (0.00MB deduped)wandb: \ 0.64MB of 0.65MB uploaded (0.00MB deduped)wandb: | 0.65MB of 0.65MB uploaded (0.00MB deduped)wandb: / 0.65MB of 0.65MB uploaded (0.00MB deduped)wandb: - 0.65MB of 0.65MB uploaded (0.00MB deduped)wandb: \ 0.65MB of 0.65MB uploaded (0.00MB deduped)wandb: | 0.65MB of 0.65MB uploaded (0.00MB deduped)wandb: / 0.65MB of 0.65MB uploaded (0.00MB deduped)wandb:                                                                                
+wandb: Run history:
+wandb:           accuracy_0 ▁▃▅▅▅▅▆▆▇▇▇▇▇▇█▇██▇▇▇██▇█▇▇▇██▇██▇██████
+wandb:           accuracy_1 ▁▂▂▁▃▃▄▆▆▆▆▇▆▇▇▇▇▇▇▇▇████▇█▇▇█▇█▇▇██▆▇██
+wandb:          accuracy_10 ▁▄▄▅▅▅▅▆▆▆▆▆▆▆▇▇▇▇▇▇████████████████████
+wandb:          accuracy_11 ▁▄▄▅▅▅▅▆▆▆▆▆▆▆▆▇▇▇▇▇▇███████████████████
+wandb:          accuracy_12 ▁▄▄▅▅▅▅▆▆▆▆▆▆▆▆▆▇▇▇▇▇███████████████████
+wandb:          accuracy_13 ▁▄▄▅▅▅▅▅▆▆▆▆▆▆▆▆▆▆▇▇▇▇▇█████████████████
+wandb:          accuracy_14 ▁▄▄▅▅▅▅▅▆▆▆▆▆▆▆▆▆▆▆▇▇▇▇▇████████████████
+wandb:           accuracy_2 ▁▂▃▄▅▅▅▆▆▆▇▇▇█▇▇▇██████▇████████████████
+wandb:           accuracy_3 ▁▃▅▅▅▆▆▆▆▆▆▇▇▇▇▇▇█▇▇▇████████████████
+wandb:           accuracy_4 ▁▃▄▅▅▆▆▆▆▆▆▇▇▇▇▇▇▇█▇████████████████████
+wandb:           accuracy_5 ▁▃▄▅▅▆▆▆▆▇▇▇▇▇▇▇▇███████████████████████
+wandb:           accuracy_6 ▁▃▄▅▅▅▆▆▆▆▆▇▇▇▇▇▇▇██████████████████████
+wandb:           accuracy_7 ▁▃▄▅▅▆▆▆▆▆▆▇▇▇▇▇▇▇▇▇████████████████████
+wandb:           accuracy_8 ▁▄▄▅▅▅▆▆▆▆▆▆▇▇▇▇▇▇▇▇▇███████████████████
+wandb:           accuracy_9 ▁▄▄▅▅▅▆▆▆▆▆▆▆▇▇▇▇▇▇▇████████████████████
+wandb:              class_0 ▇█▇▆▆▇▆▂▂▁▁▁▁▃▆
+wandb:              class_1 ▂▁▁▁▂▂▁█▅▄▄▄▃▂▂
+wandb:              class_2 ▃▁█▅▅▄▅▂▄▂▂▁▁▃▃
+wandb:              class_3 ▆▃▇▅▅█▅▃▂▁▂▃▃▆▆
+wandb:              class_4 █▃▄▂▁▃█▂▄▂▁▅▃▆█
+wandb:              class_5 ▃▆▃█▆▅▃▂▁▂▂▁▃▃▃
+wandb:              class_6 ▅▁█▄▅▅▇▂▆▄▃▂▁▃▅
+wandb:              class_7 ▄▂▁▂▁▁▂▁▂▅▆█▆▅▄
+wandb:              class_8 ▁█▄▂▃▃▄▁▄▂▂▁▂▂▁
+wandb:              class_9 ▅▂▁▂▁▁▂▁▁▆█▅█▆▅
+wandb:         dataset_size ▁▁▁▁▁▁▁▂▂▂▂▄▅▇█
+wandb:    end_test_accuracy ▁▂▃▄▄▅▆▆▇▇▇▇███
+wandb:        end_test_loss ██▇▆▅▄▃▃▃▃▂▂▁▁▁
+wandb:   end_train_accuracy ▁▂▂▅▄▅▅█▇▇▇██▇▇
+wandb:       end_train_loss █▆▆▄▅▅▄▁▂▂▂▁▁▁▂
+wandb:     end_val_accuracy ▁▂▃▄▄▅▆▆▇▇▇████
+wandb:         end_val_loss ██▇▆▅▄▄▃▃▂▂▂▁▁▁
+wandb:                epoch ▂▄▆█▂▄▆▂▅▇▂▄▂▄▆▂▄▆▂▄▁▃▅▂▄▁▃▅▂▄▂▄▆▃▅▂▄▆▂▅
+wandb:               loss_0 ██▇▆▅▅▄▄▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_1 █▇▇▆▆▅▅▄▄▃▄▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▁▁▁▁▁
+wandb:              loss_10 █▅▅▄▄▄▃▃▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_11 █▅▅▄▄▄▄▃▃▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_12 █▅▅▄▄▄▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_13 █▅▅▄▄▄▃▃▃▃▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_14 █▅▄▄▄▄▃▃▃▃▃▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_2 █▇▆▅▄▄▄▃▃▃▂▂▂▁▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_3 █▇▅▅▄▄▃▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_4 █▆▅▄▄▄▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_5 █▆▅▅▄▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_6 █▆▅▄▄▄▃▃▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_7 █▅▄▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_8 █▅▄▄▄▃▃▃▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_9 █▅▄▄▄▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_0 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_1 █████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁
+wandb:                lr_10 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                lr_11 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                lr_12 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                lr_13 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁
+wandb:                lr_14 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                 lr_2 ██████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_3 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_4 ██████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁
+wandb:                 lr_5 ████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁
+wandb:                 lr_6 █████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁
+wandb:                 lr_7 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                 lr_8 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                 lr_9 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:       val_accuracy_0 ▁▃▅▅▇▇▆▆▇▇▇█▇███████████████████████████
+wandb:       val_accuracy_1 ▁▁▁▃▅▃▅▇▇▇▇▇▇▇▇█▇███████████████████████
+wandb:      val_accuracy_10 ▁▄▄▅▆▆▇▆▇▇▇▆▇▇▇▇█▇▇▇████████████████████
+wandb:      val_accuracy_11 ▁▅▅▅▆▅▆▆▆▆▇▇▇▆▇▇▇▇▇▇████████████████████
+wandb:      val_accuracy_12 ▁▃▅▅▅▆▆▆▇▆▆▇▇▇▇▇▆▇▇▇████████████████████
+wandb:      val_accuracy_13 ▁▄▅▅▅▆▅▆▆▅▆▇▇▇▆▇▆▆▇▇████████████████████
+wandb:      val_accuracy_14 ▁▃▃▅▅▄▄▄▄▅▅▆▅▅▆▆▆▆▆▇▇████████████████▇██
+wandb:       val_accuracy_2 ▁▃▃▆▇▇▇▇▇███████████████████████████████
+wandb:       val_accuracy_3 ▁▄▅▅▆▇▇▇▇▇▇▇▇████████████████████████
+wandb:       val_accuracy_4 ▁▄▄▆▆▆▇▇▇▇▇█████████████████████████████
+wandb:       val_accuracy_5 ▁▃▅▆▇▇▇▇▇▇▇███▇█████████████████████████
+wandb:       val_accuracy_6 ▁▃▄▅▅▅▇▆▇▇▇▇▇▇▇█████████████████████████
+wandb:       val_accuracy_7 ▁▃▅▆▆▅▆▆▇▇▇▇▇▇▇▇███▆████████████████████
+wandb:       val_accuracy_8 ▁▃▅▅▆▆▇▇▇▇▇▇▇██▇▇█▇▇████████████████████
+wandb:       val_accuracy_9 ▁▅▅▆▆▆▇▆▇▇▇▇▇▇▇▇▇█▇█████████████████████
+wandb:           val_loss_0 ██▇▆▅▄▃▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_1 ███▆▅▅▄▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_10 █▅▅▄▃▂▂▂▂▁▂▃▂▂▁▂▁▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_11 █▅▄▃▂▃▂▂▂▂▂▁▁▂▂▂▁▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▂▂▂
+wandb:          val_loss_12 █▅▃▃▃▂▂▂▂▂▂▂▂▁▂▁▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂
+wandb:          val_loss_13 █▅▄▃▄▃▄▂▂▃▃▂▂▂▃▁▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▂▂▂▂
+wandb:          val_loss_14 █▅▅▄▃▄▄▄▅▃▃▃▄▃▂▃▂▂▃▂▁▁▁▁▁▁▁▁▁▁▂▁▂▂▂▂▂▂▂▂
+wandb:           val_loss_2 █▇▆▃▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_3 █▆▄▃▂▂▂▂▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_4 █▆▄▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_5 █▅▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_6 █▅▄▃▃▃▂▂▂▂▁▁▁▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_7 █▅▄▃▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▃▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_8 █▆▄▃▃▃▂▂▂▂▂▁▂▁▁▂▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_9 █▅▄▃▃▃▂▃▂▂▁▂▂▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:           accuracy_0 0.86632
+wandb:           accuracy_1 0.88281
+wandb:          accuracy_10 0.95283
+wandb:          accuracy_11 0.96031
+wandb:          accuracy_12 0.96163
+wandb:          accuracy_13 0.95402
+wandb:          accuracy_14 0.94898
+wandb:           accuracy_2 0.88616
+wandb:           accuracy_3 0.91615
+wandb:           accuracy_4 0.91346
+wandb:           accuracy_5 0.91582
+wandb:           accuracy_6 0.91602
+wandb:           accuracy_7 0.96528
+wandb:           accuracy_8 0.9452
+wandb:           accuracy_9 0.951
+wandb:              class_0 0.09981
+wandb:              class_1 0.09981
+wandb:              class_2 0.101
+wandb:              class_3 0.1004
+wandb:              class_4 0.09875
+wandb:              class_5 0.09971
+wandb:              class_6 0.10146
+wandb:              class_7 0.09948
+wandb:              class_8 0.10033
+wandb:              class_9 0.09925
+wandb:         dataset_size 48000
+wandb:    end_test_accuracy 0.89232
+wandb:        end_test_loss 0.31851
+wandb:   end_train_accuracy 0.94898
+wandb:       end_train_loss 0.16589
+wandb:     end_val_accuracy 0.90201
+wandb:         end_val_loss 0.29093
+wandb:                epoch 41
+wandb:               loss_0 0.54088
+wandb:               loss_1 0.43642
+wandb:              loss_10 0.17043
+wandb:              loss_11 0.14169
+wandb:              loss_12 0.13606
+wandb:              loss_13 0.1565
+wandb:              loss_14 0.16589
+wandb:               loss_2 0.45407
+wandb:               loss_3 0.31168
+wandb:               loss_4 0.35504
+wandb:               loss_5 0.34569
+wandb:               loss_6 0.32478
+wandb:               loss_7 0.13919
+wandb:               loss_8 0.1927
+wandb:               loss_9 0.17699
+wandb:                 lr_0 0.0
+wandb:                 lr_1 1e-05
+wandb:                lr_10 1e-05
+wandb:                lr_11 1e-05
+wandb:                lr_12 1e-05
+wandb:                lr_13 1e-05
+wandb:                lr_14 1e-05
+wandb:                 lr_2 1e-05
+wandb:                 lr_3 0.0001
+wandb:                 lr_4 1e-05
+wandb:                 lr_5 1e-05
+wandb:                 lr_6 1e-05
+wandb:                 lr_7 1e-05
+wandb:                 lr_8 1e-05
+wandb:                 lr_9 1e-05
+wandb:       val_accuracy_0 0.67312
+wandb:       val_accuracy_1 0.69839
+wandb:      val_accuracy_10 0.86835
+wandb:      val_accuracy_11 0.88763
+wandb:      val_accuracy_12 0.89104
+wandb:      val_accuracy_13 0.90135
+wandb:      val_accuracy_14 0.90201
+wandb:       val_accuracy_2 0.72698
+wandb:       val_accuracy_3 0.77261
+wandb:       val_accuracy_4 0.7741
+wandb:       val_accuracy_5 0.79912
+wandb:       val_accuracy_6 0.82414
+wandb:       val_accuracy_7 0.84217
+wandb:       val_accuracy_8 0.85464
+wandb:       val_accuracy_9 0.86336
+wandb:           val_loss_0 0.8938
+wandb:           val_loss_1 0.87659
+wandb:          val_loss_10 0.3987
+wandb:          val_loss_11 0.35108
+wandb:          val_loss_12 0.32921
+wandb:          val_loss_13 0.30489
+wandb:          val_loss_14 0.29093
+wandb:           val_loss_2 0.80443
+wandb:           val_loss_3 0.72727
+wandb:           val_loss_4 0.65632
+wandb:           val_loss_5 0.56918
+wandb:           val_loss_6 0.51552
+wandb:           val_loss_7 0.48978
+wandb:           val_loss_8 0.43241
+wandb:           val_loss_9 0.41823
+wandb: 
+wandb: Synced 6 W&B file(s), 30 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Synced fashion_mnist_hu_run1: https://wandb.ai/fanconic/hidden_uncertainty/runs/iqq0eo11
+wandb: Find logs at: ./wandb/run-20220107_161947-iqq0eo11/logs/debug.log
+wandb: 
+wandb: wandb version 0.12.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.7
+wandb: Syncing run fashion_mnist_hu_run2
+wandb:  View project at https://wandb.ai/fanconic/hidden_uncertainty
+wandb:  View run at https://wandb.ai/fanconic/hidden_uncertainty/runs/11f6d5j2
+wandb: Run data is saved locally in /scratch_net/airfox/fanconic/semproj2/hidden_uncertainty_active_learning/wandb/run-20220107_170017-11f6d5j2
+wandb: Run `wandb offline` to turn off syncing.
+
+Cuda is available:  True
+2022-01-07 17:00.35 [info     ] Starting training              dataset=100 epoch=60
+100
+0-th component log probs | Train: 733.9915514486684 | Val: -8298.711497029355
+1-th component log probs | Train: 735.0250558536803 | Val: -2778.1917577826034
+2-th component log probs | Train: 729.8356219073341 | Val: -1165.418658221677
+3-th component log probs | Train: 732.376694581048 | Val: -3609.800780409059
+4-th component log probs | Train: 732.3379403272977 | Val: -974.3470785113259
+5-th component log probs | Train: 729.1577209720128 | Val: -9761.400407442512
+6-th component log probs | Train: 731.6401413588337 | Val: -4334.152898552739
+7-th component log probs | Train: 738.4850785157315 | Val: -280.6094158978151
+8-th component log probs | Train: 732.9799973145991 | Val: -7811.523760933518
+9-th component log probs | Train: 738.2532172454868 | Val: -3041.211465062617
+2022-01-07 17:02.10 [info     ] Training complete              train_loss=0.6445268392562866
+2022-01-07 17:02.10 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:02.11 [info     ] Testing complete               test_loss=0.925921618938446
+{'dataset_size': 100,
+ 'end_test_accuracy': 0.665207028388977,
+ 'end_test_loss': 0.925921618938446,
+ 'end_train_accuracy': 0.8402777910232544,
+ 'end_train_loss': 0.6445268392562866,
+ 'end_val_accuracy': 0.6742021441459656,
+ 'end_val_loss': 0.9035281538963318}
+2022-01-07 17:02.11 [info     ] Start Predict                  dataset=47900
+2022-01-07 17:02.32 [info     ] Starting training              dataset=200 epoch=60
+200
+0-th component log probs | Train: 722.3537521185967 | Val: -6130.713220982594
+1-th component log probs | Train: 719.0754040018564 | Val: -308.74348115211814
+2-th component log probs | Train: 722.2171172193225 | Val: -1579.712886415192
+3-th component log probs | Train: 728.7509055928068 | Val: -3433.726476308566
+4-th component log probs | Train: 726.5666808228243 | Val: -1431.2800097379627
+5-th component log probs | Train: 632.1826073507044 | Val: -1019.6677612366693
+6-th component log probs | Train: 718.9249291377948 | Val: -2576.67167965985
+7-th component log probs | Train: 733.6737383596131 | Val: -522.3150560877336
+8-th component log probs | Train: 718.4258746901838 | Val: -7531.687810562976
+9-th component log probs | Train: 693.0063692311177 | Val: 340.3333092228534
+2022-01-07 17:04.08 [info     ] Training complete              train_loss=0.4224514365196228
+2022-01-07 17:04.08 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:04.09 [info     ] Testing complete               test_loss=0.8856529593467712
+{'dataset_size': 200,
+ 'end_test_accuracy': 0.6776472926139832,
+ 'end_test_loss': 0.8856529593467712,
+ 'end_train_accuracy': 0.921875,
+ 'end_train_loss': 0.4224514365196228,
+ 'end_val_accuracy': 0.6881648898124695,
+ 'end_val_loss': 0.8746131658554077}
+2022-01-07 17:04.09 [info     ] Start Predict                  dataset=47800
+2022-01-07 17:04.31 [info     ] Starting training              dataset=400 epoch=60
+400
+0-th component log probs | Train: 626.8152469970372 | Val: -35.69028972671575
+1-th component log probs | Train: 706.3699753334009 | Val: -1222.9198550410706
+2-th component log probs | Train: 669.1166258094089 | Val: -530.300850341338
+3-th component log probs | Train: 694.2614839106974 | Val: -1793.3734791186605
+4-th component log probs | Train: 714.9786803948336 | Val: -1909.267106761859
+5-th component log probs | Train: 605.3757043424447 | Val: -354.6495493621899
+6-th component log probs | Train: 650.9262496175295 | Val: -732.2379216709453
+7-th component log probs | Train: 719.4335856409073 | Val: -452.98717842035444
+8-th component log probs | Train: 589.4001470888221 | Val: 242.9118433740515
+9-th component log probs | Train: 681.9813519605124 | Val: 264.5245083393406
+2022-01-07 17:05.47 [info     ] Training complete              train_loss=0.37769994139671326
+2022-01-07 17:05.47 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:05.48 [info     ] Testing complete               test_loss=0.8482176065444946
+{'dataset_size': 400,
+ 'end_test_accuracy': 0.6986464858055115,
+ 'end_test_loss': 0.8482176065444946,
+ 'end_train_accuracy': 0.921875,
+ 'end_train_loss': 0.37769994139671326,
+ 'end_val_accuracy': 0.7143450975418091,
+ 'end_val_loss': 0.8302345871925354}
+2022-01-07 17:05.48 [info     ] Start Predict                  dataset=47600
+2022-01-07 17:06.10 [info     ] Starting training              dataset=600 epoch=60
+600
+0-th component log probs | Train: 594.2273215906878 | Val: -109.03507347749483
+1-th component log probs | Train: 628.0267542798339 | Val: 236.26083501318234
+2-th component log probs | Train: 613.6477323203292 | Val: -52.09916668984175
+3-th component log probs | Train: 610.6491165138167 | Val: -77.5534383449304
+4-th component log probs | Train: 644.2711853580872 | Val: -132.86358867774058
+5-th component log probs | Train: 577.7653870304474 | Val: -98.83522290243687
+6-th component log probs | Train: 611.5268091169091 | Val: -254.72324270353846
+7-th component log probs | Train: 710.9529592525936 | Val: -150.75030049280633
+8-th component log probs | Train: 572.6400642795289 | Val: 109.9652166014765
+9-th component log probs | Train: 666.8712284942987 | Val: 90.0753927791291
+2022-01-07 17:07.09 [info     ] Training complete              train_loss=0.37660521268844604
+2022-01-07 17:07.09 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:07.10 [info     ] Testing complete               test_loss=0.7541043758392334
+{'dataset_size': 600,
+ 'end_test_accuracy': 0.7228304147720337,
+ 'end_test_loss': 0.7541043758392334,
+ 'end_train_accuracy': 0.9010416865348816,
+ 'end_train_loss': 0.37660521268844604,
+ 'end_val_accuracy': 0.7421044111251831,
+ 'end_val_loss': 0.7544731497764587}
+2022-01-07 17:07.10 [info     ] Start Predict                  dataset=47400
+2022-01-07 17:07.31 [info     ] Starting training              dataset=800 epoch=60
+800
+0-th component log probs | Train: 558.5464589213938 | Val: 141.57858947527154
+1-th component log probs | Train: 616.6397006760648 | Val: 267.4503595569438
+2-th component log probs | Train: 545.4374669596573 | Val: 422.7198735460525
+3-th component log probs | Train: 587.130165636603 | Val: 5.349064625607397
+4-th component log probs | Train: 624.382922440164 | Val: -99.49424238963506
+5-th component log probs | Train: 570.9292698502812 | Val: 40.086232028551684
+6-th component log probs | Train: 559.5795263379068 | Val: -53.08549836606837
+7-th component log probs | Train: 701.4550250467712 | Val: -232.47145740421286
+8-th component log probs | Train: 551.1808990959676 | Val: 223.96283417588361
+9-th component log probs | Train: 637.4408668879588 | Val: 379.18613019598274
+2022-01-07 17:08.43 [info     ] Training complete              train_loss=0.34054070711135864
+2022-01-07 17:08.43 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:08.44 [info     ] Testing complete               test_loss=0.6900151968002319
+{'dataset_size': 800,
+ 'end_test_accuracy': 0.7555732727050781,
+ 'end_test_loss': 0.6900151968002319,
+ 'end_train_accuracy': 0.9182692170143127,
+ 'end_train_loss': 0.34054070711135864,
+ 'end_val_accuracy': 0.7682845592498779,
+ 'end_val_loss': 0.681566596031189}
+2022-01-07 17:08.44 [info     ] Start Predict                  dataset=47200
+2022-01-07 17:09.05 [info     ] Starting training              dataset=1000 epoch=60
+1000
+0-th component log probs | Train: 520.8888330630799 | Val: 296.0639429517592
+1-th component log probs | Train: 585.752140225846 | Val: 335.40652858386915
+2-th component log probs | Train: 516.4159209629485 | Val: 427.7227491964129
+3-th component log probs | Train: 536.4474976508518 | Val: 246.23874430466125
+4-th component log probs | Train: 600.3782222566746 | Val: 13.025684823773158
+5-th component log probs | Train: 533.3881925065211 | Val: 315.99254877424823
+6-th component log probs | Train: 523.297362211131 | Val: 171.85148484673257
+7-th component log probs | Train: 677.7237536113963 | Val: 226.99095718552127
+8-th component log probs | Train: 516.6216825987364 | Val: 329.6808260786735
+9-th component log probs | Train: 612.8299171464324 | Val: 408.16117555063
+2022-01-07 17:10.18 [info     ] Training complete              train_loss=0.3287239968776703
+2022-01-07 17:10.18 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:10.19 [info     ] Testing complete               test_loss=0.6599851250648499
+{'dataset_size': 1000,
+ 'end_test_accuracy': 0.7684116363525391,
+ 'end_test_loss': 0.6599851250648499,
+ 'end_train_accuracy': 0.9203125238418579,
+ 'end_train_loss': 0.3287239968776703,
+ 'end_val_accuracy': 0.78125,
+ 'end_val_loss': 0.6465516686439514}
+2022-01-07 17:10.19 [info     ] Start Predict                  dataset=47000
+2022-01-07 17:10.39 [info     ] Starting training              dataset=2000 epoch=60
+2000
+0-th component log probs | Train: 482.4261172625086 | Val: 427.32941121755726
+1-th component log probs | Train: 537.735206998759 | Val: 451.8996941801555
+2-th component log probs | Train: 491.67661879384394 | Val: 446.71862201458777
+3-th component log probs | Train: 485.973813727793 | Val: 430.6040157447014
+4-th component log probs | Train: 541.1302306507059 | Val: 325.34027981328467
+5-th component log probs | Train: 508.44201273182034 | Val: 481.29703025251905
+6-th component log probs | Train: 492.6211092517961 | Val: 367.82504564529734
+7-th component log probs | Train: 594.7321079183563 | Val: 543.9202503917015
+8-th component log probs | Train: 485.24463935662294 | Val: 429.3273232837673
+9-th component log probs | Train: 569.3114366777572 | Val: 539.2624955518102
+2022-01-07 17:11.46 [info     ] Training complete              train_loss=0.2588447630405426
+2022-01-07 17:11.46 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:11.47 [info     ] Testing complete               test_loss=0.5935909152030945
+{'dataset_size': 2000,
+ 'end_test_accuracy': 0.787917971611023,
+ 'end_test_loss': 0.5935909152030945,
+ 'end_train_accuracy': 0.93408203125,
+ 'end_train_loss': 0.2588447630405426,
+ 'end_val_accuracy': 0.8089262247085571,
+ 'end_val_loss': 0.5835285186767578}
+2022-01-07 17:11.47 [info     ] Start Predict                  dataset=46000
+2022-01-07 17:12.08 [info     ] Starting training              dataset=4000 epoch=60
+4000
+0-th component log probs | Train: 454.31045430221434 | Val: 421.1369599311082
+1-th component log probs | Train: 522.8367641929842 | Val: 484.6872570995435
+2-th component log probs | Train: 461.98442230309394 | Val: 451.5747163059343
+3-th component log probs | Train: 461.6423429874491 | Val: 432.4597267686272
+4-th component log probs | Train: 487.4245736263599 | Val: 451.33932583145526
+5-th component log probs | Train: 485.550471551168 | Val: 467.3612131349633
+6-th component log probs | Train: 458.9826063194213 | Val: 418.7145121964188
+7-th component log probs | Train: 555.5948601186604 | Val: 526.0460353129745
+8-th component log probs | Train: 452.9692145092779 | Val: 445.2148267726486
+9-th component log probs | Train: 549.6051556383954 | Val: 535.7462013599014
+2022-01-07 17:13.20 [info     ] Training complete              train_loss=0.20905905961990356
+2022-01-07 17:13.20 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:13.21 [info     ] Testing complete               test_loss=0.4999629259109497
+{'dataset_size': 4000,
+ 'end_test_accuracy': 0.824840784072876,
+ 'end_test_loss': 0.4999629259109497,
+ 'end_train_accuracy': 0.9439483880996704,
+ 'end_train_loss': 0.20905905961990356,
+ 'end_val_accuracy': 0.8458278179168701,
+ 'end_val_loss': 0.4844057261943817}
+2022-01-07 17:13.21 [info     ] Start Predict                  dataset=44000
+2022-01-07 17:13.43 [info     ] Starting training              dataset=6000 epoch=60
+6000
+0-th component log probs | Train: 441.6001140610531 | Val: 426.13238269193846
+1-th component log probs | Train: 524.6125202114432 | Val: 479.2477263966484
+2-th component log probs | Train: 449.658931419219 | Val: 442.09923488973044
+3-th component log probs | Train: 465.7633573230941 | Val: 420.2844685591129
+4-th component log probs | Train: 477.8400746998599 | Val: 437.7400540630569
+5-th component log probs | Train: 474.2686958116736 | Val: 454.6009249619062
+6-th component log probs | Train: 438.4639440811266 | Val: 411.9326927235085
+7-th component log probs | Train: 547.270244687364 | Val: 510.5423226043742
+8-th component log probs | Train: 447.6179189761494 | Val: 435.9303410727898
+9-th component log probs | Train: 537.6274637956448 | Val: 525.2686619668578
+2022-01-07 17:15.13 [info     ] Training complete              train_loss=0.15001782774925232
+2022-01-07 17:15.13 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:15.14 [info     ] Testing complete               test_loss=0.4709211587905884
+{'dataset_size': 6000,
+ 'end_test_accuracy': 0.8397691249847412,
+ 'end_test_loss': 0.4709211587905884,
+ 'end_train_accuracy': 0.9645389914512634,
+ 'end_train_loss': 0.15001782774925232,
+ 'end_val_accuracy': 0.8551362752914429,
+ 'end_val_loss': 0.46377497911453247}
+2022-01-07 17:15.14 [info     ] Start Predict                  dataset=42000
+2022-01-07 17:15.35 [info     ] Starting training              dataset=8000 epoch=60
+8000
+0-th component log probs | Train: 432.6449632629595 | Val: 428.65516246265275
+1-th component log probs | Train: 515.054279637807 | Val: 475.37643429176467
+2-th component log probs | Train: 447.8835483777922 | Val: 439.24801033249094
+3-th component log probs | Train: 455.67720391187856 | Val: 412.0197147529676
+4-th component log probs | Train: 471.8303651690019 | Val: 438.7022067139385
+5-th component log probs | Train: 453.0490524036519 | Val: 442.5337310999835
+6-th component log probs | Train: 438.30388744693454 | Val: 408.8438714017498
+7-th component log probs | Train: 527.8217605610063 | Val: 484.0346890782751
+8-th component log probs | Train: 437.18556509394205 | Val: 429.18695295286074
+9-th component log probs | Train: 519.6193530134553 | Val: 513.868740808808
+2022-01-07 17:17.08 [info     ] Training complete              train_loss=0.13375820219516754
+2022-01-07 17:17.08 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:17.09 [info     ] Testing complete               test_loss=0.44336092472076416
+{'dataset_size': 8000,
+ 'end_test_accuracy': 0.8506170511245728,
+ 'end_test_loss': 0.44336092472076416,
+ 'end_train_accuracy': 0.968500018119812,
+ 'end_train_loss': 0.13375820219516754,
+ 'end_val_accuracy': 0.8616189956665039,
+ 'end_val_loss': 0.4538673758506775}
+2022-01-07 17:17.09 [info     ] Start Predict                  dataset=40000
+2022-01-07 17:17.30 [info     ] Starting training              dataset=10000 epoch=60
+10000
+0-th component log probs | Train: 445.9685603577951 | Val: 429.4703741435316
+1-th component log probs | Train: 518.6066873531323 | Val: 470.0685187430994
+2-th component log probs | Train: 451.71297121824887 | Val: 447.4656534850083
+3-th component log probs | Train: 449.9839381287832 | Val: 413.7374900570049
+4-th component log probs | Train: 471.10302937015075 | Val: 435.7811118416229
+5-th component log probs | Train: 442.2364762040911 | Val: 433.86852918911126
+6-th component log probs | Train: 436.4094650970696 | Val: 407.74418505433295
+7-th component log probs | Train: 519.4236168441565 | Val: 483.59486781234034
+8-th component log probs | Train: 430.9603277183657 | Val: 424.53554164449463
+9-th component log probs | Train: 520.7926152221503 | Val: 498.287336701156
+2022-01-07 17:19.04 [info     ] Training complete              train_loss=0.13237209618091583
+2022-01-07 17:19.04 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:19.05 [info     ] Testing complete               test_loss=0.44550755620002747
+{'dataset_size': 10000,
+ 'end_test_accuracy': 0.8405652642250061,
+ 'end_test_loss': 0.44550755620002747,
+ 'end_train_accuracy': 0.9659633636474609,
+ 'end_train_loss': 0.13237209618091583,
+ 'end_val_accuracy': 0.8625332713127136,
+ 'end_val_loss': 0.43269553780555725}
+2022-01-07 17:19.05 [info     ] Start Predict                  dataset=38000
+2022-01-07 17:19.30 [info     ] Starting training              dataset=20000 epoch=60
+20000
+0-th component log probs | Train: 406.8507835001239 | Val: 403.4499730969545
+1-th component log probs | Train: 491.1842827740962 | Val: 442.1491484454585
+2-th component log probs | Train: 420.53316153828376 | Val: 407.07196707054555
+3-th component log probs | Train: 422.15517452367 | Val: 390.38683381493627
+4-th component log probs | Train: 437.4880228416905 | Val: 416.77179432047285
+5-th component log probs | Train: 422.67147353322514 | Val: 420.89025842962184
+6-th component log probs | Train: 398.7220744443637 | Val: 389.3093772315202
+7-th component log probs | Train: 483.4108442303452 | Val: 473.00402330324437
+8-th component log probs | Train: 424.0608211756969 | Val: 412.60893713531544
+9-th component log probs | Train: 498.9023167319774 | Val: 486.0837137133417
+2022-01-07 17:22.56 [info     ] Training complete              train_loss=0.10180146992206573
+2022-01-07 17:22.56 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:22.57 [info     ] Testing complete               test_loss=0.3914211392402649
+{'dataset_size': 20000,
+ 'end_test_accuracy': 0.8708200454711914,
+ 'end_test_loss': 0.3914211392402649,
+ 'end_train_accuracy': 0.9766373634338379,
+ 'end_train_loss': 0.10180146992206573,
+ 'end_val_accuracy': 0.879321813583374,
+ 'end_val_loss': 0.38359934091567993}
+2022-01-07 17:22.57 [info     ] Start Predict                  dataset=28000
+2022-01-07 17:23.20 [info     ] Starting training              dataset=30000 epoch=60
+30000
+0-th component log probs | Train: 388.43000316367585 | Val: 386.8226354452069
+1-th component log probs | Train: 452.32647726621326 | Val: 428.9432064983132
+2-th component log probs | Train: 389.729702882947 | Val: 387.4832106690904
+3-th component log probs | Train: 381.91241211576255 | Val: 368.6359304131754
+4-th component log probs | Train: 396.3987683572339 | Val: 389.3580953929337
+5-th component log probs | Train: 407.1979689306566 | Val: 404.5536725782478
+6-th component log probs | Train: 370.3562468153586 | Val: 366.1466772335003
+7-th component log probs | Train: 471.85415505650536 | Val: 464.65572558345633
+8-th component log probs | Train: 398.1941503285256 | Val: 382.9830313608673
+9-th component log probs | Train: 493.9878546271283 | Val: 479.0657211806537
+2022-01-07 17:28.16 [info     ] Training complete              train_loss=0.16214562952518463
+2022-01-07 17:28.16 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:28.17 [info     ] Testing complete               test_loss=0.34611108899116516
+{'dataset_size': 30000,
+ 'end_test_accuracy': 0.8853503465652466,
+ 'end_test_loss': 0.34611108899116516,
+ 'end_train_accuracy': 0.9510594606399536,
+ 'end_train_loss': 0.16214562952518463,
+ 'end_val_accuracy': 0.8934507966041565,
+ 'end_val_loss': 0.33169567584991455}
+2022-01-07 17:28.18 [info     ] Start Predict                  dataset=18000
+2022-01-07 17:28.39 [info     ] Starting training              dataset=40000 epoch=60
+40000
+0-th component log probs | Train: 376.3879435632508 | Val: 377.61120478362744
+1-th component log probs | Train: 469.33774581822945 | Val: 399.3264465866255
+2-th component log probs | Train: 380.84144655710975 | Val: 375.09909904195104
+3-th component log probs | Train: 375.2804567146145 | Val: 362.2935084683964
+4-th component log probs | Train: 389.1316933382843 | Val: 375.2808432088057
+5-th component log probs | Train: 397.1698893870418 | Val: 388.402297881486
+6-th component log probs | Train: 358.8333964601881 | Val: 349.4536900501553
+7-th component log probs | Train: 458.37678020730397 | Val: 448.87285994142576
+8-th component log probs | Train: 391.41433489727183 | Val: 371.8891866851716
+9-th component log probs | Train: 480.64630061511616 | Val: 470.3516197624556
+2022-01-07 17:33.56 [info     ] Training complete              train_loss=0.16367469727993011
+2022-01-07 17:33.56 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:33.57 [info     ] Testing complete               test_loss=0.327109158039093
+{'dataset_size': 40000,
+ 'end_test_accuracy': 0.8901273608207703,
+ 'end_test_loss': 0.327109158039093,
+ 'end_train_accuracy': 0.9518749713897705,
+ 'end_train_loss': 0.16367469727993011,
+ 'end_val_accuracy': 0.8987699747085571,
+ 'end_val_loss': 0.3104320168495178}
+2022-01-07 17:33.58 [info     ] Start Predict                  dataset=8000
+2022-01-07 17:34.14 [info     ] Starting training              dataset=48000 epoch=60
+48000
+0-th component log probs | Train: 375.0848016415871 | Val: 357.70128087557725
+1-th component log probs | Train: 462.4109280194461 | Val: 406.65958157936086
+2-th component log probs | Train: 371.6248847817172 | Val: 362.0891120693787
+3-th component log probs | Train: 374.22534824960854 | Val: 338.7066771186341
+4-th component log probs | Train: 381.6916341874144 | Val: 361.6921510771527
+5-th component log probs | Train: 388.19549304761074 | Val: 380.66068847356473
+6-th component log probs | Train: 350.2346703163649 | Val: 338.09259983465495
+7-th component log probs | Train: 455.3196027577961 | Val: 445.4237812034301
+8-th component log probs | Train: 384.1660654253097 | Val: 365.97185616557005
+9-th component log probs | Train: 467.284985615436 | Val: 452.529839786744
+2022-01-07 17:40.48 [info     ] Training complete              train_loss=0.1632336527109146
+2022-01-07 17:40.48 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:40.49 [info     ] Testing complete               test_loss=0.3153994679450989
+{'dataset_size': 48000,
+ 'end_test_accuracy': 0.8956010937690735,
+ 'end_test_loss': 0.3153994679450989,
+ 'end_train_accuracy': 0.9509375095367432,
+ 'end_train_loss': 0.1632336527109146,
+ 'end_val_accuracy': 0.9035072922706604,
+ 'end_val_loss': 0.2954643666744232}
+
+wandb: Waiting for W&B process to finish, PID 15969... (success).
+wandb: - 0.61MB of 0.61MB uploaded (0.00MB deduped)wandb: \ 0.61MB of 0.61MB uploaded (0.00MB deduped)wandb: | 0.61MB of 0.61MB uploaded (0.00MB deduped)wandb: / 0.61MB of 0.67MB uploaded (0.00MB deduped)wandb: - 0.61MB of 0.67MB uploaded (0.00MB deduped)wandb: \ 0.67MB of 0.67MB uploaded (0.00MB deduped)wandb: | 0.67MB of 0.67MB uploaded (0.00MB deduped)wandb: / 0.67MB of 0.67MB uploaded (0.00MB deduped)wandb: - 0.67MB of 0.67MB uploaded (0.00MB deduped)wandb: \ 0.67MB of 0.67MB uploaded (0.00MB deduped)wandb: | 0.67MB of 0.67MB uploaded (0.00MB deduped)wandb: / 0.67MB of 0.67MB uploaded (0.00MB deduped)wandb: - 0.67MB of 0.67MB uploaded (0.00MB deduped)wandb:                                                                                
+wandb: Run history:
+wandb:           accuracy_0 ▁▂▄▅▅▅▆▆▆▆▇▆▇▇▇▇▇█▇▇▇▇▇█▇▇▇████▇█▇████▇█
+wandb:           accuracy_1 ▁▂▃▅▅▆▇▇▅▆▇▇▇█▇▇█▇█████████▇████▇█▇█▇███
+wandb:          accuracy_10 ▁▄▅▅▆▆▆▆▆▆▆▇▇▇▇▇▇▇▇▇██████████
+wandb:          accuracy_11 ▁▄▅▅▅▆▆▆▆▆▆▆▇▇▇▇▇▇▇▇▇███████████████████
+wandb:          accuracy_12 ▁▄▄▅▅▅▅▆▆▆▆▆▆▆▆▆▇▇▇▇▇███████████████████
+wandb:          accuracy_13 ▁▄▄▅▅▅▅▆▆▆▆▆▆▆▆▆▆▇▇▇▇▇▇█████████████████
+wandb:          accuracy_14 ▁▄▄▅▅▅▆▆▆▆▆▆▆▆▆▆▆▇▇▇▇▇██████████████████
+wandb:           accuracy_2 ▁▂▃▄▅▅▆▆▆▆▆▇▇▇▇▇▇██▇█▇▇████████▇████████
+wandb:           accuracy_3 ▁▂▄▅▅▅▆▆▆▆▆▇▇▇▇▇▇██████████████████
+wandb:           accuracy_4 ▁▄▄▄▅▅▆▆▆▆▆▆▇▇▇▇▇▇▇█████████████████████
+wandb:           accuracy_5 ▁▃▄▅▅▅▆▆▆▆▆▇▇▇▇▇▇▇▇█████████████████████
+wandb:           accuracy_6 ▁▃▄▅▅▅▅▆▆▆▆▇▇▇▇▇▇▇▇▇█████████████████
+wandb:           accuracy_7 ▁▄▅▅▆▆▆▆▆▇▇▇▇▇▇▇▇▇▇███████████████
+wandb:           accuracy_8 ▁▄▅▅▅▆▆▆▆▆▆▇▇▇▇▇▇▇▇▇█████████████████
+wandb:           accuracy_9 ▁▄▅▅▆▆▆▆▆▆▇▇▇▇▇▇▇▇▇▇██████████████
+wandb:              class_0 ▆▃█▆▆▇▆▃▂▂▁▁▄▄▆
+wandb:              class_1 ▄▂▁▄▃▃▄▄█▆▅▃▃▃▄
+wandb:              class_2 ▄▂▃▄█▇▄▃▂▁▁▁▃▄▄
+wandb:              class_3 ▄▁▁▄▃▅▄▂█▆▄▂▄▃▄
+wandb:              class_4 █▄▁▆▅▄▃▃▃▂▁▁▄▇█
+wandb:              class_5 ▂█▄▃▂▂▃▂▁▁▁▂▂▂▂
+wandb:              class_6 ▇▄▆▆██▆▄▃▂▁▁▅▆▇
+wandb:              class_7 ▃▂▁▁▁▁▄▅▄██▇▅▄▃
+wandb:              class_8 ▂▁█▅▄▄▃▃▂▁▁▃▃▃▂
+wandb:              class_9 ▂▆▂▁▁▁▁▆▄▃▇█▅▃▂
+wandb:         dataset_size ▁▁▁▁▁▁▁▂▂▂▂▄▅▇█
+wandb:    end_test_accuracy ▁▁▂▃▄▄▅▆▆▇▆▇███
+wandb:        end_test_loss ██▇▆▅▅▄▃▃▂▂▂▁▁▁
+wandb:   end_train_accuracy ▁▅▅▄▅▅▆▆▇█▇█▇▇▇
+wandb:       end_train_loss █▅▅▅▄▄▃▂▂▁▁▁▂▂▂
+wandb:     end_val_accuracy ▁▁▂▃▄▄▅▆▇▇▇▇███
+wandb:         end_val_loss ██▇▆▅▅▄▃▃▃▃▂▁▁▁
+wandb:                epoch ▂▄▆█▂▄▆█▃▅▁▃▅▃▄▁▃▅▂▄▁▃▁▃▅▃▄▂▄▃▄▁▃▅▂▄▆▂▄▆
+wandb:               loss_0 ██▇▆▅▅▄▄▃▃▂▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_1 █▇▆▅▄▃▃▃▃▂▂▂▂▁▁▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▂▁▁▁
+wandb:              loss_10 █▅▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_11 █▅▄▄▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_12 █▅▅▄▄▄▃▃▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_13 █▅▄▄▄▄▃▃▃▃▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_14 █▅▅▄▄▃▃▃▃▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_2 █▇▆▅▄▄▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_3 █▇▅▄▄▄▃▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_4 █▆▅▄▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_5 █▆▅▄▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_6 █▅▅▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_7 █▅▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_8 █▅▄▄▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_9 █▅▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_0 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_1 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_10 ███████████████████▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_11 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                lr_12 █████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁
+wandb:                lr_13 ██████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁
+wandb:                lr_14 ████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁
+wandb:                 lr_2 █████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁
+wandb:                 lr_3 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_4 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁
+wandb:                 lr_5 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁
+wandb:                 lr_6 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_7 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_8 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_9 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:       val_accuracy_0 ▁▂▅▅▆▆▇▇▇▇██▇▇██████████████████████████
+wandb:       val_accuracy_1 ▁▁▃▄▆▆▇▇▇█▇█▇▇██████████████████████████
+wandb:      val_accuracy_10 ▁▃▄▅▆▆▆▆▇▇▇▇▆▇▆▇█▇▇▆██████████
+wandb:      val_accuracy_11 ▁▃▅▆▅▇▆▆▆▇▇▇▇▇▇▇▇▇▇█████████████████████
+wandb:      val_accuracy_12 ▁▃▄▅▆▆▆▇▇▆▇▇▇▇▇▇▇▇██████████████████████
+wandb:      val_accuracy_13 ▁▃▅▅▆▆▆▆▆▆▆▆▇▇▆▇▇▇▇█████████████████████
+wandb:      val_accuracy_14 ▁▃▃▃▃▅▅▅▆▆▅▆▅▆▆▇▅▇▇█████████████████████
+wandb:       val_accuracy_2 ▁▂▃▅▆▇▇▇▇▇▇█████████████████████████████
+wandb:       val_accuracy_3 ▁▄▆▆▇▇▇▇██▇████████████████████████
+wandb:       val_accuracy_4 ▁▄▅▅▆▆▇▇▇▇▇▇▇██▇████████████████████████
+wandb:       val_accuracy_5 ▁▅▆▆▇▇▇▇▇▇▇█▇███████████████████████████
+wandb:       val_accuracy_6 ▁▄▅▆▆▆▇▇▇▇▇▇▇▇▇██▇███████████████████
+wandb:       val_accuracy_7 ▁▅▅▆▆▆▇▇▇▇▇█▇█▇██▇████████████████
+wandb:       val_accuracy_8 ▁▄▄▅▆▆▇▆▇▇▇▇▇█▇▇██▇██████████████████
+wandb:       val_accuracy_9 ▁▄▄▆▆▆▅▇▇▇▇▇▇█▇▇▆█▇▆██████████████
+wandb:           val_loss_0 ██▇▆▅▄▃▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_1 ██▆▆▄▄▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_10 █▆▄▃▃▂▂▂▂▁▁▁▃▁▃▁▁▂▂▃▁▁▁▁▁▁▁▁▁▂
+wandb:          val_loss_11 █▅▄▃▃▂▂▃▂▁▁▁▂▂▁▁▁▂▂▂▁▁▁▁▁▁▁▁▂▁▁▁▂▂▂▂▂▂▂▂
+wandb:          val_loss_12 █▆▅▄▃▃▃▂▂▃▂▂▂▂▂▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▂▂▂▂▂
+wandb:          val_loss_13 █▆▄▄▃▃▂▂▃▂▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▂▁▁▂▂▂▂▂▂
+wandb:          val_loss_14 █▆▅▄▅▃▃▃▂▃▃▂▃▂▂▂▃▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▂▂▂▂▂
+wandb:           val_loss_2 █▇▆▄▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_3 █▆▄▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_4 █▅▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_5 █▄▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_6 █▅▃▃▂▂▂▂▂▁▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_7 █▅▃▄▃▂▂▂▂▁▂▁▁▁▂▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_8 █▅▄▄▃▃▂▃▂▂▁▂▁▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▂▂▂▂▂▂▂
+wandb:           val_loss_9 █▅▄▃▃▃▄▂▂▂▂▂▁▁▂▂▃▂▄▃▁▂▂▂▂▂▂▂▂▂▂▂▂▂
+wandb: 
+wandb: Run summary:
+wandb:           accuracy_0 0.84028
+wandb:           accuracy_1 0.92188
+wandb:          accuracy_10 0.96596
+wandb:          accuracy_11 0.97664
+wandb:          accuracy_12 0.95106
+wandb:          accuracy_13 0.95187
+wandb:          accuracy_14 0.95094
+wandb:           accuracy_2 0.92188
+wandb:           accuracy_3 0.90104
+wandb:           accuracy_4 0.91827
+wandb:           accuracy_5 0.92031
+wandb:           accuracy_6 0.93408
+wandb:           accuracy_7 0.94395
+wandb:           accuracy_8 0.96454
+wandb:           accuracy_9 0.9685
+wandb:              class_0 0.10181
+wandb:              class_1 0.10015
+wandb:              class_2 0.09973
+wandb:              class_3 0.09985
+wandb:              class_4 0.10085
+wandb:              class_5 0.10044
+wandb:              class_6 0.09996
+wandb:              class_7 0.09858
+wandb:              class_8 0.09885
+wandb:              class_9 0.09977
+wandb:         dataset_size 48000
+wandb:    end_test_accuracy 0.8956
+wandb:        end_test_loss 0.3154
+wandb:   end_train_accuracy 0.95094
+wandb:       end_train_loss 0.16323
+wandb:     end_val_accuracy 0.90351
+wandb:         end_val_loss 0.29546
+wandb:                epoch 48
+wandb:               loss_0 0.64453
+wandb:               loss_1 0.42245
+wandb:              loss_10 0.13237
+wandb:              loss_11 0.1018
+wandb:              loss_12 0.16215
+wandb:              loss_13 0.16367
+wandb:              loss_14 0.16323
+wandb:               loss_2 0.3777
+wandb:               loss_3 0.37661
+wandb:               loss_4 0.34054
+wandb:               loss_5 0.32872
+wandb:               loss_6 0.25884
+wandb:               loss_7 0.20906
+wandb:               loss_8 0.15002
+wandb:               loss_9 0.13376
+wandb:                 lr_0 0.0
+wandb:                 lr_1 0.0
+wandb:                lr_10 0.0001
+wandb:                lr_11 1e-05
+wandb:                lr_12 1e-05
+wandb:                lr_13 1e-05
+wandb:                lr_14 1e-05
+wandb:                 lr_2 1e-05
+wandb:                 lr_3 0.0001
+wandb:                 lr_4 1e-05
+wandb:                 lr_5 1e-05
+wandb:                 lr_6 0.0001
+wandb:                 lr_7 0.0001
+wandb:                 lr_8 0.0001
+wandb:                 lr_9 0.0001
+wandb:       val_accuracy_0 0.6742
+wandb:       val_accuracy_1 0.68816
+wandb:      val_accuracy_10 0.86253
+wandb:      val_accuracy_11 0.87932
+wandb:      val_accuracy_12 0.89345
+wandb:      val_accuracy_13 0.89877
+wandb:      val_accuracy_14 0.90351
+wandb:       val_accuracy_2 0.71435
+wandb:       val_accuracy_3 0.7421
+wandb:       val_accuracy_4 0.76828
+wandb:       val_accuracy_5 0.78125
+wandb:       val_accuracy_6 0.80893
+wandb:       val_accuracy_7 0.84583
+wandb:       val_accuracy_8 0.85514
+wandb:       val_accuracy_9 0.86162
+wandb:           val_loss_0 0.90353
+wandb:           val_loss_1 0.87461
+wandb:          val_loss_10 0.4327
+wandb:          val_loss_11 0.3836
+wandb:          val_loss_12 0.3317
+wandb:          val_loss_13 0.31043
+wandb:          val_loss_14 0.29546
+wandb:           val_loss_2 0.83023
+wandb:           val_loss_3 0.75447
+wandb:           val_loss_4 0.68157
+wandb:           val_loss_5 0.64655
+wandb:           val_loss_6 0.58353
+wandb:           val_loss_7 0.48441
+wandb:           val_loss_8 0.46377
+wandb:           val_loss_9 0.45387
+wandb: 
+wandb: Synced 6 W&B file(s), 30 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Synced fashion_mnist_hu_run2: https://wandb.ai/fanconic/hidden_uncertainty/runs/11f6d5j2
+wandb: Find logs at: ./wandb/run-20220107_170017-11f6d5j2/logs/debug.log
+wandb: 
+wandb: wandb version 0.12.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.7
+wandb: Syncing run fashion_mnist_hu_run3
+wandb:  View project at https://wandb.ai/fanconic/hidden_uncertainty
+wandb:  View run at https://wandb.ai/fanconic/hidden_uncertainty/runs/1ctw5u7g
+wandb: Run data is saved locally in /scratch_net/airfox/fanconic/semproj2/hidden_uncertainty_active_learning/wandb/run-20220107_174049-1ctw5u7g
+wandb: Run `wandb offline` to turn off syncing.
+
+Cuda is available:  True
+2022-01-07 17:41.06 [info     ] Starting training              dataset=100 epoch=60
+100
+0-th component log probs | Train: 734.8421118379814 | Val: -5500.012844286495
+1-th component log probs | Train: 738.0960368306971 | Val: -2832.152590362342
+2-th component log probs | Train: 732.9672939966478 | Val: -4847.759693861659
+3-th component log probs | Train: 734.8439148815609 | Val: -2146.622835872134
+4-th component log probs | Train: 731.3292651131649 | Val: -1860.3816754031084
+5-th component log probs | Train: 727.2351730372085 | Val: -7823.087696362714
+6-th component log probs | Train: 729.9319048017251 | Val: -3154.6663068981
+7-th component log probs | Train: 737.070140330304 | Val: -870.5825351093841
+8-th component log probs | Train: 734.7003389210283 | Val: -28702.20341538494
+9-th component log probs | Train: 733.5826781368376 | Val: -1451.567948286906
+2022-01-07 17:42.21 [info     ] Training complete              train_loss=0.49943333864212036
+2022-01-07 17:42.21 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:42.22 [info     ] Testing complete               test_loss=0.9880837798118591
+{'dataset_size': 100,
+ 'end_test_accuracy': 0.6353503465652466,
+ 'end_test_loss': 0.9880837798118591,
+ 'end_train_accuracy': 0.9392361044883728,
+ 'end_train_loss': 0.49943333864212036,
+ 'end_val_accuracy': 0.6500166058540344,
+ 'end_val_loss': 0.9891261458396912}
+2022-01-07 17:42.22 [info     ] Start Predict                  dataset=47900
+2022-01-07 17:42.43 [info     ] Starting training              dataset=200 epoch=60
+200
+0-th component log probs | Train: 699.9308024261652 | Val: -1372.9959962128696
+1-th component log probs | Train: 732.4083190388579 | Val: -2024.5300956902447
+2-th component log probs | Train: 706.3965025745185 | Val: -633.7653989362476
+3-th component log probs | Train: 725.7201476173464 | Val: -2969.447147515071
+4-th component log probs | Train: 717.3754257662926 | Val: -825.1634187557894
+5-th component log probs | Train: 629.4033535298316 | Val: -138.37869601370502
+6-th component log probs | Train: 721.1912960892802 | Val: -1915.0234387518685
+7-th component log probs | Train: 724.844189420712 | Val: -420.26569401780125
+8-th component log probs | Train: 685.9868356811104 | Val: -839.8400368684881
+9-th component log probs | Train: 726.7486923527316 | Val: -262.0512184066855
+2022-01-07 17:44.14 [info     ] Training complete              train_loss=0.6133767366409302
+2022-01-07 17:44.14 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:44.15 [info     ] Testing complete               test_loss=0.8695725202560425
+{'dataset_size': 200,
+ 'end_test_accuracy': 0.6897889971733093,
+ 'end_test_loss': 0.8695725202560425,
+ 'end_train_accuracy': 0.796875,
+ 'end_train_loss': 0.6133767366409302,
+ 'end_val_accuracy': 0.6926529407501221,
+ 'end_val_loss': 0.8531806468963623}
+2022-01-07 17:44.15 [info     ] Start Predict                  dataset=47800
+2022-01-07 17:44.36 [info     ] Starting training              dataset=400 epoch=60
+400
+0-th component log probs | Train: 639.8397827722432 | Val: -187.4594895450015
+1-th component log probs | Train: 698.8366865324825 | Val: -718.2345976061196
+2-th component log probs | Train: 638.0615725471882 | Val: 52.87163345663308
+3-th component log probs | Train: 635.4236023404736 | Val: 25.57913889126409
+4-th component log probs | Train: 667.6287329417237 | Val: -151.37266839860555
+5-th component log probs | Train: 595.4967624967147 | Val: 102.44709855312772
+6-th component log probs | Train: 649.0540265436388 | Val: -368.3714153503277
+7-th component log probs | Train: 709.3652558429802 | Val: -161.79785104085437
+8-th component log probs | Train: 619.2061581210941 | Val: -195.79694937718685
+9-th component log probs | Train: 713.6962729707911 | Val: -254.28778648483132
+2022-01-07 17:46.02 [info     ] Training complete              train_loss=0.43797093629837036
+2022-01-07 17:46.02 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:46.03 [info     ] Testing complete               test_loss=0.8024569153785706
+{'dataset_size': 400,
+ 'end_test_accuracy': 0.7253184914588928,
+ 'end_test_loss': 0.8024569153785706,
+ 'end_train_accuracy': 0.8772321343421936,
+ 'end_train_loss': 0.43797093629837036,
+ 'end_val_accuracy': 0.7332114577293396,
+ 'end_val_loss': 0.7885278463363647}
+2022-01-07 17:46.03 [info     ] Start Predict                  dataset=47600
+2022-01-07 17:46.24 [info     ] Starting training              dataset=600 epoch=60
+600
+0-th component log probs | Train: 580.1439879252061 | Val: 89.50581541119448
+1-th component log probs | Train: 653.2164398113728 | Val: -7.5476977601107444
+2-th component log probs | Train: 593.2625060564937 | Val: 157.79212573383143
+3-th component log probs | Train: 598.9188082427651 | Val: 164.05592993011024
+4-th component log probs | Train: 638.3981913362891 | Val: -92.43789613554974
+5-th component log probs | Train: 555.0781991016858 | Val: 308.4661235602927
+6-th component log probs | Train: 592.9026882104225 | Val: -60.06956334290556
+7-th component log probs | Train: 702.7862582532701 | Val: -450.8639719157499
+8-th component log probs | Train: 566.6091780519638 | Val: 231.16175684890493
+9-th component log probs | Train: 659.272556526902 | Val: 108.60448478157608
+2022-01-07 17:47.30 [info     ] Training complete              train_loss=0.41014647483825684
+2022-01-07 17:47.30 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:47.31 [info     ] Testing complete               test_loss=0.7137907147407532
+{'dataset_size': 600,
+ 'end_test_accuracy': 0.7601512670516968,
+ 'end_test_loss': 0.7137907147407532,
+ 'end_train_accuracy': 0.8833333849906921,
+ 'end_train_loss': 0.41014647483825684,
+ 'end_val_accuracy': 0.7685338854789734,
+ 'end_val_loss': 0.7084531784057617}
+2022-01-07 17:47.31 [info     ] Start Predict                  dataset=47400
+2022-01-07 17:47.52 [info     ] Starting training              dataset=800 epoch=60
+800
+0-th component log probs | Train: 547.370512325598 | Val: 273.07533959326963
+1-th component log probs | Train: 615.5368596448068 | Val: 210.414043072559
+2-th component log probs | Train: 555.0663658474409 | Val: 314.4636717013522
+3-th component log probs | Train: 567.5133344285842 | Val: 214.51485498733598
+4-th component log probs | Train: 575.1050555438242 | Val: 319.5797375396872
+5-th component log probs | Train: 534.842037243378 | Val: 294.5057478263779
+6-th component log probs | Train: 545.4685636596807 | Val: 239.71680276968658
+7-th component log probs | Train: 688.0956795580704 | Val: -16.268319238650186
+8-th component log probs | Train: 536.4272803616816 | Val: 369.4876428609283
+9-th component log probs | Train: 632.3086667274523 | Val: 283.19825275613607
+2022-01-07 17:49.01 [info     ] Training complete              train_loss=0.36798837780952454
+2022-01-07 17:49.01 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:49.02 [info     ] Testing complete               test_loss=0.6720261573791504
+{'dataset_size': 800,
+ 'end_test_accuracy': 0.7651273608207703,
+ 'end_test_loss': 0.6720261573791504,
+ 'end_train_accuracy': 0.9242788553237915,
+ 'end_train_loss': 0.36798837780952454,
+ 'end_val_accuracy': 0.7800033092498779,
+ 'end_val_loss': 0.6612117290496826}
+2022-01-07 17:49.02 [info     ] Start Predict                  dataset=47200
+2022-01-07 17:49.22 [info     ] Starting training              dataset=1000 epoch=60
+1000
+0-th component log probs | Train: 508.0539274984369 | Val: 413.93400515873225
+1-th component log probs | Train: 596.6287302155959 | Val: 183.89771178389643
+2-th component log probs | Train: 520.1621265578913 | Val: 400.32807547264736
+3-th component log probs | Train: 527.2043010436471 | Val: 367.23155847802616
+4-th component log probs | Train: 553.8168512341796 | Val: 329.16158109950385
+5-th component log probs | Train: 537.9922827437124 | Val: 321.95456314270757
+6-th component log probs | Train: 501.5821804478598 | Val: 399.449422459948
+7-th component log probs | Train: 682.2519702208233 | Val: 42.22851069865731
+8-th component log probs | Train: 515.498249447656 | Val: 317.05821705980827
+9-th component log probs | Train: 626.1194149359877 | Val: 309.4108066952448
+2022-01-07 17:50.34 [info     ] Training complete              train_loss=0.3996597230434418
+2022-01-07 17:50.34 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:50.35 [info     ] Testing complete               test_loss=0.6368059515953064
+{'dataset_size': 1000,
+ 'end_test_accuracy': 0.784335196018219,
+ 'end_test_loss': 0.6368059515953064,
+ 'end_train_accuracy': 0.895312488079071,
+ 'end_train_loss': 0.3996597230434418,
+ 'end_val_accuracy': 0.7906416058540344,
+ 'end_val_loss': 0.6231419444084167}
+2022-01-07 17:50.35 [info     ] Start Predict                  dataset=47000
+2022-01-07 17:50.56 [info     ] Starting training              dataset=2000 epoch=60
+2000
+0-th component log probs | Train: 492.48225722068133 | Val: 429.3310062723622
+1-th component log probs | Train: 541.3167809243445 | Val: 473.773952595719
+2-th component log probs | Train: 503.17177596377593 | Val: 403.21158424902154
+3-th component log probs | Train: 499.2391345971166 | Val: 410.33566243227335
+4-th component log probs | Train: 526.9843925437816 | Val: 381.4151897520519
+5-th component log probs | Train: 487.90191614151803 | Val: 467.89379812020604
+6-th component log probs | Train: 483.3783550893941 | Val: 415.45686690045187
+7-th component log probs | Train: 566.7661152487455 | Val: 514.1541210176599
+8-th component log probs | Train: 483.33612798754564 | Val: 423.65421187292554
+9-th component log probs | Train: 539.637406592534 | Val: 527.8046873232666
+2022-01-07 17:52.11 [info     ] Training complete              train_loss=0.2570495903491974
+2022-01-07 17:52.11 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:52.12 [info     ] Testing complete               test_loss=0.5535658597946167
+{'dataset_size': 2000,
+ 'end_test_accuracy': 0.8117038011550903,
+ 'end_test_loss': 0.5535658597946167,
+ 'end_train_accuracy': 0.93603515625,
+ 'end_train_loss': 0.2570495903491974,
+ 'end_val_accuracy': 0.8191489577293396,
+ 'end_val_loss': 0.5501107573509216}
+2022-01-07 17:52.12 [info     ] Start Predict                  dataset=46000
+2022-01-07 17:52.33 [info     ] Starting training              dataset=4000 epoch=60
+4000
+0-th component log probs | Train: 446.0125631344964 | Val: 430.2185179175971
+1-th component log probs | Train: 513.421174286039 | Val: 446.93936399383495
+2-th component log probs | Train: 436.2224638641024 | Val: 426.466580033242
+3-th component log probs | Train: 458.8055909668991 | Val: 430.0221920073159
+4-th component log probs | Train: 485.58381524894327 | Val: 427.7956915509976
+5-th component log probs | Train: 475.83424810860885 | Val: 458.81745698209505
+6-th component log probs | Train: 443.8989057337557 | Val: 403.68110502152985
+7-th component log probs | Train: 569.0485025157685 | Val: 518.5702611878726
+8-th component log probs | Train: 445.83340640982334 | Val: 422.1413501561934
+9-th component log probs | Train: 531.9970260642826 | Val: 523.7810607325653
+2022-01-07 17:53.45 [info     ] Training complete              train_loss=0.28735238313674927
+2022-01-07 17:53.45 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:53.46 [info     ] Testing complete               test_loss=0.47629761695861816
+{'dataset_size': 4000,
+ 'end_test_accuracy': 0.831707775592804,
+ 'end_test_loss': 0.47629761695861816,
+ 'end_train_accuracy': 0.9166666865348816,
+ 'end_train_loss': 0.28735238313674927,
+ 'end_val_accuracy': 0.8405917286872864,
+ 'end_val_loss': 0.47877392172813416}
+2022-01-07 17:53.46 [info     ] Start Predict                  dataset=44000
+2022-01-07 17:54.07 [info     ] Starting training              dataset=6000 epoch=60
+6000
+0-th component log probs | Train: 434.0645611396255 | Val: 427.76478456941544
+1-th component log probs | Train: 499.5024864884142 | Val: 455.4971271477765
+2-th component log probs | Train: 424.7027820089582 | Val: 413.8606441633901
+3-th component log probs | Train: 437.2531503725664 | Val: 423.8266614045676
+4-th component log probs | Train: 462.1069822536172 | Val: 411.13294409258924
+5-th component log probs | Train: 470.9512719390126 | Val: 457.7298982932421
+6-th component log probs | Train: 415.1835144953321 | Val: 398.60039196426976
+7-th component log probs | Train: 554.5690724085964 | Val: 512.5328187153293
+8-th component log probs | Train: 444.2423528389081 | Val: 424.6564365266215
+9-th component log probs | Train: 534.1005341934955 | Val: 520.7525155214629
+2022-01-07 17:55.49 [info     ] Training complete              train_loss=0.24539408087730408
+2022-01-07 17:55.49 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:55.50 [info     ] Testing complete               test_loss=0.4379355013370514
+{'dataset_size': 6000,
+ 'end_test_accuracy': 0.8487260937690735,
+ 'end_test_loss': 0.4379355013370514,
+ 'end_train_accuracy': 0.9300199747085571,
+ 'end_train_loss': 0.24539408087730408,
+ 'end_val_accuracy': 0.8528091907501221,
+ 'end_val_loss': 0.43182653188705444}
+2022-01-07 17:55.50 [info     ] Start Predict                  dataset=42000
+2022-01-07 17:56.10 [info     ] Starting training              dataset=8000 epoch=60
+8000
+0-th component log probs | Train: 426.94181982028203 | Val: 430.9213770093373
+1-th component log probs | Train: 473.23808156955306 | Val: 470.5824917692379
+2-th component log probs | Train: 428.089954892795 | Val: 430.0375177696877
+3-th component log probs | Train: 421.88687764871753 | Val: 424.5224300403539
+4-th component log probs | Train: 460.68387433648303 | Val: 433.0054642649389
+5-th component log probs | Train: 440.26954759177505 | Val: 438.014949009221
+6-th component log probs | Train: 420.01231079792063 | Val: 403.20359483404246
+7-th component log probs | Train: 518.1863329108284 | Val: 504.8261313357026
+8-th component log probs | Train: 432.04005991501697 | Val: 433.02543911053925
+9-th component log probs | Train: 507.5227442945599 | Val: 501.286102858562
+2022-01-07 17:58.03 [info     ] Training complete              train_loss=0.23152437806129456
+2022-01-07 17:58.03 [info     ] Starting evaluating            dataset=10000
+2022-01-07 17:58.04 [info     ] Testing complete               test_loss=0.419381320476532
+{'dataset_size': 8000,
+ 'end_test_accuracy': 0.8553941249847412,
+ 'end_test_loss': 0.419381320476532,
+ 'end_train_accuracy': 0.9355000257492065,
+ 'end_train_loss': 0.23152437806129456,
+ 'end_val_accuracy': 0.8636137247085571,
+ 'end_val_loss': 0.4049249291419983}
+2022-01-07 17:58.04 [info     ] Start Predict                  dataset=40000
+2022-01-07 17:58.25 [info     ] Starting training              dataset=10000 epoch=60
+10000
+0-th component log probs | Train: 421.16116051465815 | Val: 425.04613048109525
+1-th component log probs | Train: 469.64243830762706 | Val: 473.0360644625357
+2-th component log probs | Train: 429.02584689986037 | Val: 429.1792792543745
+3-th component log probs | Train: 414.2687738274851 | Val: 418.64513276065435
+4-th component log probs | Train: 455.44428802690214 | Val: 425.1556053909397
+5-th component log probs | Train: 451.70451559458644 | Val: 452.0283809957038
+6-th component log probs | Train: 410.9012664326102 | Val: 405.0107285974989
+7-th component log probs | Train: 504.60993980138807 | Val: 495.68274967681526
+8-th component log probs | Train: 432.9080631619814 | Val: 428.6679155201182
+9-th component log probs | Train: 504.16053076157124 | Val: 502.35820563582126
+2022-01-07 18:00.28 [info     ] Training complete              train_loss=0.22850888967514038
+2022-01-07 18:00.28 [info     ] Starting evaluating            dataset=10000
+2022-01-07 18:00.29 [info     ] Testing complete               test_loss=0.4033750295639038
+{'dataset_size': 10000,
+ 'end_test_accuracy': 0.8643510937690735,
+ 'end_test_loss': 0.4033750295639038,
+ 'end_train_accuracy': 0.9334195852279663,
+ 'end_train_loss': 0.22850888967514038,
+ 'end_val_accuracy': 0.8695977330207825,
+ 'end_val_loss': 0.39786088466644287}
+2022-01-07 18:00.30 [info     ] Start Predict                  dataset=38000
+2022-01-07 18:00.54 [info     ] Starting training              dataset=20000 epoch=60
+20000
+0-th component log probs | Train: 425.12651971529476 | Val: 430.99437344412326
+1-th component log probs | Train: 466.47511841294084 | Val: 471.00874659641806
+2-th component log probs | Train: 426.44915643855967 | Val: 424.1705717818116
+3-th component log probs | Train: 422.73548560699334 | Val: 419.09026657592034
+4-th component log probs | Train: 433.90160598506975 | Val: 423.2899113315884
+5-th component log probs | Train: 419.96612752451944 | Val: 420.90132809473494
+6-th component log probs | Train: 407.88330589371486 | Val: 405.9243688725691
+7-th component log probs | Train: 499.33893308514604 | Val: 484.12229704552703
+8-th component log probs | Train: 418.6035827607874 | Val: 419.4629883543225
+9-th component log probs | Train: 508.2722404594116 | Val: 480.8271298354019
+2022-01-07 18:04.28 [info     ] Training complete              train_loss=0.15765678882598877
+2022-01-07 18:04.28 [info     ] Starting evaluating            dataset=10000
+2022-01-07 18:04.29 [info     ] Testing complete               test_loss=0.3687611520290375
+{'dataset_size': 20000,
+ 'end_test_accuracy': 0.8762937784194946,
+ 'end_test_loss': 0.3687611520290375,
+ 'end_train_accuracy': 0.9554712176322937,
+ 'end_train_loss': 0.15765678882598877,
+ 'end_val_accuracy': 0.8824800252914429,
+ 'end_val_loss': 0.35706910490989685}
+2022-01-07 18:04.29 [info     ] Start Predict                  dataset=28000
+2022-01-07 18:04.52 [info     ] Starting training              dataset=30000 epoch=60
+30000
+0-th component log probs | Train: 377.54815279051917 | Val: 385.1827427039618
+1-th component log probs | Train: 438.868764369855 | Val: 430.3855035859632
+2-th component log probs | Train: 383.89283367816824 | Val: 375.00826081572967
+3-th component log probs | Train: 371.824777388173 | Val: 370.13738643581456
+4-th component log probs | Train: 383.6208561878651 | Val: 374.13382087236386
+5-th component log probs | Train: 399.7292515070767 | Val: 393.62540001366534
+6-th component log probs | Train: 355.74346050690826 | Val: 353.96613654278354
+7-th component log probs | Train: 464.70766391823213 | Val: 451.766637411512
+8-th component log probs | Train: 383.6942241221281 | Val: 375.00980991350184
+9-th component log probs | Train: 484.2464051072995 | Val: 458.9079563117024
+2022-01-07 18:09.17 [info     ] Training complete              train_loss=0.16315710544586182
+2022-01-07 18:09.17 [info     ] Starting evaluating            dataset=10000
+2022-01-07 18:09.18 [info     ] Testing complete               test_loss=0.3300817906856537
+{'dataset_size': 30000,
+ 'end_test_accuracy': 0.8867436051368713,
+ 'end_test_loss': 0.3300817906856537,
+ 'end_train_accuracy': 0.9511483311653137,
+ 'end_train_loss': 0.16315710544586182,
+ 'end_val_accuracy': 0.8930352330207825,
+ 'end_val_loss': 0.3268756568431854}
+2022-01-07 18:09.18 [info     ] Start Predict                  dataset=18000
+2022-01-07 18:09.38 [info     ] Starting training              dataset=40000 epoch=60
+40000
+0-th component log probs | Train: 392.88993383858127 | Val: 399.01167455768166
+1-th component log probs | Train: 487.4393011059601 | Val: 415.1327277178452
+2-th component log probs | Train: 402.1009377847952 | Val: 396.24675200806814
+3-th component log probs | Train: 401.10806489245965 | Val: 387.5515206430147
+4-th component log probs | Train: 412.3566604924785 | Val: 395.4701744537685
+5-th component log probs | Train: 418.51671981114146 | Val: 414.9564530898381
+6-th component log probs | Train: 375.2825063242215 | Val: 372.6645167732078
+7-th component log probs | Train: 478.2728657011675 | Val: 462.47728602590166
+8-th component log probs | Train: 411.6025422730311 | Val: 398.95695443235866
+9-th component log probs | Train: 486.2230741836838 | Val: 467.112818468616
+2022-01-07 18:15.03 [info     ] Training complete              train_loss=0.17408350110054016
+2022-01-07 18:15.03 [info     ] Starting evaluating            dataset=10000
+2022-01-07 18:15.04 [info     ] Testing complete               test_loss=0.3270396292209625
+{'dataset_size': 40000,
+ 'end_test_accuracy': 0.8933120965957642,
+ 'end_test_loss': 0.3270396292209625,
+ 'end_train_accuracy': 0.9464750289916992,
+ 'end_train_loss': 0.17408350110054016,
+ 'end_val_accuracy': 0.8972739577293396,
+ 'end_val_loss': 0.3151582181453705}
+2022-01-07 18:15.04 [info     ] Start Predict                  dataset=8000
+2022-01-07 18:15.20 [info     ] Starting training              dataset=48000 epoch=60
+48000
+0-th component log probs | Train: 376.43875384451843 | Val: 359.99472346698184
+1-th component log probs | Train: 463.2704435693109 | Val: 405.92085637211585
+2-th component log probs | Train: 368.273737167858 | Val: 358.67896401443176
+3-th component log probs | Train: 371.0911951798018 | Val: 345.5789804168084
+4-th component log probs | Train: 377.5974616292546 | Val: 357.0887844091916
+5-th component log probs | Train: 385.1796127845662 | Val: 377.03285724965355
+6-th component log probs | Train: 349.9280212217676 | Val: 335.7703886931125
+7-th component log probs | Train: 451.8860181212953 | Val: 437.3252707967208
+8-th component log probs | Train: 380.8717498671512 | Val: 360.7007896466323
+9-th component log probs | Train: 473.88506376050077 | Val: 450.4128453258815
+2022-01-07 18:21.00 [info     ] Training complete              train_loss=0.16265812516212463
+2022-01-07 18:21.00 [info     ] Starting evaluating            dataset=10000
+2022-01-07 18:21.01 [info     ] Testing complete               test_loss=0.31881392002105713
+{'dataset_size': 48000,
+ 'end_test_accuracy': 0.8933120965957642,
+ 'end_test_loss': 0.31881392002105713,
+ 'end_train_accuracy': 0.950166642665863,
+ 'end_train_loss': 0.16265812516212463,
+ 'end_val_accuracy': 0.898853063583374,
+ 'end_val_loss': 0.3066147565841675}
+
+wandb: Waiting for W&B process to finish, PID 29395... (success).
+wandb: - 0.58MB of 0.58MB uploaded (0.00MB deduped)wandb: \ 0.58MB of 0.58MB uploaded (0.00MB deduped)wandb: | 0.58MB of 0.58MB uploaded (0.00MB deduped)wandb: / 0.58MB of 0.64MB uploaded (0.00MB deduped)wandb: - 0.58MB of 0.64MB uploaded (0.00MB deduped)wandb: \ 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb: | 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb: / 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb: - 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb: \ 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb: | 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb: / 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb: - 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb: \ 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb:                                                                                
+wandb: Run history:
+wandb:           accuracy_0 ▁▂▂▄▄▅▆▆▆▆▆▆▆▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇█▇▇█▇▇▇█
+wandb:           accuracy_1 ▁▃▄▄▅▅▆▆▆▇▇▇▇▇▇▇██▇▇██▇████▇▇██▇█████▇█▇
+wandb:          accuracy_10 ▁▄▄▅▅▅▆▆▆▆▆▆▆▇▇▇▇▇▇▇████████████████████
+wandb:          accuracy_11 ▁▄▅▅▅▅▆▆▆▆▆▆▇▇▇▇▇▇▇▇████████████████████
+wandb:          accuracy_12 ▁▄▄▅▅▅▆▆▆▆▆▆▆▆▆▆▇▇▇▇▇███████████████████
+wandb:          accuracy_13 ▁▄▄▅▅▅▆▆▆▆▆▆▆▆▆▆▇▇▇▇▇███████████████████
+wandb:          accuracy_14 ▁▄▅▅▅▅▅▆▆▆▆▆▆▆▆▆▆▇▆▇▇▇▇█████████████████
+wandb:           accuracy_2 ▁▃▄▄▅▅▆▆▇▇▇▇▇▇▇███▇▇████████████████████
+wandb:           accuracy_3 ▁▂▄▅▅▅▅▅▆▆▆▇▇▇▇▇▇▇▇▇████████████████████
+wandb:           accuracy_4 ▁▃▃▄▅▅▅▆▆▆▆▆▆▇▇▇▇▇▇██████████████████
+wandb:           accuracy_5 ▁▃▃▄▅▅▅▅▆▆▆▆▆▇▇▇▇▇█▇████████████████████
+wandb:           accuracy_6 ▁▃▄▅▅▅▆▆▆▆▇▇▇▇▇▇▇▇▇▇████████████████████
+wandb:           accuracy_7 ▁▃▄▅▅▆▆▆▆▆▇▇▇▇▇▇▇▇▇▇██████████████
+wandb:           accuracy_8 ▁▄▅▅▆▆▆▆▆▆▆▆▇▇▇▇▇▇▇█████████████████████
+wandb:           accuracy_9 ▁▄▄▅▅▅▆▆▆▆▆▆▆▇▇▇▇▇▇▇████████████████████
+wandb:              class_0 ▄▄▅▆▅█▃▁▅▄▃▁▂▂▄
+wandb:              class_1 ▆▂▂▃▃▃█▄▂▂▂▁▁▇▆
+wandb:              class_2 ▄▃▅▅▅▅▁▃█▆▇▂▄▄▄
+wandb:              class_3 ▅▁█▆▆▆▃▁▃▄▃▃▃▆▅
+wandb:              class_4 ▂▁▂▁▃▂▁█▅▅▄▂▂▂▂
+wandb:              class_5 ▂█▅▄▃▃▄▂▁▁▁▂▃▂▂
+wandb:              class_6 ▄▁▄▄▅█▃█▇▆▅▂▃▃▄
+wandb:              class_7 ▄▃▂▁▁▁▄▂▂▃▃█▆▅▄
+wandb:              class_8 ▂▅▅▆▆▄▂▁▄▅█▂▃▃▂
+wandb:              class_9 ▄▂▁▂▂▂▆▃▂▂▃█▆▄▄
+wandb:         dataset_size ▁▁▁▁▁▁▁▂▂▂▂▄▅▇█
+wandb:    end_test_accuracy ▁▂▃▄▅▅▆▆▇▇▇████
+wandb:        end_test_loss █▇▆▅▅▄▃▃▂▂▂▂▁▁▁
+wandb:   end_train_accuracy ▇▁▅▅▇▅▇▆▇▇▇████
+wandb:       end_train_loss ▆█▅▅▄▅▃▃▂▂▂▁▁▁▁
+wandb:     end_val_accuracy ▁▂▃▄▅▅▆▆▇▇▇████
+wandb:         end_val_loss █▇▆▅▅▄▃▃▂▂▂▂▁▁▁
+wandb:                epoch ▂▄▆▂▄▆█▃▅▇▂▄▆▃▅▂▄▆▃▅▃▅▂▄▆▃▅▂▄▆▃▅▁▃▅▂▄▆▂▅
+wandb:               loss_0 ██▇▇▆▅▅▄▄▃▃▃▂▂▂▂▁▁▁▂▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_1 █▇▇▆▅▄▄▄▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_10 █▅▅▄▄▄▃▃▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_11 █▅▄▄▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_12 █▅▅▄▄▄▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_13 █▅▄▄▄▄▃▃▃▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_14 █▅▄▄▄▄▃▃▃▃▃▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_2 █▇▆▅▄▄▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_3 █▇▆▅▅▄▄▄▃▃▃▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_4 █▇▆▅▄▄▄▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_5 █▇▆▅▄▄▄▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_6 █▅▅▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_7 █▅▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_8 █▅▄▄▄▃▃▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_9 █▅▅▄▄▄▃▃▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_0 ████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁
+wandb:                 lr_1 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_10 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                lr_11 ██████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁
+wandb:                lr_12 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                lr_13 ██████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁
+wandb:                lr_14 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁
+wandb:                 lr_2 ██████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_3 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                 lr_4 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_5 ██████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁
+wandb:                 lr_6 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                 lr_7 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_8 ██████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁
+wandb:                 lr_9 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁
+wandb:       val_accuracy_0 ▁▂▃▅▅▆▇▇▇▇▇█████████████████████████████
+wandb:       val_accuracy_1 ▁▁▃▄▄▆▇▇▆▇█▇▇███████████████████████████
+wandb:      val_accuracy_10 ▁▃▅▆▇▆▆▆▇▆▇▇▇▇▇▇▇▇▇▇████████████████████
+wandb:      val_accuracy_11 ▁▃▅▅▅▆▆▆▆▇▇▇▇▇█▇▇▇▇█████████████████████
+wandb:      val_accuracy_12 ▁▃▅▅▆▆▆▆▇▇▇▇▇▇▇▇▇▇▇▆████████████████████
+wandb:      val_accuracy_13 ▁▄▅▅▅▆▅▆▆▆▆▆▆▇▇▇▇▇▇█████████████████████
+wandb:      val_accuracy_14 ▁▃▄▄▅▄▅▆▆▆▆▇▅▇▆▆▆▆▆▆████████████████████
+wandb:       val_accuracy_2 ▁▂▃▄▆▅▇▇▇▇▇█████████████████████████████
+wandb:       val_accuracy_3 ▁▃▅▆▇▇▇▇█▇▇▇█████▇██████████████████████
+wandb:       val_accuracy_4 ▁▃▅▇▇▇▇▇█████████████████████████████
+wandb:       val_accuracy_5 ▁▃▅▆▇▇▇▇▇▇▇█▇███████████████████████████
+wandb:       val_accuracy_6 ▁▄▅▆▆▆▇▇▇▇▇▇█▇██▇███████████████████████
+wandb:       val_accuracy_7 ▁▅▆▆▇▇▇▇▇▇▇▇███▇██████████████████
+wandb:       val_accuracy_8 ▁▄▆▆▆▇▇▇▇▇▇▇▇███▇▇██████████████████████
+wandb:       val_accuracy_9 ▁▄▅▅▆▆▇▇▇▇▇█▇▇█▇█▇██████████████████████
+wandb:           val_loss_0 ██▇▇▆▅▄▄▃▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_1 ██▇▆▅▄▃▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_10 █▆▄▃▂▂▂▂▂▂▁▁▁▁▂▁▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_11 █▅▄▄▃▃▃▂▂▁▁▂▁▁▁▁▁▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_12 █▆▄▄▃▂▃▂▁▂▂▂▁▁▂▂▂▂▃▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂
+wandb:          val_loss_13 █▅▄▃▃▂▃▂▂▃▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▂▂▁▁▁
+wandb:          val_loss_14 █▆▄▄▄▅▃▃▂▂▃▂▄▂▂▃▂▃▃▃▁▁▁▁▁▁▁▁▁▁▂▂▂▂▂▂▂▂▂▂
+wandb:           val_loss_2 █▇▆▄▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_3 █▆▅▃▃▂▂▂▂▂▁▂▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_4 █▆▄▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_5 █▅▄▃▃▂▂▂▂▁▂▁▂▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_6 █▅▄▃▂▂▂▂▁▁▂▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_7 █▅▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_8 █▅▄▄▃▂▂▂▂▁▁▁▁▁▁▁▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_9 █▅▄▃▃▃▂▂▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:           accuracy_0 0.93924
+wandb:           accuracy_1 0.79688
+wandb:          accuracy_10 0.93342
+wandb:          accuracy_11 0.95547
+wandb:          accuracy_12 0.95115
+wandb:          accuracy_13 0.94648
+wandb:          accuracy_14 0.95017
+wandb:           accuracy_2 0.87723
+wandb:           accuracy_3 0.88333
+wandb:           accuracy_4 0.92428
+wandb:           accuracy_5 0.89531
+wandb:           accuracy_6 0.93604
+wandb:           accuracy_7 0.91667
+wandb:           accuracy_8 0.93002
+wandb:           accuracy_9 0.9355
+wandb:              class_0 0.09996
+wandb:              class_1 0.0996
+wandb:              class_2 0.0999
+wandb:              class_3 0.10033
+wandb:              class_4 0.09996
+wandb:              class_5 0.09977
+wandb:              class_6 0.09963
+wandb:              class_7 0.10085
+wandb:              class_8 0.10006
+wandb:              class_9 0.09994
+wandb:         dataset_size 48000
+wandb:    end_test_accuracy 0.89331
+wandb:        end_test_loss 0.31881
+wandb:   end_train_accuracy 0.95017
+wandb:       end_train_loss 0.16266
+wandb:     end_val_accuracy 0.89885
+wandb:         end_val_loss 0.30661
+wandb:                epoch 42
+wandb:               loss_0 0.49943
+wandb:               loss_1 0.61338
+wandb:              loss_10 0.22851
+wandb:              loss_11 0.15766
+wandb:              loss_12 0.16316
+wandb:              loss_13 0.17408
+wandb:              loss_14 0.16266
+wandb:               loss_2 0.43797
+wandb:               loss_3 0.41015
+wandb:               loss_4 0.36799
+wandb:               loss_5 0.39966
+wandb:               loss_6 0.25705
+wandb:               loss_7 0.28735
+wandb:               loss_8 0.24539
+wandb:               loss_9 0.23152
+wandb:                 lr_0 1e-05
+wandb:                 lr_1 1e-05
+wandb:                lr_10 1e-05
+wandb:                lr_11 1e-05
+wandb:                lr_12 1e-05
+wandb:                lr_13 1e-05
+wandb:                lr_14 1e-05
+wandb:                 lr_2 1e-05
+wandb:                 lr_3 1e-05
+wandb:                 lr_4 0.0001
+wandb:                 lr_5 1e-05
+wandb:                 lr_6 1e-05
+wandb:                 lr_7 0.0001
+wandb:                 lr_8 1e-05
+wandb:                 lr_9 1e-05
+wandb:       val_accuracy_0 0.65002
+wandb:       val_accuracy_1 0.69265
+wandb:      val_accuracy_10 0.8696
+wandb:      val_accuracy_11 0.88248
+wandb:      val_accuracy_12 0.89304
+wandb:      val_accuracy_13 0.89727
+wandb:      val_accuracy_14 0.89885
+wandb:       val_accuracy_2 0.73321
+wandb:       val_accuracy_3 0.76853
+wandb:       val_accuracy_4 0.78
+wandb:       val_accuracy_5 0.79064
+wandb:       val_accuracy_6 0.81915
+wandb:       val_accuracy_7 0.84059
+wandb:       val_accuracy_8 0.85281
+wandb:       val_accuracy_9 0.86361
+wandb:           val_loss_0 0.98913
+wandb:           val_loss_1 0.85318
+wandb:          val_loss_10 0.39786
+wandb:          val_loss_11 0.35707
+wandb:          val_loss_12 0.32688
+wandb:          val_loss_13 0.31516
+wandb:          val_loss_14 0.30661
+wandb:           val_loss_2 0.78853
+wandb:           val_loss_3 0.70845
+wandb:           val_loss_4 0.66121
+wandb:           val_loss_5 0.62314
+wandb:           val_loss_6 0.55011
+wandb:           val_loss_7 0.47877
+wandb:           val_loss_8 0.43183
+wandb:           val_loss_9 0.40492
+wandb: 
+wandb: Synced 6 W&B file(s), 30 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Synced fashion_mnist_hu_run3: https://wandb.ai/fanconic/hidden_uncertainty/runs/1ctw5u7g
+wandb: Find logs at: ./wandb/run-20220107_174049-1ctw5u7g/logs/debug.log
+wandb: 

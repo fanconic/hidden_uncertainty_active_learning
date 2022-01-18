@@ -1,0 +1,1739 @@
+mnist_hu
+wandb: Currently logged in as: eth_dlad_team32 (use `wandb login --relogin` to force relogin)
+wandb: wandb version 0.12.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.7
+wandb: Syncing run mnist_hu_run1
+wandb:  View project at https://wandb.ai/fanconic/hidden_uncertainty
+wandb:  View run at https://wandb.ai/fanconic/hidden_uncertainty/runs/2sx48zo4
+wandb: Run data is saved locally in /scratch_net/airfox/fanconic/semproj2/hidden_uncertainty_active_learning/wandb/run-20220107_141453-2sx48zo4
+wandb: Run `wandb offline` to turn off syncing.
+
+Cuda is available:  True
+2022-01-07 14:15.04 [info     ] Starting training              dataset=100 epoch=60
+100
+0-th component log probs | Train: 729.2105982575365 | Val: -6127.415167298303
+1-th component log probs | Train: 731.4888861419291 | Val: -7284.239060009933
+2-th component log probs | Train: 726.3842971938745 | Val: -11269.807603769845
+3-th component log probs | Train: 726.806278884541 | Val: -10776.811259746144
+4-th component log probs | Train: 727.6805314427945 | Val: -13742.839086015792
+5-th component log probs | Train: 728.5785842688414 | Val: -20411.931270255165
+6-th component log probs | Train: 727.0417123001146 | Val: -9078.676380568573
+7-th component log probs | Train: 725.7336339451397 | Val: -6497.385954937539
+8-th component log probs | Train: 727.0233419878598 | Val: -12576.994858242724
+9-th component log probs | Train: 726.5789005547616 | Val: -9679.48300166799
+2022-01-07 14:16.14 [info     ] Training complete              train_loss=0.29550909996032715
+2022-01-07 14:16.14 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:16.15 [info     ] Testing complete               test_loss=0.7561160326004028
+{'dataset_size': 100,
+ 'end_test_accuracy': 0.7647293210029602,
+ 'end_test_loss': 0.7561160326004028,
+ 'end_train_accuracy': 0.984375,
+ 'end_train_loss': 0.29550909996032715,
+ 'end_val_accuracy': 0.7540724873542786,
+ 'end_val_loss': 0.7753341197967529}
+2022-01-07 14:16.15 [info     ] Start Predict                  dataset=47900
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:16.26 [info     ] Starting training              dataset=200 epoch=60
+200
+0-th component log probs | Train: 706.1014058368336 | Val: -2256.7863547068573
+1-th component log probs | Train: 721.695515404472 | Val: -3576.9306142827004
+2-th component log probs | Train: 665.5365288574908 | Val: -2445.8485865468774
+3-th component log probs | Train: 698.6071121721556 | Val: -3930.9779365610952
+4-th component log probs | Train: 694.0713633587019 | Val: -3998.378838439361
+5-th component log probs | Train: 650.7730037214612 | Val: -1831.3723774090804
+6-th component log probs | Train: 719.0397600768318 | Val: -6257.819359502261
+7-th component log probs | Train: 717.3919484483484 | Val: -5443.507608199186
+8-th component log probs | Train: 703.9539199981875 | Val: -4002.1115056939652
+9-th component log probs | Train: 694.6109941065636 | Val: -3648.685931355556
+2022-01-07 14:17.29 [info     ] Training complete              train_loss=0.3287399411201477
+2022-01-07 14:17.29 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:17.30 [info     ] Testing complete               test_loss=0.7758275270462036
+{'dataset_size': 200,
+ 'end_test_accuracy': 0.765625,
+ 'end_test_loss': 0.7758275270462036,
+ 'end_train_accuracy': 0.9375,
+ 'end_train_loss': 0.3287399411201477,
+ 'end_val_accuracy': 0.7519946694374084,
+ 'end_val_loss': 0.8091403245925903}
+2022-01-07 14:17.30 [info     ] Start Predict                  dataset=47800
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:17.41 [info     ] Starting training              dataset=400 epoch=60
+400
+0-th component log probs | Train: 691.319531125477 | Val: -2347.258679328286
+1-th component log probs | Train: 698.925094517975 | Val: -1951.925561718352
+2-th component log probs | Train: 645.1759428660191 | Val: -2285.7619998447803
+3-th component log probs | Train: 658.6047869302679 | Val: -2570.66485019841
+4-th component log probs | Train: 646.5107103698053 | Val: -1203.2664944182852
+5-th component log probs | Train: 634.0427729045823 | Val: -2133.3541072312087
+6-th component log probs | Train: 643.6743232202689 | Val: -745.7241475907693
+7-th component log probs | Train: 605.9234896433273 | Val: 282.62814109810574
+8-th component log probs | Train: 694.1814908388181 | Val: -5709.048293184955
+9-th component log probs | Train: 650.6641924434689 | Val: -733.1359357528208
+2022-01-07 14:18.30 [info     ] Training complete              train_loss=0.14266037940979004
+2022-01-07 14:18.30 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:18.31 [info     ] Testing complete               test_loss=0.6770606637001038
+{'dataset_size': 400,
+ 'end_test_accuracy': 0.7994625568389893,
+ 'end_test_loss': 0.6770606637001038,
+ 'end_train_accuracy': 0.984375,
+ 'end_train_loss': 0.14266037940979004,
+ 'end_val_accuracy': 0.7871509194374084,
+ 'end_val_loss': 0.7171751856803894}
+2022-01-07 14:18.31 [info     ] Start Predict                  dataset=47600
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:18.41 [info     ] Starting training              dataset=600 epoch=60
+600
+0-th component log probs | Train: 661.659743539262 | Val: -2829.559221016647
+1-th component log probs | Train: 629.9947056349616 | Val: 50.216352155570675
+2-th component log probs | Train: 614.7395039380608 | Val: -2037.2610229251225
+3-th component log probs | Train: 593.3202065337282 | Val: -130.15939318814242
+4-th component log probs | Train: 616.107078068049 | Val: -768.296539057406
+5-th component log probs | Train: 558.8357809780018 | Val: 7.678785356152269
+6-th component log probs | Train: 617.7313082892298 | Val: -953.4816827972131
+7-th component log probs | Train: 584.9575762694782 | Val: 78.71743134552192
+8-th component log probs | Train: 624.5341270044494 | Val: -1105.3322709903996
+9-th component log probs | Train: 625.7921892692243 | Val: -781.7898954087493
+2022-01-07 14:19.28 [info     ] Training complete              train_loss=0.12029428780078888
+2022-01-07 14:19.28 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:19.29 [info     ] Testing complete               test_loss=0.49895554780960083
+{'dataset_size': 600,
+ 'end_test_accuracy': 0.8545979261398315,
+ 'end_test_loss': 0.49895554780960083,
+ 'end_train_accuracy': 0.994270920753479,
+ 'end_train_loss': 0.12029428780078888,
+ 'end_val_accuracy': 0.840259313583374,
+ 'end_val_loss': 0.5713980197906494}
+2022-01-07 14:19.29 [info     ] Start Predict                  dataset=47400
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:19.41 [info     ] Starting training              dataset=800 epoch=60
+800
+0-th component log probs | Train: 587.4543333274285 | Val: -282.1612523436953
+1-th component log probs | Train: 618.6876526030047 | Val: 77.11055011608263
+2-th component log probs | Train: 534.041000068428 | Val: 101.66391022000889
+3-th component log probs | Train: 571.854031545072 | Val: -134.1617834561847
+4-th component log probs | Train: 594.0127307749839 | Val: -646.8291905593828
+5-th component log probs | Train: 542.3181474811142 | Val: -133.78919855728327
+6-th component log probs | Train: 556.8332924311743 | Val: 116.47751808224221
+7-th component log probs | Train: 569.4211132128543 | Val: 0.6866465968552717
+8-th component log probs | Train: 602.9822817228115 | Val: -1126.867288588495
+9-th component log probs | Train: 584.5056549407977 | Val: -147.33570399912213
+2022-01-07 14:20.28 [info     ] Training complete              train_loss=0.11509764194488525
+2022-01-07 14:20.28 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:20.29 [info     ] Testing complete               test_loss=0.4605361521244049
+{'dataset_size': 800,
+ 'end_test_accuracy': 0.8687300682067871,
+ 'end_test_loss': 0.4605361521244049,
+ 'end_train_accuracy': 0.9903846383094788,
+ 'end_train_loss': 0.11509764194488525,
+ 'end_val_accuracy': 0.862450122833252,
+ 'end_val_loss': 0.4928019642829895}
+2022-01-07 14:20.29 [info     ] Start Predict                  dataset=47200
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:20.40 [info     ] Starting training              dataset=1000 epoch=60
+1000
+0-th component log probs | Train: 574.1384364487708 | Val: -577.9373630472862
+1-th component log probs | Train: 601.8216311332529 | Val: 183.49097815746057
+2-th component log probs | Train: 518.708636397673 | Val: 44.52807039140567
+3-th component log probs | Train: 553.5700864745908 | Val: -272.40892205423404
+4-th component log probs | Train: 525.5207869160381 | Val: 248.88555231307424
+5-th component log probs | Train: 518.307904004169 | Val: 28.79373125307001
+6-th component log probs | Train: 540.6164020863072 | Val: 47.95790226054788
+7-th component log probs | Train: 533.1819881529552 | Val: 236.0575985162479
+8-th component log probs | Train: 529.7612661452578 | Val: 114.57822705427844
+9-th component log probs | Train: 545.034365974749 | Val: 128.29488565184158
+2022-01-07 14:21.22 [info     ] Training complete              train_loss=0.12141716480255127
+2022-01-07 14:21.22 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:21.23 [info     ] Testing complete               test_loss=0.4415111243724823
+{'dataset_size': 1000,
+ 'end_test_accuracy': 0.8700239062309265,
+ 'end_test_loss': 0.4415111243724823,
+ 'end_train_accuracy': 0.9876953363418579,
+ 'end_train_loss': 0.12141716480255127,
+ 'end_val_accuracy': 0.8748337626457214,
+ 'end_val_loss': 0.4505569636821747}
+2022-01-07 14:21.23 [info     ] Start Predict                  dataset=47000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:21.34 [info     ] Starting training              dataset=2000 epoch=60
+2000
+0-th component log probs | Train: 517.9853956251337 | Val: 282.03789032234187
+1-th component log probs | Train: 574.6782584244469 | Val: 294.69417484849373
+2-th component log probs | Train: 464.5455527584619 | Val: 348.2800138228756
+3-th component log probs | Train: 503.89054069544795 | Val: -2.724780320814403
+4-th component log probs | Train: 488.35822705014726 | Val: 371.10659141719356
+5-th component log probs | Train: 485.9070388778182 | Val: 31.333249260694597
+6-th component log probs | Train: 499.00773386758965 | Val: 389.65091971516387
+7-th component log probs | Train: 502.06629256819843 | Val: 324.8939826378211
+8-th component log probs | Train: 506.04386657608416 | Val: 157.40197136981104
+9-th component log probs | Train: 516.7148748533466 | Val: 273.7184496770682
+2022-01-07 14:22.21 [info     ] Training complete              train_loss=0.07102253288030624
+2022-01-07 14:22.21 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:22.22 [info     ] Testing complete               test_loss=0.3273860812187195
+{'dataset_size': 2000,
+ 'end_test_accuracy': 0.9021695852279663,
+ 'end_test_loss': 0.3273860812187195,
+ 'end_train_accuracy': 0.99755859375,
+ 'end_train_loss': 0.07102253288030624,
+ 'end_val_accuracy': 0.9064993262290955,
+ 'end_val_loss': 0.33619892597198486}
+2022-01-07 14:22.22 [info     ] Start Predict                  dataset=46000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:22.33 [info     ] Starting training              dataset=4000 epoch=60
+4000
+0-th component log probs | Train: 468.3233259942231 | Val: 412.33731718124636
+1-th component log probs | Train: 511.1043229081828 | Val: 436.26528176643086
+2-th component log probs | Train: 443.98185611654503 | Val: 361.15250034982654
+3-th component log probs | Train: 453.79967404898036 | Val: 395.65304047460063
+4-th component log probs | Train: 449.68439685741413 | Val: 399.1482645221839
+5-th component log probs | Train: 430.9689905807432 | Val: 402.39179643598453
+6-th component log probs | Train: 471.12447215543074 | Val: 398.0860513596322
+7-th component log probs | Train: 447.09931251824065 | Val: 411.3485348421479
+8-th component log probs | Train: 442.8073736604634 | Val: 378.42725737770706
+9-th component log probs | Train: 457.1997340538397 | Val: 419.34865591314576
+2022-01-07 14:23.33 [info     ] Training complete              train_loss=0.058500535786151886
+2022-01-07 14:23.33 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:23.34 [info     ] Testing complete               test_loss=0.23274315893650055
+{'dataset_size': 4000,
+ 'end_test_accuracy': 0.9334195852279663,
+ 'end_test_loss': 0.23274315893650055,
+ 'end_train_accuracy': 0.9980158805847168,
+ 'end_train_loss': 0.058500535786151886,
+ 'end_val_accuracy': 0.9415724873542786,
+ 'end_val_loss': 0.2347985953092575}
+2022-01-07 14:23.34 [info     ] Start Predict                  dataset=44000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:23.47 [info     ] Starting training              dataset=6000 epoch=60
+6000
+0-th component log probs | Train: 473.3620657940581 | Val: 432.5629929233232
+1-th component log probs | Train: 518.628857119985 | Val: 438.9178482120804
+2-th component log probs | Train: 435.471804438789 | Val: 388.4489944042036
+3-th component log probs | Train: 457.5875568458326 | Val: 406.25775283632555
+4-th component log probs | Train: 446.06831839111254 | Val: 410.10728785727036
+5-th component log probs | Train: 432.90578767864406 | Val: 410.9777448805958
+6-th component log probs | Train: 475.25827865740627 | Val: 408.98456141723824
+7-th component log probs | Train: 443.28266228491725 | Val: 415.73805094574567
+8-th component log probs | Train: 439.08372147502155 | Val: 392.0948937654913
+9-th component log probs | Train: 456.14921194698934 | Val: 418.10477370324435
+2022-01-07 14:24.59 [info     ] Training complete              train_loss=0.04046294093132019
+2022-01-07 14:24.59 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:25.00 [info     ] Testing complete               test_loss=0.1999150961637497
+{'dataset_size': 6000,
+ 'end_test_accuracy': 0.9421775341033936,
+ 'end_test_loss': 0.1999150961637497,
+ 'end_train_accuracy': 0.9990026354789734,
+ 'end_train_loss': 0.04046294093132019,
+ 'end_val_accuracy': 0.9488862752914429,
+ 'end_val_loss': 0.2132183462381363}
+2022-01-07 14:25.00 [info     ] Start Predict                  dataset=42000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:25.12 [info     ] Starting training              dataset=8000 epoch=60
+8000
+0-th component log probs | Train: 458.3118956446518 | Val: 421.01314326181813
+1-th component log probs | Train: 512.0712667860072 | Val: 447.08087819476793
+2-th component log probs | Train: 434.15091500411137 | Val: 388.55758830421524
+3-th component log probs | Train: 454.3558847616715 | Val: 413.23179286667784
+4-th component log probs | Train: 436.795636782406 | Val: 416.8858256313496
+5-th component log probs | Train: 431.89153636171204 | Val: 410.3481647383129
+6-th component log probs | Train: 468.29966281178605 | Val: 420.55098560515466
+7-th component log probs | Train: 433.64639393502114 | Val: 420.6676325211381
+8-th component log probs | Train: 433.8536798990822 | Val: 394.8094705650098
+9-th component log probs | Train: 449.6098461577469 | Val: 407.59047041538366
+2022-01-07 14:26.26 [info     ] Training complete              train_loss=0.03564943000674248
+2022-01-07 14:26.26 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:26.27 [info     ] Testing complete               test_loss=0.18282972276210785
+{'dataset_size': 8000,
+ 'end_test_accuracy': 0.9479498267173767,
+ 'end_test_loss': 0.18282972276210785,
+ 'end_train_accuracy': 0.9993749856948853,
+ 'end_train_loss': 0.03564943000674248,
+ 'end_val_accuracy': 0.9510471820831299,
+ 'end_val_loss': 0.2063167691230774}
+2022-01-07 14:26.27 [info     ] Start Predict                  dataset=40000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:26.40 [info     ] Starting training              dataset=10000 epoch=60
+10000
+0-th component log probs | Train: 448.40856978068786 | Val: 427.93329789115506
+1-th component log probs | Train: 494.14005922553395 | Val: 454.32581043489074
+2-th component log probs | Train: 416.2382623515208 | Val: 385.8648891431367
+3-th component log probs | Train: 432.00056200645 | Val: 402.59236539982476
+4-th component log probs | Train: 427.81382341515604 | Val: 421.025774392404
+5-th component log probs | Train: 416.243325832336 | Val: 400.1030050064041
+6-th component log probs | Train: 455.208168254846 | Val: 420.8520709218297
+7-th component log probs | Train: 424.6731838237647 | Val: 419.3956412507068
+8-th component log probs | Train: 415.85615802045464 | Val: 378.05805704625914
+9-th component log probs | Train: 436.31320917661515 | Val: 421.66193212246435
+2022-01-07 14:28.23 [info     ] Training complete              train_loss=0.0339847058057785
+2022-01-07 14:28.23 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:28.24 [info     ] Testing complete               test_loss=0.14710575342178345
+{'dataset_size': 10000,
+ 'end_test_accuracy': 0.9629777073860168,
+ 'end_test_loss': 0.14710575342178345,
+ 'end_train_accuracy': 0.9993033409118652,
+ 'end_train_loss': 0.0339847058057785,
+ 'end_val_accuracy': 0.9616854786872864,
+ 'end_val_loss': 0.17244848608970642}
+2022-01-07 14:28.24 [info     ] Start Predict                  dataset=38000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:28.41 [info     ] Starting training              dataset=20000 epoch=60
+20000
+0-th component log probs | Train: 415.0804533129056 | Val: 414.53169370986507
+1-th component log probs | Train: 454.6942728367594 | Val: 443.5206348044498
+2-th component log probs | Train: 381.5829227248022 | Val: 379.27282509664235
+3-th component log probs | Train: 402.1397855938506 | Val: 395.3891822920688
+4-th component log probs | Train: 399.9973688363348 | Val: 397.56139651778886
+5-th component log probs | Train: 386.01117387824274 | Val: 384.7951283213606
+6-th component log probs | Train: 411.029621717045 | Val: 410.80075580358175
+7-th component log probs | Train: 400.0547823477745 | Val: 407.11845131996995
+8-th component log probs | Train: 386.18591385406677 | Val: 377.12681569177755
+9-th component log probs | Train: 417.15314315202556 | Val: 404.904633358585
+2022-01-07 14:30.38 [info     ] Training complete              train_loss=0.03541334718465805
+2022-01-07 14:30.38 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:30.39 [info     ] Testing complete               test_loss=0.08519980311393738
+{'dataset_size': 20000,
+ 'end_test_accuracy': 0.9733280539512634,
+ 'end_test_loss': 0.08519980311393738,
+ 'end_train_accuracy': 0.9994009733200073,
+ 'end_train_loss': 0.03541334718465805,
+ 'end_val_accuracy': 0.9759806990623474,
+ 'end_val_loss': 0.10363853722810745}
+2022-01-07 14:30.39 [info     ] Start Predict                  dataset=28000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:30.58 [info     ] Starting training              dataset=30000 epoch=60
+30000
+0-th component log probs | Train: 403.5972736152977 | Val: 400.71036508821624
+1-th component log probs | Train: 449.94096786894755 | Val: 438.4639362335789
+2-th component log probs | Train: 362.6921412061085 | Val: 362.85872027276974
+3-th component log probs | Train: 389.48515698222553 | Val: 384.12014207649133
+4-th component log probs | Train: 383.2437226635852 | Val: 382.97638674424616
+5-th component log probs | Train: 370.2790903624427 | Val: 373.70034174387854
+6-th component log probs | Train: 401.31172605605843 | Val: 399.47424303691747
+7-th component log probs | Train: 390.2067816406673 | Val: 393.69198479458277
+8-th component log probs | Train: 368.41241780045067 | Val: 363.3162243764033
+9-th component log probs | Train: 395.4380600006826 | Val: 385.04338797816087
+2022-01-07 14:36.39 [info     ] Training complete              train_loss=0.03484506160020828
+2022-01-07 14:36.39 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:36.40 [info     ] Testing complete               test_loss=0.07399154454469681
+{'dataset_size': 30000,
+ 'end_test_accuracy': 0.9827826619148254,
+ 'end_test_loss': 0.07399154454469681,
+ 'end_train_accuracy': 0.9996668696403503,
+ 'end_train_loss': 0.03484506160020828,
+ 'end_val_accuracy': 0.9789727330207825,
+ 'end_val_loss': 0.08974773436784744}
+2022-01-07 14:36.40 [info     ] Start Predict                  dataset=18000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:36.57 [info     ] Starting training              dataset=40000 epoch=60
+40000
+0-th component log probs | Train: 391.6578802660687 | Val: 380.87755089203125
+1-th component log probs | Train: 434.76887084087076 | Val: 420.2157405294063
+2-th component log probs | Train: 358.13768410977895 | Val: 350.47219483443286
+3-th component log probs | Train: 378.85874305628766 | Val: 368.68710001789674
+4-th component log probs | Train: 378.379611323855 | Val: 372.48578537196283
+5-th component log probs | Train: 362.5272333551342 | Val: 360.09555447036934
+6-th component log probs | Train: 388.7353567934875 | Val: 385.1468961981637
+7-th component log probs | Train: 383.4432092271856 | Val: 381.62944833993555
+8-th component log probs | Train: 363.62139285655405 | Val: 348.2792796808321
+9-th component log probs | Train: 389.6020743052594 | Val: 380.29057383409224
+2022-01-07 14:39.59 [info     ] Training complete              train_loss=0.03672567754983902
+2022-01-07 14:39.59 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:40.00 [info     ] Testing complete               test_loss=0.07066315412521362
+{'dataset_size': 40000,
+ 'end_test_accuracy': 0.9790008068084717,
+ 'end_test_loss': 0.07066315412521362,
+ 'end_train_accuracy': 0.9991000294685364,
+ 'end_train_loss': 0.03672567754983902,
+ 'end_val_accuracy': 0.9805518388748169,
+ 'end_val_loss': 0.08679075539112091}
+2022-01-07 14:40.00 [info     ] Start Predict                  dataset=8000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:40.15 [info     ] Starting training              dataset=48000 epoch=60
+48000
+0-th component log probs | Train: 396.4915033956125 | Val: 382.6413471184525
+1-th component log probs | Train: 445.3096618680518 | Val: 433.7236957031646
+2-th component log probs | Train: 367.3612021275372 | Val: 355.48732450160895
+3-th component log probs | Train: 391.24196744042524 | Val: 376.39643219014624
+4-th component log probs | Train: 381.9814283710422 | Val: 368.9973910947877
+5-th component log probs | Train: 370.21136208547125 | Val: 364.44273665853143
+6-th component log probs | Train: 388.1977511205118 | Val: 382.81176646610896
+7-th component log probs | Train: 390.0113747040703 | Val: 382.8499785679132
+8-th component log probs | Train: 366.88130916714516 | Val: 353.66992948117763
+9-th component log probs | Train: 389.0205509950066 | Val: 380.14867195758893
+2022-01-07 14:46.26 [info     ] Training complete              train_loss=0.034810103476047516
+2022-01-07 14:46.26 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:46.27 [info     ] Testing complete               test_loss=0.05949465185403824
+{'dataset_size': 48000,
+ 'end_test_accuracy': 0.9839769005775452,
+ 'end_test_loss': 0.05949465185403824,
+ 'end_train_accuracy': 0.9994791746139526,
+ 'end_train_loss': 0.034810103476047516,
+ 'end_val_accuracy': 0.982629656791687,
+ 'end_val_loss': 0.07252936065196991}
+
+wandb: Waiting for W&B process to finish, PID 5102... (success).
+wandb: - 0.57MB of 0.57MB uploaded (0.00MB deduped)wandb: \ 0.57MB of 0.57MB uploaded (0.00MB deduped)wandb: | 0.57MB of 0.57MB uploaded (0.00MB deduped)wandb: / 0.57MB of 0.64MB uploaded (0.00MB deduped)wandb: - 0.57MB of 0.64MB uploaded (0.00MB deduped)wandb: \ 0.60MB of 0.64MB uploaded (0.00MB deduped)wandb: | 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb: / 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb: - 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb: \ 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb: | 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb: / 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb: - 0.64MB of 0.64MB uploaded (0.00MB deduped)wandb:                                                                                
+wandb: Run history:
+wandb:           accuracy_0 ▁▃▄▅▆▆▇▇▇▇▇█▇███████████████████████████
+wandb:           accuracy_1 ▁▃▃▃▃▄▅▅▅▇▇▇▇█▇█████████▇███████████████
+wandb:          accuracy_10 ▁▅▆▆▆▇▇▇▇▇▇█████████████████████████████
+wandb:          accuracy_11 ▁▅▆▆▇▇▇▇▇▇█████████████████
+wandb:          accuracy_12 ▁▅▆▇▇▇▇▇████████████████████████████████
+wandb:          accuracy_13 ▁▅▆▆▇▇▇▇▇▇▇▇▇████████████████
+wandb:          accuracy_14 ▁▅▆▇▇▇▇▇▇▇██████████████████████████████
+wandb:           accuracy_2 ▁▂▂▄▄▅▆▆▇▇▇▇▇▇██▇█████████████████████
+wandb:           accuracy_3 ▁▂▄▅▅▆▆▆▇▇▇▇▇████████████████████████
+wandb:           accuracy_4 ▁▃▄▅▅▆▆▇▇▇▇▇▇████████████████████████
+wandb:           accuracy_5 ▁▃▄▅▆▆▆▇▇▇▇▇▇███████████████████
+wandb:           accuracy_6 ▁▄▅▆▆▇▇▇▇▇▇▇█████████████████████
+wandb:           accuracy_7 ▁▅▆▆▆▇▇▇▇▇▇███████████████████████
+wandb:           accuracy_8 ▁▅▆▆▇▇▇▇▇▇▇████████████████████
+wandb:           accuracy_9 ▁▅▆▆▇▇▇▇▇▇███████████████████████
+wandb:              class_0 ▅▃▁▁▄▃█▄▂▁▁▁▄▄▄
+wandb:              class_1 ▂▁▁▂▁▁▁▂▆██▅▃▃▂
+wandb:              class_2 ▅█▄▃▆▅▅▂▂▁▁▂▂▄▅
+wandb:              class_3 ▃▃▂▄▃▂▁█▅▄▃▃▃▃▄
+wandb:              class_4 ▇▇▆▅▃█▅▃▁▁▃▃▄▅▆
+wandb:              class_5 ▃█▄▆▄▃▁▄▂▁▁▂▂▂▃
+wandb:              class_6 ▂▁▃▂▃▂█▄▂▂▃▃▃▃▂
+wandb:              class_7 ▃▁█▅▄▄▂▂▁▁▁▂▃▃▃
+wandb:              class_8 ▆▄▁▄▃█▃▄▂▂▁▆▄▆▅
+wandb:              class_9 ▅▅▅▄▄▄▂▃▂▁▂██▆▅
+wandb:         dataset_size ▁▁▁▁▁▁▁▂▂▂▂▄▅▇█
+wandb:    end_test_accuracy ▁▁▂▄▄▄▅▆▇▇▇████
+wandb:        end_test_loss ██▇▅▅▅▄▃▂▂▂▁▁▁▁
+wandb:   end_train_accuracy ▆▁▆▇▇▇█████████
+wandb:       end_train_loss ▇█▄▃▃▃▂▂▁▁▁▁▁▁▁
+wandb:     end_val_accuracy ▁▁▂▄▄▅▆▇▇▇▇████
+wandb:         end_val_loss ██▇▆▅▅▄▃▂▂▂▁▁▁▁
+wandb:                epoch ▂▃▅▇▁▃▆█▃▅▁▃▅▂▅▂▄▂▄▂▃▅▂▅▃▅▂▅▁▃▄▃▅▇▁▃▂▄▆█
+wandb:               loss_0 ██▇▇▆▆▅▅▄▃▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_1 ██▇▇▆▆▅▄▄▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_10 █▄▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_11 █▄▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_12 █▄▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_13 █▄▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_14 █▄▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_2 █▇▆▅▅▄▄▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_3 █▇▆▅▄▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_4 █▇▅▄▄▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_5 █▆▅▄▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_6 █▅▄▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_7 █▄▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_8 █▄▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_9 █▄▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_0 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_1 ███████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_10 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                lr_11 ███████████████████▁▁▁▁▁▁▁▁
+wandb:                lr_12 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_13 ███████████████████▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_14 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_2 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_3 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_4 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_5 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_6 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_7 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_8 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_9 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:       val_accuracy_0 ▁▂▃▄▆▇▇█████████████████████████████████
+wandb:       val_accuracy_1 ▂▁▁▂▃▃▅▆▆▇▇▇████████████████████████████
+wandb:      val_accuracy_10 ▁▅▅▆▇▇▇▇▇▇█▇█▇█▇██▇█████████████████████
+wandb:      val_accuracy_11 ▁▅▆▇▇▇▇▇▇▇▇▇██▇▇██▇████████
+wandb:      val_accuracy_12 ▁▅▆▇▇▇▇▇▇▇█▇█▇██████████████████████████
+wandb:      val_accuracy_13 ▁▄▅▆▆▇▆▇▇▇▇▇▇▇▇▇▇▇▇▇█████████
+wandb:      val_accuracy_14 ▁▄▆▅▆▆▇▇▇▆▇▇▇▇██████████████████████████
+wandb:       val_accuracy_2 ▁▂▃▄▅▆▇▇▇█████████████████████████████
+wandb:       val_accuracy_3 ▁▂▅▆▇▇▇█▇████████████████████████████
+wandb:       val_accuracy_4 ▁▂▄▆▆▇▇▇▇████████████████████████████
+wandb:       val_accuracy_5 ▁▅▆▇▇▇▇▇████████████████████████
+wandb:       val_accuracy_6 ▁▄▆▇▇▇▇██████████████████████████
+wandb:       val_accuracy_7 ▁▄▅▆▇▇▇▇▇█▇▇██████████████████████
+wandb:       val_accuracy_8 ▁▄▅▆▇▇▇▇▇███▇██████████████████
+wandb:       val_accuracy_9 ▁▄▅▆▇▇▇▇▇▇▇▇███▇█████████████████
+wandb:           val_loss_0 ██▇▇▆▆▅▄▃▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_1 ███▇▆▆▅▄▄▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_10 █▄▃▂▂▂▁▁▁▁▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_11 █▄▃▂▂▁▁▁▁▂▁▁▁▁▁▁▂▁▂▂▁▁▁▁▁▁▁
+wandb:          val_loss_12 █▃▂▁▁▁▁▂▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_13 █▄▃▂▂▁▂▁▁▁▁▂▂▁▂▂▃▂▂▂▂▁▁▁▁▁▁▁▁
+wandb:          val_loss_14 █▅▃▃▃▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_2 █▇▆▅▄▃▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_3 █▇▅▄▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_4 █▆▄▃▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_5 █▅▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_6 █▄▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_7 █▄▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_8 █▄▃▃▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_9 █▄▃▂▂▂▂▁▁▁▁▁▁▁▁▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:           accuracy_0 0.98438
+wandb:           accuracy_1 0.9375
+wandb:          accuracy_10 0.9993
+wandb:          accuracy_11 0.9994
+wandb:          accuracy_12 0.99967
+wandb:          accuracy_13 0.9991
+wandb:          accuracy_14 0.99948
+wandb:           accuracy_2 0.98438
+wandb:           accuracy_3 0.99427
+wandb:           accuracy_4 0.99038
+wandb:           accuracy_5 0.9877
+wandb:           accuracy_6 0.99756
+wandb:           accuracy_7 0.99802
+wandb:           accuracy_8 0.999
+wandb:           accuracy_9 0.99937
+wandb:              class_0 0.09885
+wandb:              class_1 0.11167
+wandb:              class_2 0.0991
+wandb:              class_3 0.10275
+wandb:              class_4 0.0976
+wandb:              class_5 0.08994
+wandb:              class_6 0.09917
+wandb:              class_7 0.10375
+wandb:              class_8 0.09758
+wandb:              class_9 0.09958
+wandb:         dataset_size 48000
+wandb:    end_test_accuracy 0.98398
+wandb:        end_test_loss 0.05949
+wandb:   end_train_accuracy 0.99948
+wandb:       end_train_loss 0.03481
+wandb:     end_val_accuracy 0.98263
+wandb:         end_val_loss 0.07253
+wandb:                epoch 60
+wandb:               loss_0 0.29551
+wandb:               loss_1 0.32874
+wandb:              loss_10 0.03398
+wandb:              loss_11 0.03541
+wandb:              loss_12 0.03485
+wandb:              loss_13 0.03673
+wandb:              loss_14 0.03481
+wandb:               loss_2 0.14266
+wandb:               loss_3 0.12029
+wandb:               loss_4 0.1151
+wandb:               loss_5 0.12142
+wandb:               loss_6 0.07102
+wandb:               loss_7 0.0585
+wandb:               loss_8 0.04046
+wandb:               loss_9 0.03565
+wandb:                 lr_0 0.0
+wandb:                 lr_1 1e-05
+wandb:                lr_10 1e-05
+wandb:                lr_11 0.0001
+wandb:                lr_12 0.0
+wandb:                lr_13 0.0001
+wandb:                lr_14 0.0
+wandb:                 lr_2 0.0001
+wandb:                 lr_3 0.0001
+wandb:                 lr_4 0.0001
+wandb:                 lr_5 0.0001
+wandb:                 lr_6 0.0001
+wandb:                 lr_7 0.0001
+wandb:                 lr_8 0.0001
+wandb:                 lr_9 0.0001
+wandb:       val_accuracy_0 0.75407
+wandb:       val_accuracy_1 0.75199
+wandb:      val_accuracy_10 0.96169
+wandb:      val_accuracy_11 0.97598
+wandb:      val_accuracy_12 0.97897
+wandb:      val_accuracy_13 0.98055
+wandb:      val_accuracy_14 0.98263
+wandb:       val_accuracy_2 0.78715
+wandb:       val_accuracy_3 0.84026
+wandb:       val_accuracy_4 0.86245
+wandb:       val_accuracy_5 0.87483
+wandb:       val_accuracy_6 0.9065
+wandb:       val_accuracy_7 0.94157
+wandb:       val_accuracy_8 0.94889
+wandb:       val_accuracy_9 0.95105
+wandb:           val_loss_0 0.77533
+wandb:           val_loss_1 0.80914
+wandb:          val_loss_10 0.17245
+wandb:          val_loss_11 0.10364
+wandb:          val_loss_12 0.08975
+wandb:          val_loss_13 0.08679
+wandb:          val_loss_14 0.07253
+wandb:           val_loss_2 0.71718
+wandb:           val_loss_3 0.5714
+wandb:           val_loss_4 0.4928
+wandb:           val_loss_5 0.45056
+wandb:           val_loss_6 0.3362
+wandb:           val_loss_7 0.2348
+wandb:           val_loss_8 0.21322
+wandb:           val_loss_9 0.20632
+wandb: 
+wandb: Synced 6 W&B file(s), 30 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Synced mnist_hu_run1: https://wandb.ai/fanconic/hidden_uncertainty/runs/2sx48zo4
+wandb: Find logs at: ./wandb/run-20220107_141453-2sx48zo4/logs/debug.log
+wandb: 
+wandb: wandb version 0.12.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.7
+wandb: Syncing run mnist_hu_run2
+wandb:  View project at https://wandb.ai/fanconic/hidden_uncertainty
+wandb:  View run at https://wandb.ai/fanconic/hidden_uncertainty/runs/1brrd8h1
+wandb: Run data is saved locally in /scratch_net/airfox/fanconic/semproj2/hidden_uncertainty_active_learning/wandb/run-20220107_144627-1brrd8h1
+wandb: Run `wandb offline` to turn off syncing.
+
+Cuda is available:  True
+2022-01-07 14:46.45 [info     ] Starting training              dataset=100 epoch=60
+100
+0-th component log probs | Train: 728.6004539901139 | Val: -7665.072260176502
+1-th component log probs | Train: 731.2835388519684 | Val: -5739.776475623738
+2-th component log probs | Train: 724.8483509474675 | Val: -10904.946493299421
+3-th component log probs | Train: 725.386867295797 | Val: -13601.718696547647
+4-th component log probs | Train: 727.3834079087851 | Val: -28739.776831682684
+5-th component log probs | Train: 726.812686346795 | Val: -22495.459785279985
+6-th component log probs | Train: 728.1921645655179 | Val: -10062.706139084714
+7-th component log probs | Train: 727.4052290713599 | Val: -13047.01517286536
+8-th component log probs | Train: 725.129386609026 | Val: -10159.939143435853
+9-th component log probs | Train: 727.1608753753496 | Val: -13781.672940686576
+2022-01-07 14:48.13 [info     ] Training complete              train_loss=0.3925657868385315
+2022-01-07 14:48.13 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:48.14 [info     ] Testing complete               test_loss=0.8271259069442749
+{'dataset_size': 100,
+ 'end_test_accuracy': 0.7626393437385559,
+ 'end_test_loss': 0.8271259069442749,
+ 'end_train_accuracy': 0.9470486044883728,
+ 'end_train_loss': 0.3925657868385315,
+ 'end_val_accuracy': 0.7480053305625916,
+ 'end_val_loss': 0.8559684753417969}
+2022-01-07 14:48.14 [info     ] Start Predict                  dataset=47900
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:48.25 [info     ] Starting training              dataset=200 epoch=60
+200
+0-th component log probs | Train: 721.2027894359966 | Val: -6610.406350195116
+1-th component log probs | Train: 728.00123436161 | Val: -4516.580303065115
+2-th component log probs | Train: 702.9503954251928 | Val: -5003.577478735781
+3-th component log probs | Train: 712.6691351457653 | Val: -6258.789063048038
+4-th component log probs | Train: 669.8688918027395 | Val: -1297.769794581624
+5-th component log probs | Train: 640.91479697593 | Val: -1143.6028348192615
+6-th component log probs | Train: 716.9587440969433 | Val: -8505.299404314661
+7-th component log probs | Train: 699.3368733229468 | Val: -3965.095670247086
+8-th component log probs | Train: 713.3593988258843 | Val: -5663.560121092772
+9-th component log probs | Train: 701.8361171208145 | Val: -3885.698030806309
+2022-01-07 14:49.38 [info     ] Training complete              train_loss=0.31363579630851746
+2022-01-07 14:49.38 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:49.38 [info     ] Testing complete               test_loss=0.7651705741882324
+{'dataset_size': 200,
+ 'end_test_accuracy': 0.7647293210029602,
+ 'end_test_loss': 0.7651705741882324,
+ 'end_train_accuracy': 0.96875,
+ 'end_train_loss': 0.31363579630851746,
+ 'end_val_accuracy': 0.758228063583374,
+ 'end_val_loss': 0.7824148535728455}
+2022-01-07 14:49.39 [info     ] Start Predict                  dataset=47800
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:49.49 [info     ] Starting training              dataset=400 epoch=60
+400
+0-th component log probs | Train: 644.872901473266 | Val: -1213.577945744632
+1-th component log probs | Train: 687.9144768839717 | Val: -1089.624105867606
+2-th component log probs | Train: 598.3757283261137 | Val: -672.0607695040286
+3-th component log probs | Train: 680.9629285639282 | Val: -4406.869816523881
+4-th component log probs | Train: 657.117259786365 | Val: -2859.01902135436
+5-th component log probs | Train: 621.9087038059607 | Val: -2512.326386942335
+6-th component log probs | Train: 635.1000371450253 | Val: -1159.6043371569633
+7-th component log probs | Train: 632.6113374857375 | Val: -832.0715901265092
+8-th component log probs | Train: 704.7568694688408 | Val: -6859.197740421974
+9-th component log probs | Train: 678.858727549342 | Val: -3821.548249802347
+2022-01-07 14:51.00 [info     ] Training complete              train_loss=0.15020108222961426
+2022-01-07 14:51.00 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:51.00 [info     ] Testing complete               test_loss=0.5818297863006592
+{'dataset_size': 400,
+ 'end_test_accuracy': 0.8144904375076294,
+ 'end_test_loss': 0.5818297863006592,
+ 'end_train_accuracy': 0.9821428656578064,
+ 'end_train_loss': 0.15020108222961426,
+ 'end_val_accuracy': 0.8018617033958435,
+ 'end_val_loss': 0.6200684309005737}
+2022-01-07 14:51.01 [info     ] Start Predict                  dataset=47600
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:51.11 [info     ] Starting training              dataset=600 epoch=60
+600
+0-th component log probs | Train: 625.8816273774853 | Val: -769.6401701178415
+1-th component log probs | Train: 650.6800897063105 | Val: -223.49221488907293
+2-th component log probs | Train: 568.3785879463837 | Val: -627.9526468392651
+3-th component log probs | Train: 610.4217587077575 | Val: -1574.790835786212
+4-th component log probs | Train: 569.5428509945895 | Val: 32.56281930239828
+5-th component log probs | Train: 557.4921371102267 | Val: -520.5007684683966
+6-th component log probs | Train: 617.8373286668278 | Val: -1185.2157731093644
+7-th component log probs | Train: 590.7472297690988 | Val: -529.6076998621285
+8-th component log probs | Train: 674.7778614036612 | Val: -4493.350084962188
+9-th component log probs | Train: 624.7187808990724 | Val: -1247.7025732487004
+2022-01-07 14:52.02 [info     ] Training complete              train_loss=0.12935030460357666
+2022-01-07 14:52.02 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:52.03 [info     ] Testing complete               test_loss=0.5013555288314819
+{'dataset_size': 600,
+ 'end_test_accuracy': 0.843550980091095,
+ 'end_test_loss': 0.5013555288314819,
+ 'end_train_accuracy': 0.984375,
+ 'end_train_loss': 0.12935030460357666,
+ 'end_val_accuracy': 0.8276263475418091,
+ 'end_val_loss': 0.5625041127204895}
+2022-01-07 14:52.03 [info     ] Start Predict                  dataset=47400
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:52.14 [info     ] Starting training              dataset=800 epoch=60
+800
+0-th component log probs | Train: 613.6712749065268 | Val: -637.6189808113329
+1-th component log probs | Train: 614.9228417779509 | Val: 68.99541743872443
+2-th component log probs | Train: 547.5399399459715 | Val: -412.49560818155715
+3-th component log probs | Train: 551.0372061110821 | Val: -73.58254421856185
+4-th component log probs | Train: 560.7942282377065 | Val: -32.693307001913475
+5-th component log probs | Train: 525.8600672777994 | Val: 111.61051167291235
+6-th component log probs | Train: 584.015574758969 | Val: -372.01284950932484
+7-th component log probs | Train: 578.0134063722776 | Val: -224.67968882511133
+8-th component log probs | Train: 554.175293040372 | Val: -31.139940489115993
+9-th component log probs | Train: 604.8649352899166 | Val: -871.2988428911536
+2022-01-07 14:53.00 [info     ] Training complete              train_loss=0.1356232613325119
+2022-01-07 14:53.00 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:53.01 [info     ] Testing complete               test_loss=0.4561723470687866
+{'dataset_size': 800,
+ 'end_test_accuracy': 0.8579816818237305,
+ 'end_test_loss': 0.4561723470687866,
+ 'end_train_accuracy': 0.984375,
+ 'end_train_loss': 0.1356232613325119,
+ 'end_val_accuracy': 0.8505651354789734,
+ 'end_val_loss': 0.5063720941543579}
+2022-01-07 14:53.01 [info     ] Start Predict                  dataset=47200
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:53.12 [info     ] Starting training              dataset=1000 epoch=60
+1000
+0-th component log probs | Train: 565.9271337614657 | Val: -94.69593897543342
+1-th component log probs | Train: 603.9944060633753 | Val: 126.34557989509284
+2-th component log probs | Train: 514.5144273762842 | Val: 68.5970666568183
+3-th component log probs | Train: 537.6859878327638 | Val: -105.21013853967781
+4-th component log probs | Train: 538.8743764026178 | Val: 172.8942905315419
+5-th component log probs | Train: 515.0871254417251 | Val: 109.755582081955
+6-th component log probs | Train: 545.952341950881 | Val: 80.02396492924736
+7-th component log probs | Train: 538.1062498971195 | Val: 100.29512230500833
+8-th component log probs | Train: 540.2053270247857 | Val: -164.33700725817505
+9-th component log probs | Train: 544.7945825417202 | Val: 112.35207247793905
+2022-01-07 14:53.58 [info     ] Training complete              train_loss=0.12454763054847717
+2022-01-07 14:53.58 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:53.59 [info     ] Testing complete               test_loss=0.42607223987579346
+{'dataset_size': 1000,
+ 'end_test_accuracy': 0.8699243664741516,
+ 'end_test_loss': 0.42607223987579346,
+ 'end_train_accuracy': 0.989062488079071,
+ 'end_train_loss': 0.12454763054847717,
+ 'end_val_accuracy': 0.8640292286872864,
+ 'end_val_loss': 0.48133715987205505}
+2022-01-07 14:53.59 [info     ] Start Predict                  dataset=47000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:54.10 [info     ] Starting training              dataset=2000 epoch=60
+2000
+0-th component log probs | Train: 551.757038651908 | Val: 155.69148679605553
+1-th component log probs | Train: 578.0639099339819 | Val: 300.1925821678274
+2-th component log probs | Train: 496.80332088819955 | Val: 340.67201683036615
+3-th component log probs | Train: 509.1180458723758 | Val: 212.49102523074586
+4-th component log probs | Train: 534.7017690895619 | Val: 312.92500390756777
+5-th component log probs | Train: 498.33353410162033 | Val: 295.64460479564593
+6-th component log probs | Train: 530.9233335921836 | Val: 454.7599112791135
+7-th component log probs | Train: 528.1567340043621 | Val: 264.2504095080949
+8-th component log probs | Train: 526.5278151534252 | Val: 243.45722737003118
+9-th component log probs | Train: 545.6470351552083 | Val: 313.8522587755225
+2022-01-07 14:55.05 [info     ] Training complete              train_loss=0.07375471293926239
+2022-01-07 14:55.05 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:55.06 [info     ] Testing complete               test_loss=0.35390543937683105
+{'dataset_size': 2000,
+ 'end_test_accuracy': 0.8992834687232971,
+ 'end_test_loss': 0.35390543937683105,
+ 'end_train_accuracy': 0.9951171875,
+ 'end_train_loss': 0.07375471293926239,
+ 'end_val_accuracy': 0.8941987752914429,
+ 'end_val_loss': 0.3925434947013855}
+2022-01-07 14:55.06 [info     ] Start Predict                  dataset=46000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:55.18 [info     ] Starting training              dataset=4000 epoch=60
+4000
+0-th component log probs | Train: 511.81855756972794 | Val: 387.1767795773615
+1-th component log probs | Train: 542.4206479874563 | Val: 473.97322794005566
+2-th component log probs | Train: 456.7984797881676 | Val: 385.893055652244
+3-th component log probs | Train: 463.5731489397223 | Val: 379.481836608134
+4-th component log probs | Train: 482.4223148112836 | Val: 390.07171084755237
+5-th component log probs | Train: 458.297117960597 | Val: 363.41835132540893
+6-th component log probs | Train: 502.5443528258969 | Val: 420.0668906314382
+7-th component log probs | Train: 482.38755335499394 | Val: 369.19903374623823
+8-th component log probs | Train: 485.7358506629386 | Val: 373.3901434370676
+9-th component log probs | Train: 500.0852403498758 | Val: 396.5867266152971
+2022-01-07 14:56.11 [info     ] Training complete              train_loss=0.04996177554130554
+2022-01-07 14:56.11 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:56.12 [info     ] Testing complete               test_loss=0.27672508358955383
+{'dataset_size': 4000,
+ 'end_test_accuracy': 0.9202826619148254,
+ 'end_test_loss': 0.27672508358955383,
+ 'end_train_accuracy': 0.997519850730896,
+ 'end_train_loss': 0.04996177554130554,
+ 'end_val_accuracy': 0.921875,
+ 'end_val_loss': 0.3117918074131012}
+2022-01-07 14:56.12 [info     ] Start Predict                  dataset=44000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:56.24 [info     ] Starting training              dataset=6000 epoch=60
+6000
+0-th component log probs | Train: 491.6087404657021 | Val: 414.1952564961774
+1-th component log probs | Train: 529.9310912298043 | Val: 457.20374223958083
+2-th component log probs | Train: 447.71781547098504 | Val: 392.7205284948959
+3-th component log probs | Train: 449.84897027263185 | Val: 373.1542597563763
+4-th component log probs | Train: 468.8603927138124 | Val: 389.8858462828002
+5-th component log probs | Train: 439.4832220121794 | Val: 363.2489387227056
+6-th component log probs | Train: 488.8172352418753 | Val: 398.96118585541495
+7-th component log probs | Train: 469.91566131086347 | Val: 386.61820747752444
+8-th component log probs | Train: 466.20776465061994 | Val: 366.2258965466901
+9-th component log probs | Train: 475.21496171879573 | Val: 395.4279263639056
+2022-01-07 14:57.26 [info     ] Training complete              train_loss=0.03665373474359512
+2022-01-07 14:57.26 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:57.26 [info     ] Testing complete               test_loss=0.25384947657585144
+{'dataset_size': 6000,
+ 'end_test_accuracy': 0.9273487329483032,
+ 'end_test_loss': 0.25384947657585144,
+ 'end_train_accuracy': 0.9990026354789734,
+ 'end_train_loss': 0.03665373474359512,
+ 'end_val_accuracy': 0.9317653179168701,
+ 'end_val_loss': 0.2917408347129822}
+2022-01-07 14:57.27 [info     ] Start Predict                  dataset=42000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:57.39 [info     ] Starting training              dataset=8000 epoch=60
+8000
+0-th component log probs | Train: 485.789872391646 | Val: 443.98276719059805
+1-th component log probs | Train: 528.0494178666687 | Val: 475.0687037102272
+2-th component log probs | Train: 443.67474624713736 | Val: 409.5846244365739
+3-th component log probs | Train: 455.84996373752284 | Val: 395.91838277720376
+4-th component log probs | Train: 454.5983719909514 | Val: 419.7612550929434
+5-th component log probs | Train: 444.87298115057956 | Val: 393.9932418004293
+6-th component log probs | Train: 476.6470396974727 | Val: 439.19431942855624
+7-th component log probs | Train: 458.8402227947122 | Val: 439.669585153917
+8-th component log probs | Train: 459.5704410384713 | Val: 370.8736759717238
+9-th component log probs | Train: 472.8879778356037 | Val: 411.8479716708258
+2022-01-07 14:58.51 [info     ] Training complete              train_loss=0.034813638776540756
+2022-01-07 14:58.51 [info     ] Starting evaluating            dataset=10000
+2022-01-07 14:58.52 [info     ] Testing complete               test_loss=0.2062399983406067
+{'dataset_size': 8000,
+ 'end_test_accuracy': 0.9413813948631287,
+ 'end_test_loss': 0.2062399983406067,
+ 'end_train_accuracy': 0.9986249804496765,
+ 'end_train_loss': 0.034813638776540756,
+ 'end_val_accuracy': 0.9406582713127136,
+ 'end_val_loss': 0.2408871352672577}
+2022-01-07 14:58.52 [info     ] Start Predict                  dataset=40000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 14:59.04 [info     ] Starting training              dataset=10000 epoch=60
+10000
+0-th component log probs | Train: 459.22643040294355 | Val: 429.8291568463316
+1-th component log probs | Train: 509.8863175978159 | Val: 463.3867375582809
+2-th component log probs | Train: 416.55601166378113 | Val: 391.3474604950333
+3-th component log probs | Train: 434.6140078442693 | Val: 393.44419171584326
+4-th component log probs | Train: 432.4913485984217 | Val: 407.5178360595857
+5-th component log probs | Train: 419.26845186393405 | Val: 366.30182722261407
+6-th component log probs | Train: 455.1845005671081 | Val: 414.8051513927294
+7-th component log probs | Train: 437.143644837991 | Val: 418.08150790729
+8-th component log probs | Train: 435.0787903415692 | Val: 380.3161509422556
+9-th component log probs | Train: 446.67070659512905 | Val: 405.3980357270969
+2022-01-07 15:00.48 [info     ] Training complete              train_loss=0.031072847545146942
+2022-01-07 15:00.48 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:00.49 [info     ] Testing complete               test_loss=0.1920706033706665
+{'dataset_size': 10000,
+ 'end_test_accuracy': 0.9517316818237305,
+ 'end_test_loss': 0.1920706033706665,
+ 'end_train_accuracy': 0.9995023608207703,
+ 'end_train_loss': 0.031072847545146942,
+ 'end_val_accuracy': 0.9494680762290955,
+ 'end_val_loss': 0.22013090550899506}
+2022-01-07 15:00.49 [info     ] Start Predict                  dataset=38000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:01.06 [info     ] Starting training              dataset=20000 epoch=60
+20000
+0-th component log probs | Train: 422.3022981441493 | Val: 410.04375116574425
+1-th component log probs | Train: 468.53028329070423 | Val: 448.78274018262476
+2-th component log probs | Train: 375.81183876548045 | Val: 377.5305927788571
+3-th component log probs | Train: 396.9036556686523 | Val: 391.08928243506057
+4-th component log probs | Train: 388.8461867932852 | Val: 389.75796660547223
+5-th component log probs | Train: 382.3340482710686 | Val: 365.7524122953221
+6-th component log probs | Train: 410.861438215214 | Val: 396.6836656189039
+7-th component log probs | Train: 394.34910400668264 | Val: 393.74502506586344
+8-th component log probs | Train: 385.3594134488414 | Val: 377.77206289217895
+9-th component log probs | Train: 401.8549844384274 | Val: 393.6777548846878
+2022-01-07 15:04.03 [info     ] Training complete              train_loss=0.03636864572763443
+2022-01-07 15:04.03 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:04.04 [info     ] Testing complete               test_loss=0.09874335676431656
+{'dataset_size': 20000,
+ 'end_test_accuracy': 0.9760151505470276,
+ 'end_test_loss': 0.09874335676431656,
+ 'end_train_accuracy': 0.9998003244400024,
+ 'end_train_loss': 0.03636864572763443,
+ 'end_val_accuracy': 0.971326470375061,
+ 'end_val_loss': 0.11694705486297607}
+2022-01-07 15:04.04 [info     ] Start Predict                  dataset=28000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:04.23 [info     ] Starting training              dataset=30000 epoch=60
+30000
+0-th component log probs | Train: 402.44953890217226 | Val: 390.25855315602337
+1-th component log probs | Train: 454.52203491259553 | Val: 438.99373461480354
+2-th component log probs | Train: 362.20099982659247 | Val: 364.8811118656833
+3-th component log probs | Train: 383.09225228503084 | Val: 385.79219275935134
+4-th component log probs | Train: 373.7741564962079 | Val: 376.32608066525347
+5-th component log probs | Train: 369.10506865507654 | Val: 364.8260893434755
+6-th component log probs | Train: 395.1471381700768 | Val: 382.6393907197722
+7-th component log probs | Train: 378.72555145123334 | Val: 381.07959960932135
+8-th component log probs | Train: 380.98444716365344 | Val: 370.390447445455
+9-th component log probs | Train: 396.0006748982296 | Val: 386.8642402308914
+2022-01-07 15:07.26 [info     ] Training complete              train_loss=0.03711659088730812
+2022-01-07 15:07.26 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:07.27 [info     ] Testing complete               test_loss=0.0868045836687088
+{'dataset_size': 30000,
+ 'end_test_accuracy': 0.9745222926139832,
+ 'end_test_loss': 0.0868045836687088,
+ 'end_train_accuracy': 0.9993003606796265,
+ 'end_train_loss': 0.03711659088730812,
+ 'end_val_accuracy': 0.9758145213127136,
+ 'end_val_loss': 0.10085836052894592}
+2022-01-07 15:07.27 [info     ] Start Predict                  dataset=18000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:07.44 [info     ] Starting training              dataset=40000 epoch=60
+40000
+0-th component log probs | Train: 410.38015074781794 | Val: 392.6416182194542
+1-th component log probs | Train: 441.2510444113824 | Val: 425.54592759143156
+2-th component log probs | Train: 355.01852045693516 | Val: 355.94668172702427
+3-th component log probs | Train: 385.140771413288 | Val: 378.9101413513797
+4-th component log probs | Train: 374.40498851074284 | Val: 372.11776777084657
+5-th component log probs | Train: 365.47340119550387 | Val: 357.8654451813434
+6-th component log probs | Train: 395.57691530271336 | Val: 377.82675912321014
+7-th component log probs | Train: 382.80391403514227 | Val: 376.81404544870577
+8-th component log probs | Train: 371.20104262258445 | Val: 358.8544139675175
+9-th component log probs | Train: 385.19188244830644 | Val: 375.89624349966755
+2022-01-07 15:10.48 [info     ] Training complete              train_loss=0.03703075274825096
+2022-01-07 15:10.48 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:10.48 [info     ] Testing complete               test_loss=0.07715929299592972
+{'dataset_size': 40000,
+ 'end_test_accuracy': 0.9755175113677979,
+ 'end_test_loss': 0.07715929299592972,
+ 'end_train_accuracy': 0.9992750287055969,
+ 'end_train_loss': 0.03703075274825096,
+ 'end_val_accuracy': 0.978723406791687,
+ 'end_val_loss': 0.08926582336425781}
+2022-01-07 15:10.48 [info     ] Start Predict                  dataset=8000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:11.03 [info     ] Starting training              dataset=48000 epoch=60
+48000
+0-th component log probs | Train: 393.40684503141665 | Val: 383.37729410946486
+1-th component log probs | Train: 445.34705678887605 | Val: 431.4625942883791
+2-th component log probs | Train: 361.17828340070537 | Val: 353.49922408792395
+3-th component log probs | Train: 385.79480172273315 | Val: 371.12450526160177
+4-th component log probs | Train: 377.57518969574573 | Val: 368.64537705970304
+5-th component log probs | Train: 369.24783096017245 | Val: 352.04303174759855
+6-th component log probs | Train: 391.2952125476032 | Val: 374.8037287149417
+7-th component log probs | Train: 384.6104513810407 | Val: 374.2626628964219
+8-th component log probs | Train: 369.99951008235985 | Val: 355.1733356853058
+9-th component log probs | Train: 380.3710748791986 | Val: 366.23153620559066
+2022-01-07 15:17.16 [info     ] Training complete              train_loss=0.03500392287969589
+2022-01-07 15:17.16 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:17.17 [info     ] Testing complete               test_loss=0.06698928028345108
+{'dataset_size': 48000,
+ 'end_test_accuracy': 0.9823845624923706,
+ 'end_test_loss': 0.06698928028345108,
+ 'end_train_accuracy': 0.9995833039283752,
+ 'end_train_loss': 0.03500392287969589,
+ 'end_val_accuracy': 0.9780585169792175,
+ 'end_val_loss': 0.08136101067066193}
+
+wandb: Waiting for W&B process to finish, PID 22631... (success).
+wandb: - 0.56MB of 0.56MB uploaded (0.00MB deduped)wandb: \ 0.56MB of 0.56MB uploaded (0.00MB deduped)wandb: | 0.56MB of 0.56MB uploaded (0.00MB deduped)wandb: / 0.56MB of 0.63MB uploaded (0.00MB deduped)wandb: - 0.56MB of 0.63MB uploaded (0.00MB deduped)wandb: \ 0.59MB of 0.63MB uploaded (0.00MB deduped)wandb: | 0.63MB of 0.63MB uploaded (0.00MB deduped)wandb: / 0.63MB of 0.63MB uploaded (0.00MB deduped)wandb: - 0.63MB of 0.63MB uploaded (0.00MB deduped)wandb: \ 0.63MB of 0.63MB uploaded (0.00MB deduped)wandb: | 0.63MB of 0.63MB uploaded (0.00MB deduped)wandb: / 0.63MB of 0.63MB uploaded (0.00MB deduped)wandb: - 0.63MB of 0.63MB uploaded (0.00MB deduped)wandb: \ 0.63MB of 0.63MB uploaded (0.00MB deduped)wandb:                                                                                
+wandb: Run history:
+wandb:           accuracy_0 ▁▂▄▅▆▆▇▇▇▇▇▇▇██▇█▇██████████████████████
+wandb:           accuracy_1 ▁▃▂▃▃▃▅▆▆▆▇▇█▇██████████▇███████████████
+wandb:          accuracy_10 ▁▅▆▆▆▇▇▇▇▇██████████████████████████████
+wandb:          accuracy_11 ▁▅▆▆▇▇▇▇▇▇▇█████████████████████████████
+wandb:          accuracy_12 ▁▅▆▆▇▇▇▇▇▇▇████████████████████
+wandb:          accuracy_13 ▁▅▆▆▇▇▇▇▇▇▇▇▇▇███████████████
+wandb:          accuracy_14 ▁▅▆▇▇▇▇▇▇▇██████████████████████████████
+wandb:           accuracy_2 ▁▂▃▅▅▆▇▇▇▇▇█████████████████████████████
+wandb:           accuracy_3 ▁▂▄▅▅▆▆▆▇▇▇▇▇▇▇█████████████████████████
+wandb:           accuracy_4 ▁▃▄▅▆▆▆▇▇▇▇▇▇▇▇████████████████████
+wandb:           accuracy_5 ▁▃▄▅▆▆▆▆▇▇▇▇▇▇█████████████████████
+wandb:           accuracy_6 ▁▄▅▆▆▇▇▇▇▇▇▇██████████████████████████
+wandb:           accuracy_7 ▁▅▆▆▇▇▇▇▇▇█████████████████████
+wandb:           accuracy_8 ▁▅▆▆▇▇▇▇▇▇█████████████████████
+wandb:           accuracy_9 ▁▅▆▆▇▇▇▇▇▇██████████████████████
+wandb:              class_0 ▄▂▅▃▂▃▁▃▂▂▃█▇▅▄
+wandb:              class_1 ▂▁▁▁▁▁▁▅▇██▄▃▂▂
+wandb:              class_2 ▄▃█▆▅▄▃▂▁▁▂▁▂▂▄
+wandb:              class_3 ▇▄▃▆█▆▃▃▂▁▁▃▃▆█
+wandb:              class_4 ▄█▄▇▅▅▂▂▁▁▁▂▂▄▄
+wandb:              class_5 ▃█▄▄▄▄▂▂▁▁▁▂▂▂▃
+wandb:              class_6 ▂▁▂▂▁▂█▄▃▂▂▂▂▂▂
+wandb:              class_7 ▆▅█▇▅▆▃▂▁▃▂▂▃▅▆
+wandb:              class_8 ▆▃▁▁█▆▃▄▂▂▂▇█▇▆
+wandb:              class_9 ▇▆▃▅▄▇▄▂▂▁▁▅▇█▇
+wandb:         dataset_size ▁▁▁▁▁▁▁▂▂▂▂▄▅▇█
+wandb:    end_test_accuracy ▁▁▃▄▄▄▅▆▆▇▇████
+wandb:        end_test_loss █▇▆▅▅▄▄▃▃▂▂▁▁▁▁
+wandb:   end_train_accuracy ▁▄▆▆▆▇▇████████
+wandb:       end_train_loss █▆▃▃▃▃▂▁▁▁▁▁▁▁▁
+wandb:     end_val_accuracy ▁▁▃▃▄▅▅▆▇▇▇████
+wandb:         end_val_loss █▇▆▅▅▅▄▃▃▂▂▁▁▁▁
+wandb:                epoch ▂▃▅▇▁▃▅▇▂▄▆█▃▅▂▄▁▃▁▃▄▁▃▁▃▂▄▂▄▆▂▄▁▃▁▃▂▄▆█
+wandb:               loss_0 ██▇▇▇▆▅▅▄▄▃▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_1 ██▇▆▅▅▄▄▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_10 █▄▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_11 █▄▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_12 █▄▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_13 █▄▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_14 █▄▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_2 █▇▆▄▄▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_3 █▇▆▅▄▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_4 █▇▅▄▄▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_5 █▆▅▄▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_6 █▅▄▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_7 █▄▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_8 █▄▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_9 █▄▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_0 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_1 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_10 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                lr_11 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                lr_12 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_13 ███████████████████▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_14 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_2 ██████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_3 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                 lr_4 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_5 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_6 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_7 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_8 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_9 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:       val_accuracy_0 ▁▂▄▄▆▇██████████████████████████████████
+wandb:       val_accuracy_1 ▁▁▁▁▂▃▅▆▇▇██████████████████████████████
+wandb:      val_accuracy_10 ▁▄▅▅▆▇▇▇▇▇▇▇█▇▇▇▇▇▇█████████████████████
+wandb:      val_accuracy_11 ▁▄▆▇▇▇▇▇▇▇▇▇▇▇█▇▇▇█▇████████████████████
+wandb:      val_accuracy_12 ▁▄▅▆▇▇▇▇▇▇▇▇▇▇▇█▇█▇████████████
+wandb:      val_accuracy_13 ▁▅▅▆▆▇▇▇▇▇▇█▇▇▇▇▇▇▇▇█████████
+wandb:      val_accuracy_14 ▁▄▆▇▇▇▇▇▇▇▇▇▇▇██████████████████████████
+wandb:       val_accuracy_2 ▁▁▃▄▆▇▇██▇██████████████████████████████
+wandb:       val_accuracy_3 ▁▂▄▅▆▆▇▇▇███████████████████████████████
+wandb:       val_accuracy_4 ▁▄▅▇▇▇█████████████████████████████
+wandb:       val_accuracy_5 ▁▄▆▆▇▇▇▇▇██████████████████████████
+wandb:       val_accuracy_6 ▁▅▇▇▇▇████████████████████████████████
+wandb:       val_accuracy_7 ▁▄▆▆▆▇▇▇▇██████████████████████
+wandb:       val_accuracy_8 ▁▄▄▆▆▆▇▆▇▇▇▇▇▇▇████████████████
+wandb:       val_accuracy_9 ▁▄▅▆▆▇▇▇▇▇▇█▇█▇█████████████████
+wandb:           val_loss_0 ██▇▇▆▆▅▅▄▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_1 ███▇▇▆▅▄▃▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_10 █▄▃▃▂▂▁▁▁▁▁▁▁▁▂▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_11 █▄▃▂▂▂▁▁▁▁▁▁▁▁▁▁▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_12 █▄▃▂▂▂▁▁▁▂▁▁▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_13 █▄▃▂▂▂▂▂▁▁▁▁▁▂▁▂▂▂▂▂▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_14 █▅▃▂▂▂▁▁▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_2 ██▇▅▄▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_3 █▇▅▄▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_4 █▆▄▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_5 █▅▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_6 █▄▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_7 █▄▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_8 █▄▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_9 █▅▃▂▂▂▁▁▁▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:           accuracy_0 0.94705
+wandb:           accuracy_1 0.96875
+wandb:          accuracy_10 0.9995
+wandb:          accuracy_11 0.9998
+wandb:          accuracy_12 0.9993
+wandb:          accuracy_13 0.99928
+wandb:          accuracy_14 0.99958
+wandb:           accuracy_2 0.98214
+wandb:           accuracy_3 0.98438
+wandb:           accuracy_4 0.98438
+wandb:           accuracy_5 0.98906
+wandb:           accuracy_6 0.99512
+wandb:           accuracy_7 0.99752
+wandb:           accuracy_8 0.999
+wandb:           accuracy_9 0.99862
+wandb:              class_0 0.09856
+wandb:              class_1 0.11252
+wandb:              class_2 0.1001
+wandb:              class_3 0.10254
+wandb:              class_4 0.09877
+wandb:              class_5 0.09002
+wandb:              class_6 0.09867
+wandb:              class_7 0.10342
+wandb:              class_8 0.09606
+wandb:              class_9 0.09933
+wandb:         dataset_size 48000
+wandb:    end_test_accuracy 0.98238
+wandb:        end_test_loss 0.06699
+wandb:   end_train_accuracy 0.99958
+wandb:       end_train_loss 0.035
+wandb:     end_val_accuracy 0.97806
+wandb:         end_val_loss 0.08136
+wandb:                epoch 60
+wandb:               loss_0 0.39257
+wandb:               loss_1 0.31364
+wandb:              loss_10 0.03107
+wandb:              loss_11 0.03637
+wandb:              loss_12 0.03712
+wandb:              loss_13 0.03703
+wandb:              loss_14 0.035
+wandb:               loss_2 0.1502
+wandb:               loss_3 0.12935
+wandb:               loss_4 0.13562
+wandb:               loss_5 0.12455
+wandb:               loss_6 0.07375
+wandb:               loss_7 0.04996
+wandb:               loss_8 0.03665
+wandb:               loss_9 0.03481
+wandb:                 lr_0 0.0
+wandb:                 lr_1 0.0
+wandb:                lr_10 1e-05
+wandb:                lr_11 1e-05
+wandb:                lr_12 0.0001
+wandb:                lr_13 0.0001
+wandb:                lr_14 0.0
+wandb:                 lr_2 1e-05
+wandb:                 lr_3 1e-05
+wandb:                 lr_4 0.0001
+wandb:                 lr_5 0.0001
+wandb:                 lr_6 0.0001
+wandb:                 lr_7 0.0001
+wandb:                 lr_8 0.0001
+wandb:                 lr_9 0.0001
+wandb:       val_accuracy_0 0.74801
+wandb:       val_accuracy_1 0.75823
+wandb:      val_accuracy_10 0.94947
+wandb:      val_accuracy_11 0.97133
+wandb:      val_accuracy_12 0.97581
+wandb:      val_accuracy_13 0.97872
+wandb:      val_accuracy_14 0.97806
+wandb:       val_accuracy_2 0.80186
+wandb:       val_accuracy_3 0.82763
+wandb:       val_accuracy_4 0.85057
+wandb:       val_accuracy_5 0.86403
+wandb:       val_accuracy_6 0.8942
+wandb:       val_accuracy_7 0.92188
+wandb:       val_accuracy_8 0.93177
+wandb:       val_accuracy_9 0.94066
+wandb:           val_loss_0 0.85597
+wandb:           val_loss_1 0.78241
+wandb:          val_loss_10 0.22013
+wandb:          val_loss_11 0.11695
+wandb:          val_loss_12 0.10086
+wandb:          val_loss_13 0.08927
+wandb:          val_loss_14 0.08136
+wandb:           val_loss_2 0.62007
+wandb:           val_loss_3 0.5625
+wandb:           val_loss_4 0.50637
+wandb:           val_loss_5 0.48134
+wandb:           val_loss_6 0.39254
+wandb:           val_loss_7 0.31179
+wandb:           val_loss_8 0.29174
+wandb:           val_loss_9 0.24089
+wandb: 
+wandb: Synced 6 W&B file(s), 30 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Synced mnist_hu_run2: https://wandb.ai/fanconic/hidden_uncertainty/runs/1brrd8h1
+wandb: Find logs at: ./wandb/run-20220107_144627-1brrd8h1/logs/debug.log
+wandb: 
+wandb: wandb version 0.12.9 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.7
+wandb: Syncing run mnist_hu_run3
+wandb:  View project at https://wandb.ai/fanconic/hidden_uncertainty
+wandb:  View run at https://wandb.ai/fanconic/hidden_uncertainty/runs/lu3a9x71
+wandb: Run data is saved locally in /scratch_net/airfox/fanconic/semproj2/hidden_uncertainty_active_learning/wandb/run-20220107_151717-lu3a9x71
+wandb: Run `wandb offline` to turn off syncing.
+
+Cuda is available:  True
+2022-01-07 15:17.35 [info     ] Starting training              dataset=100 epoch=60
+100
+0-th component log probs | Train: 730.4372392117891 | Val: -5900.837969250325
+1-th component log probs | Train: 733.1962699313988 | Val: -8524.712143458677
+2-th component log probs | Train: 725.157961782659 | Val: -13521.37651470402
+3-th component log probs | Train: 726.9917668629442 | Val: -12530.589255936242
+4-th component log probs | Train: 726.0207323811577 | Val: -11699.195121808947
+5-th component log probs | Train: 725.4251482938961 | Val: -28872.522059705512
+6-th component log probs | Train: 728.1063623519868 | Val: -8661.345638310091
+7-th component log probs | Train: 728.8193394173944 | Val: -6279.6658518189
+8-th component log probs | Train: 726.75534597953 | Val: -17150.05136017237
+9-th component log probs | Train: 729.0084471308745 | Val: -13512.985526341448
+2022-01-07 15:18.49 [info     ] Training complete              train_loss=0.3695674240589142
+2022-01-07 15:18.49 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:18.50 [info     ] Testing complete               test_loss=0.8827868700027466
+{'dataset_size': 100,
+ 'end_test_accuracy': 0.7273089289665222,
+ 'end_test_loss': 0.8827868700027466,
+ 'end_train_accuracy': 0.9644097089767456,
+ 'end_train_loss': 0.3695674240589142,
+ 'end_val_accuracy': 0.7282247543334961,
+ 'end_val_loss': 0.8938423991203308}
+2022-01-07 15:18.50 [info     ] Start Predict                  dataset=47900
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:19.01 [info     ] Starting training              dataset=200 epoch=60
+200
+0-th component log probs | Train: 725.1815798877705 | Val: -3518.077739298921
+1-th component log probs | Train: 705.9398790288515 | Val: -2477.0782473923446
+2-th component log probs | Train: 697.0334767905302 | Val: -3681.983023100503
+3-th component log probs | Train: 686.7550309511441 | Val: -2142.381868701324
+4-th component log probs | Train: 720.7281995131476 | Val: -8872.717176563301
+5-th component log probs | Train: 628.1634202968413 | Val: -418.1416462762045
+6-th component log probs | Train: 713.4368569044121 | Val: -4407.942846966685
+7-th component log probs | Train: 716.5623758871582 | Val: -4925.9589218597675
+8-th component log probs | Train: 707.3197701350396 | Val: -5069.760352526573
+9-th component log probs | Train: 701.1876600843098 | Val: -4373.366086042606
+2022-01-07 15:20.12 [info     ] Training complete              train_loss=0.35753393173217773
+2022-01-07 15:20.12 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:20.13 [info     ] Testing complete               test_loss=0.7362880110740662
+{'dataset_size': 200,
+ 'end_test_accuracy': 0.7579618096351624,
+ 'end_test_loss': 0.7362880110740662,
+ 'end_train_accuracy': 0.9140625,
+ 'end_train_loss': 0.35753393173217773,
+ 'end_val_accuracy': 0.7445977330207825,
+ 'end_val_loss': 0.7608932256698608}
+2022-01-07 15:20.13 [info     ] Start Predict                  dataset=47800
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:20.24 [info     ] Starting training              dataset=400 epoch=60
+400
+0-th component log probs | Train: 693.0722032377862 | Val: -2843.810784429637
+1-th component log probs | Train: 686.2381550330647 | Val: -1749.087800979777
+2-th component log probs | Train: 637.975912043895 | Val: -2287.1370558582853
+3-th component log probs | Train: 673.0651850439967 | Val: -4368.9904912045595
+4-th component log probs | Train: 578.3933019919533 | Val: 156.2086367818805
+5-th component log probs | Train: 604.1457337409051 | Val: -1174.8612113500692
+6-th component log probs | Train: 647.5055915410236 | Val: -1354.3448854747378
+7-th component log probs | Train: 669.390720820798 | Val: -2414.512763312256
+8-th component log probs | Train: 685.5627611309202 | Val: -4665.659007457588
+9-th component log probs | Train: 651.0105123008092 | Val: -1822.3562035146056
+2022-01-07 15:21.23 [info     ] Training complete              train_loss=0.16327200829982758
+2022-01-07 15:21.23 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:21.24 [info     ] Testing complete               test_loss=0.5773869156837463
+{'dataset_size': 400,
+ 'end_test_accuracy': 0.8108081221580505,
+ 'end_test_loss': 0.5773869156837463,
+ 'end_train_accuracy': 0.9910714030265808,
+ 'end_train_loss': 0.16327200829982758,
+ 'end_val_accuracy': 0.806848406791687,
+ 'end_val_loss': 0.5926916003227234}
+2022-01-07 15:21.24 [info     ] Start Predict                  dataset=47600
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:21.36 [info     ] Starting training              dataset=600 epoch=60
+600
+0-th component log probs | Train: 656.9288155129167 | Val: -1833.8276892331683
+1-th component log probs | Train: 633.2126539748949 | Val: 48.93434246225367
+2-th component log probs | Train: 580.2057979136146 | Val: -392.3098703177368
+3-th component log probs | Train: 585.2749010000935 | Val: 7.105131078817122
+4-th component log probs | Train: 561.5587530549799 | Val: 125.5704043621563
+5-th component log probs | Train: 572.5240045607073 | Val: -407.0538738727315
+6-th component log probs | Train: 625.7111434391209 | Val: -1080.0815435271747
+7-th component log probs | Train: 625.7563907462186 | Val: -809.8920090589769
+8-th component log probs | Train: 672.5426548720819 | Val: -4196.082358819741
+9-th component log probs | Train: 629.1799430411832 | Val: -1010.2696844362275
+2022-01-07 15:22.35 [info     ] Training complete              train_loss=0.13547338545322418
+2022-01-07 15:22.35 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:22.36 [info     ] Testing complete               test_loss=0.47000589966773987
+{'dataset_size': 600,
+ 'end_test_accuracy': 0.8458399772644043,
+ 'end_test_loss': 0.47000589966773987,
+ 'end_train_accuracy': 0.9828125238418579,
+ 'end_train_loss': 0.13547338545322418,
+ 'end_val_accuracy': 0.8496509194374084,
+ 'end_val_loss': 0.4865732491016388}
+2022-01-07 15:22.36 [info     ] Start Predict                  dataset=47400
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:22.48 [info     ] Starting training              dataset=800 epoch=60
+800
+0-th component log probs | Train: 567.0336915517263 | Val: 284.1725298376816
+1-th component log probs | Train: 621.677052757577 | Val: 184.02008711508637
+2-th component log probs | Train: 559.7016328431979 | Val: -141.9111150919637
+3-th component log probs | Train: 570.8932225998029 | Val: -36.25041304348618
+4-th component log probs | Train: 559.4046968550464 | Val: 211.70931690077188
+5-th component log probs | Train: 538.5976487186533 | Val: 110.10801194338501
+6-th component log probs | Train: 588.363157625697 | Val: -293.5360868339593
+7-th component log probs | Train: 592.6784323572327 | Val: -275.860653982299
+8-th component log probs | Train: 618.8609578398997 | Val: -1647.1478495224756
+9-th component log probs | Train: 621.6349449788828 | Val: -874.2247749384122
+2022-01-07 15:23.55 [info     ] Training complete              train_loss=0.12903378903865814
+2022-01-07 15:23.55 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:23.56 [info     ] Testing complete               test_loss=0.4705757200717926
+{'dataset_size': 800,
+ 'end_test_accuracy': 0.8559912443161011,
+ 'end_test_loss': 0.4705757200717926,
+ 'end_train_accuracy': 0.9915865659713745,
+ 'end_train_loss': 0.12903378903865814,
+ 'end_val_accuracy': 0.858959436416626,
+ 'end_val_loss': 0.4810694754123688}
+2022-01-07 15:23.56 [info     ] Start Predict                  dataset=47200
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:24.07 [info     ] Starting training              dataset=1000 epoch=60
+1000
+0-th component log probs | Train: 544.5692562282462 | Val: 350.581072951547
+1-th component log probs | Train: 599.1552821485033 | Val: 240.78694773123303
+2-th component log probs | Train: 531.6614626760642 | Val: -8.39404584834215
+3-th component log probs | Train: 555.2954455683608 | Val: -115.30269067196554
+4-th component log probs | Train: 535.1384139862743 | Val: 276.07873079703757
+5-th component log probs | Train: 519.8611612626103 | Val: -16.72578842113767
+6-th component log probs | Train: 553.4698034345361 | Val: 169.19507425249432
+7-th component log probs | Train: 541.6081089173172 | Val: 148.65133511951296
+8-th component log probs | Train: 549.6291043354262 | Val: -365.2473669476385
+9-th component log probs | Train: 547.6125554870987 | Val: 147.1428293621688
+2022-01-07 15:25.09 [info     ] Training complete              train_loss=0.11457547545433044
+2022-01-07 15:25.09 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:25.10 [info     ] Testing complete               test_loss=0.4050604999065399
+{'dataset_size': 1000,
+ 'end_test_accuracy': 0.8823646306991577,
+ 'end_test_loss': 0.4050604999065399,
+ 'end_train_accuracy': 0.9931640625,
+ 'end_train_loss': 0.11457547545433044,
+ 'end_val_accuracy': 0.8809840679168701,
+ 'end_val_loss': 0.41204679012298584}
+2022-01-07 15:25.10 [info     ] Start Predict                  dataset=47000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:25.22 [info     ] Starting training              dataset=2000 epoch=60
+2000
+0-th component log probs | Train: 494.34634557111593 | Val: 440.90830334885334
+1-th component log probs | Train: 520.5303076224518 | Val: 430.2285066506631
+2-th component log probs | Train: 452.6444897913127 | Val: 420.1001774920152
+3-th component log probs | Train: 464.35538216855696 | Val: 414.47588011537863
+4-th component log probs | Train: 488.4692891505818 | Val: 358.461420672067
+5-th component log probs | Train: 450.8852228810636 | Val: 392.2672244091386
+6-th component log probs | Train: 493.6329691845499 | Val: 321.6255126191668
+7-th component log probs | Train: 475.9635568659275 | Val: 406.3757598803369
+8-th component log probs | Train: 462.05505421554136 | Val: 411.9065835915591
+9-th component log probs | Train: 490.9022418498976 | Val: 363.70329072177367
+2022-01-07 15:26.41 [info     ] Training complete              train_loss=0.10032839328050613
+2022-01-07 15:26.41 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:26.42 [info     ] Testing complete               test_loss=0.2592155635356903
+{'dataset_size': 2000,
+ 'end_test_accuracy': 0.9307324886322021,
+ 'end_test_loss': 0.2592155635356903,
+ 'end_train_accuracy': 0.9912109375,
+ 'end_train_loss': 0.10032839328050613,
+ 'end_val_accuracy': 0.9295212626457214,
+ 'end_val_loss': 0.2508593201637268}
+2022-01-07 15:26.42 [info     ] Start Predict                  dataset=46000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:26.54 [info     ] Starting training              dataset=4000 epoch=60
+4000
+0-th component log probs | Train: 431.925358766581 | Val: 425.3516409638416
+1-th component log probs | Train: 462.90601102159894 | Val: 446.02966949530247
+2-th component log probs | Train: 410.95175966473727 | Val: 395.36295342769654
+3-th component log probs | Train: 419.6270007835194 | Val: 401.42832632166886
+4-th component log probs | Train: 424.8205279693084 | Val: 422.7184476568219
+5-th component log probs | Train: 405.29973564007173 | Val: 389.9388742632398
+6-th component log probs | Train: 430.46422453844565 | Val: 430.1142035556278
+7-th component log probs | Train: 420.93903945685906 | Val: 407.77412028141015
+8-th component log probs | Train: 412.5117713313971 | Val: 389.29234880641025
+9-th component log probs | Train: 426.1800679415927 | Val: 421.65480933723734
+2022-01-07 15:28.00 [info     ] Training complete              train_loss=0.07859615981578827
+2022-01-07 15:28.00 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:28.01 [info     ] Testing complete               test_loss=0.1572655886411667
+{'dataset_size': 4000,
+ 'end_test_accuracy': 0.9541202187538147,
+ 'end_test_loss': 0.1572655886411667,
+ 'end_train_accuracy': 0.99379962682724,
+ 'end_train_loss': 0.07859615981578827,
+ 'end_val_accuracy': 0.9569481611251831,
+ 'end_val_loss': 0.1599522829055786}
+2022-01-07 15:28.01 [info     ] Start Predict                  dataset=44000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:28.13 [info     ] Starting training              dataset=6000 epoch=60
+6000
+0-th component log probs | Train: 423.7837765627172 | Val: 431.1064263149533
+1-th component log probs | Train: 465.8217336744908 | Val: 469.4837905371061
+2-th component log probs | Train: 406.1389189473088 | Val: 403.95182951351586
+3-th component log probs | Train: 420.4720221907542 | Val: 419.30672648841824
+4-th component log probs | Train: 415.7839016748875 | Val: 421.7878313985639
+5-th component log probs | Train: 401.028438101817 | Val: 397.4717766244302
+6-th component log probs | Train: 430.00290520027255 | Val: 437.4184213372244
+7-th component log probs | Train: 417.73989195479584 | Val: 423.1760829497203
+8-th component log probs | Train: 406.6660620058223 | Val: 401.2947033796447
+9-th component log probs | Train: 424.05239264066546 | Val: 426.7414479976635
+2022-01-07 15:29.25 [info     ] Training complete              train_loss=0.06672970950603485
+2022-01-07 15:29.25 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:29.26 [info     ] Testing complete               test_loss=0.12173667550086975
+{'dataset_size': 6000,
+ 'end_test_accuracy': 0.9629777073860168,
+ 'end_test_loss': 0.12173667550086975,
+ 'end_train_accuracy': 0.9961768388748169,
+ 'end_train_loss': 0.06672970950603485,
+ 'end_val_accuracy': 0.9653424024581909,
+ 'end_val_loss': 0.13113640248775482}
+2022-01-07 15:29.26 [info     ] Start Predict                  dataset=42000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:29.37 [info     ] Starting training              dataset=8000 epoch=60
+8000
+0-th component log probs | Train: 422.0137787309072 | Val: 427.36875070347935
+1-th component log probs | Train: 484.6504998620444 | Val: 476.1789022644102
+2-th component log probs | Train: 404.1556463381321 | Val: 402.8540899658557
+3-th component log probs | Train: 420.1387924863932 | Val: 421.7644519766845
+4-th component log probs | Train: 410.8969924474737 | Val: 417.40229594680073
+5-th component log probs | Train: 401.36559715877775 | Val: 398.35127654928226
+6-th component log probs | Train: 423.48160660028543 | Val: 429.69609766044744
+7-th component log probs | Train: 418.9870348218579 | Val: 420.57889336665727
+8-th component log probs | Train: 409.10971330741523 | Val: 406.4511685830876
+9-th component log probs | Train: 418.1214298326461 | Val: 418.65083411144667
+2022-01-07 15:31.10 [info     ] Training complete              train_loss=0.0486450269818306
+2022-01-07 15:31.10 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:31.11 [info     ] Testing complete               test_loss=0.1275118738412857
+{'dataset_size': 8000,
+ 'end_test_accuracy': 0.9639729261398315,
+ 'end_test_loss': 0.1275118738412857,
+ 'end_train_accuracy': 0.9982500076293945,
+ 'end_train_loss': 0.0486450269818306,
+ 'end_val_accuracy': 0.9654255509376526,
+ 'end_val_loss': 0.12831321358680725}
+2022-01-07 15:31.11 [info     ] Start Predict                  dataset=40000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:31.24 [info     ] Starting training              dataset=10000 epoch=60
+10000
+0-th component log probs | Train: 421.2104190247839 | Val: 430.51128094829977
+1-th component log probs | Train: 485.3232164103862 | Val: 474.7894419159079
+2-th component log probs | Train: 395.7429303304386 | Val: 395.0314241222258
+3-th component log probs | Train: 412.5167606176997 | Val: 416.2071131384339
+4-th component log probs | Train: 405.0540113539638 | Val: 412.76452659737555
+5-th component log probs | Train: 395.2517215347053 | Val: 394.75532662441117
+6-th component log probs | Train: 416.27596572562754 | Val: 423.44019994614075
+7-th component log probs | Train: 418.5008434039244 | Val: 422.35146495005773
+8-th component log probs | Train: 399.5495978998562 | Val: 398.9301394204023
+9-th component log probs | Train: 412.53508849612206 | Val: 417.6900052725278
+2022-01-07 15:32.55 [info     ] Training complete              train_loss=0.045259084552526474
+2022-01-07 15:32.55 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:32.56 [info     ] Testing complete               test_loss=0.11084285378456116
+{'dataset_size': 10000,
+ 'end_test_accuracy': 0.9661624431610107,
+ 'end_test_loss': 0.11084285378456116,
+ 'end_train_accuracy': 0.9977110028266907,
+ 'end_train_loss': 0.045259084552526474,
+ 'end_val_accuracy': 0.9697473645210266,
+ 'end_val_loss': 0.11550979316234589}
+2022-01-07 15:32.56 [info     ] Start Predict                  dataset=38000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:33.12 [info     ] Starting training              dataset=20000 epoch=60
+20000
+0-th component log probs | Train: 417.5598893808615 | Val: 421.6922497519289
+1-th component log probs | Train: 465.4108248437438 | Val: 457.2867744045463
+2-th component log probs | Train: 389.4149748093065 | Val: 395.36048674405924
+3-th component log probs | Train: 406.25576362468684 | Val: 415.1306284058189
+4-th component log probs | Train: 393.20776492176367 | Val: 402.7967645810159
+5-th component log probs | Train: 395.699063608312 | Val: 396.2085306609816
+6-th component log probs | Train: 421.70016345167994 | Val: 427.34407184724233
+7-th component log probs | Train: 407.08624373738246 | Val: 415.0233021385084
+8-th component log probs | Train: 399.46284314587473 | Val: 396.5713650211305
+9-th component log probs | Train: 408.16914723870576 | Val: 412.200523589648
+2022-01-07 15:35.33 [info     ] Training complete              train_loss=0.04105861485004425
+2022-01-07 15:35.33 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:35.34 [info     ] Testing complete               test_loss=0.08046164363622665
+{'dataset_size': 20000,
+ 'end_test_accuracy': 0.9769108295440674,
+ 'end_test_loss': 0.08046164363622665,
+ 'end_train_accuracy': 0.9987020492553711,
+ 'end_train_loss': 0.04105861485004425,
+ 'end_val_accuracy': 0.9810505509376526,
+ 'end_val_loss': 0.08089075982570648}
+2022-01-07 15:35.34 [info     ] Start Predict                  dataset=28000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:35.52 [info     ] Starting training              dataset=30000 epoch=60
+30000
+0-th component log probs | Train: 401.6975462828627 | Val: 391.53578541688177
+1-th component log probs | Train: 446.84236824622485 | Val: 439.68607396915405
+2-th component log probs | Train: 358.3675199893373 | Val: 363.8338889328455
+3-th component log probs | Train: 374.38826327434634 | Val: 381.0074388436718
+4-th component log probs | Train: 370.25638850623875 | Val: 375.64918959881743
+5-th component log probs | Train: 368.6359556972383 | Val: 366.32046933880855
+6-th component log probs | Train: 391.02841862902 | Val: 388.48086580218563
+7-th component log probs | Train: 378.67603371512786 | Val: 381.3658745745828
+8-th component log probs | Train: 366.0742703442132 | Val: 365.402417038132
+9-th component log probs | Train: 374.25505003404385 | Val: 375.38544872817346
+2022-01-07 15:39.54 [info     ] Training complete              train_loss=0.03667270764708519
+2022-01-07 15:39.54 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:39.55 [info     ] Testing complete               test_loss=0.0732952132821083
+{'dataset_size': 30000,
+ 'end_test_accuracy': 0.9809912443161011,
+ 'end_test_loss': 0.0732952132821083,
+ 'end_train_accuracy': 0.9991337656974792,
+ 'end_train_loss': 0.03667270764708519,
+ 'end_val_accuracy': 0.982629656791687,
+ 'end_val_loss': 0.07444160431623459}
+2022-01-07 15:39.55 [info     ] Start Predict                  dataset=18000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:40.12 [info     ] Starting training              dataset=40000 epoch=60
+40000
+0-th component log probs | Train: 389.7060597391618 | Val: 374.67605551176484
+1-th component log probs | Train: 437.16871749767415 | Val: 430.5569937420903
+2-th component log probs | Train: 354.42353321243826 | Val: 356.7584286252509
+3-th component log probs | Train: 380.30506571173476 | Val: 375.1254571654946
+4-th component log probs | Train: 372.3786796430145 | Val: 367.4448439379969
+5-th component log probs | Train: 363.51574786480916 | Val: 355.7517342668584
+6-th component log probs | Train: 387.13262516083915 | Val: 382.5257977489608
+7-th component log probs | Train: 378.62539990562345 | Val: 372.95660487642107
+8-th component log probs | Train: 365.14339196202496 | Val: 354.6468192268548
+9-th component log probs | Train: 383.1756438694527 | Val: 373.96157920043777
+2022-01-07 15:44.48 [info     ] Training complete              train_loss=0.035605352371931076
+2022-01-07 15:44.48 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:44.49 [info     ] Testing complete               test_loss=0.06515385955572128
+{'dataset_size': 40000,
+ 'end_test_accuracy': 0.9833797812461853,
+ 'end_test_loss': 0.06515385955572128,
+ 'end_train_accuracy': 0.999625027179718,
+ 'end_train_loss': 0.035605352371931076,
+ 'end_val_accuracy': 0.9818816781044006,
+ 'end_val_loss': 0.07868531346321106}
+2022-01-07 15:44.49 [info     ] Start Predict                  dataset=8000
+/itet-stor/fanconic/net_scratch/conda_envs/pytcu10/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 3, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+2022-01-07 15:45.03 [info     ] Starting training              dataset=48000 epoch=60
+48000
+0-th component log probs | Train: 399.0460497877792 | Val: 378.64067646672424
+1-th component log probs | Train: 437.09175502397756 | Val: 426.31486314759394
+2-th component log probs | Train: 359.3890162443528 | Val: 353.4483330432744
+3-th component log probs | Train: 388.1043357585212 | Val: 369.4234435756764
+4-th component log probs | Train: 372.99943648856384 | Val: 368.6886508063761
+5-th component log probs | Train: 365.21347263394955 | Val: 352.1645462210792
+6-th component log probs | Train: 386.32515198947584 | Val: 379.5920894285948
+7-th component log probs | Train: 378.198492136613 | Val: 368.1952580405459
+8-th component log probs | Train: 366.9828625308589 | Val: 352.20985764880226
+9-th component log probs | Train: 380.3803211331054 | Val: 370.00626452987274
+2022-01-07 15:51.13 [info     ] Training complete              train_loss=0.035041339695453644
+2022-01-07 15:51.13 [info     ] Starting evaluating            dataset=10000
+2022-01-07 15:51.14 [info     ] Testing complete               test_loss=0.06453369557857513
+{'dataset_size': 48000,
+ 'end_test_accuracy': 0.9829816818237305,
+ 'end_test_loss': 0.06453369557857513,
+ 'end_train_accuracy': 0.9995416402816772,
+ 'end_train_loss': 0.035041339695453644,
+ 'end_val_accuracy': 0.984375,
+ 'end_val_loss': 0.066767118871212}
+
+wandb: Waiting for W&B process to finish, PID 16939... (success).
+wandb: - 0.55MB of 0.55MB uploaded (0.00MB deduped)wandb: \ 0.55MB of 0.55MB uploaded (0.00MB deduped)wandb: | 0.55MB of 0.55MB uploaded (0.00MB deduped)wandb: / 0.55MB of 0.62MB uploaded (0.00MB deduped)wandb: - 0.55MB of 0.62MB uploaded (0.00MB deduped)wandb: \ 0.59MB of 0.62MB uploaded (0.00MB deduped)wandb: | 0.62MB of 0.62MB uploaded (0.00MB deduped)wandb: / 0.62MB of 0.62MB uploaded (0.00MB deduped)wandb: - 0.62MB of 0.62MB uploaded (0.00MB deduped)wandb: \ 0.62MB of 0.62MB uploaded (0.00MB deduped)wandb: | 0.62MB of 0.62MB uploaded (0.00MB deduped)wandb: / 0.62MB of 0.62MB uploaded (0.00MB deduped)wandb: - 0.62MB of 0.62MB uploaded (0.00MB deduped)wandb:                                                                                
+wandb: Run history:
+wandb:           accuracy_0 ▁▃▅▅▆▆▆▆▇▇▇▇█▇█████▇████████████████████
+wandb:           accuracy_1 ▁▂▄▄▄▅▆▆▆▇▇▇▇████▇▇███▇█████▇███████▇███
+wandb:          accuracy_10 ▁▄▅▆▆▆▇▇▇▇▇▇▇██████████████████████
+wandb:          accuracy_11 ▁▅▆▆▆▇▇▇▇▇▇█████████████████████
+wandb:          accuracy_12 ▁▅▆▆▆▇▇▇▇▇▇▇▇███████████████████████████
+wandb:          accuracy_13 ▁▅▆▆▇▇▇▇▇▇▇█▇███████████████████████████
+wandb:          accuracy_14 ▁▅▆▇▇▇▇▇▇▇▇█████████████████████████████
+wandb:           accuracy_2 ▁▁▂▃▄▅▆▆▆▇▇▇▇▇██████████████████████████
+wandb:           accuracy_3 ▁▂▃▄▅▅▆▆▇▇▇▇▇▇██████████████████████████
+wandb:           accuracy_4 ▁▂▄▅▆▆▆▇▇▇▇▇█▇██████████████████████████
+wandb:           accuracy_5 ▁▃▄▅▆▆▆▇▇▇▇▇▇███████████████████████████
+wandb:           accuracy_6 ▁▄▅▆▆▆▇▇▇▇██████████████████████████████
+wandb:           accuracy_7 ▁▄▅▅▆▆▆▇▇▇▇▇▇▇████████████████████████
+wandb:           accuracy_8 ▁▄▅▅▆▆▆▇▇▇▇▇▇▇██████████████████████
+wandb:           accuracy_9 ▁▄▅▆▆▆▇▇▇▇▇▇▇▇██████████████████████████
+wandb:              class_0 ▄▁▁▂█▇▄▃▄▃▂▃▆▆▄
+wandb:              class_1 ▂▂▁▂▂▂▁▁▃▆█▆▄▃▂
+wandb:              class_2 ▅▄▄▆▅▄█▄▃▂▁▂▂▂▅
+wandb:              class_3 ▅▆▁█▆▄▇▄▄▂▂▁▁▃▅
+wandb:              class_4 ▃▁█▅▄▄▂▄▃▂▂▁▂▃▃
+wandb:              class_5 ▂█▄▃▃▂▃▂▂▁▁▂▂▂▂
+wandb:              class_6 ▃▁▃▂▂▃▁█▆▄▃▂▅▄▃
+wandb:              class_7 ▇▁▂▃▄▆▅▂▂▅▃▃▆▇█
+wandb:              class_8 ▆▄▂▁▂▄█▅▅▄▄█▅▆▆
+wandb:              class_9 ▇▅▅▃▁▆▃█▅▃▂▆▅▇▇
+wandb:         dataset_size ▁▁▁▁▁▁▁▂▂▂▂▄▅▇█
+wandb:    end_test_accuracy ▁▂▃▄▅▅▇▇▇▇█████
+wandb:        end_test_loss █▇▅▄▄▄▃▂▁▂▁▁▁▁▁
+wandb:   end_train_accuracy ▅▁▇▇▇▇▇████████
+wandb:       end_train_loss ██▄▃▃▃▂▂▂▁▁▁▁▁▁
+wandb:     end_val_accuracy ▁▁▃▄▅▅▇▇▇▇█████
+wandb:         end_val_loss █▇▅▅▅▄▃▂▂▂▁▁▁▁▁
+wandb:                epoch ▂▄▆█▂▄▇▂▄▆▂▄▂▄▆▁▃▆▂▄▆▁▃▂▄▁▃▅▃▅▃▅▃▅▂▄▆▃▅▇
+wandb:               loss_0 ███▇▇▆▅▅▄▄▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_1 ███▇▆▆▅▄▄▃▃▂▂▂▁▁▁▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▁▁
+wandb:              loss_10 █▅▄▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_11 █▅▄▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_12 █▄▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_13 █▄▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:              loss_14 █▄▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_2 █▇▇▆▅▄▄▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_3 █▇▆▅▄▄▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_4 █▇▅▄▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_5 █▇▅▄▄▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_6 █▆▄▃▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_7 █▅▄▄▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_8 █▅▄▄▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               loss_9 █▅▄▄▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_0 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_1 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_10 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_11 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                lr_12 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:                lr_13 ██████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁
+wandb:                lr_14 █████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_2 ████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁
+wandb:                 lr_3 █████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁
+wandb:                 lr_4 ███████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁
+wandb:                 lr_5 █████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁
+wandb:                 lr_6 ██████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_7 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_8 ███████████████████▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                 lr_9 ███████████████████▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁
+wandb:       val_accuracy_0 ▁▃▅▅▆▆▇▇▇███████████████████████████████
+wandb:       val_accuracy_1 ▁▂▂▁▁▅▅▅▆▇▇▇▇▇██████████████████████████
+wandb:      val_accuracy_10 ▁▄▅▆▇▇▇▇▇▇█████████████████████████
+wandb:      val_accuracy_11 ▁▄▅▆▇▇▇▇▇▇▇███▇▇▇███████████████
+wandb:      val_accuracy_12 ▁▃▅▆▆▇▇▇▇▇▇▇▇▇▇▇▇▇▇█████████████████████
+wandb:      val_accuracy_13 ▁▄▅▆▆▇▇▇▆▇▇▇▇▇▇▇▇▇▇█████████████████████
+wandb:      val_accuracy_14 ▁▄▅▆▆▇▇▇▇▇▆▇▇▇██████████████████████████
+wandb:       val_accuracy_2 ▁▁▂▄▄▆▆▇▇▇██████████████████████████████
+wandb:       val_accuracy_3 ▁▂▅▆▆▇▇▇▇███████████████████████████████
+wandb:       val_accuracy_4 ▁▄▆▇▇▇▇█████████████████████████████████
+wandb:       val_accuracy_5 ▁▅▆▇▇▇██████████████████████████████████
+wandb:       val_accuracy_6 ▁▅▇▇▇███████████████████████████████████
+wandb:       val_accuracy_7 ▁▄▅▆▇▇▇▇██████████████████████████████
+wandb:       val_accuracy_8 ▁▅▆▇▇▇▇█████████████████████████████
+wandb:       val_accuracy_9 ▁▅▆▇▇▇▇▇██▇█▇███████████████████████████
+wandb:           val_loss_0 ██▇▇▆▆▅▄▃▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_1 ███▇▇▅▅▄▃▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_10 █▅▄▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_11 █▄▃▃▂▂▁▁▁▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_12 █▅▃▃▂▁▂▁▁▁▁▁▂▁▁▁▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_13 █▄▃▂▂▁▁▁▂▂▂▁▁▁▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          val_loss_14 █▄▄▂▂▂▁▂▁▂▃▁▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_2 ██▇▇▆▄▃▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_3 █▇▆▄▃▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_4 █▆▄▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_5 █▅▃▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_6 █▄▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_7 █▅▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_8 █▅▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val_loss_9 █▅▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:           accuracy_0 0.96441
+wandb:           accuracy_1 0.91406
+wandb:          accuracy_10 0.99771
+wandb:          accuracy_11 0.9987
+wandb:          accuracy_12 0.99913
+wandb:          accuracy_13 0.99963
+wandb:          accuracy_14 0.99954
+wandb:           accuracy_2 0.99107
+wandb:           accuracy_3 0.98281
+wandb:           accuracy_4 0.99159
+wandb:           accuracy_5 0.99316
+wandb:           accuracy_6 0.99121
+wandb:           accuracy_7 0.9938
+wandb:           accuracy_8 0.99618
+wandb:           accuracy_9 0.99825
+wandb:              class_0 0.09892
+wandb:              class_1 0.11292
+wandb:              class_2 0.09967
+wandb:              class_3 0.10233
+wandb:              class_4 0.09721
+wandb:              class_5 0.08994
+wandb:              class_6 0.09877
+wandb:              class_7 0.10346
+wandb:              class_8 0.09773
+wandb:              class_9 0.09906
+wandb:         dataset_size 48000
+wandb:    end_test_accuracy 0.98298
+wandb:        end_test_loss 0.06453
+wandb:   end_train_accuracy 0.99954
+wandb:       end_train_loss 0.03504
+wandb:     end_val_accuracy 0.98438
+wandb:         end_val_loss 0.06677
+wandb:                epoch 59
+wandb:               loss_0 0.36957
+wandb:               loss_1 0.35753
+wandb:              loss_10 0.04526
+wandb:              loss_11 0.04106
+wandb:              loss_12 0.03667
+wandb:              loss_13 0.03561
+wandb:              loss_14 0.03504
+wandb:               loss_2 0.16327
+wandb:               loss_3 0.13547
+wandb:               loss_4 0.12903
+wandb:               loss_5 0.11458
+wandb:               loss_6 0.10033
+wandb:               loss_7 0.0786
+wandb:               loss_8 0.06673
+wandb:               loss_9 0.04865
+wandb:                 lr_0 0.0
+wandb:                 lr_1 1e-05
+wandb:                lr_10 0.0001
+wandb:                lr_11 0.0001
+wandb:                lr_12 1e-05
+wandb:                lr_13 1e-05
+wandb:                lr_14 1e-05
+wandb:                 lr_2 1e-05
+wandb:                 lr_3 1e-05
+wandb:                 lr_4 1e-05
+wandb:                 lr_5 1e-05
+wandb:                 lr_6 1e-05
+wandb:                 lr_7 0.0001
+wandb:                 lr_8 0.0001
+wandb:                 lr_9 1e-05
+wandb:       val_accuracy_0 0.72822
+wandb:       val_accuracy_1 0.7446
+wandb:      val_accuracy_10 0.96975
+wandb:      val_accuracy_11 0.98105
+wandb:      val_accuracy_12 0.98263
+wandb:      val_accuracy_13 0.98188
+wandb:      val_accuracy_14 0.98438
+wandb:       val_accuracy_2 0.80685
+wandb:       val_accuracy_3 0.84965
+wandb:       val_accuracy_4 0.85896
+wandb:       val_accuracy_5 0.88098
+wandb:       val_accuracy_6 0.92952
+wandb:       val_accuracy_7 0.95695
+wandb:       val_accuracy_8 0.96534
+wandb:       val_accuracy_9 0.96543
+wandb:           val_loss_0 0.89384
+wandb:           val_loss_1 0.76089
+wandb:          val_loss_10 0.11551
+wandb:          val_loss_11 0.08089
+wandb:          val_loss_12 0.07444
+wandb:          val_loss_13 0.07869
+wandb:          val_loss_14 0.06677
+wandb:           val_loss_2 0.59269
+wandb:           val_loss_3 0.48657
+wandb:           val_loss_4 0.48107
+wandb:           val_loss_5 0.41205
+wandb:           val_loss_6 0.25086
+wandb:           val_loss_7 0.15995
+wandb:           val_loss_8 0.13114
+wandb:           val_loss_9 0.12831
+wandb: 
+wandb: Synced 6 W&B file(s), 30 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Synced mnist_hu_run3: https://wandb.ai/fanconic/hidden_uncertainty/runs/lu3a9x71
+wandb: Find logs at: ./wandb/run-20220107_151717-lu3a9x71/logs/debug.log
+wandb: 
